@@ -367,7 +367,7 @@
     <Compile Include="F0_Proforma.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F0_Venta2.Designer.vb">
+    <Compile Include="F0_Venta2.designer.vb">
       <DependentUpon>F0_Venta2.vb</DependentUpon>
     </Compile>
     <Compile Include="F0_Venta2.vb">

@@ -114,6 +114,7 @@ Module P_Global
     Public gb_mostrarMapa As Boolean = True
     Public gi_userFuente As Integer = 8
     Public gs_user As String = "DEFAULT"
+    Public gs_userSucNom As String = "DEFAULT"
     Public gi_userNumi As Integer = 0
     Public gi_userRol As Integer = 0
     Public gi_userSuc As Integer = 0

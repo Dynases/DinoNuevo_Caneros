@@ -134,7 +134,7 @@ Public Class F0_Venta2
 
         tbCodigo.ReadOnly = True
         tbCliente.ReadOnly = True
-        tbVendedor.ReadOnly = True
+        tbVendedor.ReadOnly = False
         tbFechaVenta.IsInputReadOnly = True
         tbFechaVenta.Enabled = False
         swMoneda.IsReadOnly = True
@@ -254,7 +254,7 @@ Public Class F0_Venta2
 
         swMoneda.Value = True
         lbNroCaja.Text = ""
-
+        tbObservacion.Text = ""
         '_CodCliente = 0
         '_CodEmpleado = 0
         tbFechaVenta.Value = Now.Date
@@ -318,18 +318,19 @@ Public Class F0_Venta2
         'a.tadesc ,a.tafact ,a.tahact ,a.tauact,(Sum(b.tbptot)-a.tadesc ) as total,taproforma
 
         With grVentas
+            LabelAlmacen.Text = .GetValue("aabdes")
             cbSucursal.Value = .GetValue("taalm")
             tbCodigo.Text = .GetValue("tanumi")
             tbFechaVenta.Value = .GetValue("tafdoc")
             _CodEmpleado = .GetValue("taven")
-            tbVendedor.Text = .GetValue("vendedor")
+            tbVendedor.Text = .GetValue("institucion")
             _CodCliente = .GetValue("taclpr")
             tbCliente.Text = .GetValue("cliente")
             swMoneda.Value = .GetValue("tamon")
             tbFechaVenc.Value = .GetValue("tafvcr")
             swTipoVenta.Value = .GetValue("tatven")
             tbObservacion.Text = .GetValue("taobs")
-            lbNroCaja.Text = .GetValue("NroCaja")
+            lbNroCaja.Text = .GetValue("vendedor")
 
             If grVentas.GetValue("taest") = 1 Then
                 txtEstado.Text = "VIGENTE"
@@ -442,7 +443,7 @@ Public Class F0_Venta2
             .Caption = "C.B.".ToUpper
             .Width = 40
             .Visible = gb_CodigoBarra
-
+            .Visible = False
         End With
 
         With grdetalle.RootTable.Columns("producto")
@@ -485,7 +486,7 @@ Public Class F0_Venta2
         With grdetalle.RootTable.Columns("tbptot")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "SubTotal".ToUpper
         End With
@@ -495,11 +496,12 @@ Public Class F0_Venta2
             .Visible = False
             .FormatString = "0.00"
             .Caption = "P.Desc(%)".ToUpper
+
         End With
         With grdetalle.RootTable.Columns("tbdesc")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "M.Desc".ToUpper
         End With
@@ -639,7 +641,7 @@ Public Class F0_Venta2
             .Width = 160
             .Visible = False
         End With
-        With grVentas.RootTable.Columns("vendedor")
+        With grVentas.RootTable.Columns("institucion")
             .Width = 250
             .Visible = True
             .Caption = "VENDEDOR".ToUpper
@@ -822,6 +824,7 @@ Public Class F0_Venta2
             .Width = 80
             .Caption = "Cod. Barra"
             .Visible = gb_CodigoBarra
+            .Visible = True
         End With
         With grProductos.RootTable.Columns("yfcdprod1")
             .Width = IIf(visualizarGrupo, 300, 360)
@@ -840,6 +843,7 @@ Public Class F0_Venta2
             .Visible = True
             .Caption = "Conversión"
             .FormatString = "0.00"
+            .Visible = True
         End With
         With grProductos.RootTable.Columns("yfgr1")
             .Width = 160
@@ -849,7 +853,7 @@ Public Class F0_Venta2
             .Width = 160
             .Visible = False
         End With
-        With grProductos.RootTable.Columns("grupo5")
+        With grProductos.RootTable.Columns("grupo5") 'cambie por categoria
             .Caption = "CATEGORIA"
             .Width = 120
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1278,7 +1282,7 @@ Public Class F0_Venta2
 
         'tbTotalBs.Text = total.ToString()
         tbTotalBs.Text = tbSubTotal.Value - montodesc
-        montoDo = Convert.ToDecimal(tbTotalBs.Text) / IIf(cbCambioDolar.Text = "", 1, Convert.ToDecimal(cbCambioDolar.Text))
+        montoDo = Convert.ToDecimal(tbTotalBs.Text) * IIf(cbCambioDolar.Text = "", 1, Convert.ToDecimal(cbCambioDolar.Text))
         tbTotalDo.Text = Format(montoDo, "0.00")
         tbIce.Value = TotalCosto * (gi_ICE / 100)
         calcularCambio()
@@ -1554,43 +1558,46 @@ Public Class F0_Venta2
             Dim factura = gb_FacturaEmite
             _prInsertarMontoNuevo(tabla)
             ''Verifica si existe estock para los productos
-            'If _prExisteStockParaProducto() Then
-            Dim dtDetalle As DataTable = rearmarDetalle()
-            Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-                                                Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-                                                  tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text, dtDetalle, cbSucursal.Value, 0, tabla, gs_NroCaja, Programa)
-            If res Then
-                'res = P_fnGrabarFacturarTFV001(numi)
-                'Emite factura
-                If (gb_FacturaEmite) Then
-                    If tbNit.Text <> String.Empty Then
-                        P_fnGenerarFactura(numi)
-                        _prImiprimirNotaVenta(numi)
+            If _prExisteStockParaProducto() Then
+                Dim dtDetalle As DataTable = rearmarDetalle()
+                Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
+                                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
+                                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
+                                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
+                                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
+                If res Then
+                    res = P_fnGrabarFacturarTFV001(numi)
+                    'Emite factura
+                    If (gb_FacturaEmite) Then
+                        If tbNit.Text <> String.Empty Then
+                            P_fnGenerarFactura(numi)
+                            _prImiprimirNotaVenta(numi)
+                        Else
+                            _prImiprimirNotaVenta(numi)
+                        End If
                     Else
                         _prImiprimirNotaVenta(numi)
                     End If
+
+
+                    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                    ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter
+                                              )
+
+                    _prCargarVenta()
+                    _Limpiar()
+                    Table_Producto = Nothing
+
                 Else
-                    _prImiprimirNotaVenta(numi)
+                    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                    ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
                 End If
-
-
-                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
-                                          img, 2000,
-                                          eToastGlowColor.Green,
-                                          eToastPosition.TopCenter
-                                          )
-
-                _prCargarVenta()
-                _Limpiar()
-                Table_Producto = Nothing
-
-            Else
-                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-
             End If
-            'End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
@@ -2544,7 +2551,10 @@ Public Class F0_Venta2
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         _Limpiar()
         _prhabilitar()
-        AsignarClienteEmpleado()
+        '' AsignarClienteEmpleado()
+        lbNroCaja.Text = gs_user
+        LabelAlmacen.Text = gi_userSuc
+        LabelAlmacen.Text = gs_userSucNom
         btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
@@ -2601,7 +2611,7 @@ Public Class F0_Venta2
 
                     Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
                     If (numiVendedor > 0) Then
-                        tbVendedor.Text = Row.Cells("vendedor").Value
+                        ''tbVendedor.Text = Row.Cells("vendedor").Value
                         _CodEmpleado = Row.Cells("ydnumivend").Value
 
                         grdetalle.Select()
@@ -2629,13 +2639,10 @@ Public Class F0_Venta2
                 ',a.ydtelf1 ,a.ydfnac 
 
                 Dim listEstCeldas As New List(Of Modelo.Celda)
-                listEstCeldas.Add(New Modelo.Celda("ydnumi,", False, "ID", 50))
-                listEstCeldas.Add(New Modelo.Celda("ydcod", True, "ID", 50))
-                listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
-                listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
-                listEstCeldas.Add(New Modelo.Celda("yddirec", True, "DIRECCION", 220))
-                listEstCeldas.Add(New Modelo.Celda("ydtelf1", True, "Telefono".ToUpper, 200))
-                listEstCeldas.Add(New Modelo.Celda("ydfnac", True, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
+                listEstCeldas.Add(New Modelo.Celda("id,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("codInst", True, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("nomInst", True, "NOMBRE", 280))
+                listEstCeldas.Add(New Modelo.Celda("campo1", True, "N. Cuenta".ToUpper, 150))
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
@@ -2654,8 +2661,8 @@ Public Class F0_Venta2
                         Return
 
                     End If
-                    _CodEmpleado = Row.Cells("ydnumi").Value
-                    tbVendedor.Text = Row.Cells("yddesc").Value
+                    _CodEmpleado = Row.Cells("id").Value
+                    tbVendedor.Text = Row.Cells("nomInst").Value
                     grdetalle.Select()
 
                 End If
@@ -2692,6 +2699,7 @@ Public Class F0_Venta2
         End If
 
     End Sub
+
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
         '        If (Not _fnAccesible()) Then
         '            Return
@@ -4118,5 +4126,21 @@ salirIf:
                     And proc.ItemArray(ENDetalleVenta.proveedorId) = proveedorID
                 Select Convert.ToDecimal(proc.ItemArray(ENDetalleVenta.totalDescuento))).Sum()
     End Function
+
+    Private Sub tbCliente_TextChanged(sender As Object, e As EventArgs) Handles tbCliente.TextChanged
+        If btnNuevo.Enabled = False Then
+            Dim dt As DataTable
+            dt = L_fnListarCaneroInstitucion(_CodCliente)
+            Dim row As DataRow = dt.Rows(dt.Rows.Count - 1)
+            tbVendedor.Text = row("institucion")
+        End If
+
+
+
+    End Sub
+
+    Private Sub btnCont_Click(sender As Object, e As EventArgs) 
+
+    End Sub
 #End Region
 End Class
