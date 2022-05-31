@@ -17,6 +17,7 @@ Public Class F1_Productos
     Public _tab As SuperTabItem
     Public _modulo As SideNavItem
     Public Limpiar As Boolean = False  'Bandera para indicar si limpiar todos los datos o mantener datos ya registrados
+    Dim NumiCuenta As Integer
 #End Region
 #Region "Metodos Privados"
     Private Sub _prIniciarTodo()
@@ -26,10 +27,10 @@ Public Class F1_Productos
         _prCargarNameLabel()
         _prCargarComboLibreria(cbgrupo1, 1, 1)
         _prCargarComboLibreria(cbgrupo2, 1, 2)
-        _prCargarComboLibreria(cbgrupo3, 1, 3)
+        _prCargarComboCategoria(cbgrupo3, 0, 0)
         _prCargarComboLibreria(cbgrupo4, 1, 4)
         _prCargarComboLibreria(cbgrupo5, 1, 7)
-        _prCargarComboLibreria(cbUMed, 1, 5)
+        '_prCargarComboLibreria(cbUMed, 1, 5)
         _prCargarComboLibreria(cbUniVenta, 1, 6)
         _prCargarComboLibreria(cbUnidMaxima, 1, 6)
         _prAsignarPermisos()
@@ -144,6 +145,28 @@ Public Class F1_Productos
             .DropDownList.Columns("ycdes3").Caption = "DESCRIPCION"
             .ValueMember = "yccod3"
             .DisplayMember = "ycdes3"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
+
+    Private Sub _prCargarComboCategoria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)
+        Dim dt As New DataTable
+        dt = L_prLibreriaClienteCategoria(cod1, cod2)
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("cat_tipo").Width = 70
+            .DropDownList.Columns("cat_tipo").Caption = "Tipo"
+            .DropDownList.Columns.Add("cat_linea").Width = 70
+            .DropDownList.Columns("cat_linea").Caption = "Linea"
+            .DropDownList.Columns.Add("catcod").Width = 70
+            .DropDownList.Columns("catcod").Caption = "COD"
+            .DropDownList.Columns.Add("cat_desc").Width = 200
+            .DropDownList.Columns("cat_desc").Caption = "DESCRIPCION"
+            .DropDownList.Columns.Add("cat_cu").Width = 70
+            .DropDownList.Columns("cat_cu").Caption = "Cuenta"
+            .ValueMember = "catcod"
+            .DisplayMember = "cat_desc"
             .DataSource = dt
             .Refresh()
         End With
@@ -268,7 +291,9 @@ Public Class F1_Productos
         btnImprimir.Visible = False
         dgjDetalleProducto.AllowEdit = InheritableBoolean.True
         dgjDetalleProducto.RootTable.Columns("delete").Visible = True
+        btnSearch.Visible = True
         adicionarFilaDetalleProducto()
+        _prCargarComboCategoria(cbgrupo3, cbgrupo1.Value, cbgrupo2.Value)
     End Sub
 
     Public Overrides Sub _PMOInhabilitar()
@@ -290,6 +315,7 @@ Public Class F1_Productos
         tbConversion.IsInputReadOnly = True
         tbStockMinimo.IsInputReadOnly = True
         BtAdicionar.Visible = False
+        btnSearch.Visible = False
         _prStyleJanus()
         JGrM_Buscador.Focus()
         Limpiar = False
@@ -312,7 +338,6 @@ Public Class F1_Productos
             _prSeleccionarCombo(cbgrupo3)
             _prSeleccionarCombo(cbgrupo4)
             _prSeleccionarCombo(cbgrupo5)
-            _prSeleccionarCombo(cbUMed)
             _prSeleccionarCombo(cbUnidMaxima)
             _prSeleccionarCombo(cbUniVenta)
             swEstado.Value = True
@@ -365,7 +390,7 @@ Public Class F1_Productos
         '_yfusup As Integer, _yfvsup As Double, _yfsmin As Integer, _yfap As Integer, _yfimg As String
 
 
-        Dim res As Boolean = L_fnGrabarProducto(tbCodigo.Text, tbCodProd.Text, tbCodBarra.Text, tbDescPro.Text,
+        Dim res As Boolean = L_fnGrabarProducto(tbCodigo.Text, tbCodProd.Text, NumiCuenta, tbDescPro.Text,
                                                 tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value,
                                                 cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value, cbUnidMaxima.Value,
                                                 tbConversion.Text,
@@ -401,9 +426,18 @@ Public Class F1_Productos
 
         Dim nameImage As String = JGrM_Buscador.GetValue("yfimg")
         If (Modificado = False) Then
-            res = L_fnModificarProducto(tbCodigo.Text, tbCodProd.Text, tbCodBarra.Text, tbDescPro.Text, tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value, cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Text, IIf(tbStockMinimo.Text = String.Empty, 0, tbStockMinimo.Text), IIf(swEstado.Value = True, 1, 0), nameImage, quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource, DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi", "yfasim", "yfadesc", "estado")), tbDescDet.Text, cbgrupo5.Value)
+            res = L_fnModificarProducto(tbCodigo.Text, tbCodProd.Text, NumiCuenta, tbDescPro.Text,
+                                       tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value,
+                                       cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value,
+                                       cbUnidMaxima.Value, tbConversion.Text,
+                                       IIf(tbStockMinimo.Text = String.Empty, 0, tbStockMinimo.Text),
+                                       IIf(swEstado.Value = True, 1, 0), nameImage,
+                                       quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource,
+                                       DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi",
+                                                                      "yfasim", "yfadesc", "estado")),
+                                       tbDescDet.Text, cbgrupo5.Value)
         Else
-            res = L_fnModificarProducto(tbCodigo.Text, tbCodProd.Text, tbCodBarra.Text, tbDescPro.Text, tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value, cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Text, tbStockMinimo.Text, IIf(swEstado.Value = True, 1, 0), nameImg, quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource, DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi", "yfasim", "yfadesc", "estado")), tbDescDet.Text, cbgrupo5.Value)
+            res = L_fnModificarProducto(tbCodigo.Text, tbCodProd.Text, NumiCuenta, tbDescPro.Text, tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value, cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Text, tbStockMinimo.Text, IIf(swEstado.Value = True, 1, 0), nameImg, quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource, DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi", "yfasim", "yfadesc", "estado")), tbDescDet.Text, cbgrupo5.Value)
         End If
         If res Then
 
@@ -539,22 +573,22 @@ Public Class F1_Productos
             cbgrupo3.BackColor = Color.White
             MEP.SetError(cbgrupo3, "")
         End If
-        If cbgrupo4.SelectedIndex < 0 Then
-            cbgrupo4.BackColor = Color.Red
-            MEP.SetError(cbgrupo4, "Selecciones grupo del producto!".ToUpper)
-            _ok = False
-        Else
-            cbgrupo4.BackColor = Color.White
-            MEP.SetError(cbgrupo4, "")
-        End If
-        If cbUMed.SelectedIndex < 0 Then
-            cbUMed.BackColor = Color.Red
-            MEP.SetError(cbUMed, "Selecciones Unidad De Medida Del Producto!".ToUpper)
-            _ok = False
-        Else
-            cbUMed.BackColor = Color.White
-            MEP.SetError(cbUMed, "")
-        End If
+        'If cbgrupo4.SelectedIndex < 0 Then
+        'cbgrupo4.BackColor = Color.Red
+        'MEP.SetError(cbgrupo4, "Selecciones grupo del producto!".ToUpper)
+        '_ok = False
+        'Else
+        'cbgrupo4.BackColor = Color.White
+        'MEP.SetError(cbgrupo4, "")
+        'End If
+        'If cbUMed.SelectedIndex < 0 Then
+        'cbUMed.BackColor = Color.Red
+        'MEP.SetError(cbUMed, "Selecciones Unidad De Medida Del Producto!".ToUpper)
+        '_ok = False
+        'Else
+        'cbUMed.BackColor = Color.White
+        'MEP.SetError(cbUMed, "")
+        'End If
 
 
         MHighlighterFocus.UpdateHighlights()
@@ -571,21 +605,24 @@ Public Class F1_Productos
         'a.yfnumi, a.yfcprod, a.yfcbarra, a.yfcdprod1, a.yfcdprod2, a.yfgr1, a.yfgr2, a.yfgr3, a.yfgr4,
         'a.yfMed, a.yfumin, a.yfusup, a.yfmstk, a.yfclot, a.yfsmin, a.yfap, a.yfimg, a.yffact, a.yfhact, a.yfuact
         listEstCeldas.Add(New Modelo.Celda("yfnumi", True, "Código".ToUpper, 80))
-        listEstCeldas.Add(New Modelo.Celda("yfcprod", True, "Cod.Fab".ToUpper, 100))
+        listEstCeldas.Add(New Modelo.Celda("yfcprod", True, "Cod.Prod".ToUpper, 100))
         listEstCeldas.Add(New Modelo.Celda("yfcdprod2", True, "Cod. Proveedor".ToUpper, 140))
-        listEstCeldas.Add(New Modelo.Celda("yfcbarra", True, "Cod.Barra".ToUpper, 140))
+        listEstCeldas.Add(New Modelo.Celda("yfclot", False, "Num.Cuenta".ToUpper, 140))
+        listEstCeldas.Add(New Modelo.Celda("nCuenta", False, "Num.Cuenta".ToUpper, 250))
+        listEstCeldas.Add(New Modelo.Celda("cuenCont", True, "Num.Cuenta".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("yfcdprod1", True, "Descripcion Producto".ToUpper, 250))
+        listEstCeldas.Add(New Modelo.Celda("cuenta", False))
+
         listEstCeldas.Add(New Modelo.Celda("yfgr1", False))
         listEstCeldas.Add(New Modelo.Celda("yfgr2", False))
-        listEstCeldas.Add(New Modelo.Celda("yfgr3", False))
         listEstCeldas.Add(New Modelo.Celda("yfgr4", False))
+        listEstCeldas.Add(New Modelo.Celda("yfgr3", False))
         listEstCeldas.Add(New Modelo.Celda("yfgr5", False))
-        listEstCeldas.Add(New Modelo.Celda("yfMed", False))
+        listEstCeldas.Add(New Modelo.Celda("grupo5", False))
         listEstCeldas.Add(New Modelo.Celda("yfumin", False))
         listEstCeldas.Add(New Modelo.Celda("yfusup", False))
         listEstCeldas.Add(New Modelo.Celda("yfvsup", False))
         listEstCeldas.Add(New Modelo.Celda("yfmstk", False))
-        listEstCeldas.Add(New Modelo.Celda("yfclot", False))
         listEstCeldas.Add(New Modelo.Celda("yfsmin", False))
         listEstCeldas.Add(New Modelo.Celda("yfap", False))
         listEstCeldas.Add(New Modelo.Celda("yfimg", False))
@@ -596,8 +633,7 @@ Public Class F1_Productos
         listEstCeldas.Add(New Modelo.Celda("grupo2", True, lbgrupo2.Text.Substring(0, lbgrupo2.Text.Length - 1).ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("grupo3", True, lbgrupo3.Text.Substring(0, lbgrupo3.Text.Length - 1).ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("grupo4", True, lbgrupo4.Text.Substring(0, lbgrupo4.Text.Length - 1).ToUpper, 150))
-        listEstCeldas.Add(New Modelo.Celda("grupo5", True, "CATEGORÍA".ToUpper, 200))
-        listEstCeldas.Add(New Modelo.Celda("Umedida", True, "UMedida".ToUpper, 150))
+
         listEstCeldas.Add(New Modelo.Celda("UnidMin", True, "UniVenta".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("Umax", True, "UniMaxima".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("yfdetprod", False, "Descripcion".ToUpper, 150))
@@ -618,16 +654,17 @@ Public Class F1_Productos
         With JGrM_Buscador
             tbCodigo.Text = .GetValue("yfnumi").ToString
             tbCodProd.Text = .GetValue("yfcprod").ToString
-            tbCodBarra.Text = .GetValue("yfcbarra").ToString
+            NumiCuenta = .GetValue("nCuenta")
+            tbCodBarra.Text = .GetValue("cuenta").ToString
             tbDescPro.Text = .GetValue("yfcdprod1").ToString
             tbDescCort.Text = .GetValue("yfcdprod2").ToString
             tbDescDet.Text = .GetValue("yfdetprod").ToString
             cbgrupo1.Value = .GetValue("yfgr1")
             cbgrupo2.Value = .GetValue("yfgr2")
             cbgrupo3.Value = .GetValue("yfgr3")
-            cbgrupo4.Value = .GetValue("yfgr4")
+            cbgrupo4.Value = .GetValue("yfgr5")
             cbgrupo5.Value = .GetValue("yfgr5")
-            cbUMed.Value = .GetValue("yfMed")
+            'cbUMed.Value = .GetValue("yfMed")
             cbUniVenta.Value = .GetValue("yfumin")
             cbUnidMaxima.Value = .GetValue("yfusup")
             tbConversion.Value = .GetValue("yfvsup")
@@ -803,8 +840,8 @@ Public Class F1_Productos
     Private Sub btgrupo3_Click(sender As Object, e As EventArgs) Handles btgrupo3.Click
         Dim numi As String = ""
 
-        If L_prLibreriaGrabar(numi, "1", "3", cbgrupo3.Text, "") Then
-            _prCargarComboLibreria(cbgrupo3, "1", "3")
+        If L_prCategoriaGrabar(numi, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Text, "") Then
+            _prCargarComboCategoria(cbgrupo3, cbgrupo1.Value, cbgrupo2.Value)
             cbgrupo3.SelectedIndex = CType(cbgrupo3.DataSource, DataTable).Rows.Count - 1
         End If
     End Sub
@@ -823,6 +860,7 @@ Public Class F1_Productos
 
         If L_prLibreriaGrabar(numi, "1", "2", cbgrupo2.Text, "") Then
             _prCargarComboLibreria(cbgrupo2, "1", "2")
+            _prCargarComboCategoria(cbgrupo3, cbgrupo1.Value, numi)
             cbgrupo2.SelectedIndex = CType(cbgrupo2.DataSource, DataTable).Rows.Count - 1
         End If
     End Sub
@@ -1133,8 +1171,57 @@ Public Class F1_Productos
             Timer1.Enabled = False
         End If
     End Sub
+    Function _fnAccesible() As Boolean
+        Return tbCodProd.ReadOnly = False
 
-    Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
+    End Function
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        If (_fnAccesible()) Then
+
+
+            Dim dt As DataTable
+
+            dt = L_CuentaContable()
+            '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
+            ',a.ydtelf1 ,a.ydfnac 
+
+            Dim listEstCeldas As New List(Of Modelo.Celda)
+            listEstCeldas.Add(New Modelo.Celda("canumi", True, "Cod", 50))
+            listEstCeldas.Add(New Modelo.Celda("cacta", True, "Nro. CUENTA", 70))
+            listEstCeldas.Add(New Modelo.Celda("cadesc", True, "NOMBRE", 280))
+            Dim ef = New Efecto
+            ef.tipo = 3
+            ef.dt = dt
+            ef.SeleclCol = 1
+            ef.listEstCeldas = listEstCeldas
+            ef.alto = 50
+            ef.ancho = 350
+            ef.Context = "Seleccione Cuenta".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                If (IsNothing(Row)) Then
+                    tbCodBarra.Focus()
+                    Return
+
+                End If
+                NumiCuenta = Row.Cells("canumi").Value
+                tbCodBarra.Text = Row.Cells("cadesc").Value
+                tbDescPro.Focus()
+
+            End If
+        End If
+    End Sub
+
+    Private Sub cbgrupo2_TextChanged(sender As Object, e As EventArgs) Handles cbgrupo2.TextChanged
+        If btgrupo2.Visible = False Then
+            _prCargarComboCategoria(cbgrupo3, cbgrupo1.Value, cbgrupo2.Value)
+        End If
 
     End Sub
+
+
+
 End Class

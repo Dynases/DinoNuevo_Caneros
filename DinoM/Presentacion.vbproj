@@ -409,6 +409,12 @@
     <Compile Include="F1_ExcelVenta.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F1_Productos.designer.vb">
+      <DependentUpon>F1_Productos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F1_Productos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F1_Proveedor.Designer.vb">
       <DependentUpon>F1_Proveedor.vb</DependentUpon>
     </Compile>
@@ -1046,12 +1052,6 @@
     <Compile Include="Utils\Efecto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F1_Productos.Designer.vb">
-      <DependentUpon>F1_Productos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Productos.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -1191,6 +1191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_ExcelVenta.resx">
       <DependentUpon>F1_ExcelVenta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F1_Productos.resx">
+      <DependentUpon>F1_Productos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Proveedor.resx">
       <DependentUpon>F1_Proveedor.vb</DependentUpon>
@@ -1577,9 +1580,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F1_Productos.resx">
-      <DependentUpon>F1_Productos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>

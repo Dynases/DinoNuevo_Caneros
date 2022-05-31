@@ -748,6 +748,41 @@ Public Class AccesoLogica
         _Tabla = D_Datos_Tabla("*", "TY005", _Where)
         Return _Tabla
     End Function
+
+    Public Shared Function L_prCategoriaGrabar(ByRef _numi As String, _cod1 As String, _cod2 As String, _desc1 As String, _desc2 As String) As Boolean
+        Dim _Error As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 55))
+        _listParam.Add(New Datos.DParametro("@ylcod1", _cod1))
+        _listParam.Add(New Datos.DParametro("@ylcod2", _cod2))
+        _listParam.Add(New Datos.DParametro("@desc", _desc1))
+        _listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _numi = _Tabla.Rows(0).Item(0)
+            _Error = False
+        Else
+            _Error = True
+        End If
+        Return Not _Error
+    End Function
+
+    Public Shared Function L_CuentaContable() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 444))
+        _listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
+
+        Return _Tabla
+    End Function
 #End Region
 
 #Region "TY004 CLIENTES"
@@ -1896,6 +1931,20 @@ Public Class AccesoLogica
         Dim _Tabla As DataTable
 
         _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf", "Institucion")
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prLibreriaClienteCategoria(cod1 As Integer, cod2 As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 44))
+        _listParam.Add(New Datos.DParametro("@ylcod1", cod1))
+        _listParam.Add(New Datos.DParametro("@ylcod2", cod2))
+        _listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
+
         Return _Tabla
     End Function
 #End Region
