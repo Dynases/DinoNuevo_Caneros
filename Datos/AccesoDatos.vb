@@ -88,6 +88,12 @@ Public Class AccesoDatos
         Return MetodoDatos.EjecutarProcedimiento(_comandoProcedimiento)
     End Function
 
+    Public Shared Function D_Datos_Tabla1(_Campos As String, _Tabla As String) As DataTable
+        'Dim _comando As OleDbCommand = MetodoDatos.CrearComando()
+        _comando.CommandText = "SELECT " + _Campos + " FROM " + _Tabla
+        Return MetodoDatos.EjecutarComandoSelect(_comando)
+    End Function
+
 End Class
 
 

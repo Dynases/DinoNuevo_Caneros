@@ -396,7 +396,59 @@ Public Class AccesoLogica
 #End Region
 
 #End Region
+#Region "INSTITUCION"
+    Public Shared Function L_Institucion(_Modo As Integer, Optional _Cadena As String = "") As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
 
+        _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf,Institucion.campo1", "Institucion")
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
+
+    Public Shared Function L_Institucion_Grabar(ByRef _numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
+        Dim _Actualizacion As String
+        Dim _Err As Boolean
+        Dim _Tabla As DataTable
+        _Tabla = D_Maximo("Institucion", "id", "id=id")
+        If Not IsDBNull(_Tabla.Rows(0).Item(0)) Then
+            _numi = _Tabla.Rows(0).Item(0) + 1
+        Else
+            _numi = "1"
+        End If
+
+        _Actualizacion = "'" + Date.Now.Date.ToString("yyyy/MM/dd") + "', '" + Now.Hour.ToString + ":" + Now.Minute.ToString + "' ,'" + L_Usuario + "'"
+
+        Dim Sql As String
+        Sql = _numi + ",'" + _codInst + "','" + _nomInst + "','" + _direc + "','" + _telf + "'," + _campo1 + "," + _campo2 + ",'" + _campo3 + "'," + _Actualizacion
+        _Err = D_Insertar_Datos("Institucion", Sql)
+        Return _Err
+    End Function
+
+    Public Shared Function L_Institucion_Modificar(_numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
+        Dim _Err As Boolean
+        Dim Sql, _where As String
+
+        Sql = "codInst = '" + _codInst + "' , " +
+        "nomInst = '" + _nomInst + "' , " +
+        "telf = '" + _telf + "' , " +
+        "direc = '" + _direc + "' , " +
+        "campo1 = " + _campo1 + " , " +
+        "campo2 = " + _campo2 + " , " +
+        "campo3 = " + _campo3
+
+        _where = "id = " + _numi
+        _Err = D_Modificar_Datos("Institucion", Sql, _where)
+        Return _Err
+    End Function
+
+    Public Shared Sub L_Institucion_Borrar(_Id As String)
+        Dim _Where As String
+        Dim _Err As Boolean
+        _Where = "id = " + _Id
+        _Err = D_Eliminar_Datos("Institucion", _Where)
+    End Sub
+#End Region
 #Region "TY005 PRODUCTOS"
     Public Shared Function L_prLibreriaGrabar(ByRef _numi As String, _cod1 As String, _cod2 As String, _desc1 As String, _desc2 As String) As Boolean
         Dim _Error As Boolean
