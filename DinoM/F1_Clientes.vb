@@ -38,14 +38,15 @@ Public Class F1_Clientes
 
     Private Sub _prIniciarTodo()
 
-        Me.Text = "CLIENTES"
+        Me.Text = "CAÑEROS"
         _prInicarMapa()
 
         _prMaxLength()
-        _prCargarComboLibreriaZona(cbZona)
-        _prCargarComboLibreriaFecuenciaVisita(cbVisita)
-        _prCargarComboLibreriaCategoriaPrecios(cbCatPrec)
+        '_prCargarComboLibreriaZona(cbZona)
+        '_prCargarComboLibreriaFecuenciaVisita(cbVisita)
+        '_prCargarComboLibreriaCategoriaPrecios(cbCatPrec)
         _prCargarComboLibreria(cbTipoDoc, 2, 1)
+        _prCargarComboEstadoCivil(cbEstadoCiv, 2, 3)
         _prAsignarPermisos()
         _PMIniciarTodo()
         SuperTabItem1.Visible = False
@@ -150,6 +151,22 @@ Public Class F1_Clientes
     End Sub
 
     Private Sub _prCargarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)
+        Dim dt As New DataTable
+        dt = L_prLibreriaClienteLGeneral(cod1, cod2)
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("yccod3").Width = 70
+            .DropDownList.Columns("yccod3").Caption = "COD"
+            .DropDownList.Columns.Add("ycdes3").Width = 200
+            .DropDownList.Columns("ycdes3").Caption = "DESCRIPCION"
+            .ValueMember = "yccod3"
+            .DisplayMember = "ycdes3"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
+
+    Private Sub _prCargarComboEstadoCivil(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)
         Dim dt As New DataTable
         dt = L_prLibreriaClienteLGeneral(cod1, cod2)
         With mCombo
@@ -328,6 +345,7 @@ Public Class F1_Clientes
         Tbdias.ReadOnly = False
         TbLCred.ReadOnly = False
         swEstado.IsReadOnly = False
+        cbEstadoCiv.ReadOnly = False
         _prCrearCarpetaImagenes()
         _prCrearCarpetaTemporal()
         BtAdicionar.Visible = True
@@ -359,6 +377,7 @@ Public Class F1_Clientes
         TbLCred.ReadOnly = True
         swEstado.IsReadOnly = True
         BtAdicionar.Visible = False
+        cbEstadoCiv.ReadOnly = True
         _prStyleJanus()
         JGrM_Buscador.Focus()
         btnSearch.Visible = False
@@ -391,30 +410,30 @@ Public Class F1_Clientes
         _Overlay.Markers.Clear()
         _latitud = 0
         _longitud = 0
-        If (cbCatPrec.SelectedIndex < 0) Then
+        '  If (cbCatPrec.SelectedIndex < 0) Then
 
-            If (CType(cbCatPrec.DataSource, DataTable).Rows.Count > 0) Then
-                cbCatPrec.SelectedIndex = 0
-            End If
-        End If
-        If (cbZona.SelectedIndex < 0) Then
+        '  If (CType(cbCatPrec.DataSource, DataTable).Rows.Count > 0) Then
+        ' cbCatPrec.SelectedIndex = 0
+        'End If
+        'End If
+        'If (cbZona.SelectedIndex < 0) Then
 
-            If (CType(cbZona.DataSource, DataTable).Rows.Count > 0) Then
-                cbZona.SelectedIndex = 0
-            End If
-        End If
-        If (cbTipoDoc.SelectedIndex < 0) Then
+        'If (CType(cbZona.DataSource, DataTable).Rows.Count > 0) Then
+        'cbZona.SelectedIndex = 0
+        'End If
+        'End If
+        'If (cbTipoDoc.SelectedIndex < 0) Then
 
-            If (CType(cbTipoDoc.DataSource, DataTable).Rows.Count > 0) Then
-                cbTipoDoc.SelectedIndex = 0
-            End If
-        End If
-        If (cbVisita.SelectedIndex < 0) Then
+        '       If (CType(cbTipoDoc.DataSource, DataTable).Rows.Count > 0) Then
+        '     cbTipoDoc.SelectedIndex = 0
+        '    End If
+        '   End If
+        '  If (cbVisita.SelectedIndex < 0) Then
 
-            If (CType(cbVisita.DataSource, DataTable).Rows.Count > 0) Then
-                cbVisita.SelectedIndex = 0
-            End If
-        End If
+        '  If (CType(cbVisita.DataSource, DataTable).Rows.Count > 0) Then
+        ' cbVisita.SelectedIndex = 0
+        'End If
+        'End If
         NumiVendedor = 0
         tbVendedor.Clear()
 
@@ -423,21 +442,22 @@ Public Class F1_Clientes
     Public Overrides Sub _PMOLimpiarErrores()
         MEP.Clear()
         tbNombre.BackColor = Color.White
+        tbRazonSocial.BackColor = Color.White
         tbDireccion.BackColor = Color.White
     End Sub
 
     Public Overrides Function _PMOGrabarRegistro() As Boolean
 
-        'ByRef _ydnumi As String, _ydcod As String,
-        '                                       _yddesc As String, _ydzona As Integer,
-        '                                       _yddct As Integer, _yddctnum As String,
-        '                                       _yddirec As String, _ydtelf1 As String,
-        '                                       _ydtelf2 As String, _ydcat As Integer, _ydest As Integer, _ydlat As Double, _ydlongi As Double, _ydobs As String,
-        '                                       _ydfnac As String, _ydnomfac As String,
-        '                                       _ydtip As Integer, _ydnit As String, _ydfecing As String, _ydultvent As String, _ydimg As String
+        Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
+        NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
+        IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
+        _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
+        nameImg, 0)
 
-        Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbNombre.Text, NumiVendedor, cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, cbCatPrec.Value, IIf(swEstado.Value = True, 1, 0), _latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text, _Tipo, tbNit.Text, Tbdias.Text, TbLCred.Text, tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImg, cbVisita.Value)
-
+        '  Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbNombre.Text, NumiVendedor,
+        ' cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, cbCatPrec.Value, IIf(swEstado.Value = True, 1, 0),
+        '_latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text, _Tipo, tbNit.Text, Tbdias.Text, TbLCred.Text,
+        'tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImg, cbVisita.Value)
 
         If res Then
             Modificado = False
@@ -445,7 +465,7 @@ Public Class F1_Clientes
             nameImg = "Default.jpg"
 
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-            ToastNotification.Show(Me, "Código de Cliente ".ToUpper + tbCodigoOriginal.Text + " Grabado con Exito.".ToUpper,
+            ToastNotification.Show(Me, "Código Cañero ".ToUpper + tbCodigoOriginal.Text + " Grabado con Exito.".ToUpper,
                                       img, 2000,
                                       eToastGlowColor.Green,
                                       eToastPosition.TopCenter
@@ -466,10 +486,24 @@ Public Class F1_Clientes
 
         Dim nameImage As String = JGrM_Buscador.GetValue("ydimg")
         If (Modificado = False) Then
-            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbNombre.Text, NumiVendedor, cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, cbCatPrec.Value, IIf(swEstado.Value = True, 1, 0), _latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text, _Tipo, tbNit.Text, Tbdias.Text, TbLCred.Text, tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImage, cbVisita.Value)
+            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text, NumiVendedor,
+                  0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
+                  IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
+                  tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
+                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0)
+
+            '    tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
+            '     NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
+            '     IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
+            '     _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
+            '     nameImg, 0
 
         Else
-            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbNombre.Text, NumiVendedor, cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, cbCatPrec.Value, IIf(swEstado.Value = True, 1, 0), _latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text, _Tipo, tbNit.Text, Tbdias.Text, TbLCred.Text, tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImg, cbVisita.Value)
+            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text, NumiVendedor,
+                  0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
+                  IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
+                  tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
+                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0)
 
         End If
         If res Then
@@ -481,7 +515,7 @@ Public Class F1_Clientes
             nameImg = "Default.jpg"
 
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-            ToastNotification.Show(Me, "Código de Cliente ".ToUpper + tbCodigoOriginal.Text + " modificado con Exito.".ToUpper,
+            ToastNotification.Show(Me, "Código Cañero ".ToUpper + tbCodigoOriginal.Text + " modificado con Exito.".ToUpper,
                                       img, 2000,
                                       eToastGlowColor.Green,
                                       eToastPosition.TopCenter)
@@ -489,7 +523,7 @@ Public Class F1_Clientes
             _PMPrimerRegistro()
         Else
             Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-            ToastNotification.Show(Me, "EL Cliente no pudo ser modificado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ToastNotification.Show(Me, "EL Cañero no pudo ser modificado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
         End If
         Return res
@@ -533,7 +567,7 @@ Public Class F1_Clientes
 
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
 
-                ToastNotification.Show(Me, "Código de Cliente ".ToUpper + tbCodigoOriginal.Text + " eliminado con Exito.".ToUpper,
+                ToastNotification.Show(Me, "Código Cañero ".ToUpper + tbCodigoOriginal.Text + " eliminado con Exito.".ToUpper,
                                           img, 2000,
                                           eToastGlowColor.Green,
                                           eToastPosition.TopCenter)
@@ -551,26 +585,26 @@ Public Class F1_Clientes
         Dim _ok As Boolean = True
         MEP.Clear()
 
-        If tbNombre.Text = String.Empty Then
-            tbNombre.BackColor = Color.Red
-            MEP.SetError(tbNombre, "ingrese el nombre del Usuario!".ToUpper)
+        If tbRazonSocial.Text = String.Empty Then
+            tbRazonSocial.BackColor = Color.Red
+            MEP.SetError(tbRazonSocial, "ingrese el nombre del Cañero!".ToUpper)
             _ok = False
         Else
-            tbNombre.BackColor = Color.White
-            MEP.SetError(tbNombre, "")
+            tbRazonSocial.BackColor = Color.White
+            MEP.SetError(tbRazonSocial, "")
         End If
-        If (cbCatPrec.SelectedIndex < 0) Then
+        ' If (cbCatPrec.SelectedIndex < 0) Then
 
-            If (CType(cbCatPrec.DataSource, DataTable).Rows.Count > 0) Then
-                cbCatPrec.SelectedIndex = 0
-            End If
-        End If
-        If (cbZona.SelectedIndex < 0) Then
+        'If (CType(cbCatPrec.DataSource, DataTable).Rows.Count > 0) Then
+        'cbCatPrec.SelectedIndex = 0
+        'End If
+        ' End If
+        ' If (cbZona.SelectedIndex < 0) Then
 
-            If (CType(cbZona.DataSource, DataTable).Rows.Count > 0) Then
-                cbZona.SelectedIndex = 0
-            End If
-        End If
+        'If (CType(cbZona.DataSource, DataTable).Rows.Count > 0) Then
+        'cbZona.SelectedIndex = 0
+        ' End If
+        ' End If
         If (cbTipoDoc.SelectedIndex < 0) Then
 
             If (CType(cbTipoDoc.DataSource, DataTable).Rows.Count > 0) Then
@@ -578,12 +612,19 @@ Public Class F1_Clientes
             End If
         End If
 
-        If (cbVisita.SelectedIndex < 0) Then
+        If (cbEstadoCiv.SelectedIndex < 0) Then
 
-            If (CType(cbVisita.DataSource, DataTable).Rows.Count > 0) Then
-                cbVisita.SelectedIndex = 0
+            If (CType(cbEstadoCiv.DataSource, DataTable).Rows.Count > 0) Then
+                cbEstadoCiv.SelectedIndex = 0
             End If
         End If
+
+        ' If (cbVisita.SelectedIndex < 0) Then
+
+        'If (CType(cbVisita.DataSource, DataTable).Rows.Count > 0) Then
+        'cbVisita.SelectedIndex = 0
+        'End If
+        'End If
         MHighlighterFocus.UpdateHighlights()
         Return _ok
     End Function
@@ -601,37 +642,39 @@ Public Class F1_Clientes
         'a.ydfact, a.ydhact, a.yduact
 
         listEstCeldas.Add(New Modelo.Celda("ydnumi", True, "Código".ToUpper, 80))
-        listEstCeldas.Add(New Modelo.Celda("ydcod", False, "Codigo".ToUpper, 80))
-        listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", True, "Razon Social".ToUpper, 180))
-        listEstCeldas.Add(New Modelo.Celda("yddesc", True, "Nombres".ToUpper, 250))
-        listEstCeldas.Add(New Modelo.Celda("ydzona", False))
+        listEstCeldas.Add(New Modelo.Celda("ydcod", True, "Cod. Cañero".ToUpper, 100))
+        listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", True, "Nombre".ToUpper, 180))
+        listEstCeldas.Add(New Modelo.Celda("yddesc", False, "Nombre".ToUpper, 250))
+        listEstCeldas.Add(New Modelo.Celda("ydnumivend", False))
+        listEstCeldas.Add(New Modelo.Celda("institucion", True, "Institución".ToUpper, 250))
         listEstCeldas.Add(New Modelo.Celda("yddct", False))
+        listEstCeldas.Add(New Modelo.Celda("documento", False))
         listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
+        listEstCeldas.Add(New Modelo.Celda("estadoc", False))
+        listEstCeldas.Add(New Modelo.Celda("nomestadoc", True, "Estado Civil".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("yddirec", True, "Direccion".ToUpper, 180))
         listEstCeldas.Add(New Modelo.Celda("ydtelf1", False))
         listEstCeldas.Add(New Modelo.Celda("ydtelf2", False))
+
         listEstCeldas.Add(New Modelo.Celda("ydcat", False))
         listEstCeldas.Add(New Modelo.Celda("ydest", False))
         listEstCeldas.Add(New Modelo.Celda("ydlat", False))
         listEstCeldas.Add(New Modelo.Celda("ydlongi", False))
         listEstCeldas.Add(New Modelo.Celda("ydprconsu", False))
+
         listEstCeldas.Add(New Modelo.Celda("ydobs", True, "Observacion".ToUpper, 180))
-        listEstCeldas.Add(New Modelo.Celda("ydfnac", True, "Fecha Nacimiento".ToUpper, 150))
-        listEstCeldas.Add(New Modelo.Celda("ydnomfac", True, "Factura".ToUpper, 200))
+        listEstCeldas.Add(New Modelo.Celda("ydfnac", True, "Fecha Ingreso".ToUpper, 150))
+        listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Esposa".ToUpper, 200))
         listEstCeldas.Add(New Modelo.Celda("ydtip", False))
-        listEstCeldas.Add(New Modelo.Celda("ydnit", True, "Nit".ToUpper, 120))
+        listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Ci.Esposa".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("ydfecing", False))
         listEstCeldas.Add(New Modelo.Celda("ydultvent", False))
         listEstCeldas.Add(New Modelo.Celda("ydimg", False))
         listEstCeldas.Add(New Modelo.Celda("ydfact", False))
         listEstCeldas.Add(New Modelo.Celda("ydhact", False))
         listEstCeldas.Add(New Modelo.Celda("yduact", False))
-        listEstCeldas.Add(New Modelo.Celda("ydrut", False))
-        listEstCeldas.Add(New Modelo.Celda("visita", True, "FRECUENCIA DE VISITA", 120))
-        listEstCeldas.Add(New Modelo.Celda("zona", True, "ZONA".ToUpper, 150))
-        listEstCeldas.Add(New Modelo.Celda("documento".ToUpper, True, "Tipo Documento".ToUpper, 150))
-        listEstCeldas.Add(New Modelo.Celda("ydnumivend", False))
-        listEstCeldas.Add(New Modelo.Celda("vendedor", False))
+        listEstCeldas.Add(New Modelo.Celda("visita", False, "FRECUENCIA DE VISITA", 120))
+
         listEstCeldas.Add(New Modelo.Celda("yddias", False))
         listEstCeldas.Add(New Modelo.Celda("ydlcred", False))
         Return listEstCeldas
@@ -653,7 +696,6 @@ Public Class F1_Clientes
             tbCodigoOriginal.Text = .GetValue("ydnumi").ToString
             tbCodCliente.Text = .GetValue("ydcod").ToString
             tbNombre.Text = .GetValue("yddesc").ToString
-            cbZona.Value = .GetValue("ydzona")
             tbRazonSocial.Text = IIf(IsDBNull(.GetValue("ydrazonsocial")), "", .GetValue("ydrazonsocial"))
             cbTipoDoc.Value = .GetValue("yddct")
             tbNdoc.Text = .GetValue("yddctnum").ToString
@@ -661,9 +703,8 @@ Public Class F1_Clientes
             tbTelf1.Text = .GetValue("ydtelf1").ToString
             tbTelf2.Text = .GetValue("ydtelf2").ToString
             cbCatPrec.Value = .GetValue("ydcat")
+            tbVendedor.Text = .GetValue("institucion").ToString
             swEstado.Value = .GetValue("ydest")
-            _latitud = .GetValue("ydlat")
-            _longitud = .GetValue("ydlongi")
             tbObs.Text = .GetValue("ydobs").ToString
             tbFnac.Value = .GetValue("ydfnac")
             tbNombFac.Text = .GetValue("ydnomfac").ToString
@@ -671,13 +712,12 @@ Public Class F1_Clientes
             Tbdias.Text = .GetValue("yddias").ToString
             TbLCred.Text = .GetValue("ydlcred").ToString
             tbFIngr.Value = .GetValue("ydfecing")
+            cbEstadoCiv.Value = .GetValue("estadoc")
             tbUltVenta.Value = .GetValue("ydultvent")
-            cbVisita.Value = .GetValue("ydrut")
             lbFecha.Text = CType(.GetValue("ydfact"), Date).ToString("dd/MM/yyyy")
             lbHora.Text = .GetValue("ydhact").ToString
             lbUsuario.Text = .GetValue("yduact").ToString
             NumiVendedor = IIf(IsDBNull(.GetValue("ydnumivend")), 0, .GetValue("ydnumivend"))
-            tbVendedor.Text = IIf(IsDBNull(.GetValue("vendedor")), "", .GetValue("vendedor"))
         End With
         Dim name As String = JGrM_Buscador.GetValue("ydimg")
         If name.Equals("Default.jpg") Or Not File.Exists(RutaGlobal + "\Imagenes\Imagenes ClienteDino" + name) Then
@@ -834,9 +874,7 @@ Public Class F1_Clientes
         End If
     End Sub
 
-    Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
 
-    End Sub
 
     Private Sub JGrM_Buscador_KeyDown(sender As Object, e As KeyEventArgs) Handles JGrM_Buscador.KeyDown
         If e.KeyData = Keys.Enter Then
@@ -909,18 +947,16 @@ Public Class F1_Clientes
 
             Dim dt As DataTable
 
-            dt = L_fnListarEmpleado()
+            dt = L_InstitucionCanero(0)
             '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
             ',a.ydtelf1 ,a.ydfnac 
 
             Dim listEstCeldas As New List(Of Modelo.Celda)
-            listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
-            listEstCeldas.Add(New Modelo.Celda("ydcod", False, "ID", 50))
-            listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
-            listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
-            listEstCeldas.Add(New Modelo.Celda("yddirec", True, "DIRECCION", 220))
-            listEstCeldas.Add(New Modelo.Celda("ydtelf1", True, "Telefono".ToUpper, 200))
-            listEstCeldas.Add(New Modelo.Celda("ydfnac", True, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
+            listEstCeldas.Add(New Modelo.Celda("id", True, "ID", 50))
+            listEstCeldas.Add(New Modelo.Celda("codInst", True, "Cod. INST", 70))
+            listEstCeldas.Add(New Modelo.Celda("nomInst", True, "NOMBRE", 280))
+            listEstCeldas.Add(New Modelo.Celda("direc", True, "DIRECCION".ToUpper, 150))
+            listEstCeldas.Add(New Modelo.Celda("telf", True, "TELEFONO", 220))
             Dim ef = New Efecto
             ef.tipo = 3
             ef.dt = dt
@@ -928,7 +964,7 @@ Public Class F1_Clientes
             ef.listEstCeldas = listEstCeldas
             ef.alto = 50
             ef.ancho = 350
-            ef.Context = "Seleccione Vendedor".ToUpper
+            ef.Context = "Seleccione Institución".ToUpper
             ef.ShowDialog()
             Dim bandera As Boolean = False
             bandera = ef.band
@@ -939,8 +975,8 @@ Public Class F1_Clientes
                     Return
 
                 End If
-                NumiVendedor = Row.Cells("ydnumi").Value
-                tbVendedor.Text = Row.Cells("yddesc").Value
+                NumiVendedor = Row.Cells("id").Value
+                tbVendedor.Text = Row.Cells("nomInst").Value
                 tbDireccion.Focus()
 
             End If
@@ -950,13 +986,7 @@ Public Class F1_Clientes
         End If
     End Sub
 
-    Private Sub TextBoxX1_TextChanged(sender As Object, e As EventArgs) Handles Tbdias.TextChanged
 
-    End Sub
-
-    Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-
-    End Sub
 
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         P_GenerarReporte()
@@ -993,4 +1023,6 @@ Public Class F1_Clientes
             Timer1.Enabled = False
         End If
     End Sub
+
+
 End Class

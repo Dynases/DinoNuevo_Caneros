@@ -385,6 +385,12 @@
     <Compile Include="F1_Bancos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F1_Clientes.designer.vb">
+      <DependentUpon>F1_Clientes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F1_Clientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F1_DescuentoProd.Designer.vb">
       <DependentUpon>F1_DescuentoProd.vb</DependentUpon>
     </Compile>
@@ -431,12 +437,6 @@
       <DependentUpon>F1_Deposito.vb</DependentUpon>
     </Compile>
     <Compile Include="F1_Deposito.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F1_Clientes.Designer.vb">
-      <DependentUpon>F1_Clientes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Clientes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F1_Dosificacion.Designer.vb">
@@ -1180,6 +1180,9 @@
     <EmbeddedResource Include="F1_Bancos.resx">
       <DependentUpon>F1_Bancos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F1_Clientes.resx">
+      <DependentUpon>F1_Clientes.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F1_DescuentoProd.resx">
       <DependentUpon>F1_DescuentoProd.vb</DependentUpon>
     </EmbeddedResource>
@@ -1203,9 +1206,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Deposito.resx">
       <DependentUpon>F1_Deposito.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F1_Clientes.resx">
-      <DependentUpon>F1_Clientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Dosificacion.resx">
       <DependentUpon>F1_Dosificacion.vb</DependentUpon>

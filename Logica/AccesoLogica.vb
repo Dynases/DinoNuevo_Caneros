@@ -1011,7 +1011,7 @@ Public Class AccesoLogica
 
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
         _listParam.Add(New Datos.DParametro("@ydtip", tipo))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
@@ -1888,6 +1888,14 @@ Public Class AccesoLogica
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV002", _listParam)
 
+        Return _Tabla
+    End Function
+
+
+    Public Shared Function L_InstitucionCanero(_Modo As Integer, Optional _Cadena As String = "") As DataTable
+        Dim _Tabla As DataTable
+
+        _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf", "Institucion")
         Return _Tabla
     End Function
 #End Region
