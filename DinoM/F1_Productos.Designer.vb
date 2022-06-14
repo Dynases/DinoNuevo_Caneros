@@ -81,7 +81,6 @@ Partial Class F1_Productos
         Me.tbStockMinimo = New DevComponents.Editors.IntegerInput()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.btgrupo5 = New DevComponents.DotNetBar.ButtonX()
         Me.lbgrupo5 = New DevComponents.DotNetBar.LabelX()
         Me.cbgrupo5 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -141,6 +140,7 @@ Partial Class F1_Productos
         '
         'SuperTabPrincipal
         '
+        Me.SuperTabPrincipal.CloseButtonPosition = DevComponents.DotNetBar.eTabCloseButtonPosition.Right
         '
         '
         '
@@ -154,28 +154,50 @@ Partial Class F1_Productos
         Me.SuperTabPrincipal.ControlBox.MenuBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabPrincipal.ControlBox.MenuBox, Me.SuperTabPrincipal.ControlBox.CloseBox})
+        Me.SuperTabPrincipal.ImageAlignment = DevComponents.DotNetBar.ImageAlignment.NotSet
         Me.SuperTabPrincipal.Margin = New System.Windows.Forms.Padding(5)
         Me.SuperTabPrincipal.Size = New System.Drawing.Size(1805, 875)
+        Me.SuperTabPrincipal.TabLayoutType = DevComponents.DotNetBar.eSuperTabLayoutType.SingleLine
+        Me.SuperTabPrincipal.TextAlignment = DevComponents.DotNetBar.eItemAlignment.Near
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelBuscador, 0)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelRegistro, 0)
         '
         'SuperTabControlPanelBuscador
         '
+        Me.SuperTabControlPanelBuscador.BackgroundImagePosition = DevComponents.DotNetBar.eStyleBackgroundImage.Stretch
+        Me.SuperTabControlPanelBuscador.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2003
         Me.SuperTabControlPanelBuscador.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(5)
         Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(1472, 875)
         '
+        'SupTabItemBusqueda
+        '
+        Me.SupTabItemBusqueda.ImageAlignment = DevComponents.DotNetBar.ImageAlignment.NotSet
+        Me.SupTabItemBusqueda.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Near
+        Me.SupTabItemBusqueda.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.[Default]
+        Me.SupTabItemBusqueda.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        '
         'SuperTabControlPanelRegistro
         '
+        Me.SuperTabControlPanelRegistro.BackgroundImagePosition = DevComponents.DotNetBar.eStyleBackgroundImage.Stretch
+        Me.SuperTabControlPanelRegistro.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2003
         Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(5)
         Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(1770, 875)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelPrincipal, 0)
         '
+        'SupTabItemRegistro
+        '
+        Me.SupTabItemRegistro.ImageAlignment = DevComponents.DotNetBar.ImageAlignment.NotSet
+        Me.SupTabItemRegistro.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Near
+        Me.SupTabItemRegistro.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.[Default]
+        Me.SupTabItemRegistro.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        '
         'PanelSuperior
         '
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(5)
+        Me.PanelSuperior.ScrollBarAppearance = DevComponents.DotNetBar.eScrollBarAppearance.[Default]
         Me.PanelSuperior.Size = New System.Drawing.Size(1770, 89)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.DarkSlateGray
@@ -190,6 +212,7 @@ Partial Class F1_Productos
         '
         Me.PanelInferior.Location = New System.Drawing.Point(0, 831)
         Me.PanelInferior.Margin = New System.Windows.Forms.Padding(5)
+        Me.PanelInferior.ScrollBarAppearance = DevComponents.DotNetBar.eScrollBarAppearance.[Default]
         Me.PanelInferior.Size = New System.Drawing.Size(1770, 44)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.DarkSlateGray
@@ -230,9 +253,43 @@ Partial Class F1_Productos
         '
         'btnSalir
         '
+        Me.btnSalir.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
+        Me.btnSalir.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnSalir.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnSalir.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnSalir.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
         '
         'btnGrabar
         '
+        Me.btnGrabar.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
+        Me.btnGrabar.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnGrabar.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnGrabar.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnGrabar.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
+        '
+        'btnEliminar
+        '
+        Me.btnEliminar.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
+        Me.btnEliminar.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnEliminar.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnEliminar.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnEliminar.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
+        '
+        'btnModificar
+        '
+        Me.btnModificar.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
+        Me.btnModificar.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnModificar.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnModificar.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnModificar.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
+        '
+        'btnNuevo
+        '
+        Me.btnNuevo.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
+        Me.btnNuevo.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnNuevo.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnNuevo.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnNuevo.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
         '
         'PanelToolBar2
         '
@@ -331,20 +388,64 @@ Partial Class F1_Productos
         'btnImprimir
         '
         Me.btnImprimir.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnImprimir.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
         Me.btnImprimir.Image = Global.DinoM.My.Resources.Resources.codigobarra
         Me.btnImprimir.Margin = New System.Windows.Forms.Padding(5)
+        Me.btnImprimir.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnImprimir.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
         Me.btnImprimir.Size = New System.Drawing.Size(143, 89)
+        Me.btnImprimir.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
         Me.btnImprimir.Text = "CDD. BARRAS"
+        Me.btnImprimir.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
         Me.btnImprimir.Visible = False
         '
         'btnUltimo
         '
+        Me.btnUltimo.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
         Me.btnUltimo.Location = New System.Drawing.Point(171, 0)
+        Me.btnUltimo.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnUltimo.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnUltimo.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnUltimo.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
+        '
+        'btnSiguiente
+        '
+        Me.btnSiguiente.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
+        Me.btnSiguiente.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnSiguiente.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnSiguiente.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnSiguiente.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
+        '
+        'btnAnterior
+        '
+        Me.btnAnterior.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
+        Me.btnAnterior.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnAnterior.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnAnterior.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnAnterior.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
+        '
+        'btnPrimero
+        '
+        Me.btnPrimero.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.[Default]
+        Me.btnPrimero.PopupSide = DevComponents.DotNetBar.ePopupSide.[Default]
+        Me.btnPrimero.RenderMode = DevComponents.DotNetBar.eRenderMode.[Global]
+        Me.btnPrimero.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Awesome
+        Me.btnPrimero.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Center
         '
         'MPanelUserAct
         '
         Me.MPanelUserAct.Location = New System.Drawing.Point(1503, 0)
         Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(5)
+        '
+        'MHighlighterFocus
+        '
+        Me.MHighlighterFocus.FocusHighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Blue
+        '
+        'MFlyoutUsuario
+        '
+        Me.MFlyoutUsuario.CloseMode = CType((DevComponents.DotNetBar.Controls.eFlyoutCloseMode.ClickOutside Or DevComponents.DotNetBar.Controls.eFlyoutCloseMode.ParentFormDeactivate), DevComponents.DotNetBar.Controls.eFlyoutCloseMode)
+        Me.MFlyoutUsuario.DisplayMode = DevComponents.DotNetBar.Controls.eFlyoutDisplayMode.MouseOver
+        Me.MFlyoutUsuario.PointerSide = DevComponents.DotNetBar.Controls.ePointerSide.Bottom
         '
         'GroupBox1
         '
@@ -790,7 +891,6 @@ Partial Class F1_Productos
         Me.BtAdicionar.Location = New System.Drawing.Point(8, 41)
         Me.BtAdicionar.Margin = New System.Windows.Forms.Padding(4)
         Me.BtAdicionar.Name = "BtAdicionar"
-        Me.BtAdicionar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(4)
         Me.BtAdicionar.Size = New System.Drawing.Size(100, 75)
         Me.BtAdicionar.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014
         Me.BtAdicionar.SubItemsExpandWidth = 10
@@ -1209,7 +1309,6 @@ Partial Class F1_Productos
         '
         Me.Panel2.AutoScroll = True
         Me.Panel2.BackColor = System.Drawing.Color.Transparent
-        Me.Panel2.Controls.Add(Me.Button1)
         Me.Panel2.Controls.Add(Me.btgrupo5)
         Me.Panel2.Controls.Add(Me.lbgrupo1)
         Me.Panel2.Controls.Add(Me.lbgrupo5)
@@ -1235,16 +1334,6 @@ Partial Class F1_Productos
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(576, 370)
         Me.Panel2.TabIndex = 216
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(450, 89)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 219
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
         '
         'btgrupo5
         '
@@ -1605,5 +1694,4 @@ Partial Class F1_Productos
     Friend WithEvents cbgrupo5 As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents Timer1 As Timer
     Friend WithEvents btnSearch As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents Button1 As Button
 End Class

@@ -231,7 +231,29 @@ Public Class F0_Instituciones
 
 
         MHighlighterFocus.UpdateHighlights()
-        Return True
+        Return _Error
+    End Function
+
+    ''P_ValidarCodInst
+    Public Function P_ValidarCodInst(codInst As String) As Boolean
+        Dim _Error As Boolean = False
+        MEP.Clear()
+
+        If L_BuscarCodInst(codInst) = True Then
+            Tb_CodInst.BackColor = Color.Red
+            MEP.SetError(Tb_CodInst, "Ingrese un código distinto!".ToUpper)
+            _Error = True
+        Else
+            Tb_CodInst.BackColor = Color.White
+            MEP.SetError(Tb_CodInst, String.Empty)
+        End If
+
+
+
+
+
+        MHighlighterFocus.UpdateHighlights()
+        Return _Error
     End Function
 #End Region
 #Region " Cancelar-Button "
@@ -241,10 +263,12 @@ Public Class F0_Instituciones
 
     Private Sub _PSalirRegistro()
         If btnGrabar.Enabled = True Then
-            _PLimpiar()
-            _PInhabilitar()
-            _PFiltrar()
             _PCargarBuscador()
+
+            _PLimpiar()
+        _PInhabilitar()
+            _PFiltrar()
+
         Else
             _modulo.Select()
             Me.Close()
@@ -282,6 +306,10 @@ Public Class F0_Instituciones
                 btnGrabar.Tag = 1
                 btnGrabar.Refresh()
                 Exit Sub
+            ElseIf P_ValidarCodInst(Tb_CodInst.Text) Then
+
+                Exit Sub
+
             Else
                 btnGrabar.Tag = 0
                 btnGrabar.Refresh()
@@ -289,27 +317,27 @@ Public Class F0_Instituciones
 
             If _Nuevo Then
 
-                _Error = L_Institucion_Grabar(Tb_Id.Text, Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text, 0, 0, 0)
+                L_Institucion_Grabar(Tb_Id.Text, Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text, 0, 0, 0)
 
                 Tb_CodInst.Focus()
-                If _Error = False Then
-                    ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
-                End If
+                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+
+
 
                 'actualizar el grid de buscador
                 _PCargarBuscador()
                 _PLimpiar()
             Else
-                _Error = L_Institucion_Modificar(Tb_Id.Text, Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text, 0, 0, 0)
-                If _Error = False Then
-                    ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-                End If
+                L_Institucion_Modificar(Tb_Id.Text, Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text, 0, 0, 0)
+
+                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+
                 _PCargarBuscador()
                     _Nuevo = False 'aumentado danny
                     _PInhabilitar()
-                    '_PFiltrar()
-                End If
+                _PFiltrar()
+            End If
             End If
     End Sub
 

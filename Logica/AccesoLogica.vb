@@ -360,7 +360,8 @@ Public Class AccesoLogica
     End Function
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_Tabla("ydnumi,yduser,ydrol,ydpass,ydest,ydcant,ydfontsize,ydsuc", "ZY003", "yduser = '" + _Nom + "' AND ydpass = '" + _Pass + "'")
+        _Tabla = D_Datos_Tabla("ydnumi,yduser,ydrol,ydpass,ydest,ydcant,ydfontsize,ydsuc,aabdes ", "ZY003" + " INNER JOIN	dbo.TA001
+ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" + _Pass + "'")
         Return _Tabla
     End Function
 
@@ -404,6 +405,18 @@ Public Class AccesoLogica
         _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf,Institucion.campo1", "Institucion")
         _Ds.Tables.Add(_Tabla)
         Return _Ds
+    End Function
+    Public Shared Function L_BuscarCodInst(_Numi As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _Err As Boolean
+        Dim _Where As String = "codInst = " + _Numi
+        _Tabla = D_Datos_Tabla("*", "Institucion", _Where)
+        If (_Tabla.Rows.Count > 0) Then
+            _Err = True
+        Else
+            _Err = False
+        End If
+        Return _Err
     End Function
 
     Public Shared Function L_Institucion_Grabar(ByRef _numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean

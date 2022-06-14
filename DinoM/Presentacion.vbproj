@@ -118,7 +118,7 @@
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Google Drive\Librerias\DotNet\DevComponents.DotNetBar2.dll</HintPath>
+      <HintPath>C:\librerias\DotNet\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.Instrumentation, Version=12.5.0.2, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -371,6 +371,12 @@
       <DependentUpon>F0_Venta2.vb</DependentUpon>
     </Compile>
     <Compile Include="F0_Venta2.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F0_VentaComb.Designer.vb">
+      <DependentUpon>F0_VentaComb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_VentaComb.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F1_Almacen.Designer.vb">
@@ -1173,6 +1179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Venta2.resx">
       <DependentUpon>F0_Venta2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_VentaComb.resx">
+      <DependentUpon>F0_VentaComb.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Almacen.resx">
       <DependentUpon>F1_Almacen.vb</DependentUpon>

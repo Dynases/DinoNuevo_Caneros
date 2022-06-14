@@ -1956,19 +1956,18 @@ Partial Class F0_Venta2
         '
         Me.swMoneda.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swMoneda.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swMoneda.Location = New System.Drawing.Point(475, 5)
+        Me.swMoneda.Location = New System.Drawing.Point(385, 40)
         Me.swMoneda.Margin = New System.Windows.Forms.Padding(4)
         Me.swMoneda.Name = "swMoneda"
         Me.swMoneda.OffBackColor = System.Drawing.Color.LawnGreen
         Me.swMoneda.OffText = "DOLAR"
         Me.swMoneda.OnBackColor = System.Drawing.Color.Gold
         Me.swMoneda.OnText = "BOLIVIANO"
-        Me.swMoneda.Size = New System.Drawing.Size(67, 27)
+        Me.swMoneda.Size = New System.Drawing.Size(130, 27)
         Me.swMoneda.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.swMoneda.TabIndex = 272
         Me.swMoneda.Value = True
         Me.swMoneda.ValueObject = "Y"
-        Me.swMoneda.Visible = False
         '
         'gpDetalleVenta
         '
