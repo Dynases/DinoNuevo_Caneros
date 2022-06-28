@@ -1059,7 +1059,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
         _listParam.Add(New Datos.DParametro("@ydtip", tipo))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
@@ -3344,6 +3344,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnCobranzasObtenerProductosCredito(idVenta As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@teuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@idVenta", idVenta))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV00121Cheque", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnEliminarCobranza(numi As String, ByRef mensaje As String) As Boolean
         Dim _resultado As Boolean
         If L_fnbValidarEliminacion(numi, "TV0013", "tenumi", mensaje) = True Then
@@ -3366,14 +3377,12 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return _resultado
     End Function
-    '@tenumi ,@tefdoc,@tety4vend ,@teobs ,@newFecha ,@newHora ,@teuact 
+
     Public Shared Function L_fnGrabarCobranza(_tenumi As String, _tefdoc As String, _tety4vend As Integer, _teobs As String,
                                               detalle As DataTable, _Nrocaja As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
-        '   @canumi ,@caalm,@cafdoc ,@caty4prov  ,@catven,
-        '@cafvcr,@camon ,@caest  ,@caobs ,@cadesc ,@newFecha,@newHora,@cauact
         _listParam.Add(New Datos.DParametro("@tipo", 1))
         _listParam.Add(New Datos.DParametro("@tenumi", _tenumi))
         _listParam.Add(New Datos.DParametro("@tefdoc", _tefdoc))
@@ -3381,10 +3390,9 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@teobs", _teobs))
         _listParam.Add(New Datos.DParametro("@teuact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@teNrocaja", _Nrocaja))
-        _listParam.Add(New Datos.DParametro("@TV00121", "", detalle))
+        '_listParam.Add(New Datos.DParametro("@TV00121", "", detalle))
+        _listParam.Add(New Datos.DParametro("@TV00122", "", detalle))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV00121Cheque", _listParam)
-
-
         If _Tabla.Rows.Count > 0 Then
             _tenumi = _Tabla.Rows(0).Item(0)
             _resultado = True

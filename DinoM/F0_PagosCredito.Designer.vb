@@ -29,6 +29,8 @@ Partial Class F0_PagosCredito
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.grpagos = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.lbNroCaja = New System.Windows.Forms.Label()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.cbbanco = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbcodVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbObservacion = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -49,8 +51,7 @@ Partial Class F0_PagosCredito
         Me.GroupPanel5 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.grcobranza = New Janus.Windows.GridEX.GridEX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
-        Me.lbNroCaja = New System.Windows.Forms.Label()
+        Me.lblUsuarioVende = New System.Windows.Forms.Label()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -331,6 +332,7 @@ Partial Class F0_PagosCredito
         '
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel1.Controls.Add(Me.lblUsuarioVende)
         Me.GroupPanel1.Controls.Add(Me.lbNroCaja)
         Me.GroupPanel1.Controls.Add(Me.LabelX5)
         Me.GroupPanel1.Controls.Add(Me.cbbanco)
@@ -378,6 +380,34 @@ Partial Class F0_PagosCredito
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel1.TabIndex = 0
         Me.GroupPanel1.Text = "DATOS GENERALES"
+        '
+        'lbNroCaja
+        '
+        Me.lbNroCaja.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lbNroCaja.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.lbNroCaja.Location = New System.Drawing.Point(336, 52)
+        Me.lbNroCaja.Name = "lbNroCaja"
+        Me.lbNroCaja.Size = New System.Drawing.Size(60, 17)
+        Me.lbNroCaja.TabIndex = 382
+        Me.lbNroCaja.Text = "Label1"
+        Me.lbNroCaja.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(269, 53)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(65, 16)
+        Me.LabelX5.TabIndex = 235
+        Me.LabelX5.Text = "Nro. Caja:"
         '
         'cbbanco
         '
@@ -534,12 +564,13 @@ Partial Class F0_PagosCredito
         Me.tbcobrador.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbcobrador.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbcobrador.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbcobrador.Location = New System.Drawing.Point(142, 82)
+        Me.tbcobrador.Location = New System.Drawing.Point(403, 133)
         Me.tbcobrador.Name = "tbcobrador"
         Me.tbcobrador.PreventEnterBeep = True
         Me.tbcobrador.ReadOnly = True
         Me.tbcobrador.Size = New System.Drawing.Size(255, 21)
         Me.tbcobrador.TabIndex = 2
+        Me.tbcobrador.Visible = False
         '
         'LabelX2
         '
@@ -793,33 +824,15 @@ Partial Class F0_PagosCredito
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 500
         '
-        'LabelX5
+        'lblUsuarioVende
         '
-        Me.LabelX5.AutoSize = True
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(269, 53)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(65, 16)
-        Me.LabelX5.TabIndex = 235
-        Me.LabelX5.Text = "Nro. Caja:"
-        '
-        'lbNroCaja
-        '
-        Me.lbNroCaja.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lbNroCaja.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.lbNroCaja.Location = New System.Drawing.Point(336, 52)
-        Me.lbNroCaja.Name = "lbNroCaja"
-        Me.lbNroCaja.Size = New System.Drawing.Size(60, 17)
-        Me.lbNroCaja.TabIndex = 382
-        Me.lbNroCaja.Text = "Label1"
-        Me.lbNroCaja.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblUsuarioVende.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblUsuarioVende.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.lblUsuarioVende.Location = New System.Drawing.Point(143, 83)
+        Me.lblUsuarioVende.Name = "lblUsuarioVende"
+        Me.lblUsuarioVende.Size = New System.Drawing.Size(250, 17)
+        Me.lblUsuarioVende.TabIndex = 383
+        Me.lblUsuarioVende.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'F0_PagosCredito
         '
@@ -893,4 +906,5 @@ Partial Class F0_PagosCredito
     Friend WithEvents Timer1 As Timer
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents lbNroCaja As Label
+    Friend WithEvents lblUsuarioVende As Label
 End Class
