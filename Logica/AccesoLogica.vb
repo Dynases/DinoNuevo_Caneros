@@ -365,6 +365,23 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function CargarConfiguracion(_NomTabla As String, _TipoVenta As String) As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_Tabla("* ", _NomTabla, "tipo= " + _TipoVenta + " order by orden")
+        Return _Tabla
+    End Function
+
+    Public Shared Function ObtenerNumCuenta(_NomTabla As String, _TipoVenta As String) As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst("*", "Institucion", "id= " + _TipoVenta)
+        Return _Tabla
+    End Function
+    Public Shared Function CargarProductoDiesel(_NomTabla As String, _TipoVenta As String) As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_Tabla("* ", _NomTabla, "yfcprod= " + _TipoVenta)
+        Return _Tabla
+    End Function
+
     Public Shared Function L_VerConfiguracion() As DataTable
         Dim _Tabla As DataTable
         _Tabla = D_Datos_Tabla("VerServicios", "SY000", "1=1")
@@ -402,10 +419,12 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Dim _Tabla As DataTable
         Dim _Ds As New DataSet
 
-        _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf,Institucion.campo1", "Institucion")
+        _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf,cuenta.cacta", "Institucion")
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
+
+
     Public Shared Function L_BuscarCodInst(_Numi As String) As Boolean
         Dim _Tabla As DataTable
         Dim _Err As Boolean
@@ -540,7 +559,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@yfusup", _yfusup))
         _listParam.Add(New Datos.DParametro("@yfvsup", _yfvsup))
         _listParam.Add(New Datos.DParametro("@yfmstk", 0))
-        _listParam.Add(New Datos.DParametro("@yfclot", 0))
+        _listParam.Add(New Datos.DParametro("@yfclot", _yfcbarra))
         _listParam.Add(New Datos.DParametro("@yfsmin", _yfsmin))
         _listParam.Add(New Datos.DParametro("@yfap", _yfap))
         _listParam.Add(New Datos.DParametro("@yfimg", _yfimg))
@@ -1420,6 +1439,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function L_fnGeneralVentaCombustible() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 33))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_fnGeneralVentaServicios() As DataTable
         Dim _Tabla As DataTable
 
@@ -1443,7 +1474,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnDetalleVenta1(_numi As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 44))
+        _listParam.Add(New Datos.DParametro("@tanumi", _numi))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnEliminarDescuento(Id As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -1620,6 +1662,21 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_fnListarProductoDiesel(_almacen As String, _cliente As String, _detalle As DataTable) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 99))
+        _listParam.Add(New Datos.DParametro("@almacen", _almacen))
+        _listParam.Add(New Datos.DParametro("@cliente", _cliente))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@TV0011", "", _detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnListarClientes() As DataTable
         Dim _Tabla As DataTable
 
@@ -1712,6 +1769,37 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
 
         Return _resultado
+    End Function
+
+    Public Shared Function L_fnGrabarTO001(_tipo As Integer, ByRef _tanumi As Integer, Optional _obnumito1 As String = "", Optional _oblin As String = "",
+                                           Optional _obcuenta As String = "", Optional _obobs As String = "", Optional _obdebebs As Double = 0.00,
+                                           Optional _obhaberbs As Double = 0.00, Optional _obdebeus As Double = 0.00, Optional _obhaberus As Double = 0.00) As Integer
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", _tipo))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _listParam.Add(New Datos.DParametro("@obnumito1", _obnumito1))
+        _listParam.Add(New Datos.DParametro("@oblin", _oblin))
+        _listParam.Add(New Datos.DParametro("@obcuenta", _obcuenta))
+        _listParam.Add(New Datos.DParametro("@obobs", _obobs))
+        _listParam.Add(New Datos.DParametro("@obdebebs", _obdebebs))
+        _listParam.Add(New Datos.DParametro("@obhaberbs", _obhaberbs))
+        _listParam.Add(New Datos.DParametro("@obdebeus", _obdebeus))
+        _listParam.Add(New Datos.DParametro("@obhaberus", _obhaberus))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_HeaAsiCont", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _tanumi
     End Function
 
     Public Shared Function L_fnGrabarVentaServicios(ByRef _tanumi As String, _tafdoc As String, _taven As Integer, _tatven As Integer, _tafvcr As String, _taclpr As Integer,
@@ -1971,6 +2059,15 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Sub L_Actualiza_Venta_Contabiliza(_Numi As String, _numiConta As String)
+        Dim _Err As Boolean
+        Dim Sql, _where As String
+        Sql = "taproforma = " + _numiConta
+        _where = "tanumi = " + _Numi
+
+        _Err = D_Modificar_Datos("TV001", Sql, _where)
+    End Sub
+
 #End Region
 
 #Region "TC001 Compras"

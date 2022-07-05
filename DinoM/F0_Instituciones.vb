@@ -146,7 +146,7 @@ Public Class F0_Instituciones
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
         End With
-        With JGr_Buscador.RootTable.Columns("campo1")
+        With JGr_Buscador.RootTable.Columns("cacta")
             '   .Visible = False
             .Caption = "Num.Cuenta".ToUpper
             .Width = 400
