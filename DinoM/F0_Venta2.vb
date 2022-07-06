@@ -194,6 +194,8 @@ Public Class F0_Venta2
         tbFechaVenc.IsInputReadOnly = False
 
         swTipoVenta.IsReadOnly = False
+        swTipoVenta.Value = 0
+        btnContabilizar.Visible = False
         tbFechaVenta.IsInputReadOnly = False
         tbFechaVenta.Enabled = True
 
@@ -259,7 +261,7 @@ Public Class F0_Venta2
         '_CodCliente = 0
         '_CodEmpleado = 0
         tbFechaVenta.Value = Now.Date
-        swTipoVenta.Value = True
+        swTipoVenta.Value = False
         tbFechaVenc.Visible = False
         lbCredito.Visible = False
         _prCargarDetalleVenta(-1)
@@ -1326,7 +1328,7 @@ Public Class F0_Venta2
     End Sub
     Public Function _ValidarCampos() As Boolean
         Try
-
+            txtMontoPagado1.Text = tbTotalBs.Text
             If (_CodCliente <= 0) Then
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "Por Favor Seleccione un Cliente con Ctrl+Enter".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
@@ -1531,7 +1533,7 @@ Public Class F0_Venta2
         For Each fila As DataRow In detalle.Rows
             Dim idProducto = fila.Item("tbty5prod")
             If aux <> idProducto Then
-                dtSaldos = L_fnObteniendoSaldosTI001(fila.Item("tbty5prod"), 1)
+                dtSaldos = L_fnObteniendoSaldosTI001(fila.Item("tbty5prod"), cbSucursal.Value)
                 Dim inventario = dtSaldos.Compute("SUM(iccven)", String.Empty)
 
                 detalle.DefaultView.RowFilter = "tbty5prod = '" + fila.Item("tbty5prod").ToString() + "'"
@@ -2564,6 +2566,7 @@ Public Class F0_Venta2
         lbNroCaja.Text = gs_user
         LabelAlmacen.Text = gi_userSuc
         LabelAlmacen.Text = gs_userSucNom
+        cbSucursal.Value = gi_userSuc
         btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
@@ -2578,6 +2581,7 @@ Public Class F0_Venta2
 
     Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
         If (_fnAccesible()) Then
+
             If e.KeyData = Keys.Control + Keys.Enter Then
 
                 Dim dt As DataTable
@@ -3771,7 +3775,7 @@ salirIf:
                     End If
                     If tbNit.Text = String.Empty Then
                         _prImiprimirNotaVenta(tbCodigo.Text)
-                        Return
+                        ' Return
                     ElseIf (Not P_fnValidarFacturaVigente()) Then
 
                         Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)

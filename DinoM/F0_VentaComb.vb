@@ -12,6 +12,7 @@ Public Class F0_VentaComb
 #Region "Variables Globales"
     Dim _CodCliente As Integer = 0
     Dim _CodEmpleado As Integer = 0
+    Dim _CodInstitucion As Integer = 0
     Dim OcultarFact As Integer = 0
     Dim _codeBar As Integer = 1
     Dim _dias As Integer = 0
@@ -43,7 +44,7 @@ Public Class F0_VentaComb
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         MSuperTabControl.SelectedTabIndex = 0
         'Me.WindowState = FormWindowState.Maximized
-
+        cbSucursal.Value = 3
         _prValidarLote()
         _prCargarComboLibreriaSucursal(cbSucursal)
         _prCargarComboLibreria(cbCambioDolar, 7, 1)
@@ -75,7 +76,7 @@ Public Class F0_VentaComb
         DescuentoXProveedorList = ObtenerDescuentoPorProveedor()
         ConfiguracionDescuentoEsXCantidad = TipoDescuentoEsXCantidad()
         SwDescuentoProveedor.Visible = IIf(ConfiguracionDescuentoEsXCantidad, False, True)
-
+        SwDescuentoProveedor.Visible = False
         Programa = P_Principal.btVentVenta.Text
     End Sub
 
@@ -236,6 +237,7 @@ Public Class F0_VentaComb
         tbFechaVenc.IsInputReadOnly = False
 
         swTipoVenta.IsReadOnly = False
+        swTipoVenta.Value = 0
         tbFechaVenta.IsInputReadOnly = False
         tbFechaVenta.Enabled = True
 
@@ -315,7 +317,7 @@ Public Class F0_VentaComb
         '_CodCliente = 0
         '_CodEmpleado = 0
         tbFechaVenta.Value = Now.Date
-        swTipoVenta.Value = True
+        swTipoVenta.Value = False
         tbFechaVenc.Visible = False
         lbCredito.Visible = False
         _prCargarDetalleVenta(-1)
@@ -337,6 +339,16 @@ Public Class F0_VentaComb
 
         txtEstado.BackColor = Color.White
         txtEstado.Clear()
+
+
+        tbTramOrden.Text = ""
+        tbNitTraOrden.Text = ""
+        tbPlaca.Text = ""
+        tbRetSurtidor.Text = ""
+        tbNitRetSurtidor.Text = ""
+        tbFact.Text = ""
+        tbNitFacturarA.Text = ""
+
 
         With grdetalle.RootTable.Columns("img")
             .Width = 80
@@ -380,15 +392,27 @@ Public Class F0_VentaComb
             tbCodigo.Text = .GetValue("tanumi")
             tbFechaVenta.Value = .GetValue("tafdoc")
             _CodEmpleado = .GetValue("taven")
+            _CodInstitucion = .GetValue("NroCaja")
             tbVendedor.Text = .GetValue("institucion")
             _CodCliente = .GetValue("taclpr")
             tbCliente.Text = .GetValue("cliente")
             swMoneda.Value = .GetValue("tamon")
             tbFechaVenc.Value = .GetValue("tafvcr")
             swTipoVenta.Value = .GetValue("tatven")
+            SwConta.Value = IIf(.GetValue("taproforma") = 0, 1, 0)
             tbObservacion.Text = .GetValue("taobs")
             lbNroCaja.Text = .GetValue("vendedor")
 
+            tbTramOrden.Text = .GetValue("tcentregado")
+            tbNitTraOrden.Text = .GetValue("tcentregadoci")
+            cbDespachador.Value = .GetValue("tcdespachador")
+            tbPlaca.Text = .GetValue("tcplaca")
+            tbRetSurtidor.Text = .GetValue("tcretiro")
+            tbNitRetSurtidor.Text = .GetValue("tcnitretiro")
+            tbFact.Text = .GetValue("tcfacnombre")
+            tbNitFacturarA.Text = .GetValue("tcfacnit")
+            cbTipoSolicitud.Value = .GetValue("tcsolicitud")
+            cbSurtidor.Value = .GetValue("tcsurtidor")
             If grVentas.GetValue("taest") = 1 Then
                 txtEstado.Text = "VIGENTE"
                 txtEstado.BackColor = Color.Green
@@ -797,11 +821,64 @@ Public Class F0_VentaComb
 
         End With
 
+        With grVentas.RootTable.Columns("tcentregado")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+
+        With grVentas.RootTable.Columns("tcentregadoci")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcdespachador")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcplaca")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcretiro")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcnitretiro")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcfacnombre")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcfacnit")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcsolicitud")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcsurtidor")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+
         If (dt.Rows.Count <= 0) Then
             _prCargarDetalleVenta(-1)
         End If
     End Sub
     Public Sub _prGuardar()
+        txtMontoPagado1.Text = tbTotalBs.Text
         If _ValidarCampos() = False Then
             Exit Sub
         End If
@@ -1580,7 +1657,7 @@ Public Class F0_VentaComb
         For Each fila As DataRow In detalle.Rows
             Dim idProducto = fila.Item("tbty5prod")
             If aux <> idProducto Then
-                dtSaldos = L_fnObteniendoSaldosTI001(fila.Item("tbty5prod"), 1)
+                dtSaldos = L_fnObteniendoSaldosTI001(fila.Item("tbty5prod"), 3)
                 Dim inventario = dtSaldos.Compute("SUM(iccven)", String.Empty)
 
                 detalle.DefaultView.RowFilter = "tbty5prod = '" + fila.Item("tbty5prod").ToString() + "'"
@@ -1617,15 +1694,16 @@ Public Class F0_VentaComb
             ''Verifica si existe estock para los productos
             If _prExisteStockParaProducto() Then
                 Dim dtDetalle As DataTable = rearmarDetalle()
-                Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
+                Dim res As Boolean = L_fnGrabarVentaCombustible(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
                                                      IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
                                                     Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
                                                      _CodCliente, IIf(swMoneda.Value = True, 1, 0),
                                                       tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
+                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, tbFact.Text, tbNitFacturarA.Text, cbTipoSolicitud.Value, cbSurtidor.Value)
                 If res Then
                     res = P_fnGrabarFacturarTFV001(numi)
                     'Emite factura
+                    tbNit.Text = tbNitFacturarA.Text
                     If (gb_FacturaEmite) Then
                         If tbNit.Text <> String.Empty Then
                             P_fnGenerarFactura(numi)
@@ -2642,7 +2720,7 @@ Public Class F0_VentaComb
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         _Limpiar()
         _prhabilitar()
-        '' AsignarClienteEmpleado()
+        AsignarClienteEmpleado()
         lbNroCaja.Text = gs_user
         LabelAlmacen.Text = gi_userSuc
         LabelAlmacen.Text = gs_userSucNom
@@ -2652,6 +2730,7 @@ Public Class F0_VentaComb
         btnGrabar.Enabled = True
         PanelNavegacion.Enabled = False
         tbNit.Select()
+        cbSucursal.Value = 3
         Dim dt As DataTable
         dt = CargarProductoDiesel("TY005", "11101001")
         _prCargarProductos(Str(_CodCliente))
@@ -2668,7 +2747,7 @@ Public Class F0_VentaComb
         If (G_Lote = True) Then
             dt = L_fnListarProductos(cbSucursal.Value, _cliente)
         Else
-            dt = L_fnListarProductoDiesel(cbSucursal.Value, _cliente, CType(grdetalle.DataSource, DataTable))
+            dt = L_fnListarProductoDiesel(3, _cliente, CType(grdetalle.DataSource, DataTable))
         End If
 
         grProductos.DataSource = dt
@@ -3062,5 +3141,212 @@ Public Class F0_VentaComb
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
         _prGuardar()
     End Sub
+
+    Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
+        If (_fnAccesible()) Then
+
+            If e.KeyData = Keys.Control + Keys.Enter Then
+
+                Dim dt As DataTable
+                'dt = L_fnListarClientes()
+                dt = L_fnListarClientesVenta()
+
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD. CLI", 100))
+                listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", True, "RAZÓN SOCIAL", 180))
+                listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
+                listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
+                listEstCeldas.Add(New Modelo.Celda("yddirec", True, "DIRECCIÓN", 220))
+                listEstCeldas.Add(New Modelo.Celda("ydtelf1", True, "Teléfono".ToUpper, 200))
+                listEstCeldas.Add(New Modelo.Celda("ydfnac", True, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
+                listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("vendedor,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("yddias", False, "CRED", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Nombre Factura", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dt
+                ef.SeleclCol = 2
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 50
+                ef.ancho = 200
+                ef.Context = "Seleccione Cliente".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                    _CodCliente = Row.Cells("ydnumi").Value
+                    tbCliente.Text = Row.Cells("ydrazonsocial").Value
+                    _dias = Row.Cells("yddias").Value
+                    tbNit.Text = Row.Cells("ydnit").Value
+                    TbNombre1.Text = Row.Cells("ydnomfac").Value
+
+                    Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
+                    If (numiVendedor > 0) Then
+                        ''tbVendedor.Text = Row.Cells("vendedor").Value
+                        _CodEmpleado = Row.Cells("ydnumivend").Value
+
+                        grdetalle.Select()
+                        Table_Producto = Nothing
+                    Else
+                        tbVendedor.Clear()
+                        _CodEmpleado = 0
+                        tbVendedor.Focus()
+                        Table_Producto = Nothing
+
+                    End If
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub tbCliente_TextChanged(sender As Object, e As EventArgs) Handles tbCliente.TextChanged
+        If btnNuevo.Enabled = False Then
+            Dim dt As DataTable
+            dt = L_fnListarCaneroInstitucion(_CodCliente)
+            Dim row As DataRow = dt.Rows(dt.Rows.Count - 1)
+            tbVendedor.Text = row("institucion")
+        End If
+    End Sub
+
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+        Try
+            tbNit.Text = tbNitFacturarA.Text
+            If (Not _fnAccesible()) Then
+
+                If (gb_FacturaEmite) Then
+                    If tbCodigo.Text = String.Empty Then
+                        Throw New Exception("Venta no encontrada")
+                    End If
+                    If tbNit.Text = String.Empty Then
+                        _prImiprimirNotaVenta(tbCodigo.Text)
+                        ' Return
+                    ElseIf (Not P_fnValidarFacturaVigente()) Then
+
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "No se puede imprimir la factura con numero ".ToUpper + tbNroFactura.Text + ", su factura esta anulada".ToUpper,
+                                              img, 3000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter)
+                        Exit Sub
+                    End If
+                    ReimprimirFactura(tbCodigo.Text, True, True)
+                    _prImiprimirNotaVenta(tbCodigo.Text)
+                Else
+                    _prImiprimirNotaVenta(tbCodigo.Text)
+                End If
+            End If
+        Catch ex As Exception
+            MostrarMensajeError(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnContabilizar_Click(sender As Object, e As EventArgs) Handles btnContabilizar.Click
+        Dim codigoVenta = tbCodigo.Text
+        Dim codCanero = "P/Ord." + codigoVenta + " " + Convert.ToString(_CodCliente) + " " + tbCliente.Text 'obobs
+        Dim total = tbTotalBs.Text 'para obtener debe haber
+        Dim dt, dt1, dtDetalle As DataTable
+        Dim cuenta As String
+        Dim debebs, haberbs, debeus, haberus As Double
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta
+
+
+
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta)) 'numi cabecera to001
+        'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
+
+        For a As Integer = 1 To 2 Step 1
+            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+            'Dim grdetalle1 As GridEX
+            dtDetalle = L_fnDetalleVenta1(codigoVenta)
+
+            'Dim dt As New DataTable
+            'dt = L_fnDetalleVenta(_numi)
+            'grdetalle.DataSource = dt
+
+            'dtDetalle = CType(grdetalle1.DataSource, DataTable)
+            'dtDetalle = dt
+            Dim oblin As Integer = 1
+            Dim totalCosto As Double = 0.00
+            For Each row In dt.Rows
+                '    Select Case row("cuenta")
+
+                If row("cuenta") = "-1" Then
+                    For Each detalle In dtDetalle.Rows
+                        cuenta = detalle("yfclot")
+                        If row("dh") = 1 Then
+                            debeus = (Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            debebs = debeus * 6.96
+                            haberus = 0.00
+                            haberbs = 0.00
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+                        Else
+                            haberus = (Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            haberbs = haberus * 6.96
+                            debeus = 0.00
+                            debebs = 0.00
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+                        End If
+
+                        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                        oblin = oblin + 1
+                    Next
+
+
+                    If row("cuenta") = "-1" Then
+                        Continue For
+                    End If
+
+                End If
+                If row("cuenta") = "-2" Then
+                    cuenta = dt1.Rows(0).Item(5)
+
+                Else
+                    cuenta = row("cuenta")
+                End If
+                If row("dh") = 1 Then
+                    debeus = (IIf(row("tipo") = 1, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
+                    debebs = debeus * 6.96
+                    haberus = 0.00
+                    haberbs = 0.00
+                Else
+                    haberus = (IIf(row("tipo") = 1, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
+                    haberbs = haberus * 6.96
+                    debeus = 0.00
+                    debebs = 0.00
+                End If
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                oblin = oblin + 1
+            Next
+        Next
+
+        L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+        ToastNotification.Show(Me, " Venta ".ToUpper + tbCodigo.Text + " Contabilizada con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter
+                                              )
+        _prCargarVenta()
+    End Sub
+
+    Private Sub SwConta_ValueChanged(sender As Object, e As EventArgs) Handles SwConta.ValueChanged
+        If (SwConta.Value = False) Then
+            btnContabilizar.Visible = False
+
+        Else
+            btnContabilizar.Visible = True
+        End If
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        _prSalir()
+    End Sub
+
 #End Region
 End Class

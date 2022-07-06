@@ -180,8 +180,8 @@ Partial Class F0_Venta2
         '
         'PanelSuperior
         '
-        Me.PanelSuperior.Controls.Add(Me.SwConta)
         Me.PanelSuperior.Controls.Add(Me.btnContabilizar)
+        Me.PanelSuperior.Controls.Add(Me.SwConta)
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelSuperior.Size = New System.Drawing.Size(1319, 72)
@@ -198,13 +198,13 @@ Partial Class F0_Venta2
         Me.PanelSuperior.StyleMouseOver.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackgroundImage = CType(resources.GetObject("PanelSuperior.StyleMouseOver.BackgroundImage"), System.Drawing.Image)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.SwDescuentoProveedor, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar1, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar2, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.MRlAccion, 0)
-        Me.PanelSuperior.Controls.SetChildIndex(Me.PictureBox1, 0)
-        Me.PanelSuperior.Controls.SetChildIndex(Me.SwDescuentoProveedor, 0)
-        Me.PanelSuperior.Controls.SetChildIndex(Me.btnContabilizar, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.SwConta, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.PictureBox1, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.btnContabilizar, 0)
         '
         'PanelInferior
         '
@@ -848,12 +848,11 @@ Partial Class F0_Venta2
         Me.tbNit.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNit.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbNit.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbNit.Location = New System.Drawing.Point(759, 11)
+        Me.tbNit.Location = New System.Drawing.Point(717, 10)
         Me.tbNit.Name = "tbNit"
         Me.tbNit.PreventEnterBeep = True
-        Me.tbNit.Size = New System.Drawing.Size(19, 21)
+        Me.tbNit.Size = New System.Drawing.Size(60, 21)
         Me.tbNit.TabIndex = 1
-        Me.tbNit.Visible = False
         '
         'LabelX3
         '
@@ -870,7 +869,6 @@ Partial Class F0_Venta2
         Me.LabelX3.Size = New System.Drawing.Size(60, 23)
         Me.LabelX3.TabIndex = 277
         Me.LabelX3.Text = "Nit/Ci:"
-        Me.LabelX3.Visible = False
         '
         'LabelX10
         '
@@ -2247,7 +2245,7 @@ Partial Class F0_Venta2
         Me.SwConta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.SwConta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SwConta.IsReadOnly = True
-        Me.SwConta.Location = New System.Drawing.Point(884, 22)
+        Me.SwConta.Location = New System.Drawing.Point(588, 22)
         Me.SwConta.Name = "SwConta"
         Me.SwConta.OffBackColor = System.Drawing.Color.LawnGreen
         Me.SwConta.OffText = "CONTABILIZADO"

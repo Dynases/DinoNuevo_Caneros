@@ -1771,6 +1771,61 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _resultado
     End Function
 
+    Public Shared Function L_fnGrabarVentaCombustible(ByRef _tanumi As String, _taidCorelativo As String, _tafdoc As String, _taven As Integer, _tatven As Integer, _tafvcr As String, _taclpr As Integer,
+                                           _tamon As Integer, _taobs As String,
+                                           _tadesc As Double, _taice As Double,
+                                           _tatotal As Double, detalle As DataTable, _almacen As Integer, _taprforma As Integer, Monto As DataTable, _NroCaja As Integer,
+                                           _programa As String, _tcentregado As String, _tcentregadoci As String, _tcdespachador As Integer, _tcplaca As String, _tcretiro As String, _tcnitretiro As String,
+                                           _tcfacnombre As String, _tcfacnit As String, _tiposoli As Integer, _surtidor As Integer) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", 22))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _listParam.Add(New Datos.DParametro("@taproforma", _taprforma))
+        _listParam.Add(New Datos.DParametro("@taidCore", _taidCorelativo))
+        _listParam.Add(New Datos.DParametro("@taalm", _almacen))
+        _listParam.Add(New Datos.DParametro("@tafdoc", _tafdoc))
+        _listParam.Add(New Datos.DParametro("@taven", _taven))
+        _listParam.Add(New Datos.DParametro("@tatven", _tatven))
+        _listParam.Add(New Datos.DParametro("@tafvcr", _tafvcr))
+        _listParam.Add(New Datos.DParametro("@taclpr", _taclpr))
+        _listParam.Add(New Datos.DParametro("@tamon", _tamon))
+        _listParam.Add(New Datos.DParametro("@taest", 1))
+        _listParam.Add(New Datos.DParametro("@taobs", _taobs))
+        _listParam.Add(New Datos.DParametro("@tadesc", _tadesc))
+        _listParam.Add(New Datos.DParametro("@taice", _taice))
+        _listParam.Add(New Datos.DParametro("@tatotal", _tatotal))
+        _listParam.Add(New Datos.DParametro("@taNrocaja", _NroCaja))
+        _listParam.Add(New Datos.DParametro("@bcprograma", _programa))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@TV0011", "", detalle))
+        _listParam.Add(New Datos.DParametro("@TV0014", "", Monto))
+        _listParam.Add(New Datos.DParametro("@tcentregado", _tcentregado))
+        _listParam.Add(New Datos.DParametro("@tcentregadoci", _tcentregadoci))
+        _listParam.Add(New Datos.DParametro("@tcdespachador", _tcdespachador))
+        _listParam.Add(New Datos.DParametro("@tcplaca", _tcplaca))
+        _listParam.Add(New Datos.DParametro("@tcretiro", _tcretiro))
+        _listParam.Add(New Datos.DParametro("@tcnitretiro", _tcnitretiro))
+        _listParam.Add(New Datos.DParametro("@tcfacnombre", _tcfacnombre))
+        _listParam.Add(New Datos.DParametro("@tcfacnit", _tcfacnit))
+        _listParam.Add(New Datos.DParametro("@tiposoli", _tiposoli))
+        _listParam.Add(New Datos.DParametro("@surtidor", _surtidor))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
     Public Shared Function L_fnGrabarTO001(_tipo As Integer, ByRef _tanumi As Integer, Optional _obnumito1 As String = "", Optional _oblin As String = "",
                                            Optional _obcuenta As String = "", Optional _obobs As String = "", Optional _obdebebs As Double = 0.00,
                                            Optional _obhaberbs As Double = 0.00, Optional _obdebeus As Double = 0.00, Optional _obhaberus As Double = 0.00) As Integer

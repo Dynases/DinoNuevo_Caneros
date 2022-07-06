@@ -25,11 +25,11 @@ Partial Class F0_VentaComb
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_VentaComb))
+        Dim cbDespachador_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbSurtidor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbTipoSolicitud_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbCambioDolar_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim cbDespachador_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
@@ -40,6 +40,7 @@ Partial Class F0_VentaComb
         Me.grVentas = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.cbDespachador = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbSurtidor = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbTipoSolicitud = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbPlaca = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -145,7 +146,8 @@ Partial Class F0_VentaComb
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grProductos = New Janus.Windows.GridEX.GridEX()
         Me.grdetalle = New Janus.Windows.GridEX.GridEX()
-        Me.cbDespachador = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.btnContabilizar = New DevComponents.DotNetBar.ButtonX()
+        Me.SwConta = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -168,6 +170,7 @@ Partial Class F0_VentaComb
         CType(Me.grVentas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel2.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.cbDespachador, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbSurtidor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbTipoSolicitud, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaVenc, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -195,11 +198,12 @@ Partial Class F0_VentaComb
         Me.Panel7.SuspendLayout()
         CType(Me.grProductos, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbDespachador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelSuperior
         '
+        Me.PanelSuperior.Controls.Add(Me.btnContabilizar)
+        Me.PanelSuperior.Controls.Add(Me.SwConta)
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelSuperior.Size = New System.Drawing.Size(889, 72)
@@ -221,6 +225,8 @@ Partial Class F0_VentaComb
         Me.PanelSuperior.Controls.SetChildIndex(Me.MRlAccion, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PictureBox1, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.SwDescuentoProveedor, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.SwConta, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.btnContabilizar, 0)
         '
         'PanelInferior
         '
@@ -266,6 +272,9 @@ Partial Class F0_VentaComb
         Me.TxtNombreUsu.Size = New System.Drawing.Size(135, 23)
         Me.TxtNombreUsu.Text = "DEFAULT"
         '
+        'btnSalir
+        '
+        '
         'btnGrabar
         '
         '
@@ -289,6 +298,9 @@ Partial Class F0_VentaComb
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.Panel1, 0)
+        '
+        'btnImprimir
+        '
         '
         'btnUltimo
         '
@@ -378,7 +390,7 @@ Partial Class F0_VentaComb
         '
         Me.SwDescuentoProveedor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.SwDescuentoProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SwDescuentoProveedor.Location = New System.Drawing.Point(494, 20)
+        Me.SwDescuentoProveedor.Location = New System.Drawing.Point(634, 3)
         Me.SwDescuentoProveedor.Name = "SwDescuentoProveedor"
         Me.SwDescuentoProveedor.OffBackColor = System.Drawing.Color.LawnGreen
         Me.SwDescuentoProveedor.OffText = "DESC. MANUAL"
@@ -585,6 +597,23 @@ Partial Class F0_VentaComb
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(850, 292)
         Me.Panel2.TabIndex = 0
+        '
+        'cbDespachador
+        '
+        Me.cbDespachador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Flat
+        Me.cbDespachador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        cbDespachador_DesignTimeLayout.LayoutString = resources.GetString("cbDespachador_DesignTimeLayout.LayoutString")
+        Me.cbDespachador.DesignTimeLayout = cbDespachador_DesignTimeLayout
+        Me.cbDespachador.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbDespachador.Location = New System.Drawing.Point(93, 240)
+        Me.cbDespachador.Name = "cbDespachador"
+        Me.cbDespachador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbDespachador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbDespachador.SelectedIndex = -1
+        Me.cbDespachador.SelectedItem = Nothing
+        Me.cbDespachador.Size = New System.Drawing.Size(190, 22)
+        Me.cbDespachador.TabIndex = 414
+        Me.cbDespachador.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'cbSurtidor
         '
@@ -1202,7 +1231,7 @@ Partial Class F0_VentaComb
         cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
         Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
         Me.cbSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.Location = New System.Drawing.Point(698, 108)
+        Me.cbSucursal.Location = New System.Drawing.Point(693, 113)
         Me.cbSucursal.Name = "cbSucursal"
         Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -1210,7 +1239,6 @@ Partial Class F0_VentaComb
         Me.cbSucursal.SelectedItem = Nothing
         Me.cbSucursal.Size = New System.Drawing.Size(140, 22)
         Me.cbSucursal.TabIndex = 270
-        Me.cbSucursal.Visible = False
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'tbFechaVenta
@@ -2501,22 +2529,42 @@ Partial Class F0_VentaComb
         Me.grdetalle.TabIndex = 3
         Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'cbDespachador
+        'btnContabilizar
         '
-        Me.cbDespachador.BorderStyle = Janus.Windows.GridEX.BorderStyle.Flat
-        Me.cbDespachador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        cbDespachador_DesignTimeLayout.LayoutString = resources.GetString("cbDespachador_DesignTimeLayout.LayoutString")
-        Me.cbDespachador.DesignTimeLayout = cbDespachador_DesignTimeLayout
-        Me.cbDespachador.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbDespachador.Location = New System.Drawing.Point(93, 240)
-        Me.cbDespachador.Name = "cbDespachador"
-        Me.cbDespachador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbDespachador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.cbDespachador.SelectedIndex = -1
-        Me.cbDespachador.SelectedItem = Nothing
-        Me.cbDespachador.Size = New System.Drawing.Size(190, 22)
-        Me.cbDespachador.TabIndex = 414
-        Me.cbDespachador.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        Me.btnContabilizar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnContabilizar.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.btnContabilizar.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.btnContabilizar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnContabilizar.Image = Global.DinoM.My.Resources.Resources.BUSQUEDA
+        Me.btnContabilizar.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.btnContabilizar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnContabilizar.Location = New System.Drawing.Point(665, 0)
+        Me.btnContabilizar.Name = "btnContabilizar"
+        Me.btnContabilizar.Size = New System.Drawing.Size(95, 72)
+        Me.btnContabilizar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnContabilizar.TabIndex = 390
+        Me.btnContabilizar.Text = "CONTABILIZAR"
+        Me.btnContabilizar.TextColor = System.Drawing.Color.White
+        '
+        'SwConta
+        '
+        '
+        '
+        '
+        Me.SwConta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.SwConta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SwConta.IsReadOnly = True
+        Me.SwConta.Location = New System.Drawing.Point(487, 22)
+        Me.SwConta.Name = "SwConta"
+        Me.SwConta.OffBackColor = System.Drawing.Color.LawnGreen
+        Me.SwConta.OffText = "CONTABILIZADO"
+        Me.SwConta.OnBackColor = System.Drawing.Color.Gold
+        Me.SwConta.OnText = "SIN CONTABILIZAR"
+        Me.SwConta.Size = New System.Drawing.Size(170, 28)
+        Me.SwConta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.SwConta.TabIndex = 391
+        Me.SwConta.Value = True
+        Me.SwConta.ValueObject = "Y"
         '
         'F0_VentaComb
         '
@@ -2555,6 +2603,7 @@ Partial Class F0_VentaComb
         Me.GroupPanel2.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.cbDespachador, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbSurtidor, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbTipoSolicitud, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaVenc, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2583,7 +2632,6 @@ Partial Class F0_VentaComb
         Me.Panel7.ResumeLayout(False)
         CType(Me.grProductos, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbDespachador, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2704,4 +2752,6 @@ Partial Class F0_VentaComb
     Friend WithEvents grProductos As Janus.Windows.GridEX.GridEX
     Friend WithEvents grdetalle As Janus.Windows.GridEX.GridEX
     Friend WithEvents cbDespachador As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Protected WithEvents btnContabilizar As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents SwConta As DevComponents.DotNetBar.Controls.SwitchButton
 End Class
