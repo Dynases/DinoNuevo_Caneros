@@ -126,9 +126,9 @@ Partial Class Login
         'PictureBox1
         '
         Me.PictureBox1.ImageLocation = ""
-        Me.PictureBox1.Location = New System.Drawing.Point(97, 85)
+        Me.PictureBox1.Location = New System.Drawing.Point(30, 85)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(166, 112)
+        Me.PictureBox1.Size = New System.Drawing.Size(299, 112)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
@@ -187,6 +187,7 @@ Partial Class Login
         Me.tbUsuario.PreventEnterBeep = True
         Me.tbUsuario.Size = New System.Drawing.Size(200, 27)
         Me.tbUsuario.TabIndex = 0
+        Me.tbUsuario.Text = "DYNASYS"
         '
         'tbPassword
         '
@@ -203,6 +204,7 @@ Partial Class Login
         Me.tbPassword.PreventEnterBeep = True
         Me.tbPassword.Size = New System.Drawing.Size(200, 27)
         Me.tbPassword.TabIndex = 1
+        Me.tbPassword.Text = "123"
         '
         'btnIngresar
         '

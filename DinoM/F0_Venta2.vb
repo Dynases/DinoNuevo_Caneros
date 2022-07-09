@@ -39,7 +39,7 @@ Public Class F0_Venta2
         _prValidarLote()
         _prCargarComboLibreriaSucursal(cbSucursal)
         _prCargarComboLibreria(cbCambioDolar, 7, 1)
-        cbCambioDolar.Value = 1
+        cbCambioDolar.Value = 2
         'lbTipoMoneda.Visible = False
         swMoneda.Visible = True
         P_prCargarVariablesIndispensables()

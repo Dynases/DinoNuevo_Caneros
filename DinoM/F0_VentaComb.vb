@@ -49,7 +49,7 @@ Public Class F0_VentaComb
         _prCargarComboLibreriaSucursal(cbSucursal)
         _prCargarComboLibreria(cbCambioDolar, 7, 1)
         _prCargarComboLibreria(cbTipoSolicitud, 10, 1)
-        _prCargarComboLibreria(cbSurtidor, 1, 8)
+        _prCargarComboLibreria(cbSurtidor, 1, 10)
         _prCargarComboLibreria(cbDespachador, 1, 9)
         cbCambioDolar.Value = 1
         'lbTipoMoneda.Visible = False
@@ -363,7 +363,9 @@ Public Class F0_VentaComb
         '    PanelInferior.Visible = True
         'End If
         tbCliente.Focus()
+        _prCargarProductos(Str(_CodCliente))
 
+        InsertarProductosSinLote()
         tbNit.Clear()
         TbNombre1.Clear()
         TbNombre2.Clear()
@@ -400,6 +402,13 @@ Public Class F0_VentaComb
             tbFechaVenc.Value = .GetValue("tafvcr")
             swTipoVenta.Value = .GetValue("tatven")
             SwConta.Value = IIf(.GetValue("taproforma") = 0, 1, 0)
+            If .GetValue("tctiposurtidor") = True Then
+                _prCargarComboLibreria(cbSurtidor, 1, 10)
+            Else
+                _prCargarComboLibreria(cbSurtidor, 1, 8)
+            End If
+            SwSurtidor.Value = IIf(.GetValue("tctiposurtidor") = True, 1, 0)
+
             tbObservacion.Text = .GetValue("taobs")
             lbNroCaja.Text = .GetValue("vendedor")
 
@@ -872,7 +881,11 @@ Public Class F0_VentaComb
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
-
+        With grVentas.RootTable.Columns("tctiposurtidor")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
         If (dt.Rows.Count <= 0) Then
             _prCargarDetalleVenta(-1)
         End If
@@ -1699,11 +1712,12 @@ Public Class F0_VentaComb
                                                     Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
                                                      _CodCliente, IIf(swMoneda.Value = True, 1, 0),
                                                       tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, tbFact.Text, tbNitFacturarA.Text, cbTipoSolicitud.Value, cbSurtidor.Value)
+                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, tbFact.Text, tbNitFacturarA.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value)
                 If res Then
+                    tbNit.Text = tbNitFacturarA.Text
                     res = P_fnGrabarFacturarTFV001(numi)
                     'Emite factura
-                    tbNit.Text = tbNitFacturarA.Text
+
                     If (gb_FacturaEmite) Then
                         If tbNit.Text <> String.Empty Then
                             P_fnGenerarFactura(numi)
@@ -2032,7 +2046,7 @@ Public Class F0_VentaComb
         _Hora = Now.Hour.ToString("D2") + ":" + Now.Minute.ToString("D2")
         _Ds1 = L_DosificacionCajas("1", "1", _Fecha, gs_NroCaja)
 
-        _Ds = L_Reporte_Factura(numi, numi)
+        _Ds = L_Reporte_FacturaCombustible(numi, numi)
         _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString
         _NumFac = CInt(_Ds1.Tables(0).Rows(0).Item("sbnfac")) + 1
         _Nit = _Ds.Tables(0).Rows(0).Item("fvanitcli").ToString
@@ -2084,7 +2098,7 @@ Public Class F0_VentaComb
                             "",
                             "",
                             CStr(numi))
-        _Ds = L_Reporte_Factura(numi, numi)
+        _Ds = L_Reporte_FacturaCombustible(numi, numi)
 
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
@@ -2146,7 +2160,7 @@ Public Class F0_VentaComb
                 objrep.SetParameterValue("TipoVenta", IIf(swTipoVenta.Value = True, "CONTADO", "CRÉDITO"))
                 objrep.SetParameterValue("PlazoPago", IIf(swTipoVenta.Value = True, tbFechaVenta.Value, tbFechaVenc.Value))
             Case ENReporteTipo.FACTURA_MediaCarta
-                objrep = New R_FacturaMediaCarta
+                objrep = New R_FacturaMediaCartaCombustible
                 objrep.SetDataSource(_Ds.Tables(0))
                 Dim fechaLiteral = ObtenerFechaLiteral(_fecha, _Ds2.Tables(0).Rows(0).Item("scciu").ToString)
                 objrep.SetParameterValue("Fecliteral", fechaLiteral)
@@ -2293,7 +2307,7 @@ Public Class F0_VentaComb
             End If
 
 
-            _Ds = L_Reporte_Factura(numi, numi)
+            _Ds = L_Reporte_FacturaCombustible(numi, numi)
             _Fecha = _Ds.Tables(0).Rows(0).Item("fvafec").ToString
             _Ds1 = L_DosificacionReImprimir("1", "1", _Fecha, _Ds.Tables(0).Rows(0).Item("fvaautoriz").ToString)
             _Hora = _Ds.Tables(0).Rows(0).Item("fvahora").ToString
@@ -2348,7 +2362,7 @@ Public Class F0_VentaComb
             '                    "",
             '                    CStr(numi))
 
-            _Ds = L_Reporte_Factura(numi, numi)
+            _Ds = L_Reporte_FacturaCombustible(numi, numi)
 
 
             If Not IsNothing(P_Global.Visualizador) Then
@@ -2369,7 +2383,8 @@ Public Class F0_VentaComb
                             SerPArametrosFactura(_Ds, _Ds1, _Ds2, _Autorizacion, _Hora, _Literal, _NumFac, objrep,
                                       fila.Item("TipoReporte").ToString, _Fecha, False, _numidosif, numi, 0)
                         Case ENReporteTipo.FACTURA_MediaCarta
-                            objrep = New R_FacturaMediaCarta
+                            objrep = New R_FacturaMediaCartaCombustible
+
                             SerPArametrosFactura(_Ds, _Ds1, _Ds2, _Autorizacion, _Hora, _Literal, _NumFac, objrep,
                                       fila.Item("TipoReporte").ToString, _Fecha, False, _numidosif, numi, 0)
                         Case ENReporteTipo.FACTURA_Carta
@@ -2731,10 +2746,7 @@ Public Class F0_VentaComb
         PanelNavegacion.Enabled = False
         tbNit.Select()
         cbSucursal.Value = 3
-        Dim dt As DataTable
-        dt = CargarProductoDiesel("TY005", "11101001")
-        _prCargarProductos(Str(_CodCliente))
-        InsertarProductosSinLote()
+
 
     End Sub
     Private Sub _prCargarProductos(_cliente As String)
@@ -3347,6 +3359,22 @@ Public Class F0_VentaComb
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         _prSalir()
     End Sub
+
+    Private Sub SwSurtidor_ValueChanged(sender As Object, e As EventArgs) Handles SwSurtidor.ValueChanged
+        If (SwSurtidor.Value = True) Then
+            cbSurtidor.Clear()
+            _prCargarComboLibreria(cbSurtidor, 1, 10)
+            cbSurtidor.Value = 1
+        Else
+            cbSurtidor.Clear()
+            _prCargarComboLibreria(cbSurtidor, 1, 8)
+            cbSurtidor.Value = 0
+        End If
+
+
+    End Sub
+
+
 
 #End Region
 End Class

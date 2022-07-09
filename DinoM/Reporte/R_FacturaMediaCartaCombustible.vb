@@ -18,7 +18,7 @@ Imports System
 Imports System.ComponentModel
 
 
-Public Class R_FacturaMediaCarta
+Public Class R_FacturaMediaCartaCombustible
     Inherits ReportClass
     
     Public Sub New()
@@ -27,7 +27,7 @@ Public Class R_FacturaMediaCarta
     
     Public Overrides Property ResourceName() As String
         Get
-            Return "R_FacturaMediaCarta.rpt"
+            Return "R_FacturaMediaCartaCombustible.rpt"
         End Get
         Set
             'Do nothing
@@ -45,7 +45,7 @@ Public Class R_FacturaMediaCarta
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "DinoM.R_FacturaMediaCarta.rpt"
+            Return "DinoM.R_FacturaMediaCartaCombustible.rpt"
         End Get
         Set
             'Do nothing
@@ -230,7 +230,7 @@ Public Class R_FacturaMediaCarta
 End Class
 
 <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-Public Class CachedR_FacturaMediaCarta
+Public Class CachedR_FacturaMediaCartaCombustible
     Inherits Component
     Implements ICachedReport
     
@@ -272,7 +272,7 @@ Public Class CachedR_FacturaMediaCarta
     End Property
     
     Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-        Dim rpt As R_FacturaMediaCarta = New R_FacturaMediaCarta()
+        Dim rpt As R_FacturaMediaCartaCombustible = New R_FacturaMediaCartaCombustible()
         rpt.Site = Me.Site
         Return rpt
     End Function

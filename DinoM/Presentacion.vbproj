@@ -692,6 +692,12 @@
       <DependentUpon>R_FacturaCarta2.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reporte\R_FacturaMediaCartaCombustible.vb">
+      <DependentUpon>R_FacturaMediaCartaCombustible.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reporte\R_FacturaMediaCarta.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1348,6 +1354,10 @@
     <EmbeddedResource Include="Reporte\R_FacturaCarta2.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_FacturaCarta2.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_FacturaMediaCartaCombustible.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_FacturaMediaCartaCombustible.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_FacturaMediaCarta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

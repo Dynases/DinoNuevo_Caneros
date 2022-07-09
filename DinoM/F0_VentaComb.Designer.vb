@@ -40,6 +40,7 @@ Partial Class F0_VentaComb
         Me.grVentas = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.SwSurtidor = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.cbDespachador = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbSurtidor = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbTipoSolicitud = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -539,6 +540,7 @@ Partial Class F0_VentaComb
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.SwSurtidor)
         Me.Panel2.Controls.Add(Me.cbDespachador)
         Me.Panel2.Controls.Add(Me.cbSurtidor)
         Me.Panel2.Controls.Add(Me.cbTipoSolicitud)
@@ -597,6 +599,25 @@ Partial Class F0_VentaComb
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(850, 292)
         Me.Panel2.TabIndex = 0
+        '
+        'SwSurtidor
+        '
+        '
+        '
+        '
+        Me.SwSurtidor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.SwSurtidor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SwSurtidor.Location = New System.Drawing.Point(472, 65)
+        Me.SwSurtidor.Name = "SwSurtidor"
+        Me.SwSurtidor.OffBackColor = System.Drawing.Color.LawnGreen
+        Me.SwSurtidor.OffText = "OTRO SURTIDOR"
+        Me.SwSurtidor.OnBackColor = System.Drawing.Color.Gold
+        Me.SwSurtidor.OnText = "SURTIDOR GUABIRA"
+        Me.SwSurtidor.Size = New System.Drawing.Size(170, 28)
+        Me.SwSurtidor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.SwSurtidor.TabIndex = 392
+        Me.SwSurtidor.Value = True
+        Me.SwSurtidor.ValueObject = "Y"
         '
         'cbDespachador
         '
@@ -1318,7 +1339,6 @@ Partial Class F0_VentaComb
         Me.TbNombre1.PreventEnterBeep = True
         Me.TbNombre1.Size = New System.Drawing.Size(19, 21)
         Me.TbNombre1.TabIndex = 2
-        Me.TbNombre1.Visible = False
         '
         'LabelX4
         '
@@ -2554,7 +2574,7 @@ Partial Class F0_VentaComb
         Me.SwConta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.SwConta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SwConta.IsReadOnly = True
-        Me.SwConta.Location = New System.Drawing.Point(487, 22)
+        Me.SwConta.Location = New System.Drawing.Point(489, 22)
         Me.SwConta.Name = "SwConta"
         Me.SwConta.OffBackColor = System.Drawing.Color.LawnGreen
         Me.SwConta.OffText = "CONTABILIZADO"
@@ -2754,4 +2774,5 @@ Partial Class F0_VentaComb
     Friend WithEvents cbDespachador As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Protected WithEvents btnContabilizar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents SwConta As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents SwSurtidor As DevComponents.DotNetBar.Controls.SwitchButton
 End Class

@@ -1776,7 +1776,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                            _tadesc As Double, _taice As Double,
                                            _tatotal As Double, detalle As DataTable, _almacen As Integer, _taprforma As Integer, Monto As DataTable, _NroCaja As Integer,
                                            _programa As String, _tcentregado As String, _tcentregadoci As String, _tcdespachador As Integer, _tcplaca As String, _tcretiro As String, _tcnitretiro As String,
-                                           _tcfacnombre As String, _tcfacnit As String, _tiposoli As Integer, _surtidor As Integer) As Boolean
+                                           _tcfacnombre As String, _tcfacnit As String, _tiposoli As Integer, _surtidor As Integer, _tiposurtidor As Boolean) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -1813,6 +1813,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tcfacnit", _tcfacnit))
         _listParam.Add(New Datos.DParametro("@tiposoli", _tiposoli))
         _listParam.Add(New Datos.DParametro("@surtidor", _surtidor))
+        _listParam.Add(New Datos.DParametro("@tctiposurtidor", _tiposurtidor))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
 
 
@@ -2982,7 +2983,16 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
+    Public Shared Function L_Reporte_FacturaCombustible(_Numi As String, _Numi2 As String) As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
+        Dim _Where As String
+        _Where = " fvanumi = " + _Numi + " and fvanumi = " + _Numi2
 
+        _Tabla = D_Datos_Tabla("*", "VR_GO_FACTURA_COMBUSTIBLE", _Where)
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
     ''VR_MAM_FacturaServicio
     Public Shared Function L_Reporte_FacturaServicio(_Numi As String, _Numi2 As String) As DataSet
         Dim _Tabla As DataTable
