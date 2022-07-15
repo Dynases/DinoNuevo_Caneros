@@ -30,4 +30,6 @@ Public Class ModeloF0
         TxtNombreUsu.Text = MGlobal.gs_usuario
         TxtNombreUsu.ReadOnly = True
     End Sub
+
+
 End Class

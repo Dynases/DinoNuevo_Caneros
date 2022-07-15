@@ -531,7 +531,7 @@ Public Class F1_Proveedor
         listEstCeldas.Add(New Modelo.Celda("ydcod", True, "Cod Prov.".ToUpper, 100))
         listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", False, "Razon Social".ToUpper, 180))
         listEstCeldas.Add(New Modelo.Celda("yddesc", True, "Nombres".ToUpper, 280))
-        listEstCeldas.Add(New Modelo.Celda("ydzona", False))
+        'listEstCeldas.Add(New Modelo.Celda("ydzona", False))
         listEstCeldas.Add(New Modelo.Celda("yddct", False))
         listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("yddirec", True, "Direccion".ToUpper, 180))
@@ -553,12 +553,12 @@ Public Class F1_Proveedor
         listEstCeldas.Add(New Modelo.Celda("ydfact", False))
         listEstCeldas.Add(New Modelo.Celda("ydhact", False))
         listEstCeldas.Add(New Modelo.Celda("yduact", False))
-        listEstCeldas.Add(New Modelo.Celda("ydrut", False))
+        'listEstCeldas.Add(New Modelo.Celda("ydrut", False))
         listEstCeldas.Add(New Modelo.Celda("visita", False, "FRECUENCIA DE VISITA", 120))
-        listEstCeldas.Add(New Modelo.Celda("zona", True, "ZONA".ToUpper, 150))
+        'listEstCeldas.Add(New Modelo.Celda("zona", True, "ZONA".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("documento".ToUpper, True, "Tipo Documento".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("ydnumivend", False))
-        listEstCeldas.Add(New Modelo.Celda("vendedor", False))
+        'listEstCeldas.Add(New Modelo.Celda("vendedor", False))
         listEstCeldas.Add(New Modelo.Celda("yddias", False))
         listEstCeldas.Add(New Modelo.Celda("ydlcred", False))
         Return listEstCeldas
@@ -580,8 +580,8 @@ Public Class F1_Proveedor
             tbCodigoOriginal.Text = .GetValue("ydnumi").ToString
             tbCodCliente.Text = .GetValue("ydcod").ToString
             tbNombre.Text = .GetValue("yddesc").ToString
-            cbZona.Value = .GetValue("ydzona")
-           cbTipoDoc.Value = .GetValue("yddct")
+            'cbZona.Value = .GetValue("ydzona")
+            cbTipoDoc.Value = .GetValue("yddct")
             tbNdoc.Text = .GetValue("yddctnum").ToString
             tbDireccion.Text = .GetValue("yddirec").ToString
             tbTelf1.Text = .GetValue("ydtelf1").ToString
