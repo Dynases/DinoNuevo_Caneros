@@ -261,7 +261,7 @@ Public Class F0_Venta2
         '_CodCliente = 0
         '_CodEmpleado = 0
         tbFechaVenta.Value = Now.Date
-        swTipoVenta.Value = False
+        swTipoVenta.Value = True
         tbFechaVenc.Visible = False
         lbCredito.Visible = False
         _prCargarDetalleVenta(-1)

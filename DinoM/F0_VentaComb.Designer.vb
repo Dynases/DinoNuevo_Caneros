@@ -51,12 +51,8 @@ Partial Class F0_VentaComb
         Me.LabelX35 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX34 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX33 = New DevComponents.DotNetBar.LabelX()
-        Me.tbPrecio = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX32 = New DevComponents.DotNetBar.LabelX()
-        Me.tbLitros = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX31 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX30 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX29 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX28 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX27 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX26 = New DevComponents.DotNetBar.LabelX()
@@ -143,10 +139,10 @@ Partial Class F0_VentaComb
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.gpDetalleVenta = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.grdetalle = New Janus.Windows.GridEX.GridEX()
         Me.GPanelProductos = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grProductos = New Janus.Windows.GridEX.GridEX()
-        Me.grdetalle = New Janus.Windows.GridEX.GridEX()
         Me.btnContabilizar = New DevComponents.DotNetBar.ButtonX()
         Me.SwConta = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.PanelSuperior.SuspendLayout()
@@ -195,10 +191,10 @@ Partial Class F0_VentaComb
         CType(Me.tbMontoDolar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gpDetalleVenta.SuspendLayout()
         Me.Panel5.SuspendLayout()
+        CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GPanelProductos.SuspendLayout()
         Me.Panel7.SuspendLayout()
         CType(Me.grProductos, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelSuperior
@@ -207,7 +203,7 @@ Partial Class F0_VentaComb
         Me.PanelSuperior.Controls.Add(Me.SwConta)
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelSuperior.Size = New System.Drawing.Size(889, 72)
+        Me.PanelSuperior.Size = New System.Drawing.Size(799, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
@@ -233,7 +229,7 @@ Partial Class F0_VentaComb
         '
         Me.PanelInferior.Location = New System.Drawing.Point(0, 622)
         Me.PanelInferior.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelInferior.Size = New System.Drawing.Size(889, 39)
+        Me.PanelInferior.Size = New System.Drawing.Size(799, 39)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Transparent
         Me.PanelInferior.Style.BackColor2.Color = System.Drawing.Color.Transparent
@@ -288,13 +284,13 @@ Partial Class F0_VentaComb
         '
         'PanelToolBar2
         '
-        Me.PanelToolBar2.Location = New System.Drawing.Point(809, 0)
+        Me.PanelToolBar2.Location = New System.Drawing.Point(719, 0)
         Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(2)
         '
         'PanelPrincipal
         '
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(889, 661)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(799, 661)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
@@ -318,7 +314,7 @@ Partial Class F0_VentaComb
         '
         'MPanelUserAct
         '
-        Me.MPanelUserAct.Location = New System.Drawing.Point(689, 0)
+        Me.MPanelUserAct.Location = New System.Drawing.Point(599, 0)
         Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(2)
         '
         'MRlAccion
@@ -328,25 +324,25 @@ Partial Class F0_VentaComb
         '
         Me.MRlAccion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.MRlAccion.Margin = New System.Windows.Forms.Padding(2)
-        Me.MRlAccion.Size = New System.Drawing.Size(433, 72)
+        Me.MRlAccion.Size = New System.Drawing.Size(343, 72)
         '
         'PanelContent
         '
+        Me.PanelContent.Controls.Add(Me.gpDetalleVenta)
         Me.PanelContent.Controls.Add(Me.GroupCobranza)
-        Me.PanelContent.Controls.Add(Me.GroupPanelFactura2)
         Me.PanelContent.Controls.Add(Me.GroupPanel2)
         Me.PanelContent.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelContent.Size = New System.Drawing.Size(856, 550)
+        Me.PanelContent.Size = New System.Drawing.Size(766, 550)
         '
         'Panel1
         '
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel1.Size = New System.Drawing.Size(889, 550)
+        Me.Panel1.Size = New System.Drawing.Size(799, 550)
         '
         'MSuperTabControlPanel1
         '
         Me.MSuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(856, 550)
+        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(766, 550)
         '
         'MSuperTabControl
         '
@@ -365,14 +361,14 @@ Partial Class F0_VentaComb
         Me.MSuperTabControl.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.MSuperTabControl.ControlBox.MenuBox, Me.MSuperTabControl.ControlBox.CloseBox})
         Me.MSuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
         Me.MSuperTabControl.Margin = New System.Windows.Forms.Padding(2)
-        Me.MSuperTabControl.Size = New System.Drawing.Size(889, 550)
+        Me.MSuperTabControl.Size = New System.Drawing.Size(799, 550)
         Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
         Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
         '
         'PictureBox1
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(616, 0)
+        Me.PictureBox1.Location = New System.Drawing.Point(526, 0)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
         '
         'Timer1
@@ -417,7 +413,7 @@ Partial Class F0_VentaComb
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(932, 500)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(856, 550)
         Me.SuperTabControlPanel1.TabIndex = 2
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -431,7 +427,7 @@ Partial Class F0_VentaComb
         Me.GroupPanel3.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel3.Name = "GroupPanel3"
-        Me.GroupPanel3.Size = New System.Drawing.Size(932, 500)
+        Me.GroupPanel3.Size = New System.Drawing.Size(856, 550)
         '
         '
         '
@@ -471,7 +467,7 @@ Partial Class F0_VentaComb
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(926, 477)
+        Me.Panel6.Size = New System.Drawing.Size(850, 527)
         Me.Panel6.TabIndex = 0
         '
         'grVentas
@@ -493,7 +489,7 @@ Partial Class F0_VentaComb
         Me.grVentas.SelectedFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grVentas.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.grVentas.SelectOnExpand = False
-        Me.grVentas.Size = New System.Drawing.Size(926, 477)
+        Me.grVentas.Size = New System.Drawing.Size(850, 527)
         Me.grVentas.TabIndex = 0
         Me.grVentas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -506,7 +502,7 @@ Partial Class F0_VentaComb
         Me.GroupPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupPanel2.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel2.Name = "GroupPanel2"
-        Me.GroupPanel2.Size = New System.Drawing.Size(856, 315)
+        Me.GroupPanel2.Size = New System.Drawing.Size(766, 293)
         '
         '
         '
@@ -551,12 +547,8 @@ Partial Class F0_VentaComb
         Me.Panel2.Controls.Add(Me.LabelX35)
         Me.Panel2.Controls.Add(Me.LabelX34)
         Me.Panel2.Controls.Add(Me.LabelX33)
-        Me.Panel2.Controls.Add(Me.tbPrecio)
         Me.Panel2.Controls.Add(Me.LabelX32)
-        Me.Panel2.Controls.Add(Me.tbLitros)
         Me.Panel2.Controls.Add(Me.LabelX31)
-        Me.Panel2.Controls.Add(Me.LabelX30)
-        Me.Panel2.Controls.Add(Me.LabelX29)
         Me.Panel2.Controls.Add(Me.LabelX28)
         Me.Panel2.Controls.Add(Me.LabelX27)
         Me.Panel2.Controls.Add(Me.LabelX26)
@@ -597,7 +589,7 @@ Partial Class F0_VentaComb
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(850, 292)
+        Me.Panel2.Size = New System.Drawing.Size(760, 270)
         Me.Panel2.TabIndex = 0
         '
         'SwSurtidor
@@ -607,7 +599,7 @@ Partial Class F0_VentaComb
         '
         Me.SwSurtidor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.SwSurtidor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SwSurtidor.Location = New System.Drawing.Point(472, 65)
+        Me.SwSurtidor.Location = New System.Drawing.Point(518, 0)
         Me.SwSurtidor.Name = "SwSurtidor"
         Me.SwSurtidor.OffBackColor = System.Drawing.Color.LawnGreen
         Me.SwSurtidor.OffText = "OTRO SURTIDOR"
@@ -769,20 +761,6 @@ Partial Class F0_VentaComb
         Me.LabelX33.TabIndex = 406
         Me.LabelX33.Text = "T. Solicitud:"
         '
-        'tbPrecio
-        '
-        '
-        '
-        '
-        Me.tbPrecio.Border.Class = "TextBoxBorder"
-        Me.tbPrecio.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbPrecio.Location = New System.Drawing.Point(729, 267)
-        Me.tbPrecio.Name = "tbPrecio"
-        Me.tbPrecio.PreventEnterBeep = True
-        Me.tbPrecio.Size = New System.Drawing.Size(85, 22)
-        Me.tbPrecio.TabIndex = 404
-        Me.tbPrecio.Visible = False
-        '
         'LabelX32
         '
         '
@@ -797,20 +775,6 @@ Partial Class F0_VentaComb
         Me.LabelX32.TabIndex = 403
         Me.LabelX32.Text = "Placa:"
         '
-        'tbLitros
-        '
-        '
-        '
-        '
-        Me.tbLitros.Border.Class = "TextBoxBorder"
-        Me.tbLitros.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbLitros.Location = New System.Drawing.Point(584, 267)
-        Me.tbLitros.Name = "tbLitros"
-        Me.tbLitros.PreventEnterBeep = True
-        Me.tbLitros.Size = New System.Drawing.Size(85, 22)
-        Me.tbLitros.TabIndex = 401
-        Me.tbLitros.Visible = False
-        '
         'LabelX31
         '
         '
@@ -824,36 +788,6 @@ Partial Class F0_VentaComb
         Me.LabelX31.Size = New System.Drawing.Size(90, 23)
         Me.LabelX31.TabIndex = 399
         Me.LabelX31.Text = "Despachador:"
-        '
-        'LabelX30
-        '
-        '
-        '
-        '
-        Me.LabelX30.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX30.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX30.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX30.Location = New System.Drawing.Point(710, 267)
-        Me.LabelX30.Name = "LabelX30"
-        Me.LabelX30.Size = New System.Drawing.Size(75, 23)
-        Me.LabelX30.TabIndex = 398
-        Me.LabelX30.Text = "Precio $:"
-        Me.LabelX30.Visible = False
-        '
-        'LabelX29
-        '
-        '
-        '
-        '
-        Me.LabelX29.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX29.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX29.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX29.Location = New System.Drawing.Point(569, 265)
-        Me.LabelX29.Name = "LabelX29"
-        Me.LabelX29.Size = New System.Drawing.Size(75, 23)
-        Me.LabelX29.TabIndex = 397
-        Me.LabelX29.Text = "Litros:"
-        Me.LabelX29.Visible = False
         '
         'LabelX28
         '
@@ -967,7 +901,7 @@ Partial Class F0_VentaComb
         '
         Me.LabelAlmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelAlmacen.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.LabelAlmacen.Location = New System.Drawing.Point(566, 251)
+        Me.LabelAlmacen.Location = New System.Drawing.Point(286, 41)
         Me.LabelAlmacen.Name = "LabelAlmacen"
         Me.LabelAlmacen.Size = New System.Drawing.Size(199, 17)
         Me.LabelAlmacen.TabIndex = 388
@@ -984,7 +918,7 @@ Partial Class F0_VentaComb
         Me.LabelX23.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX23.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX23.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX23.Location = New System.Drawing.Point(472, 252)
+        Me.LabelX23.Location = New System.Drawing.Point(212, 42)
         Me.LabelX23.Name = "LabelX23"
         Me.LabelX23.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX23.Size = New System.Drawing.Size(61, 16)
@@ -1011,7 +945,7 @@ Partial Class F0_VentaComb
         '
         Me.lbNroCaja.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbNroCaja.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.lbNroCaja.Location = New System.Drawing.Point(566, 237)
+        Me.lbNroCaja.Location = New System.Drawing.Point(286, 27)
         Me.lbNroCaja.Name = "lbNroCaja"
         Me.lbNroCaja.Size = New System.Drawing.Size(60, 17)
         Me.lbNroCaja.TabIndex = 386
@@ -1028,7 +962,7 @@ Partial Class F0_VentaComb
         Me.LabelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX24.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX24.Location = New System.Drawing.Point(472, 237)
+        Me.LabelX24.Location = New System.Drawing.Point(212, 27)
         Me.LabelX24.Name = "LabelX24"
         Me.LabelX24.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX24.Size = New System.Drawing.Size(68, 16)
@@ -1077,7 +1011,7 @@ Partial Class F0_VentaComb
         Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX21.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX21.Location = New System.Drawing.Point(238, 6)
+        Me.LabelX21.Location = New System.Drawing.Point(212, 2)
         Me.LabelX21.Name = "LabelX21"
         Me.LabelX21.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX21.Size = New System.Drawing.Size(60, 23)
@@ -1094,7 +1028,7 @@ Partial Class F0_VentaComb
         Me.txtEstado.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.txtEstado.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtEstado.ForeColor = System.Drawing.Color.Black
-        Me.txtEstado.Location = New System.Drawing.Point(219, 29)
+        Me.txtEstado.Location = New System.Drawing.Point(285, 4)
         Me.txtEstado.Name = "txtEstado"
         Me.txtEstado.PreventEnterBeep = True
         Me.txtEstado.Size = New System.Drawing.Size(95, 21)
@@ -1110,7 +1044,7 @@ Partial Class F0_VentaComb
         Me.lbCredito.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbCredito.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbCredito.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lbCredito.Location = New System.Drawing.Point(470, 36)
+        Me.lbCredito.Location = New System.Drawing.Point(470, 80)
         Me.lbCredito.Name = "lbCredito"
         Me.lbCredito.SingleLineColor = System.Drawing.SystemColors.Control
         Me.lbCredito.Size = New System.Drawing.Size(90, 23)
@@ -1128,7 +1062,7 @@ Partial Class F0_VentaComb
         Me.tbFechaVenc.ButtonDropDown.Visible = True
         Me.tbFechaVenc.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaVenc.IsPopupCalendarOpen = False
-        Me.tbFechaVenc.Location = New System.Drawing.Point(567, 32)
+        Me.tbFechaVenc.Location = New System.Drawing.Point(567, 76)
         '
         '
         '
@@ -1172,7 +1106,7 @@ Partial Class F0_VentaComb
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(470, 8)
+        Me.LabelX1.Location = New System.Drawing.Point(470, 52)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX1.Size = New System.Drawing.Size(75, 23)
@@ -1186,7 +1120,7 @@ Partial Class F0_VentaComb
         '
         Me.swTipoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swTipoVenta.Location = New System.Drawing.Point(567, 9)
+        Me.swTipoVenta.Location = New System.Drawing.Point(567, 53)
         Me.swTipoVenta.Name = "swTipoVenta"
         Me.swTipoVenta.OffBackColor = System.Drawing.Color.LawnGreen
         Me.swTipoVenta.OffText = "CREDITO"
@@ -1207,7 +1141,7 @@ Partial Class F0_VentaComb
         Me.LabelX17.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX17.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX17.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX17.Location = New System.Drawing.Point(714, 84)
+        Me.LabelX17.Location = New System.Drawing.Point(3, 266)
         Me.LabelX17.Name = "LabelX17"
         Me.LabelX17.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX17.Size = New System.Drawing.Size(90, 23)
@@ -1252,7 +1186,7 @@ Partial Class F0_VentaComb
         cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
         Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
         Me.cbSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.Location = New System.Drawing.Point(693, 113)
+        Me.cbSucursal.Location = New System.Drawing.Point(83, 266)
         Me.cbSucursal.Name = "cbSucursal"
         Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -1260,6 +1194,7 @@ Partial Class F0_VentaComb
         Me.cbSucursal.SelectedItem = Nothing
         Me.cbSucursal.Size = New System.Drawing.Size(140, 22)
         Me.cbSucursal.TabIndex = 270
+        Me.cbSucursal.Visible = False
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'tbFechaVenta
@@ -1334,11 +1269,12 @@ Partial Class F0_VentaComb
         Me.TbNombre1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.TbNombre1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbNombre1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.TbNombre1.Location = New System.Drawing.Point(785, 210)
+        Me.TbNombre1.Location = New System.Drawing.Point(447, 241)
         Me.TbNombre1.Name = "TbNombre1"
         Me.TbNombre1.PreventEnterBeep = True
         Me.TbNombre1.Size = New System.Drawing.Size(19, 21)
         Me.TbNombre1.TabIndex = 2
+        Me.TbNombre1.Visible = False
         '
         'LabelX4
         '
@@ -1349,7 +1285,7 @@ Partial Class F0_VentaComb
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(697, 210)
+        Me.LabelX4.Location = New System.Drawing.Point(373, 239)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX4.Size = New System.Drawing.Size(90, 23)
@@ -1367,7 +1303,7 @@ Partial Class F0_VentaComb
         Me.tbNit.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNit.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbNit.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbNit.Location = New System.Drawing.Point(785, 180)
+        Me.tbNit.Location = New System.Drawing.Point(354, 240)
         Me.tbNit.Name = "tbNit"
         Me.tbNit.PreventEnterBeep = True
         Me.tbNit.Size = New System.Drawing.Size(19, 21)
@@ -1383,7 +1319,7 @@ Partial Class F0_VentaComb
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(697, 180)
+        Me.LabelX3.Location = New System.Drawing.Point(313, 242)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX3.Size = New System.Drawing.Size(60, 23)
@@ -1505,7 +1441,7 @@ Partial Class F0_VentaComb
         Me.GroupPanelFactura2.Controls.Add(Me.LabelX7)
         Me.GroupPanelFactura2.Controls.Add(Me.swMoneda)
         Me.GroupPanelFactura2.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanelFactura2.Location = New System.Drawing.Point(12, 395)
+        Me.GroupPanelFactura2.Location = New System.Drawing.Point(385, 1)
         Me.GroupPanelFactura2.Name = "GroupPanelFactura2"
         Me.GroupPanelFactura2.Size = New System.Drawing.Size(372, 115)
         '
@@ -1728,6 +1664,7 @@ Partial Class F0_VentaComb
         Me.GroupCobranza.BackColor = System.Drawing.Color.White
         Me.GroupCobranza.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupCobranza.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupCobranza.Controls.Add(Me.GroupPanelFactura2)
         Me.GroupCobranza.Controls.Add(Me.tbTotalDo)
         Me.GroupCobranza.Controls.Add(Me.tbTotalBs)
         Me.GroupCobranza.Controls.Add(Me.LabelX22)
@@ -1757,9 +1694,9 @@ Partial Class F0_VentaComb
         Me.GroupCobranza.Controls.Add(Me.GroupBox2)
         Me.GroupCobranza.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupCobranza.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupCobranza.Location = New System.Drawing.Point(384, 406)
+        Me.GroupCobranza.Location = New System.Drawing.Point(3, 373)
         Me.GroupCobranza.Name = "GroupCobranza"
-        Me.GroupCobranza.Size = New System.Drawing.Size(372, 105)
+        Me.GroupCobranza.Size = New System.Drawing.Size(766, 120)
         '
         '
         '
@@ -2421,9 +2358,9 @@ Partial Class F0_VentaComb
         Me.gpDetalleVenta.Controls.Add(Me.Panel5)
         Me.gpDetalleVenta.DisabledBackColor = System.Drawing.Color.Empty
         Me.gpDetalleVenta.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gpDetalleVenta.Location = New System.Drawing.Point(-1, 387)
+        Me.gpDetalleVenta.Location = New System.Drawing.Point(0, 293)
         Me.gpDetalleVenta.Name = "gpDetalleVenta"
-        Me.gpDetalleVenta.Size = New System.Drawing.Size(856, 80)
+        Me.gpDetalleVenta.Size = New System.Drawing.Size(766, 80)
         '
         '
         '
@@ -2459,13 +2396,27 @@ Partial Class F0_VentaComb
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.White
-        Me.Panel5.Controls.Add(Me.GPanelProductos)
         Me.Panel5.Controls.Add(Me.grdetalle)
+        Me.Panel5.Controls.Add(Me.GPanelProductos)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(850, 57)
+        Me.Panel5.Size = New System.Drawing.Size(760, 57)
         Me.Panel5.TabIndex = 0
+        '
+        'grdetalle
+        '
+        Me.grdetalle.BackColor = System.Drawing.Color.GhostWhite
+        Me.grdetalle.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdetalle.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grdetalle.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.grdetalle.Location = New System.Drawing.Point(0, 0)
+        Me.grdetalle.Name = "grdetalle"
+        Me.grdetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grdetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grdetalle.Size = New System.Drawing.Size(760, 57)
+        Me.grdetalle.TabIndex = 3
+        Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'GPanelProductos
         '
@@ -2535,20 +2486,6 @@ Partial Class F0_VentaComb
         Me.grProductos.TabIndex = 0
         Me.grProductos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'grdetalle
-        '
-        Me.grdetalle.BackColor = System.Drawing.Color.GhostWhite
-        Me.grdetalle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdetalle.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grdetalle.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.grdetalle.Location = New System.Drawing.Point(0, 0)
-        Me.grdetalle.Name = "grdetalle"
-        Me.grdetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.grdetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grdetalle.Size = New System.Drawing.Size(850, 57)
-        Me.grdetalle.TabIndex = 3
-        Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
         'btnContabilizar
         '
         Me.btnContabilizar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -2558,7 +2495,7 @@ Partial Class F0_VentaComb
         Me.btnContabilizar.Image = Global.DinoM.My.Resources.Resources.BUSQUEDA
         Me.btnContabilizar.ImageFixedSize = New System.Drawing.Size(48, 48)
         Me.btnContabilizar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnContabilizar.Location = New System.Drawing.Point(665, 0)
+        Me.btnContabilizar.Location = New System.Drawing.Point(620, 0)
         Me.btnContabilizar.Name = "btnContabilizar"
         Me.btnContabilizar.Size = New System.Drawing.Size(95, 72)
         Me.btnContabilizar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -2590,14 +2527,12 @@ Partial Class F0_VentaComb
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(889, 661)
-        Me.Controls.Add(Me.gpDetalleVenta)
+        Me.ClientSize = New System.Drawing.Size(799, 661)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "F0_VentaComb"
         Me.Text = "F0_VentaComb"
         Me.Controls.SetChildIndex(Me.PanelPrincipal, 0)
-        Me.Controls.SetChildIndex(Me.gpDetalleVenta, 0)
         Me.PanelSuperior.ResumeLayout(False)
         Me.PanelInferior.ResumeLayout(False)
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2648,10 +2583,10 @@ Partial Class F0_VentaComb
         CType(Me.tbMontoDolar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gpDetalleVenta.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
+        CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GPanelProductos.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         CType(Me.grProductos, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2722,12 +2657,8 @@ Partial Class F0_VentaComb
     Friend WithEvents LabelX35 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX34 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX33 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbPrecio As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX32 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbLitros As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX31 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents LabelX30 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents LabelX29 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX28 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX27 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX26 As DevComponents.DotNetBar.LabelX

@@ -344,6 +344,8 @@ Public Class F1_Clientes
         tbNit.ReadOnly = False
         Tbdias.ReadOnly = False
         TbLCred.ReadOnly = False
+        TbNomEsposa.ReadOnly = False
+        TbCiEsposa.ReadOnly = False
         swEstado.IsReadOnly = False
         cbEstadoCiv.ReadOnly = False
         _prCrearCarpetaImagenes()
@@ -351,6 +353,7 @@ Public Class F1_Clientes
         BtAdicionar.Visible = True
         tbCodCliente.ReadOnly = False
         tbRazonSocial.Focus()
+        cbEstadoCiv.SelectedIndex = 0
         ''  SuperTabItem1.Visible =True 
     End Sub
 
@@ -378,6 +381,8 @@ Public Class F1_Clientes
         swEstado.IsReadOnly = True
         BtAdicionar.Visible = False
         cbEstadoCiv.ReadOnly = True
+        TbNomEsposa.ReadOnly = True
+        TbCiEsposa.ReadOnly = True
         _prStyleJanus()
         JGrM_Buscador.Focus()
         btnSearch.Visible = False
@@ -405,6 +410,8 @@ Public Class F1_Clientes
         tbNit.Clear()
         Tbdias.Text = 0
         TbLCred.Text = 0
+        TbNomEsposa.Clear()
+        TbCiEsposa.Clear()
         swEstado.Value = True
         UsImg.pbImage.Image = My.Resources.pantalla
         _Overlay.Markers.Clear()
@@ -449,10 +456,10 @@ Public Class F1_Clientes
     Public Overrides Function _PMOGrabarRegistro() As Boolean
 
         Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
-        NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
+        NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, 0,
         IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
         _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
-        nameImg, 0)
+        nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text)
 
         '  Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbNombre.Text, NumiVendedor,
         ' cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, cbCatPrec.Value, IIf(swEstado.Value = True, 1, 0),
@@ -487,10 +494,10 @@ Public Class F1_Clientes
         Dim nameImage As String = JGrM_Buscador.GetValue("ydimg")
         If (Modificado = False) Then
             res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text, NumiVendedor,
-                  0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
+                  0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, 0,
                   IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
                   tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
-                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0)
+                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text)
 
             '    tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
             '     NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
@@ -652,6 +659,9 @@ Public Class F1_Clientes
         listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("estadoc", False))
         listEstCeldas.Add(New Modelo.Celda("nomestadoc", True, "Estado Civil".ToUpper, 150))
+        listEstCeldas.Add(New Modelo.Celda("ydesposa", True, "Nombre Esposa".ToUpper, 120))
+        listEstCeldas.Add(New Modelo.Celda("ydciesposa", True, "CI Esposa".ToUpper, 70))
+
         listEstCeldas.Add(New Modelo.Celda("yddirec", True, "Direccion".ToUpper, 180))
         listEstCeldas.Add(New Modelo.Celda("ydtelf1", False))
         listEstCeldas.Add(New Modelo.Celda("ydtelf2", False))
@@ -717,6 +727,8 @@ Public Class F1_Clientes
             lbFecha.Text = CType(.GetValue("ydfact"), Date).ToString("dd/MM/yyyy")
             lbHora.Text = .GetValue("ydhact").ToString
             lbUsuario.Text = .GetValue("yduact").ToString
+            TbNomEsposa.Text = .GetValue("ydesposa").ToString
+            TbCiEsposa.Text = .GetValue("ydciesposa").ToString
             NumiVendedor = IIf(IsDBNull(.GetValue("ydnumivend")), 0, .GetValue("ydnumivend"))
         End With
         Dim name As String = JGrM_Buscador.GetValue("ydimg")

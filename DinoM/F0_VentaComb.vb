@@ -169,14 +169,14 @@ Public Class F0_VentaComb
         swMoneda.IsReadOnly = True
         tbFechaVenc.IsInputReadOnly = True
         swTipoVenta.IsReadOnly = True
+        SwSurtidor.IsReadOnly = True
         txtEstado.ReadOnly = True
 
         tbTramOrden.ReadOnly = True
         tbNitTraOrden.ReadOnly = True
         tbRetSurtidor.ReadOnly = True
         tbNitRetSurtidor.ReadOnly = True
-        tbLitros.ReadOnly = True
-        tbPrecio.ReadOnly = True
+
         tbPlaca.ReadOnly = True
         tbObservacion.ReadOnly = True
         tbFact.ReadOnly = True
@@ -235,14 +235,14 @@ Public Class F0_VentaComb
         ''  tbCliente.ReadOnly = False  por que solo podra seleccionar Cliente
         ''  tbVendedor.ReadOnly = False
         tbFechaVenc.IsInputReadOnly = False
-
+        SwSurtidor.Value = True
         swTipoVenta.IsReadOnly = False
         swTipoVenta.Value = 0
         tbFechaVenta.IsInputReadOnly = False
         tbFechaVenta.Enabled = True
 
         swMoneda.IsReadOnly = False
-
+        SwSurtidor.IsReadOnly = False
         btnGrabar.Enabled = True
 
         tbNit.ReadOnly = False
@@ -264,8 +264,8 @@ Public Class F0_VentaComb
         tbNitTraOrden.ReadOnly = False
         tbRetSurtidor.ReadOnly = False
         tbNitRetSurtidor.ReadOnly = False
-        tbLitros.ReadOnly = False
-        tbPrecio.ReadOnly = False
+
+
         tbPlaca.ReadOnly = False
         tbObservacion.ReadOnly = False
         tbFact.ReadOnly = False
@@ -317,7 +317,7 @@ Public Class F0_VentaComb
         '_CodCliente = 0
         '_CodEmpleado = 0
         tbFechaVenta.Value = Now.Date
-        swTipoVenta.Value = False
+        swTipoVenta.Value = True
         tbFechaVenc.Visible = False
         lbCredito.Visible = False
         _prCargarDetalleVenta(-1)
@@ -538,7 +538,7 @@ Public Class F0_VentaComb
 
         With grdetalle.RootTable.Columns("producto")
             .Caption = "Productos".ToUpper
-            .Width = 440
+            .Width = 320
             .Visible = True
         End With
 
@@ -1699,6 +1699,7 @@ Public Class F0_VentaComb
     End Function
 
     Public Sub _GuardarNuevo()
+        TbNombre1.Text = tbFact.Text
         Try
             Dim numi As String = ""
             Dim tabla As DataTable = L_fnMostrarMontos(0)
@@ -3365,13 +3366,49 @@ Public Class F0_VentaComb
             cbSurtidor.Clear()
             _prCargarComboLibreria(cbSurtidor, 1, 10)
             cbSurtidor.Value = 1
+            tbTramOrden.Visible = True
+            tbNitTraOrden.Visible = True
+            tbFact.Visible = True
+            tbNitFacturarA.Visible = True
+            cbDespachador.Visible = True
+            LabelX25.Visible = True
+            LabelX27.Visible = True
+            LabelX35.Visible = True
+            LabelX36.Visible = True
+            LabelX31.Visible = True
         Else
             cbSurtidor.Clear()
             _prCargarComboLibreria(cbSurtidor, 1, 8)
             cbSurtidor.Value = 0
+            tbTramOrden.Visible = False
+            tbNitTraOrden.Visible = False
+            tbFact.Visible = False
+            tbNitFacturarA.Visible = False
+            cbDespachador.Visible = False
+            LabelX25.Visible = False
+            LabelX27.Visible = False
+            LabelX35.Visible = False
+            LabelX36.Visible = False
+            LabelX31.Visible = False
         End If
 
 
+    End Sub
+
+
+    Private Sub grdetalle_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles grdetalle.FormattingRow
+
+    End Sub
+
+    Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs) Handles swTipoVenta.ValueChanged
+        If (swTipoVenta.Value = False) Then
+            lbCredito.Visible = True
+            tbFechaVenc.Visible = True
+            tbFechaVenc.Value = DateAdd(DateInterval.Day, _dias, Now.Date)
+        Else
+            lbCredito.Visible = False
+            tbFechaVenc.Visible = False
+        End If
     End Sub
 
 

@@ -874,7 +874,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                              _ydlat As Double, _ydlongi As Double, _ydobs As String,
                                              _ydfnac As String, _ydnomfac As String, _ydtip As Integer,
                                              _ydnit As String, _yddias As String, _ydlcred As String,
-                                             _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String) As Boolean
+                                             _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String, Optional _ydesciv As Integer = 1, Optional _ydEsposa As String = "", Optional _ydCiesposa As String = "") As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -910,6 +910,9 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ydultvent", _ydultvent))
         _listParam.Add(New Datos.DParametro("@ydimg", _ydimg))
         _listParam.Add(New Datos.DParametro("@ydrut", _ydrut))
+        _listParam.Add(New Datos.DParametro("@ydesciv", _ydesciv))
+        _listParam.Add(New Datos.DParametro("@ydesposa", _ydEsposa))
+        _listParam.Add(New Datos.DParametro("@ydciesposa", _ydCiesposa))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
 
@@ -1025,7 +1028,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                              _yddirec As String, _ydtelf1 As String,
                                              _ydtelf2 As String, _ydcat As Integer, _ydest As Integer, _ydlat As Double, _ydlongi As Double, _ydobs As String,
                                              _ydfnac As String, _ydnomfac As String,
-                                             _ydtip As Integer, _ydnit As String, _yddias As String, _ydlcred As String, _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String) As Boolean
+                                             _ydtip As Integer, _ydnit As String, _yddias As String, _ydlcred As String, _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String,
+                                                 Optional _ydesciv As Integer = 1, Optional _ydEsposa As String = "", Optional _ydCiesposa As String = "") As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -1059,6 +1063,9 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ydultvent", _ydultvent))
         _listParam.Add(New Datos.DParametro("@ydimg", _ydimg))
         _listParam.Add(New Datos.DParametro("@ydrut", _ydrut))
+        _listParam.Add(New Datos.DParametro("@ydesciv", _ydesciv))
+        _listParam.Add(New Datos.DParametro("@ydesposa", _ydEsposa))
+        _listParam.Add(New Datos.DParametro("@ydciesposa", _ydCiesposa))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
