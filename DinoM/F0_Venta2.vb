@@ -39,7 +39,7 @@ Public Class F0_Venta2
         _prValidarLote()
         _prCargarComboLibreriaSucursal(cbSucursal)
         _prCargarComboLibreria(cbCambioDolar, 7, 1)
-        cbCambioDolar.Value = 2
+        cbCambioDolar.Value = 1
         'lbTipoMoneda.Visible = False
         swMoneda.Visible = True
         P_prCargarVariablesIndispensables()
@@ -3132,7 +3132,7 @@ salirIf:
             MsgBox("Codigo de Producto No Exite")
         End If
     End Sub
- Private Sub grProductos_KeyDown(sender As Object, e As KeyEventArgs) Handles grProductos.KeyDown
+    Private Sub grProductos_KeyDown(sender As Object, e As KeyEventArgs) Handles grProductos.KeyDown
 
         Try
             If (Not _fnAccesible()) Then

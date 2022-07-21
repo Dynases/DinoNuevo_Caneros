@@ -227,7 +227,7 @@ Partial Class F0_VentaComb
         '
         'PanelInferior
         '
-        Me.PanelInferior.Location = New System.Drawing.Point(0, 622)
+        Me.PanelInferior.Location = New System.Drawing.Point(0, 571)
         Me.PanelInferior.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelInferior.Size = New System.Drawing.Size(799, 39)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
@@ -290,7 +290,7 @@ Partial Class F0_VentaComb
         'PanelPrincipal
         '
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(799, 661)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(799, 610)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
@@ -332,17 +332,17 @@ Partial Class F0_VentaComb
         Me.PanelContent.Controls.Add(Me.GroupCobranza)
         Me.PanelContent.Controls.Add(Me.GroupPanel2)
         Me.PanelContent.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelContent.Size = New System.Drawing.Size(766, 550)
+        Me.PanelContent.Size = New System.Drawing.Size(766, 499)
         '
         'Panel1
         '
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel1.Size = New System.Drawing.Size(799, 550)
+        Me.Panel1.Size = New System.Drawing.Size(799, 499)
         '
         'MSuperTabControlPanel1
         '
         Me.MSuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(766, 550)
+        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(766, 499)
         '
         'MSuperTabControl
         '
@@ -361,7 +361,7 @@ Partial Class F0_VentaComb
         Me.MSuperTabControl.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.MSuperTabControl.ControlBox.MenuBox, Me.MSuperTabControl.ControlBox.CloseBox})
         Me.MSuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
         Me.MSuperTabControl.Margin = New System.Windows.Forms.Padding(2)
-        Me.MSuperTabControl.Size = New System.Drawing.Size(799, 550)
+        Me.MSuperTabControl.Size = New System.Drawing.Size(799, 499)
         Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
         Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
@@ -2527,7 +2527,7 @@ Partial Class F0_VentaComb
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(799, 661)
+        Me.ClientSize = New System.Drawing.Size(799, 610)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "F0_VentaComb"

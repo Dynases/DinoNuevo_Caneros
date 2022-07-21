@@ -2736,7 +2736,7 @@ Public Class F0_VentaComb
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         _Limpiar()
         _prhabilitar()
-        AsignarClienteEmpleado()
+        'AsignarClienteEmpleado()
         lbNroCaja.Text = gs_user
         LabelAlmacen.Text = gi_userSuc
         LabelAlmacen.Text = gs_userSucNom
@@ -2747,7 +2747,6 @@ Public Class F0_VentaComb
         PanelNavegacion.Enabled = False
         tbNit.Select()
         cbSucursal.Value = 3
-
 
     End Sub
     Private Sub _prCargarProductos(_cliente As String)
@@ -3384,6 +3383,10 @@ Public Class F0_VentaComb
             tbNitTraOrden.Visible = False
             tbFact.Visible = False
             tbNitFacturarA.Visible = False
+            tbTramOrden.Clear()
+            tbNitTraOrden.Clear()
+            tbFact.Clear()
+            tbNitFacturarA.Clear()
             cbDespachador.Visible = False
             LabelX25.Visible = False
             LabelX27.Visible = False

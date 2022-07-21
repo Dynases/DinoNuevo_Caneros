@@ -157,24 +157,24 @@ Public Class F1_Vendedor
         End With
         With grZonas.RootTable.Columns("zona")
             .Width = 250
-            .Visible = True
+            .Visible = False
             .Caption = "Zona".ToUpper
         End With
         'a.zcnumi ,zonalibreria .ycdes3 as zona,provincia .ycdes3 as provincia,ciudad .ycdes3 as ciudad,Cast(1 as bit) as est,1 as estado
         With grZonas.RootTable.Columns("provincia")
             .Width = 120
-            .Visible = True
+            .Visible = False
             .Caption = "provincia".ToUpper
         End With
         With grZonas.RootTable.Columns("ciudad")
             .Width = 150
-            .Visible = True
+            .Visible = False
             .Caption = "ciudad".ToUpper
 
         End With
         With grZonas.RootTable.Columns("est")
             .Width = 100
-            .Visible = True
+            .Visible = False
             .Caption = "Estado".ToUpper
         End With
         With grZonas.RootTable.Columns("estado")
@@ -596,7 +596,7 @@ Public Class F1_Vendedor
         listEstCeldas.Add(New Modelo.Celda("ydnumi", True, "Código".ToUpper, 80))
         listEstCeldas.Add(New Modelo.Celda("ydcod", False, "Codigo".ToUpper, 80))
         listEstCeldas.Add(New Modelo.Celda("yddesc", True, "Nombres".ToUpper, 250))
-        listEstCeldas.Add(New Modelo.Celda("ydzona", False))
+        'listEstCeldas.Add(New Modelo.Celda("ydzona", False))
         listEstCeldas.Add(New Modelo.Celda("yddct", False))
         listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("yddirec", True, "Direccion".ToUpper, 180))
@@ -619,11 +619,11 @@ Public Class F1_Vendedor
         listEstCeldas.Add(New Modelo.Celda("ydhact", False))
         listEstCeldas.Add(New Modelo.Celda("yduact", False))
         listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", False, "Razon Social".ToUpper, 180))
-        listEstCeldas.Add(New Modelo.Celda("zona", False, "ZONA".ToUpper, 150))
+        'listEstCeldas.Add(New Modelo.Celda("zona", False, "ZONA".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("documento".ToUpper, True, "Tipo Documento".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("ydnumivend", False))
-        listEstCeldas.Add(New Modelo.Celda("vendedor", False))
-        listEstCeldas.Add(New Modelo.Celda("ydrut", False))
+        'listEstCeldas.Add(New Modelo.Celda("vendedor", False))
+        'listEstCeldas.Add(New Modelo.Celda("ydrut", False))
         listEstCeldas.Add(New Modelo.Celda("visita", False))
         listEstCeldas.Add(New Modelo.Celda("yddias", False))
         listEstCeldas.Add(New Modelo.Celda("ydlcred", False))
