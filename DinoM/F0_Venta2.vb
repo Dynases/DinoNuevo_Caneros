@@ -647,14 +647,32 @@ Public Class F0_Venta2
             .Caption = "FECHA"
         End With
 
+        With grVentas.RootTable.Columns("aabdes")
+            .Width = 90
+            .Visible = False
+            .Caption = "FECHA"
+        End With
+
         With grVentas.RootTable.Columns("taven")
             .Width = 160
             .Visible = False
         End With
+        With grVentas.RootTable.Columns("vendedor")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "VENDEDOR"
+        End With
+        With grVentas.RootTable.Columns("cliente")
+            .Width = 250
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "CLIENTE"
+        End With
         With grVentas.RootTable.Columns("institucion")
             .Width = 250
             .Visible = True
-            .Caption = "VENDEDOR".ToUpper
+            .Caption = "INSTITUCION".ToUpper
         End With
 
 
@@ -674,12 +692,7 @@ Public Class F0_Venta2
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
-        With grVentas.RootTable.Columns("cliente")
-            .Width = 250
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-            .Visible = True
-            .Caption = "CLIENTE"
-        End With
+
 
         With grVentas.RootTable.Columns("tamon")
             .Width = 50
@@ -730,8 +743,8 @@ Public Class F0_Venta2
         End With
         With grVentas.RootTable.Columns("NroCaja")
             .Width = 100
-            .Caption = "NRO. CAJA"
-            .Visible = True
+            .Caption = "COD. Institucion"
+            .Visible = False
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
         End With
         With grVentas.RootTable.Columns("total")
@@ -834,7 +847,7 @@ Public Class F0_Venta2
             .Width = 80
             .Caption = "Cod. Barra"
             .Visible = gb_CodigoBarra
-            .Visible = True
+            .Visible = False
         End With
         With grProductos.RootTable.Columns("yfcdprod1")
             .Width = IIf(visualizarGrupo, 300, 360)
@@ -859,7 +872,7 @@ Public Class F0_Venta2
             .Width = 160
             .Visible = False
         End With
-        With grProductos.RootTable.Columns("yfgr5")
+        With grProductos.RootTable.Columns("yfgr3")
             .Width = 160
             .Visible = False
         End With
@@ -890,12 +903,12 @@ Public Class F0_Venta2
                 .MaxLines = 20
             End With
 
-            With grProductos.RootTable.Columns("grupo3")
-                .Width = 120
-                .Caption = dtname.Rows(0).Item("Grupo 3").ToString
-                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = False
-            End With
+            'With grProductos.RootTable.Columns("grupo3")
+            '    .Width = 120
+            '    .Caption = dtname.Rows(0).Item("Grupo 3").ToString
+            '    .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            '    .Visible = False
+            'End With
             With grProductos.RootTable.Columns("grupo4")
                 .Width = 120
                 .Caption = dtname.Rows(0).Item("Grupo 4").ToString
@@ -999,7 +1012,7 @@ Public Class F0_Venta2
         End With
         With grProductos.RootTable.Columns("grupoDesc")
             .Width = 130
-            .Visible = True
+            .Visible = False
             .Caption = "Grupo Desc."
         End With
         With grProductos
@@ -1871,7 +1884,7 @@ Public Class F0_Venta2
         '_Fecha = Now.Date '.ToString("dd/MM/yyyy")
         _Fecha = tbFechaVenta.Value
         _Hora = Now.Hour.ToString("D2") + ":" + Now.Minute.ToString("D2")
-        _Ds1 = L_DosificacionCajas("1", "1", _Fecha, gs_NroCaja)
+        _Ds1 = L_DosificacionCajas("1", gi_userSuc, _Fecha, gs_NroCaja)
 
         _Ds = L_Reporte_Factura(numi, numi)
         _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString

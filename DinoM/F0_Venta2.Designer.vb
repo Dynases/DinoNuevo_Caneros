@@ -353,10 +353,11 @@ Partial Class F0_Venta2
         Me.MSuperTabControl.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.MSuperTabControl.ControlBox.MenuBox, Me.MSuperTabControl.ControlBox.CloseBox})
         Me.MSuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
         Me.MSuperTabControl.Margin = New System.Windows.Forms.Padding(2)
+        Me.MSuperTabControl.SelectedTabIndex = 1
         Me.MSuperTabControl.Size = New System.Drawing.Size(1319, 518)
         Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
-        Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
+        Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         '
         'PictureBox1
         '
@@ -686,7 +687,7 @@ Partial Class F0_Venta2
         Me.LabelX17.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX17.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX17.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX17.Location = New System.Drawing.Point(1137, 5)
+        Me.LabelX17.Location = New System.Drawing.Point(1132, 4)
         Me.LabelX17.Name = "LabelX17"
         Me.LabelX17.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX17.Size = New System.Drawing.Size(90, 23)
@@ -2042,7 +2043,7 @@ Partial Class F0_Venta2
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1292, 598)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1286, 518)
         Me.SuperTabControlPanel1.TabIndex = 0
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -2056,7 +2057,7 @@ Partial Class F0_Venta2
         Me.GroupPanel3.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel3.Name = "GroupPanel3"
-        Me.GroupPanel3.Size = New System.Drawing.Size(1292, 598)
+        Me.GroupPanel3.Size = New System.Drawing.Size(1286, 518)
         '
         '
         '
@@ -2096,7 +2097,7 @@ Partial Class F0_Venta2
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1286, 575)
+        Me.Panel6.Size = New System.Drawing.Size(1280, 495)
         Me.Panel6.TabIndex = 0
         '
         'grVentas
@@ -2118,7 +2119,7 @@ Partial Class F0_Venta2
         Me.grVentas.SelectedFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grVentas.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.grVentas.SelectOnExpand = False
-        Me.grVentas.Size = New System.Drawing.Size(1286, 575)
+        Me.grVentas.Size = New System.Drawing.Size(1280, 495)
         Me.grVentas.TabIndex = 0
         Me.grVentas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '

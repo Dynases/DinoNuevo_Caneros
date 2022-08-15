@@ -245,7 +245,7 @@ Public Class F0_Movimiento
 
         End With
         With grdetalle.RootTable.Columns("Laboratorio")
-            .Caption = "ORIGEN"
+            .Caption = "U. MEDIDA"
             .Width = 200
             .Visible = True
 
@@ -254,7 +254,7 @@ Public Class F0_Movimiento
         With grdetalle.RootTable.Columns("Presentacion")
             .Caption = "PRESENTACION"
             .Width = 150
-            .Visible = True
+            .Visible = False
 
 
         End With
@@ -475,23 +475,23 @@ Public Class F0_Movimiento
 
         With grproducto.RootTable.Columns("yfcdprod2")
             .Width = 250
-            .Visible = True
+            .Visible = False
             .Caption = "COD. PROVEEDOR"
         End With
 
         With grproducto.RootTable.Columns("Laboratorio")
             .Width = 200
             .Visible = True
-            .Caption = "ORIGEN"
+            .Caption = "U. MEDIDA"
         End With
         With grproducto.RootTable.Columns("Presentacion")
             .Width = 120
-            .Visible = True
+            .Visible = False
             .Caption = "PRESENTACION"
         End With
         With grproducto.RootTable.Columns("yfcdprod2")
             .Width = 200
-            .Visible = True
+            .Visible = False
             .Caption = "COD. PROVEEDOR"
         End With
         With grproducto.RootTable.Columns("stock")

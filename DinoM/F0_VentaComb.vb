@@ -22,6 +22,7 @@ Public Class F0_VentaComb
     Dim FilaSelectLote As DataRow = Nothing
     Dim Table_Producto As DataTable
     Dim G_Lote As Boolean = False '1=igual a mostrar las columnas de lote y fecha de Vencimiento
+    Dim _Nuevo As Boolean = False
 
     Dim dtDescuentos As DataTable = Nothing
     Dim ConfiguracionDescuentoEsXCantidad As Boolean = True
@@ -227,6 +228,8 @@ Public Class F0_VentaComb
         TbNombre2.ReadOnly = True
         cbSucursal.ReadOnly = True
         FilaSelectLote = Nothing
+
+        _Nuevo = False
     End Sub
     Private Sub _prhabilitar()
 
@@ -731,12 +734,22 @@ Public Class F0_VentaComb
             .Width = 160
             .Visible = False
         End With
-        With grVentas.RootTable.Columns("institucion")
-            .Width = 250
+
+        With grVentas.RootTable.Columns("vendedor")
+            .Width = 150
             .Visible = True
             .Caption = "VENDEDOR".ToUpper
         End With
-
+        With grVentas.RootTable.Columns("institucion")
+            .Width = 250
+            .Visible = True
+            .Caption = "INSTITUCION".ToUpper
+        End With
+        With grVentas.RootTable.Columns("aabdes")
+            .Width = 150
+            .Visible = True
+            .Caption = "SURTIDOR".ToUpper
+        End With
 
         With grVentas.RootTable.Columns("tatven")
             .Width = 50
@@ -811,7 +824,7 @@ Public Class F0_VentaComb
         With grVentas.RootTable.Columns("NroCaja")
             .Width = 100
             .Caption = "NRO. CAJA"
-            .Visible = True
+            .Visible = False
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
         End With
         With grVentas.RootTable.Columns("total")
@@ -2045,7 +2058,7 @@ Public Class F0_VentaComb
         '_Fecha = Now.Date '.ToString("dd/MM/yyyy")
         _Fecha = tbFechaVenta.Value
         _Hora = Now.Hour.ToString("D2") + ":" + Now.Minute.ToString("D2")
-        _Ds1 = L_DosificacionCajas("1", "1", _Fecha, gs_NroCaja)
+        _Ds1 = L_DosificacionCajas("1", "3", _Fecha, gs_NroCaja)
 
         _Ds = L_Reporte_FacturaCombustible(numi, numi)
         _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString
@@ -2310,7 +2323,7 @@ Public Class F0_VentaComb
 
             _Ds = L_Reporte_FacturaCombustible(numi, numi)
             _Fecha = _Ds.Tables(0).Rows(0).Item("fvafec").ToString
-            _Ds1 = L_DosificacionReImprimir("1", "1", _Fecha, _Ds.Tables(0).Rows(0).Item("fvaautoriz").ToString)
+            _Ds1 = L_DosificacionReImprimir("1", "3", _Fecha, _Ds.Tables(0).Rows(0).Item("fvaautoriz").ToString)
             _Hora = _Ds.Tables(0).Rows(0).Item("fvahora").ToString
             _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString
             _NumFac = CInt(_Ds.Tables(0).Rows(0).Item("fvanfac").ToString)
@@ -2734,6 +2747,7 @@ Public Class F0_VentaComb
     End Sub
 
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
+
         _Limpiar()
         _prhabilitar()
         'AsignarClienteEmpleado()
@@ -2747,6 +2761,7 @@ Public Class F0_VentaComb
         PanelNavegacion.Enabled = False
         tbNit.Select()
         cbSucursal.Value = 3
+        _Nuevo = True
 
     End Sub
     Private Sub _prCargarProductos(_cliente As String)
@@ -2759,7 +2774,7 @@ Public Class F0_VentaComb
         If (G_Lote = True) Then
             dt = L_fnListarProductos(cbSucursal.Value, _cliente)
         Else
-            dt = L_fnListarProductoDiesel(3, _cliente, CType(grdetalle.DataSource, DataTable))
+            dt = L_fnListarProductoDiesel(cbSucursal.Value, _cliente, CType(grdetalle.DataSource, DataTable))
         End If
 
         grProductos.DataSource = dt
@@ -3196,7 +3211,8 @@ Public Class F0_VentaComb
                     _dias = Row.Cells("yddias").Value
                     tbNit.Text = Row.Cells("ydnit").Value
                     TbNombre1.Text = Row.Cells("ydnomfac").Value
-
+                    tbNitFacturarA.Text = Row.Cells("ydnit").Value
+                    tbFact.Text = Row.Cells("ydnomfac").Value
                     Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
                     If (numiVendedor > 0) Then
                         ''tbVendedor.Text = Row.Cells("vendedor").Value
@@ -3375,6 +3391,12 @@ Public Class F0_VentaComb
             LabelX35.Visible = True
             LabelX36.Visible = True
             LabelX31.Visible = True
+            If _Nuevo = True Then
+
+
+                cbSucursal.Value = 3
+            End If
+
         Else
             cbSurtidor.Clear()
             _prCargarComboLibreria(cbSurtidor, 1, 8)
@@ -3393,6 +3415,12 @@ Public Class F0_VentaComb
             LabelX35.Visible = False
             LabelX36.Visible = False
             LabelX31.Visible = False
+            If _Nuevo = True Then
+
+
+                cbSucursal.Value = 4
+            End If
+
         End If
 
 

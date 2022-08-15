@@ -90,7 +90,7 @@ Public Class AccesoDatos
 
     Public Shared Function D_Datos_Tabla1(_Campos As String, _Tabla As String) As DataTable
         'Dim _comando As OleDbCommand = MetodoDatos.CrearComando()
-        _comando.CommandText = "SELECT " + _Campos + " FROM " + _Tabla + " inner join BDDiconCaneros.dbo.TC001 as cuenta on Institucion.campo1=cuenta.canumi"
+        _comando.CommandText = "SELECT " + _Campos + " FROM " + _Tabla + " inner join BDDiconCaneros.dbo.TC001 as cuenta on Institucion.campo1=cuenta.canumi order by Institucion.codInst"
         Return MetodoDatos.EjecutarComandoSelect(_comando)
     End Function
 

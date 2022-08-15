@@ -16,6 +16,7 @@ Imports DevComponents.DotNetBar.Controls
 
 Public Class F1_Clientes
     Dim _Inter As Integer = 0
+    Dim _codCan As Integer = 0
 #Region "Variables Locales"
 #Region "MApas"
     Dim _Punto As Integer
@@ -44,7 +45,7 @@ Public Class F1_Clientes
         _prMaxLength()
         '_prCargarComboLibreriaZona(cbZona)
         '_prCargarComboLibreriaFecuenciaVisita(cbVisita)
-        '_prCargarComboLibreriaCategoriaPrecios(cbCatPrec)
+        _prCargarComboLibreriaCategoriaPrecios(cbCatPrec)
         _prCargarComboLibreria(cbTipoDoc, 2, 1)
         _prCargarComboEstadoCivil(cbEstadoCiv, 2, 3)
         _prAsignarPermisos()
@@ -88,10 +89,10 @@ Public Class F1_Clientes
         'copio la imagen en la carpeta del sistema
 
         Dim file As New OpenFileDialog()
-        file.Filter = "Ficheros JPG o JPEG o PNG|*.jpg;*.jpeg;*.png" & _
-                      "|Ficheros GIF|*.gif" & _
-                      "|Ficheros BMP|*.bmp" & _
-                      "|Ficheros PNG|*.png" & _
+        file.Filter = "Ficheros JPG o JPEG o PNG|*.jpg;*.jpeg;*.png" &
+                      "|Ficheros GIF|*.gif" &
+                      "|Ficheros BMP|*.bmp" &
+                      "|Ficheros PNG|*.png" &
                       "|Ficheros TIFF|*.tif"
         If file.ShowDialog() = DialogResult.OK Then
             Dim ruta As String = file.FileName
@@ -351,7 +352,7 @@ Public Class F1_Clientes
         _prCrearCarpetaImagenes()
         _prCrearCarpetaTemporal()
         BtAdicionar.Visible = True
-        tbCodCliente.ReadOnly = False
+
         tbRazonSocial.Focus()
         cbEstadoCiv.SelectedIndex = 0
         ''  SuperTabItem1.Visible =True 
@@ -399,7 +400,7 @@ Public Class F1_Clientes
 
         tbTelf2.Clear()
         tbObs.Clear()
-        'cbCatPrec.SelectedIndex = -1
+        cbCatPrec.SelectedIndex = 0
         'cbZona.SelectedIndex = -1
         'cbTipoDoc.SelectedIndex = -1
         tbNdoc.Clear()
@@ -451,22 +452,25 @@ Public Class F1_Clientes
         tbNombre.BackColor = Color.White
         tbRazonSocial.BackColor = Color.White
         tbDireccion.BackColor = Color.White
+        'tbCodCliente.BackColor = Color.White
+        tbVendedor.BackColor = Color.White
     End Sub
 
     Public Overrides Function _PMOGrabarRegistro() As Boolean
+        Dim res As Boolean
 
-        Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
-        NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, 0,
+        res = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
+        NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
         IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
         _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
         nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text)
 
-        '  Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbNombre.Text, NumiVendedor,
-        ' cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, cbCatPrec.Value, IIf(swEstado.Value = True, 1, 0),
-        '_latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text, _Tipo, tbNit.Text, Tbdias.Text, TbLCred.Text,
-        'tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImg, cbVisita.Value)
+            '  Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbNombre.Text, NumiVendedor,
+            ' cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, cbCatPrec.Value, IIf(swEstado.Value = True, 1, 0),
+            '_latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text, _Tipo, tbNit.Text, Tbdias.Text, TbLCred.Text,
+            'tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImg, cbVisita.Value)
 
-        If res Then
+            If res Then
             Modificado = False
             _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImg)
             nameImg = "Default.jpg"
@@ -493,8 +497,9 @@ Public Class F1_Clientes
 
         Dim nameImage As String = JGrM_Buscador.GetValue("ydimg")
         If (Modificado = False) Then
+
             res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text, NumiVendedor,
-                  0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, 0,
+                  0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
                   IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
                   tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
                   tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text)
@@ -600,6 +605,17 @@ Public Class F1_Clientes
             tbRazonSocial.BackColor = Color.White
             MEP.SetError(tbRazonSocial, "")
         End If
+
+        If tbVendedor.Text = String.Empty Then
+            tbVendedor.BackColor = Color.Red
+            MEP.SetError(tbVendedor, "asigne una institucion!".ToUpper)
+            _ok = False
+        Else
+            tbVendedor.BackColor = Color.White
+            MEP.SetError(tbVendedor, "")
+        End If
+
+
         ' If (cbCatPrec.SelectedIndex < 0) Then
 
         'If (CType(cbCatPrec.DataSource, DataTable).Rows.Count > 0) Then
@@ -705,6 +721,7 @@ Public Class F1_Clientes
         With JGrM_Buscador
             tbCodigoOriginal.Text = .GetValue("ydnumi").ToString
             tbCodCliente.Text = .GetValue("ydcod").ToString
+            '_codCan = Convert.ToInt32(tbCodCliente.Text)
             tbNombre.Text = .GetValue("yddesc").ToString
             tbRazonSocial.Text = IIf(IsDBNull(.GetValue("ydrazonsocial")), "", .GetValue("ydrazonsocial"))
             cbTipoDoc.Value = .GetValue("yddct")
@@ -965,9 +982,9 @@ Public Class F1_Clientes
 
             Dim listEstCeldas As New List(Of Modelo.Celda)
             listEstCeldas.Add(New Modelo.Celda("id", True, "ID", 50))
-            listEstCeldas.Add(New Modelo.Celda("codInst", True, "Cod. INST", 70))
+            listEstCeldas.Add(New Modelo.Celda("codInst", True, "Cod. Institución", 70))
             listEstCeldas.Add(New Modelo.Celda("nomInst", True, "NOMBRE", 280))
-            listEstCeldas.Add(New Modelo.Celda("direc", True, "DIRECCION".ToUpper, 150))
+            listEstCeldas.Add(New Modelo.Celda("direc", False, "DIRECCION".ToUpper, 150))
             listEstCeldas.Add(New Modelo.Celda("telf", True, "TELEFONO", 220))
             Dim ef = New Efecto
             ef.tipo = 3

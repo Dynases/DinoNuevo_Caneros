@@ -155,16 +155,16 @@ Public Class F1_Productos
         dt = L_prLibreriaClienteCategoria(cod1, cod2)
         With mCombo
             .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("cat_tipo").Width = 70
+            .DropDownList.Columns.Add("cat_tipo").Width = 50
             .DropDownList.Columns("cat_tipo").Caption = "Tipo"
-            .DropDownList.Columns.Add("cat_linea").Width = 70
+            .DropDownList.Columns.Add("cat_linea").Width = 50
             .DropDownList.Columns("cat_linea").Caption = "Linea"
-            .DropDownList.Columns.Add("catcod").Width = 70
+            .DropDownList.Columns.Add("catcod").Width = 50
             .DropDownList.Columns("catcod").Caption = "COD"
             .DropDownList.Columns.Add("cat_desc").Width = 200
             .DropDownList.Columns("cat_desc").Caption = "DESCRIPCION"
-            .DropDownList.Columns.Add("cat_cu").Width = 70
-            .DropDownList.Columns("cat_cu").Caption = "Cuenta"
+            .DropDownList.Columns.Add("cacta").Width = 100
+            .DropDownList.Columns("cacta").Caption = "Cuenta"
             .ValueMember = "catcod"
             .DisplayMember = "cat_desc"
             .DataSource = dt
@@ -268,8 +268,8 @@ Public Class F1_Productos
 #Region "METODOS SOBRECARGADOS"
 
     Public Overrides Sub _PMOHabilitar()
-        tbCodBarra.ReadOnly = False
-        tbCodProd.ReadOnly = False
+        'tbCodBarra.ReadOnly = False
+        'tbCodProd.ReadOnly = False
         tbDescPro.ReadOnly = False
         tbDescDet.ReadOnly = False
         tbDescCort.ReadOnly = False
@@ -291,14 +291,14 @@ Public Class F1_Productos
         btnImprimir.Visible = False
         dgjDetalleProducto.AllowEdit = InheritableBoolean.True
         dgjDetalleProducto.RootTable.Columns("delete").Visible = True
-        btnSearch.Visible = True
+        'btnSearch.Visible = True
         adicionarFilaDetalleProducto()
         _prCargarComboCategoria(cbgrupo3, cbgrupo1.Value, cbgrupo2.Value)
     End Sub
 
     Public Overrides Sub _PMOInhabilitar()
         tbCodigo.ReadOnly = True
-        tbCodBarra.ReadOnly = True
+        'tbCodBarra.ReadOnly = True
         tbCodProd.ReadOnly = True
         tbDescPro.ReadOnly = True
         tbDescCort.ReadOnly = True
@@ -345,7 +345,7 @@ Public Class F1_Productos
 
             tbStockMinimo.Value = 0
         End If
-        tbCodProd.Focus()
+        tbDescDet.Focus()
         UsImg.pbImage.Image = My.Resources.pantalla
 
         armarGrillaDetalleProducto(0)
@@ -379,6 +379,7 @@ Public Class F1_Productos
         cbgrupo3.BackColor = Color.White
         cbgrupo4.BackColor = Color.White
         cbgrupo5.BackColor = Color.White
+        'tbCodBarra.BackColor = Color.White
     End Sub
 
     Public Overrides Function _PMOGrabarRegistro() As Boolean
@@ -532,7 +533,7 @@ Public Class F1_Productos
         If tbDescPro.Text = String.Empty Then
             tbDescPro.BackColor = Color.Red
             AddHandler tbDescPro.KeyDown, AddressOf TextBox_KeyDown
-            MEP.SetError(tbDescPro, "ingrese el descripcion del producto!".ToUpper)
+            MEP.SetError(tbDescPro, "ingrese la descripción del producto!".ToUpper)
             _ok = False
         Else
             tbDescPro.BackColor = Color.White
@@ -589,7 +590,15 @@ Public Class F1_Productos
         'cbUMed.BackColor = Color.White
         'MEP.SetError(cbUMed, "")
         'End If
-
+        'If fbCodBarra.Text = String.Empty Then
+        '    tbCodBarra.BackColor = Color.Red
+        '    AddHandler tbCodBarra.KeyDown, AddressOf TextBox_KeyDown
+        '    MEP.SetError(tbCodBarra, "seleccione una cuenta!".ToUpper)
+        '    _ok = False
+        'Else
+        '    tbCodBarra.BackColor = Color.White
+        '    MEP.SetError(tbCodBarra, "")
+        'End If
 
         MHighlighterFocus.UpdateHighlights()
         Return _ok
@@ -1222,7 +1231,6 @@ Public Class F1_Productos
 
     End Sub
 
-    Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
 
-    End Sub
+
 End Class

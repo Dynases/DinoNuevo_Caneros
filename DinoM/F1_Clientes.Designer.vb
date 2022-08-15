@@ -32,7 +32,6 @@ Partial Class F1_Clientes
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.tbCodigoOriginal = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
-        Me.tbCodCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbNombre = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
@@ -42,6 +41,7 @@ Partial Class F1_Clientes
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.tbObs = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.tbCodCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbEstadoCiv = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
         Me.tbRazonSocial = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -59,7 +59,6 @@ Partial Class F1_Clientes
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.UsImg = New DinoM.UCImg()
         Me.BtAdicionar = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX15 = New DevComponents.DotNetBar.LabelX()
         Me.SuperTabItem3 = New DevComponents.DotNetBar.SuperTabItem()
@@ -102,6 +101,7 @@ Partial Class F1_Clientes
         Me.cbCatPrec = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbZona = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.UsImg = New DinoM.UCImg()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -236,9 +236,6 @@ Partial Class F1_Clientes
         'btnEliminar
         '
         '
-        'btnNuevo
-        '
-        '
         'PanelToolBar2
         '
         Me.PanelToolBar2.Location = New System.Drawing.Point(1242, 0)
@@ -357,7 +354,7 @@ Partial Class F1_Clientes
         Me.tbCodigoOriginal.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodigoOriginal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCodigoOriginal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCodigoOriginal.Location = New System.Drawing.Point(172, 16)
+        Me.tbCodigoOriginal.Location = New System.Drawing.Point(154, 18)
         Me.tbCodigoOriginal.Name = "tbCodigoOriginal"
         Me.tbCodigoOriginal.PreventEnterBeep = True
         Me.tbCodigoOriginal.Size = New System.Drawing.Size(63, 22)
@@ -379,22 +376,6 @@ Partial Class F1_Clientes
         Me.LabelX2.Size = New System.Drawing.Size(113, 23)
         Me.LabelX2.TabIndex = 225
         Me.LabelX2.Text = "Código Cañero:"
-        '
-        'tbCodCliente
-        '
-        '
-        '
-        '
-        Me.tbCodCliente.Border.Class = "TextBoxBorder"
-        Me.tbCodCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCodCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodCliente.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCodCliente.Location = New System.Drawing.Point(172, 47)
-        Me.tbCodCliente.Name = "tbCodCliente"
-        Me.tbCodCliente.PreventEnterBeep = True
-        Me.tbCodCliente.Size = New System.Drawing.Size(63, 22)
-        Me.tbCodCliente.TabIndex = 1
-        Me.tbCodCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'tbNombre
         '
@@ -456,7 +437,7 @@ Partial Class F1_Clientes
         Me.tbDireccion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tbDireccion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbDireccion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbDireccion.Location = New System.Drawing.Point(172, 141)
+        Me.tbDireccion.Location = New System.Drawing.Point(154, 143)
         Me.tbDireccion.Multiline = True
         Me.tbDireccion.Name = "tbDireccion"
         Me.tbDireccion.PreventEnterBeep = True
@@ -507,7 +488,7 @@ Partial Class F1_Clientes
         Me.LabelX6.Location = New System.Drawing.Point(13, 236)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX6.Size = New System.Drawing.Size(148, 23)
+        Me.LabelX6.Size = New System.Drawing.Size(120, 23)
         Me.LabelX6.TabIndex = 233
         Me.LabelX6.Text = "Observacion:"
         '
@@ -520,7 +501,7 @@ Partial Class F1_Clientes
         Me.tbObs.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbObs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbObs.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbObs.Location = New System.Drawing.Point(172, 232)
+        Me.tbObs.Location = New System.Drawing.Point(154, 234)
         Me.tbObs.Multiline = True
         Me.tbObs.Name = "tbObs"
         Me.tbObs.PreventEnterBeep = True
@@ -530,6 +511,7 @@ Partial Class F1_Clientes
         'Panel1
         '
         Me.Panel1.AutoScroll = True
+        Me.Panel1.Controls.Add(Me.tbCodCliente)
         Me.Panel1.Controls.Add(Me.cbEstadoCiv)
         Me.Panel1.Controls.Add(Me.LabelX19)
         Me.Panel1.Controls.Add(Me.tbRazonSocial)
@@ -545,7 +527,6 @@ Partial Class F1_Clientes
         Me.Panel1.Controls.Add(Me.LabelX3)
         Me.Panel1.Controls.Add(Me.tbNombre)
         Me.Panel1.Controls.Add(Me.LabelX5)
-        Me.Panel1.Controls.Add(Me.tbCodCliente)
         Me.Panel1.Controls.Add(Me.LabelX4)
         Me.Panel1.Controls.Add(Me.LabelX2)
         Me.Panel1.Controls.Add(Me.tbCodigoOriginal)
@@ -555,12 +536,28 @@ Partial Class F1_Clientes
         Me.Panel1.Size = New System.Drawing.Size(428, 311)
         Me.Panel1.TabIndex = 234
         '
+        'tbCodCliente
+        '
+        '
+        '
+        '
+        Me.tbCodCliente.Border.Class = "TextBoxBorder"
+        Me.tbCodCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodCliente.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodCliente.Location = New System.Drawing.Point(154, 48)
+        Me.tbCodCliente.Name = "tbCodCliente"
+        Me.tbCodCliente.PreventEnterBeep = True
+        Me.tbCodCliente.Size = New System.Drawing.Size(63, 22)
+        Me.tbCodCliente.TabIndex = 255
+        Me.tbCodCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'cbEstadoCiv
         '
         cbEstadoCiv_DesignTimeLayout.LayoutString = resources.GetString("cbEstadoCiv_DesignTimeLayout.LayoutString")
         Me.cbEstadoCiv.DesignTimeLayout = cbEstadoCiv_DesignTimeLayout
         Me.cbEstadoCiv.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbEstadoCiv.Location = New System.Drawing.Point(172, 202)
+        Me.cbEstadoCiv.Location = New System.Drawing.Point(154, 204)
         Me.cbEstadoCiv.Name = "cbEstadoCiv"
         Me.cbEstadoCiv.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbEstadoCiv.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -597,7 +594,7 @@ Partial Class F1_Clientes
         Me.tbRazonSocial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tbRazonSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbRazonSocial.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbRazonSocial.Location = New System.Drawing.Point(172, 82)
+        Me.tbRazonSocial.Location = New System.Drawing.Point(154, 84)
         Me.tbRazonSocial.Name = "tbRazonSocial"
         Me.tbRazonSocial.PreventEnterBeep = True
         Me.tbRazonSocial.Size = New System.Drawing.Size(242, 22)
@@ -610,7 +607,7 @@ Partial Class F1_Clientes
         Me.btnSearch.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
         Me.btnSearch.Image = Global.DinoM.My.Resources.Resources.search
         Me.btnSearch.ImageFixedSize = New System.Drawing.Size(28, 26)
-        Me.btnSearch.Location = New System.Drawing.Point(390, 107)
+        Me.btnSearch.Location = New System.Drawing.Point(390, 109)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(30, 28)
         Me.btnSearch.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -644,7 +641,7 @@ Partial Class F1_Clientes
         Me.tbVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbVendedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbVendedor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbVendedor.Location = New System.Drawing.Point(172, 111)
+        Me.tbVendedor.Location = New System.Drawing.Point(154, 113)
         Me.tbVendedor.Name = "tbVendedor"
         Me.tbVendedor.PreventEnterBeep = True
         Me.tbVendedor.ReadOnly = True
@@ -660,7 +657,7 @@ Partial Class F1_Clientes
         Me.tbTelf1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbTelf1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbTelf1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbTelf1.Location = New System.Drawing.Point(172, 172)
+        Me.tbTelf1.Location = New System.Drawing.Point(154, 174)
         Me.tbTelf1.Name = "tbTelf1"
         Me.tbTelf1.PreventEnterBeep = True
         Me.tbTelf1.Size = New System.Drawing.Size(215, 22)
@@ -866,16 +863,6 @@ Partial Class F1_Clientes
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(430, 286)
         Me.Panel2.TabIndex = 223
-        '
-        'UsImg
-        '
-        Me.UsImg.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.UsImg.BackColor = System.Drawing.Color.Transparent
-        Me.UsImg.Location = New System.Drawing.Point(100, 14)
-        Me.UsImg.Margin = New System.Windows.Forms.Padding(4)
-        Me.UsImg.Name = "UsImg"
-        Me.UsImg.Size = New System.Drawing.Size(310, 257)
-        Me.UsImg.TabIndex = 222
         '
         'BtAdicionar
         '
@@ -1258,7 +1245,7 @@ Partial Class F1_Clientes
         '
         Me.tbUltVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbUltVenta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.tbUltVenta.Location = New System.Drawing.Point(304, 169)
+        Me.tbUltVenta.Location = New System.Drawing.Point(296, 195)
         Me.tbUltVenta.Name = "tbUltVenta"
         Me.tbUltVenta.Size = New System.Drawing.Size(97, 22)
         Me.tbUltVenta.TabIndex = 9
@@ -1445,7 +1432,7 @@ Partial Class F1_Clientes
         Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX8.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX8.Location = New System.Drawing.Point(11, 240)
+        Me.LabelX8.Location = New System.Drawing.Point(11, 292)
         Me.LabelX8.Name = "LabelX8"
         Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX8.Size = New System.Drawing.Size(116, 23)
@@ -1573,6 +1560,16 @@ Partial Class F1_Clientes
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 500
         '
+        'UsImg
+        '
+        Me.UsImg.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.UsImg.BackColor = System.Drawing.Color.Transparent
+        Me.UsImg.Location = New System.Drawing.Point(100, 14)
+        Me.UsImg.Margin = New System.Windows.Forms.Padding(4)
+        Me.UsImg.Name = "UsImg"
+        Me.UsImg.Size = New System.Drawing.Size(310, 257)
+        Me.UsImg.TabIndex = 222
+        '
         'F1_Clientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1630,7 +1627,6 @@ Partial Class F1_Clientes
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbCodigoOriginal As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbCodCliente As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbNombre As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
@@ -1698,4 +1694,5 @@ Partial Class F1_Clientes
     Friend WithEvents LabelX22 As DevComponents.DotNetBar.LabelX
     Friend WithEvents TbNomEsposa As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX23 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbCodCliente As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

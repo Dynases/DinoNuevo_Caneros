@@ -419,7 +419,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Dim _Tabla As DataTable
         Dim _Ds As New DataSet
 
-        _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf,cuenta.cacta", "Institucion")
+        _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf,cuenta.cacta,cuenta.canumi", "Institucion")
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
@@ -437,26 +437,59 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return _Err
     End Function
-
-    Public Shared Function L_Institucion_Grabar(ByRef _numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
-        Dim _Actualizacion As String
-        Dim _Err As Boolean
+    Public Shared Function L_BuscarCodCanero(_Numi As String) As Boolean
         Dim _Tabla As DataTable
-        _Tabla = D_Maximo("Institucion", "id", "id=id")
-        If Not IsDBNull(_Tabla.Rows(0).Item(0)) Then
-            _numi = _Tabla.Rows(0).Item(0) + 1
+        Dim _Err As Boolean
+        Dim _Where As String = "ydcod = " + _Numi + " and ydtip=1"
+        _Tabla = D_Datos_Tabla("*", "TY004", _Where)
+        If (_Tabla.Rows.Count > 0) Then
+            _Err = True
         Else
-            _numi = "1"
+            _Err = False
         End If
-
-        _Actualizacion = "'" + Date.Now.Date.ToString("yyyy/MM/dd") + "', '" + Now.Hour.ToString + ":" + Now.Minute.ToString + "' ,'" + L_Usuario + "'"
-
-        Dim Sql As String
-        Sql = _numi + ",'" + _codInst + "','" + _nomInst + "','" + _direc + "','" + _telf + "'," + _campo1 + "," + _campo2 + ",'" + _campo3 + "'," + _Actualizacion
-        _Err = D_Insertar_Datos("Institucion", Sql)
         Return _Err
     End Function
+    'Public Shared Function L_Institucion_Grabar(ByRef _numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
+    '    Dim _Actualizacion As String
+    '    Dim _Err As Boolean
+    '    Dim _Tabla As DataTable
+    '    _Tabla = D_Maximo("Institucion", "id", "id=id")
+    '    If Not IsDBNull(_Tabla.Rows(0).Item(0)) Then
+    '        _numi = _Tabla.Rows(0).Item(0) + 1
+    '    Else
+    '        _numi = "1"
+    '    End If
 
+    '    _Actualizacion = "'" + Date.Now.Date.ToString("yyyy/MM/dd") + "', '" + Now.Hour.ToString + ":" + Now.Minute.ToString + "' ,'" + L_Usuario + "'"
+
+    '    Dim Sql As String
+    '    Sql = _numi + ",'" + _codInst + "','" + _nomInst + "','" + _direc + "','" + _telf + "'," + _campo1 + "," + _campo2 + ",'" + _campo3 + "'," + _Actualizacion
+    '    _Err = D_Insertar_Datos("Institucion", Sql)
+    '    Return _Err
+    'End Function
+    Public Shared Function L_Institucion_Grabar(_nomInst As String, _telf As String, _direc As String) As Boolean
+        Dim _Error As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 551))
+        _listParam.Add(New Datos.DParametro("@yfdetpro", _nomInst))
+        _listParam.Add(New Datos.DParametro("@yfimg", _direc))
+        _listParam.Add(New Datos.DParametro("@yfcbarra", _telf))
+
+        _listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            '_numi = _Tabla.Rows(0).Item(0)
+            _Error = False
+        Else
+            _Error = True
+        End If
+        Return Not _Error
+    End Function
     Public Shared Function L_Institucion_Modificar(_numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
         Dim _Err As Boolean
         Dim Sql, _where As String

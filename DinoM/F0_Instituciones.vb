@@ -4,7 +4,8 @@ Imports DevComponents.DotNetBar
 Imports DevComponents.DotNetBar.Controls
 Public Class F0_Instituciones
     Dim _Inter As Integer = 0
-
+    Dim NumiCuenta As Integer
+    Dim _codInsti As Integer = 0
 #Region "ATRIBUTOS"
     Dim _Dsencabezado As DataSet
     Dim _Nuevo As Boolean
@@ -75,6 +76,8 @@ Public Class F0_Instituciones
             Tb_NomInst.Text = .GetValue("nomInst").ToString
             Tb_Telefono.Text = .GetValue("telf").ToString
             Tb_Direccion.Text = .GetValue("direc").ToString
+            tbCodBarra.Text = .GetValue("cacta").ToString
+            NumiCuenta = .GetValue("canumi").ToString
 
         End With
     End Sub
@@ -83,6 +86,7 @@ Public Class F0_Instituciones
         Tb_Id.ReadOnly = True
         Tb_CodInst.ReadOnly = True
         Tb_NomInst.ReadOnly = True
+        tbCodBarra.ReadOnly = True
 
         Tb_Telefono.ReadOnly = True
         Tb_Direccion.ReadOnly = True
@@ -91,7 +95,7 @@ Public Class F0_Instituciones
         btnModificar.Enabled = True
         btnEliminar.Enabled = True
         btnGrabar.Enabled = False
-
+        btnSearch.Visible = False
 
         JGr_Buscador.Enabled = True
 
@@ -102,7 +106,7 @@ Public Class F0_Instituciones
 
     Private Sub _PLimpiarErrores()
         MEP.Clear()
-        Tb_CodInst.BackColor = Color.White
+        'Tb_CodInst.BackColor = Color.White
         Tb_NomInst.BackColor = Color.White
 
     End Sub
@@ -112,7 +116,7 @@ Public Class F0_Instituciones
         MHighlighterFocus.SetHighlightOnFocus(Tb_NomInst, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
         MHighlighterFocus.SetHighlightOnFocus(Tb_Telefono, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
         MHighlighterFocus.SetHighlightOnFocus(Tb_Direccion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-        Tb_CodInst.TabIndex = 1
+        'Tb_CodInst.TabIndex = 1
         Tb_NomInst.TabIndex = 2
         Tb_Telefono.TabIndex = 3
         Tb_Direccion.TabIndex = 4
@@ -149,6 +153,13 @@ Public Class F0_Instituciones
         With JGr_Buscador.RootTable.Columns("cacta")
             '   .Visible = False
             .Caption = "Num.Cuenta".ToUpper
+            .Width = 200
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+        With JGr_Buscador.RootTable.Columns("canumi")
+            .Visible = False
+            .Caption = "Cod.Cuenta".ToUpper
             .Width = 400
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
@@ -185,9 +196,9 @@ Public Class F0_Instituciones
 #End Region
 #Region " Metodo-Button "
     Private Sub _PHabilitar()
-        Tb_CodInst.ReadOnly = False
+        'Tb_CodInst.ReadOnly = False
         Tb_NomInst.ReadOnly = False
-
+        'tbCodBarra.ReadOnly = False
         Tb_Telefono.ReadOnly = False
         Tb_Direccion.ReadOnly = False
 
@@ -195,6 +206,7 @@ Public Class F0_Instituciones
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
         btnGrabar.Enabled = True
+        btnSearch.Visible = False
     End Sub
 
     Private Sub _PLimpiar()
@@ -202,7 +214,7 @@ Public Class F0_Instituciones
         Tb_CodInst.Text = String.Empty
         Tb_NomInst.Text = String.Empty
         Tb_Direccion.Text = String.Empty
-
+        tbCodBarra.Text = String.Empty
         Tb_Telefono.Clear()
         LblPaginacion.Text = String.Empty
     End Sub
@@ -210,14 +222,7 @@ Public Class F0_Instituciones
     Public Function P_Validar() As Boolean
         Dim _Error As Boolean = True
         MEP.Clear()
-        If Tb_CodInst.Text.Trim = String.Empty Then
-            Tb_CodInst.BackColor = Color.Red
-            MEP.SetError(Tb_CodInst, "Ingrese código institución!".ToUpper)
-            _Error = False
-        Else
-            Tb_CodInst.BackColor = Color.White
-            MEP.SetError(Tb_CodInst, String.Empty)
-        End If
+
 
         If Tb_NomInst.Text.Trim = String.Empty Then
             Tb_NomInst.BackColor = Color.Red
@@ -235,26 +240,26 @@ Public Class F0_Instituciones
     End Function
 
     ''P_ValidarCodInst
-    Public Function P_ValidarCodInst(codInst As String) As Boolean
-        Dim _Error As Boolean = False
-        MEP.Clear()
+    'Public Function P_ValidarCodInst(codInst As String) As Boolean
+    '    Dim _Error As Boolean = False
+    '    MEP.Clear()
 
-        If L_BuscarCodInst(codInst) = True Then
-            Tb_CodInst.BackColor = Color.Red
-            MEP.SetError(Tb_CodInst, "Ingrese un código distinto!".ToUpper)
-            _Error = True
-        Else
-            Tb_CodInst.BackColor = Color.White
-            MEP.SetError(Tb_CodInst, String.Empty)
-        End If
-
-
+    '    If L_BuscarCodInst(codInst) = True Then
+    '        Tb_CodInst.BackColor = Color.Red
+    '        MEP.SetError(Tb_CodInst, "Ingrese un código distinto!".ToUpper)
+    '        _Error = True
+    '    Else
+    '        Tb_CodInst.BackColor = Color.White
+    '        MEP.SetError(Tb_CodInst, String.Empty)
+    '    End If
 
 
 
-        MHighlighterFocus.UpdateHighlights()
-        Return _Error
-    End Function
+
+
+    '    MHighlighterFocus.UpdateHighlights()
+    '    Return _Error
+    'End Function
 #End Region
 #Region " Cancelar-Button "
     Private Sub BBtn_Cancelar_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -266,7 +271,7 @@ Public Class F0_Instituciones
             _PCargarBuscador()
 
             _PLimpiar()
-        _PInhabilitar()
+            _PInhabilitar()
             _PFiltrar()
 
         Else
@@ -286,7 +291,7 @@ Public Class F0_Instituciones
         'btnNuevo.Enabled = True
 
         _PLimpiar()
-        Tb_CodInst.Focus()
+        Tb_NomInst.Focus()
         _Nuevo = True
     End Sub
 
@@ -306,10 +311,6 @@ Public Class F0_Instituciones
                 btnGrabar.Tag = 1
                 btnGrabar.Refresh()
                 Exit Sub
-            ElseIf P_ValidarCodInst(Tb_CodInst.Text) Then
-
-                Exit Sub
-
             Else
                 btnGrabar.Tag = 0
                 btnGrabar.Refresh()
@@ -317,28 +318,31 @@ Public Class F0_Instituciones
 
             If _Nuevo Then
 
-                L_Institucion_Grabar(Tb_Id.Text, Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text, 0, 0, 0)
+                L_Institucion_Grabar(Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text)
 
-                Tb_CodInst.Focus()
+                    Tb_CodInst.Focus()
 
-                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
 
 
-                'actualizar el grid de buscador
-                _PCargarBuscador()
-                _PLimpiar()
-            Else
-                L_Institucion_Modificar(Tb_Id.Text, Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text, 0, 0, 0)
+                    'actualizar el grid de buscador
+                    _PCargarBuscador()
+                    _PLimpiar()
+
+
+                    Else
+
+                L_Institucion_Modificar(Tb_Id.Text, Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text, NumiCuenta, 0, 0)
 
                 ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
                 _PCargarBuscador()
-                    _Nuevo = False 'aumentado danny
-                    _PInhabilitar()
+                _Nuevo = False 'aumentado danny
+                _PInhabilitar()
                 _PFiltrar()
             End If
-            End If
+        End If
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
@@ -372,6 +376,7 @@ Public Class F0_Instituciones
     Private Sub _PModificarRegistro()
         _Nuevo = False
         _PHabilitar()
+        _codInsti = Tb_CodInst.Text
         'btnModificar.Enabled = True 'aumentado para q funcione con el modelo de guido
     End Sub
 
@@ -452,5 +457,44 @@ Public Class F0_Instituciones
             JGr_Buscador.Row = _MPos
         End If
         LblPaginacion.Text = Str(1) + "/" + CType(JGr_Buscador.DataSource, DataTable).Rows.Count.ToString
+    End Sub
+
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+
+
+        Dim dt As DataTable
+
+            dt = L_CuentaContable()
+            '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
+            ',a.ydtelf1 ,a.ydfnac 
+
+            Dim listEstCeldas As New List(Of Modelo.Celda)
+            listEstCeldas.Add(New Modelo.Celda("canumi", True, "Cod", 50))
+            listEstCeldas.Add(New Modelo.Celda("cacta", True, "Nro. CUENTA", 70))
+            listEstCeldas.Add(New Modelo.Celda("cadesc", True, "NOMBRE", 280))
+            Dim ef = New Efecto
+            ef.tipo = 3
+            ef.dt = dt
+            ef.SeleclCol = 1
+            ef.listEstCeldas = listEstCeldas
+            ef.alto = 50
+            ef.ancho = 350
+            ef.Context = "Seleccione Cuenta".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                If (IsNothing(Row)) Then
+                    tbCodBarra.Focus()
+                    Return
+
+                End If
+                NumiCuenta = Row.Cells("canumi").Value
+            tbCodBarra.Text = Row.Cells("cacta").Value
+            'tbDescPro.Focus()
+
+        End If
+
     End Sub
 End Class

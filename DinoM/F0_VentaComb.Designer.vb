@@ -413,7 +413,7 @@ Partial Class F0_VentaComb
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(856, 550)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(766, 499)
         Me.SuperTabControlPanel1.TabIndex = 2
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -427,7 +427,7 @@ Partial Class F0_VentaComb
         Me.GroupPanel3.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel3.Name = "GroupPanel3"
-        Me.GroupPanel3.Size = New System.Drawing.Size(856, 550)
+        Me.GroupPanel3.Size = New System.Drawing.Size(766, 499)
         '
         '
         '
@@ -467,7 +467,7 @@ Partial Class F0_VentaComb
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(850, 527)
+        Me.Panel6.Size = New System.Drawing.Size(760, 476)
         Me.Panel6.TabIndex = 0
         '
         'grVentas
@@ -489,7 +489,7 @@ Partial Class F0_VentaComb
         Me.grVentas.SelectedFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grVentas.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.grVentas.SelectOnExpand = False
-        Me.grVentas.Size = New System.Drawing.Size(850, 527)
+        Me.grVentas.Size = New System.Drawing.Size(760, 476)
         Me.grVentas.TabIndex = 0
         Me.grVentas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -1186,7 +1186,7 @@ Partial Class F0_VentaComb
         cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
         Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
         Me.cbSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.Location = New System.Drawing.Point(83, 266)
+        Me.cbSucursal.Location = New System.Drawing.Point(499, 240)
         Me.cbSucursal.Name = "cbSucursal"
         Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -1194,7 +1194,6 @@ Partial Class F0_VentaComb
         Me.cbSucursal.SelectedItem = Nothing
         Me.cbSucursal.Size = New System.Drawing.Size(140, 22)
         Me.cbSucursal.TabIndex = 270
-        Me.cbSucursal.Visible = False
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'tbFechaVenta
