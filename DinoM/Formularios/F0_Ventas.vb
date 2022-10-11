@@ -1172,7 +1172,7 @@ Public Class F0_Ventas
                         Now.Date.ToString("yyyy/MM/dd"),
                         "''",
                         "1",
-                        numi, "")
+                        numi, "", "", "", "", "", "", "", "", "")
 
         'Grabado de Detalle de Factura
         grProductos.Update()

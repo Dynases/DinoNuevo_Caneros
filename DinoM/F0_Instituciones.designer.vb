@@ -25,6 +25,7 @@ Partial Class F0_Instituciones
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_Instituciones))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Tb_CodInst = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.btnSearch = New DevComponents.DotNetBar.ButtonX()
         Me.tbCodBarra = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
@@ -40,7 +41,6 @@ Partial Class F0_Instituciones
         Me.JGr_Buscador = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Tb_CodInst = New DevComponents.DotNetBar.Controls.TextBoxX()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -238,6 +238,20 @@ Partial Class F0_Instituciones
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1079, 138)
         Me.Panel1.TabIndex = 45
+        '
+        'Tb_CodInst
+        '
+        '
+        '
+        '
+        Me.Tb_CodInst.Border.Class = "TextBoxBorder"
+        Me.Tb_CodInst.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Tb_CodInst.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tb_CodInst.Location = New System.Drawing.Point(161, 46)
+        Me.Tb_CodInst.Name = "Tb_CodInst"
+        Me.Tb_CodInst.PreventEnterBeep = True
+        Me.Tb_CodInst.Size = New System.Drawing.Size(100, 21)
+        Me.Tb_CodInst.TabIndex = 241
         '
         'btnSearch
         '
@@ -499,20 +513,6 @@ Partial Class F0_Instituciones
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 500
-        '
-        'Tb_CodInst
-        '
-        '
-        '
-        '
-        Me.Tb_CodInst.Border.Class = "TextBoxBorder"
-        Me.Tb_CodInst.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.Tb_CodInst.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tb_CodInst.Location = New System.Drawing.Point(161, 46)
-        Me.Tb_CodInst.Name = "Tb_CodInst"
-        Me.Tb_CodInst.PreventEnterBeep = True
-        Me.Tb_CodInst.Size = New System.Drawing.Size(100, 21)
-        Me.Tb_CodInst.TabIndex = 241
         '
         'F0_Instituciones
         '

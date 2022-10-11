@@ -5,7 +5,11 @@ Imports Janus.Windows.GridEX
 Imports System.IO
 Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
-
+Imports Newtonsoft.Json
+Imports DinoM.AeconomicaResp
+Imports DinoM.UmedidaResp
+Imports DinoM.HomologResp
+Imports DinoM.ListarPServResp
 Public Class F1_Productos
     Dim _Inter As Integer = 0
 #Region "Variables Locales"
@@ -18,6 +22,12 @@ Public Class F1_Productos
     Public _modulo As SideNavItem
     Public Limpiar As Boolean = False  'Bandera para indicar si limpiar todos los datos o mantener datos ya registrados
     Dim NumiCuenta As Integer
+    'variables sifac
+    Public tokenSifac As String
+    Public CodActEco As String
+    Public CodProSINs As String
+    Public Ume As Integer
+    Public preciosifac As Integer
 #End Region
 #Region "Metodos Privados"
     Private Sub _prIniciarTodo()
@@ -283,6 +293,13 @@ Public Class F1_Productos
         cbUniVenta.ReadOnly = False
         cbUnidMaxima.ReadOnly = False
         tbConversion.IsInputReadOnly = False
+
+        CbAeconomica.ReadOnly = False
+        CbUmedida.ReadOnly = False
+        'CbProdServ.ReadOnly = False
+        TbPrecioPsifac.ReadOnly = False
+        CbProdServ.ReadOnly = False
+
         _prCrearCarpetaImagenes()
         _prCrearCarpetaTemporal()
         BtAdicionar.Visible = True
@@ -316,6 +333,11 @@ Public Class F1_Productos
         tbStockMinimo.IsInputReadOnly = True
         BtAdicionar.Visible = False
         btnSearch.Visible = False
+        CbAeconomica.ReadOnly = True
+        CbUmedida.ReadOnly = True
+        ' CbProdServ.ReadOnly = True
+        TbPrecioPsifac.ReadOnly = True
+        CbProdServ.ReadOnly = True
         _prStyleJanus()
         JGrM_Buscador.Focus()
         Limpiar = False
@@ -397,7 +419,8 @@ Public Class F1_Productos
                                                 tbConversion.Text,
                                                 IIf(tbStockMinimo.Text = String.Empty, 0, tbStockMinimo.Text),
                                                 IIf(swEstado.Value = True, 1, 0), nameImg,
-                                                quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource, DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi", "yfasim", "yfadesc", "estado")), tbDescDet.Text, cbgrupo5.Value)
+                                                quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource, DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi", "yfasim", "yfadesc", "estado")),
+                                                tbDescDet.Text, cbgrupo5.Value, CbAeconomica.Value, CbUmedida.Value, CbProdServ.Value, TbPrecioPsifac.Text)
 
 
         If res Then
@@ -436,9 +459,9 @@ Public Class F1_Productos
                                        quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource,
                                        DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi",
                                                                       "yfasim", "yfadesc", "estado")),
-                                       tbDescDet.Text, cbgrupo5.Value)
+                                       tbDescDet.Text, cbgrupo5.Value, CbAeconomica.Value, CbUmedida.Value, CbProdServ.Value, TbPrecioPsifac.Text)
         Else
-            res = L_fnModificarProducto(tbCodigo.Text, tbCodProd.Text, NumiCuenta, tbDescPro.Text, tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value, cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Text, tbStockMinimo.Text, IIf(swEstado.Value = True, 1, 0), nameImg, quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource, DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi", "yfasim", "yfadesc", "estado")), tbDescDet.Text, cbgrupo5.Value)
+            res = L_fnModificarProducto(tbCodigo.Text, tbCodProd.Text, NumiCuenta, tbDescPro.Text, tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value, cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value, cbUnidMaxima.Value, tbConversion.Text, tbStockMinimo.Text, IIf(swEstado.Value = True, 1, 0), nameImg, quitarUltimaFilaVacia(CType(dgjDetalleProducto.DataSource, DataTable).DefaultView.ToTable(False, "yfanumi", "yfayfnumi", "yfasim", "yfadesc", "estado")), tbDescDet.Text, cbgrupo5.Value, CbAeconomica.Value, CbUmedida.Value, CbProdServ.Value, TbPrecioPsifac.Text)
         End If
         If res Then
 
@@ -647,6 +670,11 @@ Public Class F1_Productos
         listEstCeldas.Add(New Modelo.Celda("Umax", True, "UniMaxima".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("yfdetprod", False, "Descripcion".ToUpper, 150))
 
+        listEstCeldas.Add(New Modelo.Celda("ygcodact", False))
+        listEstCeldas.Add(New Modelo.Celda("ygcodu", False))
+        listEstCeldas.Add(New Modelo.Celda("ygcodsin", False))
+        listEstCeldas.Add(New Modelo.Celda("ygprecio", False))
+
         Return listEstCeldas
     End Function
 
@@ -682,6 +710,11 @@ Public Class F1_Productos
             lbFecha.Text = CType(.GetValue("yffact"), Date).ToString("dd/MM/yyyy")
             lbHora.Text = .GetValue("yfhact").ToString
             lbUsuario.Text = .GetValue("yfuact").ToString
+
+            CbAeconomica.Value = .GetValue("ygcodact")
+            CbUmedida.Value = .GetValue("ygcodu")
+            CbProdServ.Value = .GetValue("ygcodsin")
+            TbPrecioPsifac.Text = .GetValue("ygprecio").ToString
 
         End With
         Dim name As String = JGrM_Buscador.GetValue("yfimg")
@@ -732,7 +765,21 @@ Public Class F1_Productos
 #End Region
 
     Private Sub F1_Productos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        _prIniciarTodo()
+        tokenSifac = F0_Venta2.ObtToken(3)
+        If tokenSifac = "400" Then
+            Me.Close()
+            MessageBox.Show("intente de nuevo")
+
+        Else
+            UnidadMedida(tokenSifac)
+            CbUmedida.SelectedIndex = -1
+            ActividadesEconomicas(tokenSifac)
+            CbAeconomica.SelectedIndex = -1
+            ListarProductoServicio(tokenSifac)
+            CbProdServ.SelectedIndex = -1
+            _prIniciarTodo()
+        End If
+
     End Sub
 
 
@@ -1231,6 +1278,103 @@ Public Class F1_Productos
 
     End Sub
 
+    Public Function ActividadesEconomicas(tokenObtenido)
+
+        Dim api = New DBApi()
+
+        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=1"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of List(Of AeconomicaResp))(response)
+
+        With CbAeconomica
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("codigo").Width = 70
+            .DropDownList.Columns("codigo").Caption = "COD"
+            .DropDownList.Columns.Add("descripcion").Width = 500
+            .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
+            .ValueMember = "codigo"
+            .DisplayMember = "descripcion"
+            .DataSource = result
+            .Refresh()
+        End With
+
+    End Function
+
+    Public Function ListarProductoServicio(tokenObtenido As String, Optional ae As Integer = 5)
+
+        Dim api = New DBApi()
+
+        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoProductos?nit=1028395023"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of List(Of ProServ))(response)
+
+
+
+        With CbProdServ
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("codigoActividadEconomica").Width = 70
+            .DropDownList.Columns("codigoActividadEconomica").Caption = "COD"
+            .DropDownList.Columns.Add("codigoSin").Width = 70
+            .DropDownList.Columns("codigoSin").Caption = "COD. PROD"
+            .DropDownList.Columns.Add("descripcion").Width = 500
+            .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
+            .ValueMember = "codigoSin"
+            .DisplayMember = "descripcion"
+            .DataSource = result
+            .Refresh()
+        End With
+
+    End Function
+
+    Public Function UnidadMedida(tokenObtenido)
+
+        Dim api = New DBApi()
+
+        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=15"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of List(Of Umedida))(response)
+
+
+        With CbUmedida
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("codigo").Width = 70
+            .DropDownList.Columns("codigo").Caption = "COD"
+            .DropDownList.Columns.Add("descripcion").Width = 250
+            .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
+            .ValueMember = "codigo"
+            .DisplayMember = "descripcion"
+            .DataSource = result
+            .Refresh()
+        End With
+        Return ""
+    End Function
 
 
 End Class

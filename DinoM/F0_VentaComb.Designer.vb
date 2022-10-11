@@ -46,8 +46,6 @@ Partial Class F0_VentaComb
         Me.cbTipoSolicitud = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbPlaca = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX36 = New DevComponents.DotNetBar.LabelX()
-        Me.tbNitFacturarA = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbFact = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX35 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX34 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX33 = New DevComponents.DotNetBar.LabelX()
@@ -143,7 +141,6 @@ Partial Class F0_VentaComb
         Me.GPanelProductos = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grProductos = New Janus.Windows.GridEX.GridEX()
-        Me.btnContabilizar = New DevComponents.DotNetBar.ButtonX()
         Me.SwConta = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
@@ -199,7 +196,6 @@ Partial Class F0_VentaComb
         '
         'PanelSuperior
         '
-        Me.PanelSuperior.Controls.Add(Me.btnContabilizar)
         Me.PanelSuperior.Controls.Add(Me.SwConta)
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2)
@@ -223,7 +219,6 @@ Partial Class F0_VentaComb
         Me.PanelSuperior.Controls.SetChildIndex(Me.PictureBox1, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.SwDescuentoProveedor, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.SwConta, 0)
-        Me.PanelSuperior.Controls.SetChildIndex(Me.btnContabilizar, 0)
         '
         'PanelInferior
         '
@@ -542,8 +537,6 @@ Partial Class F0_VentaComb
         Me.Panel2.Controls.Add(Me.cbTipoSolicitud)
         Me.Panel2.Controls.Add(Me.tbPlaca)
         Me.Panel2.Controls.Add(Me.LabelX36)
-        Me.Panel2.Controls.Add(Me.tbNitFacturarA)
-        Me.Panel2.Controls.Add(Me.tbFact)
         Me.Panel2.Controls.Add(Me.LabelX35)
         Me.Panel2.Controls.Add(Me.LabelX34)
         Me.Panel2.Controls.Add(Me.LabelX33)
@@ -689,32 +682,6 @@ Partial Class F0_VentaComb
         Me.LabelX36.TabIndex = 412
         Me.LabelX36.Text = "C.I/NIT:"
         '
-        'tbNitFacturarA
-        '
-        '
-        '
-        '
-        Me.tbNitFacturarA.Border.Class = "TextBoxBorder"
-        Me.tbNitFacturarA.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNitFacturarA.Location = New System.Drawing.Point(568, 215)
-        Me.tbNitFacturarA.Name = "tbNitFacturarA"
-        Me.tbNitFacturarA.PreventEnterBeep = True
-        Me.tbNitFacturarA.Size = New System.Drawing.Size(120, 22)
-        Me.tbNitFacturarA.TabIndex = 411
-        '
-        'tbFact
-        '
-        '
-        '
-        '
-        Me.tbFact.Border.Class = "TextBoxBorder"
-        Me.tbFact.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFact.Location = New System.Drawing.Point(93, 216)
-        Me.tbFact.Name = "tbFact"
-        Me.tbFact.PreventEnterBeep = True
-        Me.tbFact.Size = New System.Drawing.Size(365, 22)
-        Me.tbFact.TabIndex = 410
-        '
         'LabelX35
         '
         '
@@ -725,7 +692,7 @@ Partial Class F0_VentaComb
         Me.LabelX35.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX35.Location = New System.Drawing.Point(6, 216)
         Me.LabelX35.Name = "LabelX35"
-        Me.LabelX35.Size = New System.Drawing.Size(90, 23)
+        Me.LabelX35.Size = New System.Drawing.Size(86, 23)
         Me.LabelX35.TabIndex = 409
         Me.LabelX35.Text = "Facturar a:"
         '
@@ -1194,6 +1161,7 @@ Partial Class F0_VentaComb
         Me.cbSucursal.SelectedItem = Nothing
         Me.cbSucursal.Size = New System.Drawing.Size(140, 22)
         Me.cbSucursal.TabIndex = 270
+        Me.cbSucursal.Visible = False
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'tbFechaVenta
@@ -1268,12 +1236,11 @@ Partial Class F0_VentaComb
         Me.TbNombre1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.TbNombre1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbNombre1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.TbNombre1.Location = New System.Drawing.Point(447, 241)
+        Me.TbNombre1.Location = New System.Drawing.Point(93, 217)
         Me.TbNombre1.Name = "TbNombre1"
         Me.TbNombre1.PreventEnterBeep = True
-        Me.TbNombre1.Size = New System.Drawing.Size(19, 21)
+        Me.TbNombre1.Size = New System.Drawing.Size(365, 21)
         Me.TbNombre1.TabIndex = 2
-        Me.TbNombre1.Visible = False
         '
         'LabelX4
         '
@@ -1302,12 +1269,11 @@ Partial Class F0_VentaComb
         Me.tbNit.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNit.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbNit.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbNit.Location = New System.Drawing.Point(354, 240)
+        Me.tbNit.Location = New System.Drawing.Point(568, 216)
         Me.tbNit.Name = "tbNit"
         Me.tbNit.PreventEnterBeep = True
-        Me.tbNit.Size = New System.Drawing.Size(19, 21)
+        Me.tbNit.Size = New System.Drawing.Size(120, 21)
         Me.tbNit.TabIndex = 1
-        Me.tbNit.Visible = False
         '
         'LabelX3
         '
@@ -2485,23 +2451,6 @@ Partial Class F0_VentaComb
         Me.grProductos.TabIndex = 0
         Me.grProductos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'btnContabilizar
-        '
-        Me.btnContabilizar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnContabilizar.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.btnContabilizar.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnContabilizar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnContabilizar.Image = Global.DinoM.My.Resources.Resources.BUSQUEDA
-        Me.btnContabilizar.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnContabilizar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnContabilizar.Location = New System.Drawing.Point(620, 0)
-        Me.btnContabilizar.Name = "btnContabilizar"
-        Me.btnContabilizar.Size = New System.Drawing.Size(95, 72)
-        Me.btnContabilizar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnContabilizar.TabIndex = 390
-        Me.btnContabilizar.Text = "CONTABILIZAR"
-        Me.btnContabilizar.TextColor = System.Drawing.Color.White
-        '
         'SwConta
         '
         '
@@ -2651,8 +2600,6 @@ Partial Class F0_VentaComb
     Friend WithEvents cbTipoSolicitud As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents tbPlaca As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX36 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbNitFacturarA As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents tbFact As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX35 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX34 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX33 As DevComponents.DotNetBar.LabelX
@@ -2702,7 +2649,6 @@ Partial Class F0_VentaComb
     Friend WithEvents grProductos As Janus.Windows.GridEX.GridEX
     Friend WithEvents grdetalle As Janus.Windows.GridEX.GridEX
     Friend WithEvents cbDespachador As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Protected WithEvents btnContabilizar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents SwConta As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents SwSurtidor As DevComponents.DotNetBar.Controls.SwitchButton
 End Class

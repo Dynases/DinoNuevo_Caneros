@@ -28,7 +28,7 @@ Public Class F0_Instituciones
         _PCargarBuscador()
         _PInhabilitar()
         _PHabilitarFocus()
-
+        _prAsignarPermisos()
         Dim blah As New Bitmap(New Bitmap(My.Resources.user), 20, 20)
 
 
@@ -40,8 +40,28 @@ Public Class F0_Instituciones
         JGr_Buscador.Focus()
 
     End Sub
+    Private Sub _prAsignarPermisos()
+
+        Dim dtRolUsu As DataTable = L_prRolDetalleGeneral(gi_userRol, _nameButton)
+
+        Dim show As Boolean = dtRolUsu.Rows(0).Item("ycshow")
+        Dim add As Boolean = dtRolUsu.Rows(0).Item("ycadd")
+        Dim modif As Boolean = dtRolUsu.Rows(0).Item("ycmod")
+        Dim del As Boolean = dtRolUsu.Rows(0).Item("ycdel")
+
+        If add = False Then
+            btnNuevo.Visible = False
+        End If
+        If modif = False Then
+            btnModificar.Visible = False
+        End If
+        If del = False Then
+            btnEliminar.Visible = False
+        End If
+
+    End Sub
     Public Sub _MaxLengthTextBox()
-        Tb_CodInst.MaxLength = 4
+        Tb_CodInst.MaxLength = 6
         Tb_NomInst.MaxLength = 200
         Tb_Telefono.MaxLength = 20
         Tb_Direccion.MaxLength = 200
@@ -84,7 +104,7 @@ Public Class F0_Instituciones
 
     Private Sub _PInhabilitar()
         Tb_Id.ReadOnly = True
-        Tb_CodInst.ReadOnly = True
+        Tb_CodInst.ReadOnly = False
         Tb_NomInst.ReadOnly = True
         tbCodBarra.ReadOnly = True
 
@@ -106,7 +126,7 @@ Public Class F0_Instituciones
 
     Private Sub _PLimpiarErrores()
         MEP.Clear()
-        'Tb_CodInst.BackColor = Color.White
+        Tb_CodInst.BackColor = Color.White
         Tb_NomInst.BackColor = Color.White
 
     End Sub
@@ -116,7 +136,7 @@ Public Class F0_Instituciones
         MHighlighterFocus.SetHighlightOnFocus(Tb_NomInst, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
         MHighlighterFocus.SetHighlightOnFocus(Tb_Telefono, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
         MHighlighterFocus.SetHighlightOnFocus(Tb_Direccion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-        'Tb_CodInst.TabIndex = 1
+        Tb_CodInst.TabIndex = 1
         Tb_NomInst.TabIndex = 2
         Tb_Telefono.TabIndex = 3
         Tb_Direccion.TabIndex = 4
@@ -196,7 +216,7 @@ Public Class F0_Instituciones
 #End Region
 #Region " Metodo-Button "
     Private Sub _PHabilitar()
-        'Tb_CodInst.ReadOnly = False
+        Tb_CodInst.ReadOnly = False
         Tb_NomInst.ReadOnly = False
         'tbCodBarra.ReadOnly = False
         Tb_Telefono.ReadOnly = False
@@ -234,32 +254,43 @@ Public Class F0_Instituciones
         End If
 
 
+        If Tb_CodInst.Text.Trim = String.Empty Then
+            Tb_CodInst.BackColor = Color.Red
+            MEP.SetError(Tb_CodInst, "Ingrese un código de institución!".ToUpper)
+            _Error = False
 
+        Else
+            If _Nuevo Then
+                If L_BuscarCodInst(Tb_CodInst.Text) = True Then
+                    Tb_CodInst.BackColor = Color.Red
+                    MEP.SetError(Tb_CodInst, "Ingrese un código distinto!".ToUpper)
+                    _Error = False
+                Else
+                    Tb_CodInst.BackColor = Color.White
+                    MEP.SetError(Tb_CodInst, String.Empty)
+                End If
+            ElseIf _codInsti = Convert.ToInt32(Tb_CodInst.Text) Then
+                _Error = True
+            Else
+                If L_BuscarCodInst(Tb_CodInst.Text) = True Then
+                    Tb_CodInst.BackColor = Color.Red
+                    MEP.SetError(Tb_CodInst, "Ingrese un código distinto!".ToUpper)
+                    _Error = False
+                Else
+                    Tb_CodInst.BackColor = Color.White
+                    MEP.SetError(Tb_CodInst, String.Empty)
+                End If
+            End If
+            If _Error = True Then
+                Tb_CodInst.BackColor = Color.White
+                MEP.SetError(Tb_CodInst, String.Empty)
+            End If
+        End If
         MHighlighterFocus.UpdateHighlights()
         Return _Error
     End Function
 
-    ''P_ValidarCodInst
-    'Public Function P_ValidarCodInst(codInst As String) As Boolean
-    '    Dim _Error As Boolean = False
-    '    MEP.Clear()
 
-    '    If L_BuscarCodInst(codInst) = True Then
-    '        Tb_CodInst.BackColor = Color.Red
-    '        MEP.SetError(Tb_CodInst, "Ingrese un código distinto!".ToUpper)
-    '        _Error = True
-    '    Else
-    '        Tb_CodInst.BackColor = Color.White
-    '        MEP.SetError(Tb_CodInst, String.Empty)
-    '    End If
-
-
-
-
-
-    '    MHighlighterFocus.UpdateHighlights()
-    '    Return _Error
-    'End Function
 #End Region
 #Region " Cancelar-Button "
     Private Sub BBtn_Cancelar_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -318,9 +349,9 @@ Public Class F0_Instituciones
 
             If _Nuevo Then
 
-                L_Institucion_Grabar(Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text)
+                L_Institucion_Grabar(Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text)
 
-                    Tb_CodInst.Focus()
+                Tb_CodInst.Focus()
 
                     ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 

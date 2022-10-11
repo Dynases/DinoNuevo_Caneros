@@ -64,7 +64,7 @@ Public Class F0_Precios
     End Sub
     Public Sub _prCargarTablaPrecios(bandera As Boolean) ''Bandera = true si es que haiq cargar denuevo la tabla de Precio Bandera =false si solo cargar datos al Janus con el precio antepuesto
         If (cbAlmacen.SelectedIndex >= 0) Then
-            Dim productos As DataTable = L_fnListarProductos()
+            Dim productos As DataTable = L_fnListarProductos(cbAlmacen.Value)
             If (bandera = True) Then
                 _prCargarPrecios()
             End If

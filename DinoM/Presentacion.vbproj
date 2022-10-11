@@ -65,6 +65,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>casa2.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.AcroPDFLib">
       <HintPath>C:\librerias\PDF\AxInterop.AcroPDFLib.dll</HintPath>
@@ -174,8 +177,14 @@
     <Reference Include="Janus.Windows.UI.v3">
       <HintPath>C:\librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -513,6 +522,22 @@
       <DependentUpon>KardexClienteRes.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="modelosApi\AeconomicaResp.vb" />
+    <Compile Include="modelosApi\AnulacionEnvio.vb" />
+    <Compile Include="modelosApi\AnulacionResp.vb" />
+    <Compile Include="modelosApi\ConnSiat.vb" />
+    <Compile Include="modelosApi\DBApi.vb" />
+    <Compile Include="modelosApi\EmisorEnvio.vb" />
+    <Compile Include="modelosApi\EmisorResp.vb" />
+    <Compile Include="modelosApi\HomologEnvio.vb" />
+    <Compile Include="modelosApi\HomologResp.vb" />
+    <Compile Include="modelosApi\ListarPServResp.vb" />
+    <Compile Include="modelosApi\LoginEnvio.vb" />
+    <Compile Include="modelosApi\LoginResp.vb" />
+    <Compile Include="modelosApi\Parametro.vb" />
+    <Compile Include="modelosApi\RespMetodosPago.vb" />
+    <Compile Include="modelosApi\RespTipoDoc.vb" />
+    <Compile Include="modelosApi\UmedidaResp.vb" />
     <Compile Include="NroCaja.Designer.vb">
       <DependentUpon>NroCaja.vb</DependentUpon>
     </Compile>
@@ -1651,6 +1676,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\addimg.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1920,6 +1946,7 @@
     <None Include="Resources\rp_estadoCuentas.png" />
     <None Include="Resources\14.png" />
     <None Include="Resources\add.png" />
+    <Content Include="casa2.ico" />
     <Content Include="Resources\atras1.png" />
     <None Include="Resources\buscar.png" />
     <None Include="Resources\BUSQUEDA1.png" />

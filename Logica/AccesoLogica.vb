@@ -467,13 +467,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     '    _Err = D_Insertar_Datos("Institucion", Sql)
     '    Return _Err
     'End Function
-    Public Shared Function L_Institucion_Grabar(_nomInst As String, _telf As String, _direc As String) As Boolean
+    Public Shared Function L_Institucion_Grabar(_CodInst As String, _nomInst As String, _telf As String, _direc As String) As Boolean
         Dim _Error As Boolean
 
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 551))
+        _listParam.Add(New Datos.DParametro("@yfcprod", _CodInst))
         _listParam.Add(New Datos.DParametro("@yfdetpro", _nomInst))
         _listParam.Add(New Datos.DParametro("@yfimg", _direc))
         _listParam.Add(New Datos.DParametro("@yfcbarra", _telf))
@@ -567,7 +568,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                               _yfgr3 As Integer, _yfgr4 As Integer, _yfMed As Integer, _yfumin As Integer,
                                               _yfusup As Integer, _yfvsup As Double, _yfsmin As Integer, _yfap As Integer,
                                               _yfimg As String, TY0051 As DataTable,
-                                              _yfdetpro As String, _yfgr5 As String
+                                              _yfdetpro As String, _yfgr5 As String,
+                                              _ycodact As String, _yumed As Integer, _ycodprosin As String, _ypreciosif As Integer
                                               ) As Boolean
         Dim _resultado As Boolean
         '@yfnumi ,@yfcprod ,@yfcbarra ,@yfcdprod1 ,@yfcdprod2 ,
@@ -599,6 +601,12 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@yfdetpro", _yfdetpro))
         _listParam.Add(New Datos.DParametro("@yfgr5", _yfgr5))
+
+        _listParam.Add(New Datos.DParametro("@ycodact", _ycodact))
+        _listParam.Add(New Datos.DParametro("@ygcodu", _yumed))
+        _listParam.Add(New Datos.DParametro("@ycodprosin", _ycodprosin))
+        _listParam.Add(New Datos.DParametro("@ypreciosif", _ypreciosif))
+
         _listParam.Add(New Datos.DParametro("@TY0051", "", TY0051))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
 
@@ -618,8 +626,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                                  _yfgr3 As Integer, _yfgr4 As Integer, _yfMed As Integer,
                                                  _yfumin As Integer, _yfusup As Integer, _yfvsup As Double,
                                                  _yfsmin As Integer, _yfap As Integer, _yfimg As String,
-                                                 TY0051 As DataTable, _yfdetpro As String, _yfgr5 As String
-                                              ) As Boolean
+                                                 TY0051 As DataTable, _yfdetpro As String, _yfgr5 As String,
+                                              _ycodact As String, _yumed As Integer, _ycodprosin As String, _ypreciosif As Integer) As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -649,6 +657,12 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@yfdetpro", _yfdetpro))
         _listParam.Add(New Datos.DParametro("@yfgr5", _yfgr5))
+
+        _listParam.Add(New Datos.DParametro("@ycodact", _ycodact))
+        _listParam.Add(New Datos.DParametro("@ygcodu", _yumed))
+        _listParam.Add(New Datos.DParametro("@ycodprosin", _ycodprosin))
+        _listParam.Add(New Datos.DParametro("@ypreciosif", _ypreciosif))
+
         _listParam.Add(New Datos.DParametro("@TY0051", "", TY0051))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
 
@@ -907,7 +921,10 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                              _ydlat As Double, _ydlongi As Double, _ydobs As String,
                                              _ydfnac As String, _ydnomfac As String, _ydtip As Integer,
                                              _ydnit As String, _yddias As String, _ydlcred As String,
-                                             _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String, Optional _ydesciv As Integer = 1, Optional _ydEsposa As String = "", Optional _ydCiesposa As String = "") As Boolean
+                                             _ydfecing As String, _ydultvent As String, _ydimg As String,
+                                             _ydrut As String, Optional _ydesciv As Integer = 1,
+                                             Optional _ydEsposa As String = "", Optional _ydCiesposa As String = "",
+                                             Optional _ydtipdocelec As Integer = 1, Optional _ydcorreo As String = "") As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -946,6 +963,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ydesciv", _ydesciv))
         _listParam.Add(New Datos.DParametro("@ydesposa", _ydEsposa))
         _listParam.Add(New Datos.DParametro("@ydciesposa", _ydCiesposa))
+        _listParam.Add(New Datos.DParametro("@ydtipdocelec", _ydtipdocelec))
+        _listParam.Add(New Datos.DParametro("@ydcorreo", _ydcorreo))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
 
@@ -1062,7 +1081,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                              _ydtelf2 As String, _ydcat As Integer, _ydest As Integer, _ydlat As Double, _ydlongi As Double, _ydobs As String,
                                              _ydfnac As String, _ydnomfac As String,
                                              _ydtip As Integer, _ydnit As String, _yddias As String, _ydlcred As String, _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String,
-                                                 Optional _ydesciv As Integer = 1, Optional _ydEsposa As String = "", Optional _ydCiesposa As String = "") As Boolean
+                                                 Optional _ydesciv As Integer = 1, Optional _ydEsposa As String = "", Optional _ydCiesposa As String = "",
+                                             Optional _ydtipdocelec As Integer = 1, Optional _ydcorreo As String = "") As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -1099,6 +1119,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ydesciv", _ydesciv))
         _listParam.Add(New Datos.DParametro("@ydesposa", _ydEsposa))
         _listParam.Add(New Datos.DParametro("@ydciesposa", _ydCiesposa))
+        _listParam.Add(New Datos.DParametro("@ydtipdocelec", _ydtipdocelec))
+        _listParam.Add(New Datos.DParametro("@ydcorreo", _ydcorreo))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
@@ -1251,12 +1273,13 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
-    Public Shared Function L_fnListarProductos() As DataTable
+    Public Shared Function L_fnListarProductos(almacen As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@almacen", almacen))
         _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
 
@@ -1467,13 +1490,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 #End Region
 
 #Region "TV001 Ventas"
-    Public Shared Function L_fnGeneralVenta() As DataTable
+    Public Shared Function L_fnGeneralVenta(almacen As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 3))
         _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@almacen", almacen))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
 
         Return _Tabla
@@ -2900,7 +2924,9 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                        _NitCli As String, _CodCli As String, _DesCli1 As String, _DesCli2 As String,
                                        _A As String, _B As String, _C As String, _D As String, _E As String, _F As String,
                                        _G As String, _H As String, _CodCon As String, _FecLim As String,
-                                       _Imgqr As String, _Alm As String, _Numi2 As String, _hora As String)
+                                       _Imgqr As String, _Alm As String, _Numi2 As String, _hora As String,
+                                        codigoRecepcion As String, estadoEmisionEdoc As String, fechaEmision1 As String,
+                                       cuf As String, cuis As String, cufd As String, codigoControl As String, linkCodigoQr As String)
         Dim Sql As String
         Try
             Sql = "" + _Numi + ", " _
@@ -2925,7 +2951,16 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                 + "" + _Imgqr + ", " _
                 + "" + _Alm + ", " _
                 + "" + _Numi2 + ", " _
-                + "'" + _hora + "'"
+                + "'" + _hora + "'," _
+                + "'" + codigoRecepcion + "'," _
+                + "'" + estadoEmisionEdoc + "'," _
+                + "'" + fechaEmision1 + "'," _
+                + "'" + cuf + "'," _
+                + "'" + cuis + "'," _
+                + "'" + cufd + "'," _
+                + "'" + codigoControl + "'," _
+                + "'" + linkCodigoQr + "'"
+            '_ + "'" + fechaEmision1 + "'"
             D_Insertar_Datos("TFV001", Sql)
         Catch ex As Exception
             MsgBox(ex.Message)

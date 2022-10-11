@@ -53,6 +53,7 @@ Public Class F0_VentaComb
         _prCargarComboLibreria(cbSurtidor, 1, 10)
         _prCargarComboLibreria(cbDespachador, 1, 9)
         cbCambioDolar.Value = 1
+
         'lbTipoMoneda.Visible = False
         swMoneda.Visible = False
         P_prCargarVariablesIndispensables()
@@ -180,8 +181,7 @@ Public Class F0_VentaComb
 
         tbPlaca.ReadOnly = True
         tbObservacion.ReadOnly = True
-        tbFact.ReadOnly = True
-        tbNitFacturarA.ReadOnly = True
+
         cbDespachador.ReadOnly = True
         cbTipoSolicitud.ReadOnly = True
         cbSurtidor.ReadOnly = True
@@ -271,8 +271,7 @@ Public Class F0_VentaComb
 
         tbPlaca.ReadOnly = False
         tbObservacion.ReadOnly = False
-        tbFact.ReadOnly = False
-        tbNitFacturarA.ReadOnly = False
+
         cbDespachador.ReadOnly = False
         cbTipoSolicitud.ReadOnly = False
         cbSurtidor.ReadOnly = False
@@ -311,14 +310,14 @@ Public Class F0_VentaComb
     Private Sub _Limpiar()
 
         tbCodigo.Clear()
-        'tbCliente.Clear()
-        'tbVendedor.Clear()
+        tbCliente.Clear()
+        tbVendedor.Clear()
 
         swMoneda.Value = True
         lbNroCaja.Text = ""
         tbObservacion.Text = ""
-        '_CodCliente = 0
-        '_CodEmpleado = 0
+        _CodCliente = 0
+        _CodEmpleado = 0
         tbFechaVenta.Value = Now.Date
         swTipoVenta.Value = True
         tbFechaVenc.Visible = False
@@ -349,8 +348,7 @@ Public Class F0_VentaComb
         tbPlaca.Text = ""
         tbRetSurtidor.Text = ""
         tbNitRetSurtidor.Text = ""
-        tbFact.Text = ""
-        tbNitFacturarA.Text = ""
+
 
 
         With grdetalle.RootTable.Columns("img")
@@ -360,11 +358,11 @@ Public Class F0_VentaComb
             .Visible = False
         End With
         _prAddDetalleVenta()
-        'If (GPanelProductos.Visible = True) Then ''REVISAR DESPUES IMPORTANTE
-        '    GPanelProductos.Visible = False
+        If (GPanelProductos.Visible = True) Then ''REVISAR DESPUES IMPORTANTE
+            GPanelProductos.Visible = False
 
-        '    PanelInferior.Visible = True
-        'End If
+            PanelInferior.Visible = True
+        End If
         tbCliente.Focus()
         _prCargarProductos(Str(_CodCliente))
 
@@ -421,8 +419,8 @@ Public Class F0_VentaComb
             tbPlaca.Text = .GetValue("tcplaca")
             tbRetSurtidor.Text = .GetValue("tcretiro")
             tbNitRetSurtidor.Text = .GetValue("tcnitretiro")
-            tbFact.Text = .GetValue("tcfacnombre")
-            tbNitFacturarA.Text = .GetValue("tcfacnit")
+            TbNombre1.Text = .GetValue("tcfacnombre")
+            tbNit.Text = .GetValue("tcfacnit")
             cbTipoSolicitud.Value = .GetValue("tcsolicitud")
             cbSurtidor.Value = .GetValue("tcsurtidor")
             If grVentas.GetValue("taest") = 1 Then
@@ -904,6 +902,7 @@ Public Class F0_VentaComb
         End If
     End Sub
     Public Sub _prGuardar()
+
         txtMontoPagado1.Text = tbTotalBs.Text
         If _ValidarCampos() = False Then
             Exit Sub
@@ -1498,6 +1497,62 @@ Public Class F0_VentaComb
                 cbSucursal.Focus()
                 Return False
             End If
+
+
+            If (tbRetSurtidor.Text = String.Empty) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor llene el campo retiro surtidor.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                tbRetSurtidor.Focus()
+                Return False
+            End If
+
+            If (tbNitRetSurtidor.Text = String.Empty) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor ponga el nit del retiro surtidor.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                tbNitRetSurtidor.Focus()
+                Return False
+            End If
+
+            'Validar datos de factura
+
+            If (SwSurtidor.Value = True) Then
+                If (tbNit.Text = String.Empty) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Por Favor ponga el nit del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    tbNit.Focus()
+                    Return False
+                End If
+
+                If (TbNombre1.Text = String.Empty) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Por Favor ponga la razon social del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    TbNombre1.Focus()
+                    Return False
+                End If
+
+                If (tbTramOrden.Text = String.Empty) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Por Favor ponga el tramite de orden.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    tbTramOrden.Focus()
+                    Return False
+                End If
+
+                If (tbNitTraOrden.Text = String.Empty) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Por Favor ponga el nit del tramite de orden.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    tbNitTraOrden.Focus()
+                    Return False
+                End If
+
+                If (tbPlaca.Text = String.Empty) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Por Favor ponga el número de placa.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    tbPlaca.Focus()
+                    Return False
+                End If
+
+            End If
+
             If swTipoVenta.Value = True Then
                 If (Convert.ToDecimal(txtMontoPagado1.Text) = 0) Then
                     Throw New Exception("El monto Pagado debe ser mayor 0")
@@ -1508,22 +1563,6 @@ Public Class F0_VentaComb
                     Return False
                 End If
             End If
-
-
-            'Validar datos de factura
-            'If (TbNit.Text = String.Empty) Then
-            '    Dim img As Bitmap = New Bitmap(My.Resources.Mensaje, 50, 50)
-            '    ToastNotification.Show(Me, "Por Favor ponga el nit del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-            '    tbVendedor.Focus()
-            '    Return False
-            'End If
-
-            'If (TbNombre1.Text = String.Empty) Then
-            '    Dim img As Bitmap = New Bitmap(My.Resources.Mensaje, 50, 50)
-            '    ToastNotification.Show(Me, "Por Favor ponga la razon social del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-            '    tbVendedor.Focus()
-            '    Return False
-            'End If
 
             If (grdetalle.RowCount = 1) Then
                 grdetalle.Row = grdetalle.RowCount - 1
@@ -1712,37 +1751,43 @@ Public Class F0_VentaComb
     End Function
 
     Public Sub _GuardarNuevo()
-        TbNombre1.Text = tbFact.Text
+
         Try
             Dim numi As String = ""
             Dim tabla As DataTable = L_fnMostrarMontos(0)
             Dim factura = gb_FacturaEmite
             _prInsertarMontoNuevo(tabla)
             ''Verifica si existe estock para los productos
-            If _prExisteStockParaProducto() Then
-                Dim dtDetalle As DataTable = rearmarDetalle()
-                Dim res As Boolean = L_fnGrabarVentaCombustible(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-                                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-                                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-                                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-                                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, tbFact.Text, tbNitFacturarA.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value)
-                If res Then
-                    tbNit.Text = tbNitFacturarA.Text
-                    res = P_fnGrabarFacturarTFV001(numi)
-                    'Emite factura
+            If SwSurtidor.Value = True Then
+                If _prExisteStockParaProducto() Then
+                    Dim dtDetalle As DataTable = rearmarDetalle()
+                    Dim res As Boolean = L_fnGrabarVentaCombustible(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
+                                                         IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
+                                                        Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
+                                                         _CodCliente, IIf(swMoneda.Value = True, 1, 0),
+                                                          tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+                                                          dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text,
+                                                          tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text,
+                                                          TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value)
+                    If res Then
 
-                    If (gb_FacturaEmite) Then
-                        If tbNit.Text <> String.Empty Then
-                            P_fnGenerarFactura(numi)
-                            _prImiprimirNotaVenta(numi)
-                        Else
-                            _prImiprimirNotaVenta(numi)
+                        If (SwSurtidor.Value = True) Then
+
+                            res = P_fnGrabarFacturarTFV001(numi)
+                            P_prImprimirFacturar(numi, True, True)
                         End If
-                    Else
+                        'Emite factura
+
+                        'If (gb_FacturaEmite) Then
+                        '    If tbNit.Text <> String.Empty Then
+                        '        P_fnGenerarFactura(numi)
+                        '        _prImiprimirNotaVenta(numi)
+                        '    Else
+                        '        _prImiprimirNotaVenta(numi)
+                        '    End If
+                        'Else
                         _prImiprimirNotaVenta(numi)
                     End If
-
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                     ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
@@ -1750,16 +1795,60 @@ Public Class F0_VentaComb
                                               eToastGlowColor.Green,
                                               eToastPosition.TopCenter
                                               )
-
-                    _prCargarVenta()
                     _Limpiar()
-                    Table_Producto = Nothing
 
+
+                    Table_Producto = Nothing
+                    _prSalir()
+                    _prCargarVenta()
+                    contabilizar()
                 Else
                     Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
                     ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
                 End If
+                'End If
+
+            Else
+                Dim dtDetalle As DataTable = rearmarDetalle()
+                Dim res As Boolean = L_fnGrabarVentaCombustible(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
+                                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
+                                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
+                                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
+                                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value)
+                If res Then
+
+                    If (SwSurtidor.Value = True) Then
+
+                        res = P_fnGrabarFacturarTFV001(numi)
+                        P_prImprimirFacturar(numi, True, True)
+                    End If
+                    'Emite factura
+
+                    'If (gb_FacturaEmite) Then
+                    '    If tbNit.Text <> String.Empty Then
+                    '        P_fnGenerarFactura(numi)
+                    '        _prImiprimirNotaVenta(numi)
+                    '    Else
+                    '        _prImiprimirNotaVenta(numi)
+                    '    End If
+                    'Else
+                    _prImiprimirNotaVenta(numi)
+                End If
+
+                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+                                          img, 2000,
+                                          eToastGlowColor.Green,
+                                          eToastPosition.TopCenter
+                                          )
+                _Limpiar()
+
+
+                Table_Producto = Nothing
+                _prSalir()
+                _prCargarVenta()
             End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -2002,7 +2091,7 @@ Public Class F0_VentaComb
                         "''",
                         cbSucursal.Value,
                         numi,
-                       _Hora)
+                       _Hora, "", "", "", "", "", "", "", "")
 
         'Grabar Nuevo y Modificado en la BDDiconDinoEco en la tabla TPA001
         If (tbCodigo.Text = String.Empty) Then
@@ -2759,10 +2848,12 @@ Public Class F0_VentaComb
         btnEliminar.Enabled = False
         btnGrabar.Enabled = True
         PanelNavegacion.Enabled = False
-        tbNit.Select()
+        tbCliente.Select()
         cbSucursal.Value = 3
         _Nuevo = True
-
+        cbTipoSolicitud.Value = 1
+        cbDespachador.Value = 1
+        cbSurtidor.SelectedIndex = 0
     End Sub
     Private Sub _prCargarProductos(_cliente As String)
         If (cbSucursal.SelectedIndex < 0) Then
@@ -3167,6 +3258,7 @@ Public Class F0_VentaComb
 
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
         _prGuardar()
+
     End Sub
 
     Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
@@ -3211,8 +3303,8 @@ Public Class F0_VentaComb
                     _dias = Row.Cells("yddias").Value
                     tbNit.Text = Row.Cells("ydnit").Value
                     TbNombre1.Text = Row.Cells("ydnomfac").Value
-                    tbNitFacturarA.Text = Row.Cells("ydnit").Value
-                    tbFact.Text = Row.Cells("ydnomfac").Value
+                    'tbNitFacturarA.Text = Row.Cells("ydnit").Value
+                    'tbFact.Text = Row.Cells("ydnomfac").Value
                     Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
                     If (numiVendedor > 0) Then
                         ''tbVendedor.Text = Row.Cells("vendedor").Value
@@ -3243,7 +3335,7 @@ Public Class F0_VentaComb
 
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         Try
-            tbNit.Text = tbNitFacturarA.Text
+            'tbNit.Text = tbNitFacturarA.Text
             If (Not _fnAccesible()) Then
 
                 If (gb_FacturaEmite) Then
@@ -3273,8 +3365,95 @@ Public Class F0_VentaComb
             MostrarMensajeError(ex.Message)
         End Try
     End Sub
+    Public Function contabilizar() As Integer
+        Dim codigoVenta = tbCodigo.Text
+        Dim codCanero = "P/Ord." + codigoVenta + " " + Convert.ToString(_CodCliente) + " " + tbCliente.Text 'obobs
+        Dim total = tbTotalBs.Text 'para obtener debe haber
+        Dim dt, dt1, dtDetalle As DataTable
+        Dim cuenta As String
+        Dim debebs, haberbs, debeus, haberus As Double
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta
 
-    Private Sub btnContabilizar_Click(sender As Object, e As EventArgs) Handles btnContabilizar.Click
+
+
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta)) 'numi cabecera to001
+        'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
+
+        For a As Integer = 1 To 2 Step 1
+            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+            'Dim grdetalle1 As GridEX
+            dtDetalle = L_fnDetalleVenta1(codigoVenta)
+
+            'Dim dt As New DataTable
+            'dt = L_fnDetalleVenta(_numi)
+            'grdetalle.DataSource = dt
+
+            'dtDetalle = CType(grdetalle1.DataSource, DataTable)
+            'dtDetalle = dt
+            Dim oblin As Integer = 1
+            Dim totalCosto As Double = 0.00
+            For Each row In dt.Rows
+                '    Select Case row("cuenta")
+
+                If row("cuenta") = "-1" Then
+                    For Each detalle In dtDetalle.Rows
+                        cuenta = detalle("yfclot")
+                        If row("dh") = 1 Then
+                            debeus = (Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            debebs = debeus * 6.96
+                            haberus = 0.00
+                            haberbs = 0.00
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+                        Else
+                            haberus = (Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            haberbs = haberus * 6.96
+                            debeus = 0.00
+                            debebs = 0.00
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+                        End If
+
+                        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                        oblin = oblin + 1
+                    Next
+
+
+                    If row("cuenta") = "-1" Then
+                        Continue For
+                    End If
+
+                End If
+                If row("cuenta") = "-2" Then
+                    cuenta = dt1.Rows(0).Item(5)
+
+                Else
+                    cuenta = row("cuenta")
+                End If
+                If row("dh") = 1 Then
+                    debeus = (IIf(row("tipo") = 1, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
+                    debebs = debeus * 6.96
+                    haberus = 0.00
+                    haberbs = 0.00
+                Else
+                    haberus = (IIf(row("tipo") = 1, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
+                    haberbs = haberus * 6.96
+                    debeus = 0.00
+                    debebs = 0.00
+                End If
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                oblin = oblin + 1
+            Next
+        Next
+
+        L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+        ToastNotification.Show(Me, " Venta ".ToUpper + tbCodigo.Text + " Contabilizada con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter
+                                              )
+        '_prCargarVenta()
+    End Function
+    Private Sub btnContabilizar_Click(sender As Object, e As EventArgs)
         Dim codigoVenta = tbCodigo.Text
         Dim codCanero = "P/Ord." + codigoVenta + " " + Convert.ToString(_CodCliente) + " " + tbCliente.Text 'obobs
         Dim total = tbTotalBs.Text 'para obtener debe haber
@@ -3364,12 +3543,7 @@ Public Class F0_VentaComb
     End Sub
 
     Private Sub SwConta_ValueChanged(sender As Object, e As EventArgs) Handles SwConta.ValueChanged
-        If (SwConta.Value = False) Then
-            btnContabilizar.Visible = False
 
-        Else
-            btnContabilizar.Visible = True
-        End If
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -3378,13 +3552,15 @@ Public Class F0_VentaComb
 
     Private Sub SwSurtidor_ValueChanged(sender As Object, e As EventArgs) Handles SwSurtidor.ValueChanged
         If (SwSurtidor.Value = True) Then
+            swTipoVenta.Value = False
+            swTipoVenta.IsReadOnly = False
             cbSurtidor.Clear()
             _prCargarComboLibreria(cbSurtidor, 1, 10)
             cbSurtidor.Value = 1
             tbTramOrden.Visible = True
             tbNitTraOrden.Visible = True
-            tbFact.Visible = True
-            tbNitFacturarA.Visible = True
+            TbNombre1.Visible = True
+            tbNit.Visible = True
             cbDespachador.Visible = True
             LabelX25.Visible = True
             LabelX27.Visible = True
@@ -3392,23 +3568,23 @@ Public Class F0_VentaComb
             LabelX36.Visible = True
             LabelX31.Visible = True
             If _Nuevo = True Then
-
-
                 cbSucursal.Value = 3
             End If
 
         Else
+            swTipoVenta.Value = False
+            swTipoVenta.IsReadOnly = True
             cbSurtidor.Clear()
             _prCargarComboLibreria(cbSurtidor, 1, 8)
             cbSurtidor.Value = 0
             tbTramOrden.Visible = False
             tbNitTraOrden.Visible = False
-            tbFact.Visible = False
-            tbNitFacturarA.Visible = False
+            TbNombre1.Visible = False
+            tbNit.Visible = False
             tbTramOrden.Clear()
             tbNitTraOrden.Clear()
-            tbFact.Clear()
-            tbNitFacturarA.Clear()
+            TbNombre1.Clear()
+            tbNit.Clear()
             cbDespachador.Visible = False
             LabelX25.Visible = False
             LabelX27.Visible = False
@@ -3416,8 +3592,6 @@ Public Class F0_VentaComb
             LabelX36.Visible = False
             LabelX31.Visible = False
             If _Nuevo = True Then
-
-
                 cbSucursal.Value = 4
             End If
 
@@ -3441,6 +3615,8 @@ Public Class F0_VentaComb
             tbFechaVenc.Visible = False
         End If
     End Sub
+
+
 
 
 

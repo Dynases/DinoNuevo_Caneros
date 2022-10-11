@@ -36,8 +36,8 @@ Public Class Pr_VentasAtendidas
         Dim idVendedor As Integer = 0
         Dim idCliente As Integer = 0
         Dim idAlmacen As Integer = 0
-        If CheckTodosAlmacen.Checked = False And CheckUnaALmacen.Checked = True And tbCodAlmacen.Text <> String.Empty Then
-            idAlmacen = tbCodAlmacen.Text
+        If CheckTodosAlmacen.Checked = False And CheckUnaALmacen.Checked = True Then
+            idAlmacen = tbAlmacen.Value
         End If
         If CheckTodosVendedor.Checked = False And checkUnaVendedor.Checked = True And tbCodigoVendedor.Text <> String.Empty Then
             idVendedor = tbCodigoVendedor.Text

@@ -1129,7 +1129,7 @@ Public Class F0_Factura
                         "''",
                         "0",
                         numi,
-                         _Hora)
+                         _Hora, "", "", "", "", "", "", "", "")
 
         'Grabado de Detalle de Factura
         grProductos.Update()

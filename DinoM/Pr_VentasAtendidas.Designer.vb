@@ -460,7 +460,6 @@ Partial Class Pr_VentasAtendidas
         Me.tbCodAlmacen.Size = New System.Drawing.Size(22, 22)
         Me.tbCodAlmacen.TabIndex = 243
         Me.tbCodAlmacen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.tbCodAlmacen.Visible = False
         '
         'LabelX3
         '

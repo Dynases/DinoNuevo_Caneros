@@ -187,7 +187,6 @@ Partial Class Login
         Me.tbUsuario.PreventEnterBeep = True
         Me.tbUsuario.Size = New System.Drawing.Size(200, 27)
         Me.tbUsuario.TabIndex = 0
-        Me.tbUsuario.Text = "DYNASYS"
         '
         'tbPassword
         '
@@ -204,7 +203,6 @@ Partial Class Login
         Me.tbPassword.PreventEnterBeep = True
         Me.tbPassword.Size = New System.Drawing.Size(200, 27)
         Me.tbPassword.TabIndex = 1
-        Me.tbPassword.Text = "123"
         '
         'btnIngresar
         '

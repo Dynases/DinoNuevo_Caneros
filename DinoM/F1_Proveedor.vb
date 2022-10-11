@@ -281,7 +281,7 @@ Public Class F1_Proveedor
         tbNombre.ReadOnly = False
         tbDireccion.ReadOnly = False
         tbTelf1.ReadOnly = False
-        tbTelf2.ReadOnly = False
+        'tbTelf2.ReadOnly = False
         tbObs.ReadOnly = False
         cbZona.ReadOnly = False
         cbTipoDoc.ReadOnly = False
@@ -293,9 +293,9 @@ Public Class F1_Proveedor
         _prCrearCarpetaImagenes()
         _prCrearCarpetaTemporal()
         BtAdicionar.Visible = True
-        tbCodCliente.ReadOnly = False
+        'tbCodCliente.ReadOnly = False
         'tbNombre.Focus()
-        tbCodCliente.Focus()
+        tbNombre.Focus()
         ''  SuperTabItem1.Visible =True 
     End Sub
 
@@ -739,8 +739,8 @@ Public Class F1_Proveedor
             _PMPrimerRegistro()
 
         Else
-            '  Public _modulo As SideNavItem
-            '_modulo.Select()
+            ' Public _modulo As SideNavItem
+            _modulo.Select()
             '_tab.Close()
             Me.Close()
         End If
@@ -777,4 +777,6 @@ Public Class F1_Proveedor
             Timer1.Enabled = False
         End If
     End Sub
+
+
 End Class

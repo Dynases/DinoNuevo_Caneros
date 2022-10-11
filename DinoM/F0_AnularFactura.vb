@@ -3,7 +3,8 @@ Imports DevComponents.DotNetBar.SuperGrid
 Imports System.IO
 Imports DevComponents.DotNetBar
 Imports Janus.Windows.GridEX
-
+Imports Newtonsoft.Json
+Imports DinoM.UmedidaResp
 Public Class F0_AnularFactura
     Dim _Inter As Integer = 0
 
@@ -15,12 +16,26 @@ Public Class F0_AnularFactura
     Public _nameButton As String
     Public _tab As SuperTabItem
     Public Programa As String
+
+    'variables sifac
+    Public tokenSifac As String
 #End Region
 
 #Region "Eventos"
 
     Private Sub P_AnularFactura_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        P_Inicio()
+        tokenSifac = F0_Venta2.ObtToken(3)
+        If tokenSifac = "400" Then
+            Me.Close()
+            MessageBox.Show("intente de nuevo")
+
+        Else
+            CargarMotivo(tokenSifac)
+            CbMotivo.SelectedIndex = -1
+
+            P_Inicio()
+        End If
+
     End Sub
 
 #End Region
@@ -336,19 +351,23 @@ Public Class F0_AnularFactura
                 Exit Sub
             End If
 
+            If CbMotivo.SelectedIndex = -1 Then
+                MessageBox.Show("Debe seleccionar el motivo de la anulación.")
+            Else
+                If (MessageBox.Show("Esta seguro de ANULAR la Factura " + Tb2NroFactura.Text + " y la Venta " + Tb1Codigo.Text + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes) Then
+                    'Primero modifica factura correspondiente a la venta
+                    L_Modificar_Factura("fvanumi = " + Tb1Codigo.Text + " and fvanfac = " + NroFactura + " and fvaautoriz = " + NroAutorizacion, "", "", "", IIf(Sb1Estado.Value, "1", "0"))
+                    'Luego anula venta
+                    Dim mensajeError As String = ""
+                    Dim res As Boolean = L_fnEliminarVenta(Tb1Codigo.Text, mensajeError, Programa)
 
-            If (MessageBox.Show("Esta seguro de ANULAR la Factura " + Tb2NroFactura.Text + " y la Venta " + Tb1Codigo.Text + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes) Then
-                'Primero modifica factura correspondiente a la venta
-                L_Modificar_Factura("fvanumi = " + Tb1Codigo.Text + " and fvanfac = " + NroFactura + " and fvaautoriz = " + NroAutorizacion, "", "", "", IIf(Sb1Estado.Value, "1", "0"))
-                'Luego anula venta
-                Dim mensajeError As String = ""
-                Dim res As Boolean = L_fnEliminarVenta(Tb1Codigo.Text, mensajeError, Programa)
-
-                P_LlenarDatosGrilla()
-                ToastNotification.Show(Me, "La Factura: " + Tb2NroFactura.Text + " y Venta con código: " + Tb1Codigo.Text + " Se ANULARON correctamente",
-                                       My.Resources.OK, _DuracionSms * 1000,
-                                       eToastGlowColor.Blue, eToastPosition.BottomLeft)
+                    P_LlenarDatosGrilla()
+                    ToastNotification.Show(Me, "La Factura: " + Tb2NroFactura.Text + " y Venta con código: " + Tb1Codigo.Text + " Se ANULARON correctamente",
+                                           My.Resources.OK, _DuracionSms * 1000,
+                                           eToastGlowColor.Blue, eToastPosition.BottomLeft)
+                End If
             End If
+
         End If
     End Sub
 
@@ -412,4 +431,36 @@ Public Class F0_AnularFactura
             Timer1.Enabled = False
         End If
     End Sub
+
+    Public Function CargarMotivo(tokenObtenido)
+
+        Dim api = New DBApi()
+
+        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=6"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of List(Of Umedida))(response)
+
+
+        With CbMotivo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("codigo").Width = 70
+            .DropDownList.Columns("codigo").Caption = "COD"
+            .DropDownList.Columns.Add("descripcion").Width = 250
+            .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
+            .ValueMember = "codigo"
+            .DisplayMember = "descripcion"
+            .DataSource = result
+            .Refresh()
+        End With
+        Return ""
+    End Function
 End Class

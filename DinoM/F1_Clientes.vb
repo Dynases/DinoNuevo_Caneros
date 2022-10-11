@@ -12,8 +12,8 @@ Imports GMap.NET.WindowsForms.Markers
 Imports GMap.NET.WindowsForms
 Imports GMap.NET.WindowsForms.ToolTips
 Imports DevComponents.DotNetBar.Controls
-
-
+Imports Newtonsoft.Json
+Imports DinoM.RespTipoDoc
 Public Class F1_Clientes
     Dim _Inter As Integer = 0
     Dim _codCan As Integer = 0
@@ -34,9 +34,11 @@ Public Class F1_Clientes
     Public _modulo As SideNavItem
     Public _Tipo As Integer
     Dim NumiVendedor As Integer
+    Dim _codCañero As Integer = 0
 #End Region
 #Region "Metodos Privados"
-
+    'variables sifac
+    Public tokenSifac As String
     Private Sub _prIniciarTodo()
 
         Me.Text = "CAÑEROS"
@@ -325,7 +327,10 @@ Public Class F1_Clientes
 #Region "METODOS SOBRECARGADOS"
 
     Public Overrides Sub _PMOHabilitar()
-
+        If _MModificar = True Then
+            _codCañero = tbCodCliente.Text
+        End If
+        tbCodCliente.ReadOnly = False
         tbRazonSocial.ReadOnly = False
         btnSearch.Visible = True
         tbNombre.ReadOnly = False
@@ -337,6 +342,8 @@ Public Class F1_Clientes
         cbZona.ReadOnly = False
         cbVisita.ReadOnly = False
         cbTipoDoc.ReadOnly = False
+        cbTipoDoc1.ReadOnly = False
+        tbcorreo.ReadOnly = False
         tbNdoc.ReadOnly = False
         tbNombFac.ReadOnly = False
         tbFnac.Enabled = True
@@ -364,6 +371,8 @@ Public Class F1_Clientes
         tbCodCliente.ReadOnly = True
         tbNombre.ReadOnly = True
         tbDireccion.ReadOnly = True
+        tbcorreo.ReadOnly = True
+        cbTipoDoc1.ReadOnly = True
         tbTelf1.ReadOnly = True
         tbTelf2.ReadOnly = True
         tbObs.ReadOnly = True
@@ -452,41 +461,73 @@ Public Class F1_Clientes
         tbNombre.BackColor = Color.White
         tbRazonSocial.BackColor = Color.White
         tbDireccion.BackColor = Color.White
-        'tbCodCliente.BackColor = Color.White
+        tbCodCliente.BackColor = Color.White
         tbVendedor.BackColor = Color.White
     End Sub
 
     Public Overrides Function _PMOGrabarRegistro() As Boolean
         Dim res As Boolean
+        If cbTipoDoc1.Value = 5 Then
+            tokenSifac = F0_Venta2.ObtToken(5)
+            If tokenSifac = "400" Then
 
-        res = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
-        NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
-        IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
-        _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
-        nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text)
+                MessageBox.Show("intente de nuevo")
 
-            '  Dim res As Boolean = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbNombre.Text, NumiVendedor,
-            ' cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, cbCatPrec.Value, IIf(swEstado.Value = True, 1, 0),
-            '_latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text, _Tipo, tbNit.Text, Tbdias.Text, TbLCred.Text,
-            'tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImg, cbVisita.Value)
+            Else
+                If F0_Venta2.verificarNit(tokenSifac, tbNit.Text) = "994" Then
+                    MessageBox.Show("NIT INEXISTENTE")
+                Else
+                    res = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
+                           NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
+                           IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
+                           _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
+                           nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text)
+                    If res Then
+                        Modificado = False
+                        _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImg)
+                        nameImg = "Default.jpg"
 
+                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                        ToastNotification.Show(Me, "Código Cañero ".ToUpper + tbCodigoOriginal.Text + " Grabado con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter
+                                              )
+                        tbNombre.Focus()
+
+                    Else
+                        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                        ToastNotification.Show(Me, "El producto no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                    End If
+
+
+                End If
+            End If
+        Else
+            res = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
+                          NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
+                          IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
+                          _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
+                          nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text)
             If res Then
-            Modificado = False
-            _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImg)
-            nameImg = "Default.jpg"
+                Modificado = False
+                _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImg)
+                nameImg = "Default.jpg"
 
-            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-            ToastNotification.Show(Me, "Código Cañero ".ToUpper + tbCodigoOriginal.Text + " Grabado con Exito.".ToUpper,
+                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                ToastNotification.Show(Me, "Código Cañero ".ToUpper + tbCodigoOriginal.Text + " Grabado con Exito.".ToUpper,
                                       img, 2000,
                                       eToastGlowColor.Green,
                                       eToastPosition.TopCenter
                                       )
-            tbNombre.Focus()
+                tbNombre.Focus()
 
-        Else
-            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-            ToastNotification.Show(Me, "El producto no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                ToastNotification.Show(Me, "El producto no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
+            End If
         End If
         Return res
 
@@ -502,7 +543,7 @@ Public Class F1_Clientes
                   0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
                   IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
                   tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
-                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text)
+                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text)
 
             '    tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
             '     NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
@@ -595,6 +636,7 @@ Public Class F1_Clientes
     End Sub
     Public Overrides Function _PMOValidarCampos() As Boolean
         Dim _ok As Boolean = True
+
         MEP.Clear()
 
         If tbRazonSocial.Text = String.Empty Then
@@ -642,6 +684,40 @@ Public Class F1_Clientes
             End If
         End If
 
+
+        If tbCodCliente.Text.Trim = String.Empty Then
+            tbCodCliente.BackColor = Color.Red
+            MEP.SetError(tbCodCliente, "Ingrese un código de cañero!".ToUpper)
+            _ok = False
+
+        Else
+
+            If _MNuevo Then
+                If L_BuscarCodCanero(tbCodCliente.Text) = True Then
+                    tbCodCliente.BackColor = Color.Red
+                    MEP.SetError(tbCodCliente, "Ingrese un código distinto!".ToUpper)
+                    _ok = False
+                Else
+                    tbCodCliente.BackColor = Color.White
+                    MEP.SetError(tbCodCliente, String.Empty)
+                End If
+            ElseIf _codCañero = Convert.ToInt32(tbCodCliente.Text) Then
+                _ok = True
+            Else
+                If L_BuscarCodCanero(tbCodCliente.Text) = True Then
+                    tbCodCliente.BackColor = Color.Red
+                    MEP.SetError(tbCodCliente, "Ingrese un código distinto!".ToUpper)
+                    _ok = False
+                Else
+                    tbCodCliente.BackColor = Color.White
+                    MEP.SetError(tbCodCliente, String.Empty)
+                End If
+            End If
+            If _ok = True Then
+                tbCodCliente.BackColor = Color.White
+                MEP.SetError(tbCodCliente, String.Empty)
+            End If
+        End If
         ' If (cbVisita.SelectedIndex < 0) Then
 
         'If (CType(cbVisita.DataSource, DataTable).Rows.Count > 0) Then
@@ -746,6 +822,8 @@ Public Class F1_Clientes
             lbUsuario.Text = .GetValue("yduact").ToString
             TbNomEsposa.Text = .GetValue("ydesposa").ToString
             TbCiEsposa.Text = .GetValue("ydciesposa").ToString
+            cbTipoDoc1.Value = .GetValue("ydtipdocelec").ToString
+            tbcorreo.Text = .GetValue("ydcorreo").ToString
             NumiVendedor = IIf(IsDBNull(.GetValue("ydnumivend")), 0, .GetValue("ydnumivend"))
         End With
         Dim name As String = JGrM_Buscador.GetValue("ydimg")
@@ -830,8 +908,15 @@ Public Class F1_Clientes
 
 
     Private Sub F1_Clientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        _prIniciarTodo()
+        tokenSifac = F0_Venta2.ObtToken(3)
+        If tokenSifac = "400" Then
+            Me.Close()
+            MessageBox.Show("intente de nuevo")
 
+        Else
+            CodTipoDocumento(tokenSifac)
+            _prIniciarTodo()
+        End If
     End Sub
 
     Private Sub Gmc_Cliente_DoubleClick(sender As Object, e As EventArgs) Handles Gmc_Cliente.DoubleClick
@@ -1051,6 +1136,37 @@ Public Class F1_Clientes
             Me.Opacity = 100
             Timer1.Enabled = False
         End If
+    End Sub
+    Public Sub CodTipoDocumento(tokenObtenido)
+
+        Dim api = New DBApi()
+
+        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=8"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of List(Of TipoDocumento))(response)
+
+        With cbTipoDoc1
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("codigo").Width = 70
+            .DropDownList.Columns("codigo").Caption = "COD"
+            .DropDownList.Columns.Add("descripcion").Width = 300
+            .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
+            .ValueMember = "codigo"
+            .DisplayMember = "descripcion"
+            .DataSource = result
+            .Refresh()
+        End With
+
+
     End Sub
 
 

@@ -1597,7 +1597,7 @@ Public Class F0_VentasSupermercado
                         "''",
                         Sucursal,
                         numi,
-                       _Hora)
+                       _Hora, "", "", "", "", "", "", "", "")
 
         'Grabar Nuevo y Modificado en la BDDiconDinoEco en la tabla TPA001
         If ("" = String.Empty) Then
