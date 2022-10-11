@@ -4635,7 +4635,7 @@ salirIf:
         Return codigo
     End Function
 
-    Public Function Anula(tokenObtenido)
+    Public Function Anula(tokenObtenido, sucursal, cuf, codMotAnu)
 
         Dim api = New DBApi()
         Dim Emenvio = New EmisorEnvio.Emisor()
@@ -4644,22 +4644,22 @@ salirIf:
         Dim dsApi As DataSet
 
 
-        NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
+        'NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
 
         Emenvio.nitEmisor = 1028395023
-        If cbSucursal.Value = 1 Then
+        If sucursal = 1 Then
             Emenvio.codigoSucursal = 0
-        ElseIf cbSucursal.Value = 2 Then
+        ElseIf sucursal = 2 Then
             Emenvio.codigoSucursal = 3
         End If
         Emenvio.codigoPuntoVenta = 0
-        Emenvio.cuf =
-        Emenvio.codigoMotivoAnulacion = lbUsuario.Text
-        Emenvio.usuario = lbUsuario.Text
-        Emenvio.nombreIntegracion = ""
+        Emenvio.cuf = cuf
+        Emenvio.codigoMotivoAnulacion = codMotAnu
+        Emenvio.usuario = gs_user
+        Emenvio.nombreIntegracion = "INTEGRACION EDOC"
 
         Dim json = JsonConvert.SerializeObject(Emenvio)
-        Dim url = "https://labbo-emp-emision-v2-1.guru-soft.com/api/Emitir/EmisionFacturaCompraVenta"
+        Dim url = "https://labbo-emp-operaciones-v2-1.guru-soft.com/api/Operaciones/AnulaDocumento"
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),
@@ -4672,19 +4672,19 @@ salirIf:
 
         Dim result = JsonConvert.DeserializeObject(Of RespEmisor)(response)
         Dim resultError = JsonConvert.DeserializeObject(Of Resp400)(response)
+        MessageBox.Show(result.mensajeRespuesta)
+        'codigoRecepcion = result.codigoRecepcion
+        'estadoEmisionEdoc = result.estadoEmisionEDOC
+        'fechaEmision1 = result.fechaEmision
+        'cuf = result.cuf
+        'cuis = result.cuis
+        'cufd = result.cufd
+        'codigoControl = result.codigoControl
+        'linkCodigoQr = result.linkCodigoQR
+        'codigoError = result.codigoError
+        'mensajeRespuesta = result.mensajeRespuesta
 
-        codigoRecepcion = result.codigoRecepcion
-        estadoEmisionEdoc = result.estadoEmisionEDOC
-        fechaEmision1 = result.fechaEmision
-        cuf = result.cuf
-        cuis = result.cuis
-        cufd = result.cufd
-        codigoControl = result.codigoControl
-        linkCodigoQr = result.linkCodigoQR
-        codigoError = result.codigoError
-        mensajeRespuesta = result.mensajeRespuesta
-
-        Dim codigo = result.estadoEmisionEDOC
+        Dim codigo = result.codigoError
         Dim xml As String
         'If codigo = 200 Then
         '    Dim details = result.data.details

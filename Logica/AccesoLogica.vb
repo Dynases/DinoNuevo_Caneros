@@ -3255,7 +3255,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                 + "fvafec as Fecha, fvacodcli as [Cod Cliente], " _
                                 + " fvadescli1 as [Nombre 1], fvadescli2 as [Nombre 2], fvanitcli as Nit, " _
                                 + " fvastot as Subtotal, fvadesc as Descuento, fvatotal as Total, " _
-                                + " fvaccont as [Cod Control], fvaflim as [Fec Limite], fvaest as Estado",
+                                + " fvaccont as [Cod Control], fvaflim as [Fec Limite],fvaalm as Almacen, fvcuf as CUF, fvaest as Estado",
                                 "TFV001", _Where)
         '_Tabla1.Columns(0).ColumnMapping = MappingType.Hidden
         _Ds.Tables.Add(_Tabla1)

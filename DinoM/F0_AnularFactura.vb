@@ -230,6 +230,23 @@ Public Class F0_AnularFactura
         DgdFactura.PrimaryGrid.Columns.Add(col)
 
         'Estado
+        col = New GridColumn("Almacen")
+        col.EditorType = GetType(GridTextBoxXEditControl)
+        col.CellStyles.Default.Alignment = Style.Alignment.MiddleRight
+        col.ReadOnly = True
+        col.Visible = False
+        col.Width = 60
+        DgdFactura.PrimaryGrid.Columns.Add(col)
+
+        'Estado
+        col = New GridColumn("CUF")
+        col.EditorType = GetType(GridTextBoxXEditControl)
+        col.CellStyles.Default.Alignment = Style.Alignment.MiddleRight
+        col.ReadOnly = True
+        col.Visible = False
+        col.Width = 60
+        DgdFactura.PrimaryGrid.Columns.Add(col)
+        'Estado
         col = New GridColumn("Estado")
         col.EditorType = GetType(GridTextBoxXEditControl)
         col.CellStyles.Default.Alignment = Style.Alignment.MiddleRight
@@ -256,7 +273,7 @@ Public Class F0_AnularFactura
     End Sub
 
     Private Sub P_LlenarDatos(fil As GridRow)
-        If (fil.Cells.Count = 14) Then
+        If (fil.Cells.Count = 16) Then
             NroFactura = fil.Cells(0).Value.ToString.Split("_")(0)
             NroAutorizacion = fil.Cells(0).Value.ToString.Split("_")(1)
             Tb1Codigo.Text = fil.Cells(1).Value
@@ -276,8 +293,9 @@ Public Class F0_AnularFactura
             Tb9Total.Text = fil.Cells(10).Value
             Tb10CodControl.Text = fil.Cells(11).Value
             Tb11FechaLim.Text = fil.Cells(12).Value
-            Sb1Estado.Value = fil.Cells(13).Value
-
+            Sb1Estado.Value = fil.Cells(15).Value
+            tbAlmacen.Text = fil.Cells(13).Value
+            tbCuf.Text = fil.Cells(14).Value
             If (Sb1Estado.Value) Then
                 GroupPanelFactura.ColorTable = DevComponents.DotNetBar.Controls.ePanelColorTable.Green
             Else
@@ -356,15 +374,24 @@ Public Class F0_AnularFactura
             Else
                 If (MessageBox.Show("Esta seguro de ANULAR la Factura " + Tb2NroFactura.Text + " y la Venta " + Tb1Codigo.Text + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes) Then
                     'Primero modifica factura correspondiente a la venta
-                    L_Modificar_Factura("fvanumi = " + Tb1Codigo.Text + " and fvanfac = " + NroFactura + " and fvaautoriz = " + NroAutorizacion, "", "", "", IIf(Sb1Estado.Value, "1", "0"))
-                    'Luego anula venta
-                    Dim mensajeError As String = ""
-                    Dim res As Boolean = L_fnEliminarVenta(Tb1Codigo.Text, mensajeError, Programa)
+                    tokenSifac = F0_Venta2.ObtToken(5)
+                    If tokenSifac = "400" Then
+                        Me.Close()
+                        MessageBox.Show("intente de nuevo")
 
-                    P_LlenarDatosGrilla()
-                    ToastNotification.Show(Me, "La Factura: " + Tb2NroFactura.Text + " y Venta con código: " + Tb1Codigo.Text + " Se ANULARON correctamente",
-                                           My.Resources.OK, _DuracionSms * 1000,
-                                           eToastGlowColor.Blue, eToastPosition.BottomLeft)
+                    Else
+                        F0_Venta2.Anula(tokenSifac, tbAlmacen.Text, tbCuf.Text, CbMotivo.Value)
+                        L_Modificar_Factura("fvanumi = " + Tb1Codigo.Text + " and fvanfac = " + NroFactura + " and fvaautoriz = " + NroAutorizacion, "", "", "", IIf(Sb1Estado.Value, "1", "0"))
+                        'Luego anula venta
+                        Dim mensajeError As String = ""
+                        Dim res As Boolean = L_fnEliminarVenta(Tb1Codigo.Text, mensajeError, Programa)
+
+                        P_LlenarDatosGrilla()
+                        ToastNotification.Show(Me, "La Factura: " + Tb2NroFactura.Text + " y Venta con código: " + Tb1Codigo.Text + " Se ANULARON correctamente",
+                                               My.Resources.OK, _DuracionSms * 1000,
+                                               eToastGlowColor.Blue, eToastPosition.BottomLeft)
+                    End If
+
                 End If
             End If
 
@@ -454,7 +481,7 @@ Public Class F0_AnularFactura
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("codigo").Width = 70
             .DropDownList.Columns("codigo").Caption = "COD"
-            .DropDownList.Columns.Add("descripcion").Width = 250
+            .DropDownList.Columns.Add("descripcion").Width = 350
             .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
             .ValueMember = "codigo"
             .DisplayMember = "descripcion"
