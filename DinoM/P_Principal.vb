@@ -17,7 +17,7 @@ Public Class P_Principal
         _prCambiarStyle()
         ' This call is required by the designer.
         InitializeComponent()
-        FP_Configuracion.Select ()
+        FP_Configuracion.Select()
 
         ' Add any initialization after the InitializeComponent() call.
 
@@ -130,7 +130,8 @@ Public Class P_Principal
         listaTabs.Add(MetroTilePanel7)
         listaTabs.Add(MetroTilePanelVentas)
         listaTabs.Add(MenuCreditos)
-
+        listaTabs.Add(MetroTilePanel8)
+        listaTabs.Add(MetroTilePanel9)
 
         Dim idRolUsu As String = gi_userRol
 
@@ -668,7 +669,7 @@ Public Class P_Principal
         tab3.Icon = ico
     End Sub
 
-    
+
 
     Private Sub btHojaRuta_Click(sender As Object, e As EventArgs) Handles btZonaReporteRuta.Click
         SideNav1.IsMenuExpanded = False
@@ -736,7 +737,7 @@ Public Class P_Principal
         'tab3.Icon = frm.Icon
     End Sub
 
-   
+
     Private Sub btnCredEstCuenta_Click(sender As Object, e As EventArgs) Handles btnCredEstCuenta.Click
         'SideNav1.IsMenuExpanded = False
         'Ventana.Select()
@@ -1172,6 +1173,18 @@ Public Class P_Principal
         'Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         'superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         'tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        'tab3.Text = frm.Text
+        'tab3.Icon = frm.Icon
+    End Sub
+
+    Private Sub MetroTileItem13_Click_1(sender As Object, e As EventArgs) Handles btIngresoBoleta.Click
+
+        Dim frm As New F0_RegistroBoleta
+        frm._nameButton = btVentaComb.Name
+
+        'frm._modulo = FP_VENTACOMBUSTIBLE
+
         frm.Show()
         'tab3.Text = frm.Text
         'tab3.Icon = frm.Icon
