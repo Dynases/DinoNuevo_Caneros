@@ -99,7 +99,11 @@ Public Class AccesoDatos
         _comando.CommandText = "SELECT " + _Campos + " FROM " + _Tabla + " WHERE " + _Where
         Return MetodoDatos.EjecutarComandoSelect(_comando)
     End Function
-
+    Public Shared Function D_Datos_TablaTara(_Campos As String, _Tabla As String) As DataTable
+        'Dim _comando As OleDbCommand = MetodoDatos.CrearComando()
+        _comando.CommandText = "SELECT " + _Campos + " FROM " + _Tabla
+        Return MetodoDatos.EjecutarComandoSelect(_comando)
+    End Function
 End Class
 
 

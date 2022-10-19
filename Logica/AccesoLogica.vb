@@ -414,6 +414,16 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 #End Region
 
 #End Region
+#Region "TARAS"
+    Public Shared Function L_Taras(_Modo As Integer, Optional _Cadena As String = "") As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
+
+        _Tabla = D_Datos_TablaTara("cod,placa,pesoTara,color,propietario", "taras")
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
+#End Region
 #Region "INSTITUCION"
     Public Shared Function L_Institucion(_Modo As Integer, Optional _Cadena As String = "") As DataSet
         Dim _Tabla As DataTable

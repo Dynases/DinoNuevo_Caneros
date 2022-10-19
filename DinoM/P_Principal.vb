@@ -1181,13 +1181,18 @@ Public Class P_Principal
     Private Sub MetroTileItem13_Click_1(sender As Object, e As EventArgs) Handles btIngresoBoleta.Click
 
         Dim frm As New F0_RegistroBoleta
-        frm._nameButton = btVentaComb.Name
+        frm._nameButton = btIngresoBoleta.Name
 
-        'frm._modulo = FP_VENTACOMBUSTIBLE
-
+        frm._modulo = FP_ModuloCanero
         frm.Show()
-        'tab3.Text = frm.Text
-        'tab3.Icon = frm.Icon
+
+    End Sub
+
+    Private Sub btMantenimientoTara_Click(sender As Object, e As EventArgs) Handles btMantenimientoTara.Click
+        Dim frm As New F0_MantenimientoTaras
+        frm._nameButton = btMantenimientoTara.Name
+        frm._modulo = FP_ModuloCanero
+        frm.Show()
     End Sub
 
 

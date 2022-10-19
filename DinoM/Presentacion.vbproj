@@ -299,6 +299,12 @@
     <Compile Include="F0_LibroVenta2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F0_MantenimientoTaras.designer.vb">
+      <DependentUpon>F0_MantenimientoTaras.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_MantenimientoTaras.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F0_MCompras.designer.vb">
       <DependentUpon>F0_MCompras.vb</DependentUpon>
     </Compile>
@@ -1175,6 +1181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_LibroVenta2.resx">
       <DependentUpon>F0_LibroVenta2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_MantenimientoTaras.resx">
+      <DependentUpon>F0_MantenimientoTaras.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_MCompras.resx">
       <DependentUpon>F0_MCompras.vb</DependentUpon>
