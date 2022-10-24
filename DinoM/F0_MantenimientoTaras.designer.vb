@@ -34,8 +34,6 @@ Partial Class F0_MantenimientoTaras
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
-        Me.Tb_Id = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Tb_Placa = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.JGr_Buscador = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
@@ -74,16 +72,16 @@ Partial Class F0_MantenimientoTaras
         Me.SuperTabPrincipal.ControlBox.MenuBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabPrincipal.ControlBox.MenuBox, Me.SuperTabPrincipal.ControlBox.CloseBox})
-        Me.SuperTabPrincipal.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.SuperTabPrincipal.Size = New System.Drawing.Size(1481, 735)
+        Me.SuperTabPrincipal.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SuperTabPrincipal.Size = New System.Drawing.Size(753, 511)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelBuscador, 0)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelRegistro, 0)
         '
         'SuperTabControlPanelBuscador
         '
         Me.SuperTabControlPanelBuscador.Location = New System.Drawing.Point(0, 0)
-        Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(1781, 912)
+        Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(1336, 741)
         '
         'SupTabItemBusqueda
         '
@@ -91,16 +89,16 @@ Partial Class F0_MantenimientoTaras
         '
         'SuperTabControlPanelRegistro
         '
-        Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(1446, 735)
+        Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(721, 511)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelPrincipal, 0)
         '
         'PanelSuperior
         '
-        Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.PanelSuperior.Size = New System.Drawing.Size(1446, 89)
+        Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.PanelSuperior.Size = New System.Drawing.Size(721, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
@@ -117,9 +115,9 @@ Partial Class F0_MantenimientoTaras
         '
         'PanelInferior
         '
-        Me.PanelInferior.Location = New System.Drawing.Point(0, 687)
-        Me.PanelInferior.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.PanelInferior.Size = New System.Drawing.Size(1446, 48)
+        Me.PanelInferior.Location = New System.Drawing.Point(0, 472)
+        Me.PanelInferior.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.PanelInferior.Size = New System.Drawing.Size(721, 39)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Transparent
         Me.PanelInferior.Style.BackColor2.Color = System.Drawing.Color.Transparent
@@ -154,8 +152,8 @@ Partial Class F0_MantenimientoTaras
         '
         'TxtNombreUsu
         '
-        Me.TxtNombreUsu.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TxtNombreUsu.Size = New System.Drawing.Size(179, 27)
+        Me.TxtNombreUsu.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TxtNombreUsu.Size = New System.Drawing.Size(135, 23)
         '
         'btnSalir
         '
@@ -174,15 +172,15 @@ Partial Class F0_MantenimientoTaras
         '
         'PanelToolBar2
         '
-        Me.PanelToolBar2.Location = New System.Drawing.Point(1339, 0)
-        Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.PanelToolBar2.Location = New System.Drawing.Point(641, 0)
+        Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         '
         'PanelPrincipal
         '
         Me.PanelPrincipal.Controls.Add(Me.GroupPanel1)
         Me.PanelPrincipal.Controls.Add(Me.Panel1)
-        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1446, 598)
+        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(721, 400)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.Panel1, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.GroupPanel1, 0)
@@ -193,6 +191,7 @@ Partial Class F0_MantenimientoTaras
         '
         'btnUltimo
         '
+        Me.btnUltimo.Location = New System.Drawing.Point(129, 0)
         Me.btnUltimo.Margin = New System.Windows.Forms.Padding(5)
         '
         'btnSiguiente
@@ -206,8 +205,8 @@ Partial Class F0_MantenimientoTaras
         '
         'MPanelUserAct
         '
-        Me.MPanelUserAct.Location = New System.Drawing.Point(1179, 0)
-        Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.MPanelUserAct.Location = New System.Drawing.Point(521, 0)
+        Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         '
         'MRlAccion
         '
@@ -215,8 +214,8 @@ Partial Class F0_MantenimientoTaras
         '
         '
         Me.MRlAccion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.MRlAccion.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.MRlAccion.Size = New System.Drawing.Size(838, 89)
+        Me.MRlAccion.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MRlAccion.Size = New System.Drawing.Size(265, 72)
         '
         'Panel1
         '
@@ -229,14 +228,11 @@ Partial Class F0_MantenimientoTaras
         Me.Panel1.Controls.Add(Me.LabelX6)
         Me.Panel1.Controls.Add(Me.LabelX2)
         Me.Panel1.Controls.Add(Me.LabelX1)
-        Me.Panel1.Controls.Add(Me.LabelX9)
-        Me.Panel1.Controls.Add(Me.Tb_Id)
         Me.Panel1.Controls.Add(Me.Tb_Placa)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1446, 170)
+        Me.Panel1.Size = New System.Drawing.Size(721, 138)
         Me.Panel1.TabIndex = 45
         '
         'tbPesoTara
@@ -249,11 +245,10 @@ Partial Class F0_MantenimientoTaras
         Me.tbPesoTara.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbPesoTara.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbPesoTara.Increment = 1.0R
-        Me.tbPesoTara.Location = New System.Drawing.Point(215, 123)
-        Me.tbPesoTara.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbPesoTara.Location = New System.Drawing.Point(441, 46)
         Me.tbPesoTara.MinValue = 0R
         Me.tbPesoTara.Name = "tbPesoTara"
-        Me.tbPesoTara.Size = New System.Drawing.Size(133, 26)
+        Me.tbPesoTara.Size = New System.Drawing.Size(100, 22)
         Me.tbPesoTara.TabIndex = 242
         Me.tbPesoTara.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
@@ -265,11 +260,10 @@ Partial Class F0_MantenimientoTaras
         Me.Tb_CodTara.Border.Class = "TextBoxBorder"
         Me.Tb_CodTara.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_CodTara.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tb_CodTara.Location = New System.Drawing.Point(215, 57)
-        Me.Tb_CodTara.Margin = New System.Windows.Forms.Padding(4)
+        Me.Tb_CodTara.Location = New System.Drawing.Point(120, 14)
         Me.Tb_CodTara.Name = "Tb_CodTara"
         Me.Tb_CodTara.PreventEnterBeep = True
-        Me.Tb_CodTara.Size = New System.Drawing.Size(133, 24)
+        Me.Tb_CodTara.Size = New System.Drawing.Size(100, 21)
         Me.Tb_CodTara.TabIndex = 241
         '
         'LabelX10
@@ -281,11 +275,10 @@ Partial Class F0_MantenimientoTaras
         Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX10.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX10.Location = New System.Drawing.Point(16, 121)
-        Me.LabelX10.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX10.Location = New System.Drawing.Point(354, 45)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX10.Size = New System.Drawing.Size(151, 28)
+        Me.LabelX10.Size = New System.Drawing.Size(113, 23)
         Me.LabelX10.TabIndex = 239
         Me.LabelX10.Text = "PESO TARA:"
         '
@@ -299,12 +292,12 @@ Partial Class F0_MantenimientoTaras
         Me.Tb_Propietario.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_Propietario.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.Tb_Propietario.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Tb_Propietario.Location = New System.Drawing.Point(586, 57)
-        Me.Tb_Propietario.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Tb_Propietario.Location = New System.Drawing.Point(120, 46)
+        Me.Tb_Propietario.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Tb_Propietario.Name = "Tb_Propietario"
         Me.Tb_Propietario.PreventEnterBeep = True
         Me.Tb_Propietario.ReadOnly = True
-        Me.Tb_Propietario.Size = New System.Drawing.Size(400, 24)
+        Me.Tb_Propietario.Size = New System.Drawing.Size(230, 21)
         Me.Tb_Propietario.TabIndex = 4
         '
         'Tb_Color
@@ -317,12 +310,11 @@ Partial Class F0_MantenimientoTaras
         Me.Tb_Color.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_Color.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.Tb_Color.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Tb_Color.Location = New System.Drawing.Point(586, 20)
-        Me.Tb_Color.Margin = New System.Windows.Forms.Padding(4)
+        Me.Tb_Color.Location = New System.Drawing.Point(441, 15)
         Me.Tb_Color.Name = "Tb_Color"
         Me.Tb_Color.PreventEnterBeep = True
         Me.Tb_Color.ReadOnly = True
-        Me.Tb_Color.Size = New System.Drawing.Size(287, 24)
+        Me.Tb_Color.Size = New System.Drawing.Size(215, 21)
         Me.Tb_Color.TabIndex = 3
         '
         'LabelX4
@@ -334,11 +326,10 @@ Partial Class F0_MantenimientoTaras
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(422, 20)
-        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX4.Location = New System.Drawing.Point(354, 13)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX4.Size = New System.Drawing.Size(169, 28)
+        Me.LabelX4.Size = New System.Drawing.Size(127, 23)
         Me.LabelX4.TabIndex = 232
         Me.LabelX4.Text = "COLOR:"
         '
@@ -351,11 +342,10 @@ Partial Class F0_MantenimientoTaras
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX6.Location = New System.Drawing.Point(405, 57)
-        Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX6.Location = New System.Drawing.Point(7, 46)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX6.Size = New System.Drawing.Size(125, 28)
+        Me.LabelX6.Size = New System.Drawing.Size(97, 23)
         Me.LabelX6.TabIndex = 231
         Me.LabelX6.Text = "PROPIETARIO:"
         '
@@ -368,11 +358,10 @@ Partial Class F0_MantenimientoTaras
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(16, 90)
-        Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX2.Location = New System.Drawing.Point(7, 75)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX2.Size = New System.Drawing.Size(136, 28)
+        Me.LabelX2.Size = New System.Drawing.Size(102, 23)
         Me.LabelX2.TabIndex = 228
         Me.LabelX2.Text = "PLACA:"
         '
@@ -385,45 +374,12 @@ Partial Class F0_MantenimientoTaras
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(16, 54)
-        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX1.Location = New System.Drawing.Point(7, 12)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(180, 28)
+        Me.LabelX1.Size = New System.Drawing.Size(135, 23)
         Me.LabelX1.TabIndex = 227
         Me.LabelX1.Text = "CODIGO:"
-        '
-        'LabelX9
-        '
-        Me.LabelX9.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX9.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX9.Location = New System.Drawing.Point(16, 20)
-        Me.LabelX9.Margin = New System.Windows.Forms.Padding(4)
-        Me.LabelX9.Name = "LabelX9"
-        Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX9.Size = New System.Drawing.Size(95, 28)
-        Me.LabelX9.TabIndex = 226
-        Me.LabelX9.Text = "ID:"
-        '
-        'Tb_Id
-        '
-        '
-        '
-        '
-        Me.Tb_Id.Border.Class = "TextBoxBorder"
-        Me.Tb_Id.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.Tb_Id.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tb_Id.Location = New System.Drawing.Point(215, 21)
-        Me.Tb_Id.Margin = New System.Windows.Forms.Padding(4)
-        Me.Tb_Id.Name = "Tb_Id"
-        Me.Tb_Id.PreventEnterBeep = True
-        Me.Tb_Id.Size = New System.Drawing.Size(133, 24)
-        Me.Tb_Id.TabIndex = 0
         '
         'Tb_Placa
         '
@@ -433,12 +389,11 @@ Partial Class F0_MantenimientoTaras
         Me.Tb_Placa.Border.Class = "TextBoxBorder"
         Me.Tb_Placa.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_Placa.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tb_Placa.Location = New System.Drawing.Point(215, 90)
-        Me.Tb_Placa.Margin = New System.Windows.Forms.Padding(4)
+        Me.Tb_Placa.Location = New System.Drawing.Point(120, 78)
         Me.Tb_Placa.MaxLength = 20
         Me.Tb_Placa.Name = "Tb_Placa"
         Me.Tb_Placa.PreventEnterBeep = True
-        Me.Tb_Placa.Size = New System.Drawing.Size(133, 24)
+        Me.Tb_Placa.Size = New System.Drawing.Size(100, 21)
         Me.Tb_Placa.TabIndex = 2
         '
         'JGr_Buscador
@@ -453,14 +408,13 @@ Partial Class F0_MantenimientoTaras
         Me.JGr_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGr_Buscador.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.JGr_Buscador.Location = New System.Drawing.Point(0, 0)
-        Me.JGr_Buscador.Margin = New System.Windows.Forms.Padding(4)
         Me.JGr_Buscador.Name = "JGr_Buscador"
         Me.JGr_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.JGr_Buscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.JGr_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
         Me.JGr_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGr_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGr_Buscador.Size = New System.Drawing.Size(1440, 401)
+        Me.JGr_Buscador.Size = New System.Drawing.Size(715, 239)
         Me.JGr_Buscador.TabIndex = 0
         Me.JGr_Buscador.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -472,10 +426,9 @@ Partial Class F0_MantenimientoTaras
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupPanel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel1.Location = New System.Drawing.Point(0, 170)
-        Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupPanel1.Location = New System.Drawing.Point(0, 138)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(1446, 428)
+        Me.GroupPanel1.Size = New System.Drawing.Size(721, 262)
         '
         '
         '
@@ -515,11 +468,11 @@ Partial Class F0_MantenimientoTaras
         '
         'F0_MantenimientoTaras
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1481, 735)
+        Me.ClientSize = New System.Drawing.Size(753, 511)
         Me.Location = New System.Drawing.Point(0, 0)
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "F0_MantenimientoTaras"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "F0_Instituciones"
@@ -553,8 +506,6 @@ Partial Class F0_MantenimientoTaras
     Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents Tb_Id As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents Tb_Placa As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents JGr_Buscador As Janus.Windows.GridEX.GridEX

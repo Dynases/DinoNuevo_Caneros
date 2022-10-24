@@ -528,6 +528,12 @@
     <Compile Include="Formularios\F_Cantidad.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F_ClienteNuevo.designer.vb">
+      <DependentUpon>F_ClienteNuevo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F_ClienteNuevo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="KardexClienteRes.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1295,6 +1301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\F_Cantidad.resx">
       <DependentUpon>F_Cantidad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_ClienteNuevo.resx">
+      <DependentUpon>F_ClienteNuevo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KardexClienteRes.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

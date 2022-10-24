@@ -101,9 +101,10 @@ Public Class F0_MantenimientoTaras
     End Sub
 
     Private Sub _PInhabilitar()
-        Tb_Id.ReadOnly = True
-        Tb_CodTara.ReadOnly = False
+        ' Tb_Id.ReadOnly = True
+        Tb_CodTara.ReadOnly = True
         Tb_Placa.ReadOnly = True
+        tbPesoTara.IsInputReadOnly = True
 
         Tb_Color.ReadOnly = True
         Tb_Propietario.ReadOnly = True
@@ -205,7 +206,7 @@ Public Class F0_MantenimientoTaras
         Tb_Placa.ReadOnly = False
         Tb_Color.ReadOnly = False
         Tb_Propietario.ReadOnly = False
-
+        tbPesoTara.IsInputReadOnly = False
         btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
@@ -213,7 +214,7 @@ Public Class F0_MantenimientoTaras
     End Sub
 
     Private Sub _PLimpiar()
-        Tb_Id.Text = String.Empty
+        ' Tb_Id.Text = String.Empty
         Tb_CodTara.Text = String.Empty
         Tb_Placa.Text = String.Empty
         Tb_Propietario.Text = String.Empty
@@ -261,7 +262,7 @@ Public Class F0_MantenimientoTaras
 
         Else
             If _Nuevo Then
-                If L_BuscarCodInst(Tb_CodTara.Text) = True Then
+                If L_BuscarCodTara(Tb_CodTara.Text) = True Then
                     Tb_CodTara.BackColor = Color.Red
                     MEP.SetError(Tb_CodTara, "Ingrese un código distinto!".ToUpper)
                     _Error = False
@@ -272,7 +273,7 @@ Public Class F0_MantenimientoTaras
             ElseIf _codInsti = Convert.ToInt32(Tb_CodTara.Text) Then
                 _Error = True
             Else
-                If L_BuscarCodInst(Tb_CodTara.Text) = True Then
+                If L_BuscarCodTara(Tb_CodTara.Text) = True Then
                     Tb_CodTara.BackColor = Color.Red
                     MEP.SetError(Tb_CodTara, "Ingrese un código distinto!".ToUpper)
                     _Error = False
@@ -349,11 +350,11 @@ Public Class F0_MantenimientoTaras
 
             If _Nuevo Then
 
-                L_Institucion_Grabar(Tb_CodTara.Text, Tb_Placa.Text, Tb_Color.Text, Tb_Propietario.Text)
+                L_Taras_Grabar(Tb_CodTara.Text, Tb_Placa.Text, tbPesoTara.Value, Tb_Color.Text, Tb_Propietario.Text)
 
                 Tb_CodTara.Focus()
 
-                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_CodTara.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
 
 
@@ -364,9 +365,9 @@ Public Class F0_MantenimientoTaras
 
             Else
 
-                L_Institucion_Modificar(Tb_Id.Text, Tb_CodTara.Text, Tb_Placa.Text, Tb_Color.Text, Tb_Propietario.Text, NumiCuenta, 0, 0)
+                L_Taras_Modificar(Tb_CodTara.Text, Tb_Placa.Text, tbPesoTara.Value, Tb_Color.Text, Tb_Propietario.Text)
 
-                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_CodTara.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
                 _PCargarBuscador()
                 _Nuevo = False 'aumentado danny
@@ -425,8 +426,8 @@ Public Class F0_MantenimientoTaras
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
-            Dim t As String = Tb_Id.Text
-            L_Institucion_Borrar(Tb_Id.Text)
+            Dim t As String = Tb_CodTara.Text
+            L_Taras_Borrar(Tb_CodTara.Text)
 
             _PInhabilitar()
             _PFiltrar()
@@ -434,7 +435,7 @@ Public Class F0_MantenimientoTaras
 
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
 
-            ToastNotification.Show(Me, "Código de Institución ".ToUpper + t + " eliminado con Exito.".ToUpper,
+            ToastNotification.Show(Me, "Código de Tara ".ToUpper + t + " eliminado con Exito.".ToUpper,
                                           img, 2000,
                                           eToastGlowColor.Green,
                                           eToastPosition.TopCenter)

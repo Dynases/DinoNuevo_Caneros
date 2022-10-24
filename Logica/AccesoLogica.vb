@@ -447,6 +447,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return _Err
     End Function
+    Public Shared Function L_BuscarCodTara(_Numi As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _Err As Boolean
+        Dim _Where As String = "cod = " + _Numi
+        _Tabla = D_Datos_Tabla("*", "taras", _Where)
+        If (_Tabla.Rows.Count > 0) Then
+            _Err = True
+        Else
+            _Err = False
+        End If
+        Return _Err
+    End Function
     Public Shared Function L_BuscarCodCanero(_Numi As String) As Boolean
         Dim _Tabla As DataTable
         Dim _Err As Boolean
@@ -501,6 +513,31 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return Not _Error
     End Function
+    Public Shared Function L_Taras_Grabar(_Cod As String, _placa As String, _pesoTara As Decimal, _color As String, _propietario As String) As Boolean
+        Dim _Error As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 16))
+        _listParam.Add(New Datos.DParametro("@codTara", _Cod))
+        _listParam.Add(New Datos.DParametro("@placa", _placa))
+        _listParam.Add(New Datos.DParametro("@pesoTara", _pesoTara))
+        _listParam.Add(New Datos.DParametro("@color", _color))
+        _listParam.Add(New Datos.DParametro("@propietario", _propietario))
+
+        _listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            '_numi = _Tabla.Rows(0).Item(0)
+            _Error = False
+        Else
+            _Error = True
+        End If
+        Return Not _Error
+    End Function
     Public Shared Function L_Institucion_Modificar(_numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
         Dim _Err As Boolean
         Dim Sql, _where As String
@@ -518,11 +555,33 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Err
     End Function
 
+    Public Shared Function L_Taras_Modificar(_Cod As String, _placa As String, _pesoTara As String, _color As String, _propietario As String) As Boolean
+        Dim _Err As Boolean
+        Dim Sql, _where As String
+
+        Sql = "cod = '" + _Cod + "' , " +
+        "placa = '" + _placa + "' , " +
+        "pesoTara = " + _pesoTara + " , " +
+        "color = '" + _color + "' , " +
+        "propietario = '" + _propietario + "'  "
+
+        _where = "cod = " + _Cod
+        _Err = D_Modificar_Datos("taras", Sql, _where)
+        Return _Err
+    End Function
+
     Public Shared Sub L_Institucion_Borrar(_Id As String)
         Dim _Where As String
         Dim _Err As Boolean
         _Where = "id = " + _Id
         _Err = D_Eliminar_Datos("Institucion", _Where)
+    End Sub
+
+    Public Shared Sub L_Taras_Borrar(_Id As String)
+        Dim _Where As String
+        Dim _Err As Boolean
+        _Where = "cod = " + _Id
+        _Err = D_Eliminar_Datos("taras", _Where)
     End Sub
 #End Region
 #Region "TY005 PRODUCTOS"
@@ -1498,7 +1557,43 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _resultado
     End Function
 #End Region
+#Region "heabolBoletas"
+    Public Shared Function L_fnCabeceraBoleta() As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Sub L_Validar_CodigoTara(_Cod As String, ByRef _placa As String, ByRef _PesoTara As Decimal, ByRef _propietario As String)
+        Dim _Tabla As DataTable
+
+        _Tabla = D_Datos_Tabla("*", "taras", "cod = '" + _Cod + "'")
+
+        If _Tabla.Rows.Count > 0 Then
+            _placa = _Tabla.Rows(0).Item(1)
+            _PesoTara = _Tabla.Rows(0).Item(2)
+            _propietario = _Tabla.Rows(0).Item(4)
+        End If
+    End Sub
+    Public Shared Function L_fnObtenerTara(_RazonSocial As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@taidCore", _RazonSocial))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+#End Region
 #Region "TV001 Ventas"
     Public Shared Function L_fnGeneralVenta(almacen As Integer) As DataTable
         Dim _Tabla As DataTable
@@ -1545,6 +1640,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tanumi", _numi))
         _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnDetalleBoleta(_numi As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@tanumi", _numi))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
         Return _Tabla
     End Function
