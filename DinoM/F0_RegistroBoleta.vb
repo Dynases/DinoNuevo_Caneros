@@ -24,17 +24,17 @@ Public Class F0_RegistroBoleta
     Dim FilaSelectLote As DataRow = Nothing
 
     Public Programa As String
-
+    Dim _codBoleta As Integer = 0
+    Dim _Nuevo As Boolean
 #End Region
 
 
 
     Public CodProducto As String
     Public Cantidad As Integer
-    Public PrecioU As Integer
-    Public PrecioTot As Double
+
     Public NombreProd As String
-    Public NroFact As Integer
+
     Public fechaEmision As String
     Dim placa, propietario As String
     Dim pesoTara As Decimal
@@ -43,7 +43,7 @@ Public Class F0_RegistroBoleta
     Private Sub _IniciarTodo()
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         MSuperTabControl.SelectedTabIndex = 0
-        'Me.WindowState = FormWindowState.Maximized
+
         _prCargarComboLibreria(cbgrupo1, 11, 1)
         _prCargarComboLibreria(cbgrupo2, 11, 2)
         _prCargarComboLibreria(cbgrupo3, 11, 3)
@@ -52,7 +52,6 @@ Public Class F0_RegistroBoleta
         cbgrupo2.SelectedIndex = 0
         cbgrupo3.SelectedIndex = 0
 
-        P_prCargarVariablesIndispensables()
         _prCargarCabecera()
         _prInhabiliitar()
         grVentas.Focus()
@@ -61,54 +60,20 @@ Public Class F0_RegistroBoleta
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
         _prAsignarPermisos()
-        ' P_prCargarParametro()
-        _prValidadFactura()
         _prCargarNameLabel()
-        'COnfiguracion previa para Pantalla de facturacion o Nota de venta
-        If gb_FacturaEmite Then
-            btnModificar.Visible = False
-        Else
-            'tbObservacion.Visible = True
-            lblObservacion.Visible = True
-        End If
 
-        'SwDescuentoProveedor.Visible = IIf(ConfiguracionDescuentoEsXCantidad, False, True)
-        SwDescuentoProveedor.Visible = False
         Programa = P_Principal.btVentVenta.Text
     End Sub
 
     Public Sub _prCargarNameLabel()
         Dim dt As DataTable = L_fnNameLabel()
         If (dt.Rows.Count > 0) Then
-            _codeBar = 1 'dt.Rows(0).Item("codeBar")
+            _codeBar = 1
         End If
     End Sub
-    Sub _prValidadFactura()
-        'If (OcultarFact = 1) Then
-        '    GroupPanelFactura2.Visible = False
-        '    GroupPanelFactura.Visible = False
-        'Else
-        '    GroupPanelFactura2.Visible = True
-        '    GroupPanelFactura.Visible = True
-        'End If
 
-    End Sub
 
-    Private Sub _prCargarComboLibreriaSucursal(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_fnListarSucursales()
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("aanumi").Width = 60
-            .DropDownList.Columns("aanumi").Caption = "COD"
-            .DropDownList.Columns.Add("aabdes").Width = 500
-            .DropDownList.Columns("aabdes").Caption = "SUCURSAL"
-            .ValueMember = "aanumi"
-            .DisplayMember = "aabdes"
-            .DataSource = dt
-            .Refresh()
-        End With
-    End Sub
+
     Private Sub _prAsignarPermisos()
 
         Dim dtRolUsu As DataTable = L_prRolDetalleGeneral(gi_userRol, _nameButton)
@@ -145,55 +110,26 @@ Public Class F0_RegistroBoleta
 
         tbFechaVenta.IsInputReadOnly = True
         tbFechaVenta.Enabled = True
-        'swMoneda.IsReadOnly = True
-        'tbFechaVenc.IsInputReadOnly = True
-        'swTipoVenta.IsReadOnly = True
-        ' txtEstado.ReadOnly = True
 
-        'Datos facturacion
-        'tbNroAutoriz.ReadOnly = True
-        'tbNroFactura.ReadOnly = True
-        'tbCodigoControl.ReadOnly = True
-        'dtiFechaFactura.IsInputReadOnly = True
-        'dtiFechaFactura.ButtonDropDown.Enabled = False
 
         btnModificar.Enabled = True
         btnGrabar.Enabled = False
         btnNuevo.Enabled = True
         'btnEliminar.Enabled = True
 
-        'If grVentas.GetValue("taest") = 1 Then
-        '    btnEliminar.Enabled = True
-        'Else
-        '    btnEliminar.Enabled = False
-        'End If
 
-        'tbSubTotal.IsInputReadOnly = True
-        'tbMdesc.IsInputReadOnly = True
-        'tbIce.IsInputReadOnly = True
-        'tbPrueba.IsInputReadOnly = True
-        'tbMontoBs.IsInputReadOnly = True
-        'tbMontoDolar.IsInputReadOnly = True
-        'tbMontoTarej.IsInputReadOnly = True
-        'txtCambio1.IsInputReadOnly = True
-
-        'txtMontoPagado1.IsInputReadOnly = True
 
         grVentas.Enabled = True
         PanelNavegacion.Enabled = True
         grdetalle.RootTable.Columns("img").Visible = False
-        'If (GPanelProductos.Visible = True) Then
-        '    _DesHabilitarProductos()
-        'End If
+
 
         tbNit.ReadOnly = True
         TbNombre1.ReadOnly = True
         TbNombre2.ReadOnly = True
-        'cbSucursal.ReadOnly = True
         FilaSelectLote = Nothing
     End Sub
     Private Sub _prhabilitar()
-        'btnContabilizar.Visible = False
         grVentas.Enabled = False
         tbCodigo.ReadOnly = False
 
@@ -204,29 +140,16 @@ Public Class F0_RegistroBoleta
 
         tbPaquetes.IsInputReadOnly = False
         tbCodigoTara.ReadOnly = False
-        tbPesoTara.IsInputReadOnly = False
         tbPesoBruto.IsInputReadOnly = False
-        cbgrupo1.ReadOnly = false
+        cbgrupo1.ReadOnly = False
         cbgrupo2.ReadOnly = False
         cbgrupo3.ReadOnly = False
         btnAgregar.Enabled = True
 
-
-
         btnGrabar.Enabled = True
 
-        tbNit.ReadOnly = False
-        TbNombre1.ReadOnly = False
         TbNombre2.ReadOnly = False
-
-
-
     End Sub
-
-
-
-
-
 
     Public Sub _prFiltrar()
         'cargo el buscador
@@ -241,19 +164,15 @@ Public Class F0_RegistroBoleta
         End If
     End Sub
     Private Sub _Limpiar()
-
         tbCodigo.Clear()
         tbCliente.Clear()
         tbVendedor.Clear()
-
-
+        _CodCliente = 0
         _CodEmpleado = 0
         tbFechaVenta.Value = Now.Date
 
         _prCargarDetalleVenta(-1)
         MSuperTabControl.SelectedTabIndex = 0
-
-
 
         With grdetalle.RootTable.Columns("img")
             .Width = 80
@@ -263,13 +182,10 @@ Public Class F0_RegistroBoleta
         End With
         _prAddDetalleVenta()
 
-
         tbNit.Clear()
         TbNombre1.Clear()
         TbNombre2.Clear()
-        tbNit.Select()
-
-        FilaSelectLote = Nothing
+        tbCliente.Select()
 
     End Sub
     Public Sub _prMostrarRegistro(_N As Integer)
@@ -290,20 +206,15 @@ Public Class F0_RegistroBoleta
             lbFecha.Text = CType(.GetValue("fchBol"), Date).ToString("dd/MM/yyyy")
             lbHora.Text = .GetValue("tahact").ToString
             lbUsuario.Text = .GetValue("tauact").ToString
-
+            cbgrupo1.Value = .GetValue("cupo")
         End With
 
         _prCargarDetalleVenta(tbCodigo.Text)
 
-        '_prCalcularPrecioTotal()
-        'Calcular montos
-        Dim tMonto As DataTable = L_fnMostrarMontos(tbCodigo.Text)
-        If tMonto.Rows.Count > 0 Then
 
 
-        End If
         LblPaginacion.Text = Str(grVentas.Row + 1) + "/" + grVentas.RowCount.ToString
-        'btnContabilizar.Visible = True
+
     End Sub
 
     Private Sub _prCargarDetalleVenta(_numi As String)
@@ -312,8 +223,6 @@ Public Class F0_RegistroBoleta
         grdetalle.DataSource = dt
         grdetalle.RetrieveStructure()
         grdetalle.AlternatingColors = True
-        ' a.tbnumi ,a.tbtv1numi ,a.tbty5prod ,b.yfcdprod1 as producto,a.tbest ,a.tbcmin ,a.tbumin ,Umin .ycdes3 as unidad,a.tbpbas ,a.tbptot,a.tbdesc ,a.tbobs ,
-        'a.tbfact ,a.tbhact ,a.tbuact
 
 
         With grdetalle.RootTable.Columns("numi")
@@ -413,6 +322,11 @@ Public Class F0_RegistroBoleta
             .FormatString = "0.00"
             .Caption = "PESO NETO"
         End With
+        With grdetalle.RootTable.Columns("estado")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
         With grdetalle.RootTable.Columns("img")
             .Width = 80
             .Caption = "Eliminar".ToUpper
@@ -433,8 +347,7 @@ Public Class F0_RegistroBoleta
         grVentas.DataSource = dt
         grVentas.RetrieveStructure()
         grVentas.AlternatingColors = True
-        '   a.tamon ,IIF(tamon=1,'Boliviano','Dolar') as moneda,a.taest ,a.taobs ,
-        'a.tadesc ,a.tafact ,a.tahact ,a.tauact,(Sum(b.tbptot)-a.tadesc ) as total
+
 
         With grVentas.RootTable.Columns("nroBoleta")
             .Width = 100
@@ -486,17 +399,6 @@ Public Class F0_RegistroBoleta
             .Visible = False
         End With
 
-        'With grVentas.RootTable.Columns("taest")
-        '    .Width = 50
-        '    .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        '    .Visible = False
-        'End With
-
-        'With grVentas.RootTable.Columns("tafact")
-        '    .Width = 50
-        '    .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-        '    .Visible = False
-        'End With
         With grVentas.RootTable.Columns("tahact")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -526,24 +428,16 @@ Public Class F0_RegistroBoleta
             Exit Sub
         End If
 
-        If (tbCodigo.Text = String.Empty) Then
+        If (_Nuevo = True) Then
 
             _GuardarNuevo()
 
         Else
-            If (tbCodigo.Text <> String.Empty) Then
-                _prGuardarModificado()
-                ''    _prInhabiliitar() RODRIGO RLA
-
-            End If
+            _prGuardarModificado()
         End If
     End Sub
     Public Sub actualizarSaldoSinLote(ByRef dt As DataTable)
-        'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
 
-        '      a.tbnumi ,a.tbtv1numi ,a.tbty5prod ,b.yfcdprod1 as producto,a.tbest ,a.tbcmin ,a.tbumin ,Umin .ycdes3 as unidad,a.tbpbas ,a.tbptot ,a.tbobs ,
-        'a.tbpcos,a.tblote ,a.tbfechaVenc , a.tbptot2, a.tbfact ,a.tbhact ,a.tbuact,1 as estado,Cast(null as Image) as img,
-        'Cast (0 as decimal (18,2)) as stock
         Dim _detalle As DataTable = CType(grdetalle.DataSource, DataTable)
 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
@@ -563,16 +457,8 @@ Public Class F0_RegistroBoleta
 
     End Sub
 
-
-
-
-
     Public Sub actualizarSaldo(ByRef dt As DataTable, CodProducto As Integer)
-        'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
 
-        '      a.tbnumi ,a.tbtv1numi ,a.tbty5prod ,b.yfcdprod1 as producto,a.tbest ,a.tbcmin ,a.tbumin ,Umin .ycdes3 as unidad,a.tbpbas ,a.tbptot ,a.tbobs ,
-        'a.tbpcos,a.tblote ,a.tbfechaVenc , a.tbptot2, a.tbfact ,a.tbhact ,a.tbuact,1 as estado,Cast(null as Image) as img,
-        'Cast (0 as decimal (18,2)) as stock
         Dim _detalle As DataTable = CType(grdetalle.DataSource, DataTable)
 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
@@ -593,20 +479,11 @@ Public Class F0_RegistroBoleta
 
     End Sub
 
-    Private Sub _prCargarLotesDeProductos(CodProducto As Integer, nameProducto As String)
-
-    End Sub
-    Public Sub _prAplicarCondiccionJanusLote()
-
-
-    End Sub
     Private Sub _prAddDetalleVenta()
-        '   a.tbnumi ,a.tbtv1numi ,a.tbty5prod ,b.yfcdprod1 as producto,a.tbest ,a.tbcmin ,a.tbumin ,Umin .ycdes3 as unidad,a.tbpbas ,a.tbptot ,a.tbobs ,
-        'a.tbpcos,a.tblote ,a.tbfechaVenc , a.tbptot2, a.tbfact ,a.tbhact ,a.tbuact,1 as estado,Cast(null as Image) as img
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, 0, "", "", "", "", 0.00, 0.00, "", "", CDate("2017/01/01"), "", "", 0.00, Bin.GetBuffer)
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, 0, 0, "", 0, "", 0.00, 0.00, "", "", CDate("2017/01/01"), "", "", 0.00, 0, Bin.GetBuffer)
     End Sub
 
     Public Function _fnSiguienteNumi()
@@ -620,17 +497,14 @@ Public Class F0_RegistroBoleta
     Public Function _fnAccesible()
         Return tbFechaVenta.IsInputReadOnly = False
     End Function
-    Private Sub _HabilitarProductos()
-
-    End Sub
     Private Sub _HabilitarFocoDetalle(fila As Integer)
-        '_prCargarProductos(Str(_CodCliente))
+
         grdetalle.Focus()
         grdetalle.Row = fila
         grdetalle.Col = 1
     End Sub
     Private Sub _DesHabilitarProductos()
-        'GPanelProductos.Visible = False
+
         PanelInferior.Visible = True
 
 
@@ -641,7 +515,7 @@ Public Class F0_RegistroBoleta
     End Sub
     Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
         For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
-            Dim _numi As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("tbnumi")
+            Dim _numi As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("numi")
             If (_numi = numi) Then
                 pos = i
                 Return
@@ -650,16 +524,6 @@ Public Class F0_RegistroBoleta
 
     End Sub
 
-    Public Sub _fnObtenerFilaDetalleProducto(ByRef pos As Integer, numi As Integer)
-        'For i As Integer = 0 To CType(grProductos.DataSource, DataTable).Rows.Count - 1 Step 1
-        '    Dim _numi As Integer = CType(grProductos.DataSource, DataTable).Rows(i).Item("yfnumi")
-        '    If (_numi = numi) Then
-        '        pos = i
-        '        Return
-        '    End If
-        'Next
-
-    End Sub
 
     Public Function _fnExisteProducto(idprod As Integer) As Boolean
         For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -677,9 +541,7 @@ Public Class F0_RegistroBoleta
         For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
             Dim _idprod As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("tbty5prod")
             Dim estado As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("estado")
-            '          a.tbnumi ,a.tbtv1numi ,a.tbty5prod ,b.yfcdprod1 as producto,a.tbest ,a.tbcmin ,a.tbumin ,Umin .ycdes3 as unidad,a.tbpbas ,a.tbptot ,a.tbobs ,
-            'a.tbpcos,a.tblote ,a.tbfechaVenc , a.tbptot2, a.tbfact ,a.tbhact ,a.tbuact,1 as estado,Cast(null as Image) as img,
-            'Cast (0 as decimal (18,2)) as stock
+
             Dim _LoteDetalle As String = CType(grdetalle.DataSource, DataTable).Rows(i).Item("tblote")
             Dim _FechaVencDetalle As Date = CType(grdetalle.DataSource, DataTable).Rows(i).Item("tbfechaVenc")
             If (_idprod = idprod And estado >= 0 And lote = _LoteDetalle And fechaVenci = _FechaVencDetalle) Then
@@ -750,7 +612,7 @@ Public Class F0_RegistroBoleta
             If (grdetalle.RowCount >= 2) Then
                 Dim estado As Integer = grdetalle.GetValue("estado")
                 Dim pos As Integer = -1
-                Dim lin As Integer = grdetalle.GetValue("tbnumi")
+                Dim lin As Integer = grdetalle.GetValue("numi")
                 _fnObtenerFilaDetalle(pos, lin)
                 If (estado = 0) Then
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("estado") = -2
@@ -763,22 +625,29 @@ Public Class F0_RegistroBoleta
 
                 grdetalle.Select()
                 grdetalle.UpdateData()
-                grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index
+                grdetalle.Col = grdetalle.RootTable.Columns("nroPaq").Index
                 grdetalle.Row = grdetalle.RowCount - 1
                 grdetalle.RootTable.ApplyFilter(New Janus.Windows.GridEX.GridEXFilterCondition(grdetalle.RootTable.Columns("estado"), Janus.Windows.GridEX.ConditionOperator.GreaterThanOrEqualTo, 0))
                 '_prCalcularPrecioTotal()
             End If
         End If
-        'grdetalle.Refetch()
-        'grdetalle.Refresh()
+        grdetalle.Refetch()
+        grdetalle.Refresh()
 
     End Sub
     Public Function _ValidarCampos() As Boolean
         Try
             'txtMontoPagado1.Text = tbTotalBs.Text
+            If (tbCodigo.Text = String.Empty) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Ingrese el Número de Boleta".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                tbCodigo.Focus()
+                Return False
+
+            End If
             If (_CodCliente <= 0) Then
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                ToastNotification.Show(Me, "Por Favor Seleccione un Cliente con Ctrl+Enter".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                ToastNotification.Show(Me, "Por Favor Seleccione un Cañero con Ctrl+Enter".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 tbCliente.Focus()
                 Return False
 
@@ -791,13 +660,6 @@ Public Class F0_RegistroBoleta
             End If
 
 
-            'Validar datos de factura
-            If (tbNit.Text = String.Empty) Then
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                ToastNotification.Show(Me, "Por Favor ponga el nit del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                tbNit.Focus()
-                Return False
-            End If
 
             If (TbNombre1.Text = String.Empty) Then
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -808,25 +670,15 @@ Public Class F0_RegistroBoleta
 
             If (grdetalle.RowCount = 1) Then
                 grdetalle.Row = grdetalle.RowCount - 1
-                If (grdetalle.GetValue("tbty5prod") = 0) Then
+                If (grdetalle.GetValue("nroPaq") = 0) Then
                     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                    ToastNotification.Show(Me, "Por Favor Seleccione  un detalle de producto".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    ToastNotification.Show(Me, "Por Favor Ingrese datos para Detalle de boleta".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                     Return False
                 End If
 
             End If
 
-            'Validación para controlar caducidad de Dosificacion
-            If tbNit.Text <> String.Empty Then
-                Dim fecha As String = Now.Date
-                Dim dtDosificacion As DataSet = L_DosificacionCajas("1", "1", fecha, gs_NroCaja)
-                If dtDosificacion.Tables(0).Rows.Count = 0 Then
-                    'dtDosificacion.Tables.Cast(Of DataTable)().Any(Function(x) x.DefaultView.Count = 0)
-                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                    ToastNotification.Show(Me, "La Dosificación para las facturas ya caducó, ingrese nueva dosificación".ToUpper, img, 3500, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                    Return False
-                End If
-            End If
+
 
             Return True
         Catch ex As Exception
@@ -848,15 +700,15 @@ Public Class F0_RegistroBoleta
 
         dt = CType(grdetalle.DataSource, DataTable)
         'Ordena el detalle por codigo importante
-        dt.DefaultView.Sort = "tbty5prod ASC"
+        dt.DefaultView.Sort = "nroPaq ASC"
         dt = dt.DefaultView.ToTable
         dtDetalle = dt.Copy
         dtDetalle.Clear()
         contar = 0
         Try
             For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-                Dim codProducto As Integer = dt.Rows(i).Item("tbty5prod")
-                dt.DefaultView.RowFilter = "tbty5prod =  '" + codProducto.ToString() + "'"
+                Dim codProducto As Integer = dt.Rows(i).Item("nroPaq")
+                dt.DefaultView.RowFilter = "nroPaq =  '" + codProducto.ToString() + "'"
                 cantidadRepetido = dt.DefaultView.Count()
                 If IdAux <> codProducto Then
                     contar = 1
@@ -865,88 +717,28 @@ Public Class F0_RegistroBoleta
                 End If
                 IdAux = codProducto
 
-                'Evita llamar a saldo cada iteracion
-                If contar = 1 Then
-                    dtSaldos = L_fnObteniendoSaldosTI001(codProducto, 1)
-                    dtSaldos.DefaultView.Sort = "icfven ASC"
-                    dtSaldos = dtSaldos.DefaultView.ToTable
-                End If
-                'dtSaldos.DefaultView.RowFilter = "iccven >  '" + 0.ToString() + "'"
-                'dtSaldos = dtSaldos.DefaultView.ToTable
-                Dim cantidad As Double = dt.Rows(i).Item("tbcmin")
+                'Dim cantidad As Double = dt.Rows(i).Item("tbcmin")
                 Dim saldo As Double = cantidad
                 Dim estado As Integer = dt.Rows(i).Item("estado")
                 Dim k As Integer = 0
                 If (estado >= 0) Then
-                    If (dtSaldos.Rows.Count <= 0) Then
-                        dtDetalle.ImportRow(dt.Rows(i))
-                    Else
-                        While (k <= dtSaldos.Rows.Count - 1 And saldo > 0)
 
-                            Dim inventario As Double = dtSaldos.Rows(k).Item("iccven")
-                            If (inventario >= saldo) Then
-                                dtDetalle.ImportRow(dt.Rows(i))
-                                Dim pos As Integer = dtDetalle.Rows.Count - 1
 
-                                Dim precio As Double = dtDetalle.Rows(pos).Item("tbpbas")
-                                Dim total As Decimal = CStr(Format(precio * saldo, "####0.00"))
 
-                                dtDetalle.Rows(pos).Item("tbptot") = total
-                                dtDetalle.Rows(pos).Item("tbtotdesc") = total - dtDetalle.Rows(pos).Item("tbdesc")
-                                'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = total
-                                'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcmin") = saldo
-                                dtDetalle.Rows(pos).Item("tbcmin") = saldo
-
-                                Dim precioCosto As Double = dtDetalle.Rows(pos).Item("tbpcos")
-                                dtDetalle.Rows(pos).Item("tbptot2") = precioCosto * saldo
-                                dtDetalle.Rows(pos).Item("tblote") = dtSaldos.Rows(k).Item("iclot")
-                                dtDetalle.Rows(pos).Item("tbfechaVenc") = dtSaldos.Rows(k).Item("icfven")
-                                dtSaldos.Rows(k).Item("iccven") = inventario - saldo
-                                saldo = 0
-
-                            Else
-                                'Cuando el Invetanrio es menor
-                                If (k <= dtSaldos.Rows.Count - 1 And inventario > 0) Then
-
-                                    dtDetalle.ImportRow(dt.Rows(i))
-                                    Dim pos As Integer = dtDetalle.Rows.Count - 1
-
-                                    Dim precio As Double = dtDetalle.Rows(pos).Item("tbpbas")
-                                    Dim total As Decimal = CStr(Format(precio * inventario, "####0.00"))
-                                    dtDetalle.Rows(pos).Item("tbptot") = total
-                                    dtDetalle.Rows(pos).Item("tbtotdesc") = total - dtDetalle.Rows(pos).Item("tbdesc")
-                                    'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = total
-                                    'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcmin") = inventario
-                                    dtDetalle.Rows(pos).Item("tbcmin") = inventario
-
-                                    Dim precioCosto As Double = dtDetalle.Rows(pos).Item("tbpcos")
-                                    dtDetalle.Rows(pos).Item("tbptot2") = precioCosto * inventario
-                                    dtDetalle.Rows(pos).Item("tblote") = dtSaldos.Rows(k).Item("iclot")
-                                    dtDetalle.Rows(pos).Item("tbfechaVenc") = dtSaldos.Rows(k).Item("icfven")
-
-                                    saldo = saldo - inventario
-                                    'Actualiza el inventario en la Tabla
-                                    dtSaldos.Rows(k).Item("iccven") = dtSaldos.Rows(k).Item("iccven") - inventario
-                                End If
-                            End If
-                            k += 1
-                        End While
-                        If saldo <> 0 Then
-                            dtDetalle.ImportRow(dt.Rows(i))
+                    dtDetalle.ImportRow(dt.Rows(i))
                             Dim pos As Integer = dtDetalle.Rows.Count - 1
-                            Dim precio As Double = dtDetalle.Rows(pos).Item("tbpbas")
-                            Dim total As Decimal = CStr(Format(precio * saldo, "####0.00"))
-                            dtDetalle.Rows(pos).Item("tbptot") = total
-                            dtDetalle.Rows(pos).Item("tbtotdesc") = total - dtDetalle.Rows(pos).Item("tbdesc")
-                            dtDetalle.Rows(pos).Item("tbcmin") = saldo
+
+                    dtDetalle.Rows(pos).Item("tbptot") =
+                    dtDetalle.Rows(pos).Item("tbtotdesc") = dtDetalle.Rows(pos).Item("tbdesc")
+                    dtDetalle.Rows(pos).Item("tbcmin") = saldo
                             Dim precioCosto As Double = dtDetalle.Rows(pos).Item("tbpcos")
                             dtDetalle.Rows(pos).Item("tbptot2") = precioCosto * saldo
                             dtDetalle.Rows(pos).Item("tblote") = dtSaldos.Rows(k - 1).Item("iclot")
                             dtDetalle.Rows(pos).Item("tbfechaVenc") = dtSaldos.Rows(k - 1).Item("icfven")
                             saldo = 0
-                        End If
-                    End If
+
                 End If
+
             Next
             Return dtDetalle
         Catch ex As Exception
@@ -995,58 +787,32 @@ Public Class F0_RegistroBoleta
     Public Sub _GuardarNuevo()
         Try
             Dim numi As String = ""
-            Dim tabla As DataTable = L_fnMostrarMontos(0)
-            Dim factura = gb_FacturaEmite
-            _prInsertarMontoNuevo(tabla)
-            ''Verifica si existe estock para los productos
-            'If _prExisteStockParaProducto() Then
-
-            'If Succes = 2 Then
-            '    Dim dtDetalle As DataTable = rearmarDetalle()
-            'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-            '                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-            '                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-            '                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-            '                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-            '                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
-            'If res Then
-            '    'res = P_fnGrabarFacturarTFV001(numi)
-            '    'Emite factura
-            '    If (gb_FacturaEmite) Then
-            '        If tbNit.Text <> String.Empty Then
-
-            '            P_fnGenerarFactura(numi)
-            '            _prImiprimirNotaVenta(numi)
-            '        Else
-            '            _prImiprimirNotaVenta(numi)
-            '        End If
-            '    Else
-            '        _prImiprimirNotaVenta(numi)
-            '    End If
 
 
-            '    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-            '    ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
-            '                              img, 2000,
-            '                              eToastGlowColor.Green,
-            '                              eToastPosition.TopCenter
-            '                              )
+            Dim dtDetalle As DataTable = grdetalle.DataSource
+            Dim res As Boolean = L_fnGrabarBoleta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodCliente,
+                                                     _CodEmpleado, cbgrupo1.Value, "", dtDetalle)
+            If res Then
 
-            '    _prCargarVenta()
-            '    _Limpiar()
-            '    Table_Producto = Nothing
 
-            'Else
-            '    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-            '    ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+                                                  img, 2000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter
+                                                  )
 
-            'End If
+                _prCargarCabecera()
+                _Limpiar()
+                ' Table_Producto = Nothing
 
-            'Else
-            '        MessageBox.Show("intente de nuevo")
-            '    End If
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                        ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
-            'End If
+                    End If
+
+
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
@@ -1082,32 +848,25 @@ Public Class F0_RegistroBoleta
         End If
     End Sub
     Private Sub _prGuardarModificado()
-        Dim tabla As DataTable = L_fnMostrarMontos(0)
-        _prInsertarMontoModificar(tabla)
-        Dim dtDetalle As DataTable = rearmarDetalle()
-        'Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0),
-        '                                        IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-        ''                                        _CodCliente, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text, dtDetalle, cbSucursal.Value, 0, tabla)
-        'If Res Then
-        '    If (gb_FacturaEmite) Then
-        '        L_fnEliminarDatos("TFV001", "fvanumi=" + tbCodigo.Text.Trim)
-        '        L_fnEliminarDatos("TFV0011", "fvbnumi=" + tbCodigo.Text.Trim)
-        '        P_fnGenerarFactura(tbCodigo.Text.Trim)
-        '    End If
-        '    '_prImiprimirNotaVenta(tbCodigo.Text)
-        '    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-        '    ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper,
-        '                              img, 2000,
-        '                              eToastGlowColor.Green,
-        '                              eToastPosition.TopCenter
-        '                              )
-        '    _prCargarVenta()
-        '    _prSalir()
-        'Else
-        '    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-        '    ToastNotification.Show(Me, "La Venta no pudo ser Modificada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
-        'End If
+        Dim dtDetalle = grdetalle.DataSource
+        Dim res As Boolean = L_fnModificarBoleta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodCliente,
+                                                     _CodInstitucion, cbgrupo1.Value, "", dtDetalle)
+        If res Then
+
+            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+            ToastNotification.Show(Me, "Código de Boleta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper,
+                                      img, 2000,
+                                      eToastGlowColor.Green,
+                                      eToastPosition.TopCenter
+                                      )
+            _prCargarCabecera()
+            '_prSalir()
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+            ToastNotification.Show(Me, "La Boleta no pudo ser Modificada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+        End If
     End Sub
     Private Sub _prSalir()
         If btnGrabar.Enabled = True Then
@@ -1240,13 +999,6 @@ Public Class F0_RegistroBoleta
 
 
 
-    Private Sub P_prCargarVariablesIndispensables()
-        If (gb_FacturaEmite) Then
-            gi_IVA = CDbl(IIf(L_fnGetIVA().Rows(0).Item("scdebfis").ToString.Equals(""), gi_IVA, L_fnGetIVA().Rows(0).Item("scdebfis").ToString))
-            gi_ICE = CDbl(IIf(L_fnGetICE().Rows(0).Item("scice").ToString.Equals(""), gi_ICE, L_fnGetICE().Rows(0).Item("scice").ToString))
-        End If
-
-    End Sub
 
 
     Private Sub P_GenerarReporte(numi As String)
@@ -1514,21 +1266,21 @@ Public Class F0_RegistroBoleta
     End Sub
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         _Limpiar()
+        limpiarDetalle()
         _prhabilitar()
         '' AsignarClienteEmpleado()
-        'lbNroCaja.Text = gs_user
-        'LabelAlmacen.Text = gi_userSuc
-        'LabelAlmacen.Text = gs_userSucNom
-        'cbSucursal.Value = gi_userSuc
+
         btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
         btnGrabar.Enabled = True
         PanelNavegacion.Enabled = False
         tbCodigo.Select()
+        _Nuevo = True
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         _PLimpiarErrores()
+        limpiarDetalle()
         _prSalir()
 
     End Sub
@@ -1538,10 +1290,11 @@ Public Class F0_RegistroBoleta
         tbPesoTara.BackColor = Color.White
         tbCodigoTara.BackColor = Color.White
         tbPaquetes.BackColor = Color.White
+        cbgrupo1.BackColor = Color.White
+        cbgrupo2.BackColor = Color.White
+        cbgrupo3.BackColor = Color.White
     End Sub
-    Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs)
 
-    End Sub
     Private Sub tbVendedor_KeyDown(sender As Object, e As KeyEventArgs)
 
         If (_fnAccesible()) Then
@@ -1586,18 +1339,12 @@ Public Class F0_RegistroBoleta
 
         End If
     End Sub
-    Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs)
-
-    End Sub
 
     Private Sub grdetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grdetalle.EditingCell
         If (_fnAccesible()) Then
             'Habilitar solo las columnas de Precio, %, Monto y Observación
             'If (e.Column.Index = grdetalle.RootTable.Columns("yfcbarra").Index Or
-            If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index Or
-                e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index Or
-                 e.Column.Index = grdetalle.RootTable.Columns("producto").Index Or
-                e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index) Then
+            If (e.Column.Index = grdetalle.RootTable.Columns("img").Index) Then
                 ''e.Column.Index = grdetalle.RootTable.Columns("tbdesc").Index
                 e.Cancel = False
             Else
@@ -1609,10 +1356,6 @@ Public Class F0_RegistroBoleta
 
     End Sub
 
-
-    Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
-
-    End Sub
 
 
 
@@ -1702,43 +1445,34 @@ Public Class F0_RegistroBoleta
     End Sub
 
 
-
-
-
-
-    Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grdetalle.MouseClick
-        Try
-            If (Not _fnAccesible()) Then
-                Return
-            End If
-            If (grdetalle.RowCount >= 2) Then
-                If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
-                    _prEliminarFila()
-
-                End If
-            End If
-        Catch ex As Exception
-            MostrarMensajeError(ex.Message)
-        End Try
-
-    End Sub
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
-
+        _prGuardar()
 
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        Try
-            If (grVentas.RowCount > 0) Then
-                If (gb_FacturaEmite) Then
+        _PModificarRegistro()
+        _PMostrarRegistro(grdetalle.Row)
+        btnNuevo.Enabled = False
+        btnModificar.Enabled = False
+        btnEliminar.Enabled = False
+        btnGrabar.Enabled = True
+    End Sub
+    Private Sub _PModificarRegistro()
+        _Nuevo = False
+        _prhabilitar()
+        _codBoleta = tbCodigo.Text
 
-                End If
-                End If
+        MSuperTabControl.SelectedTabIndex = 0
 
-
-        Catch ex As Exception
-            MostrarMensajeError(ex.Message)
-        End Try
+        With grdetalle.RootTable.Columns("img")
+            .Width = 80
+            .Caption = "Eliminar"
+            .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+            .Visible = True
+        End With
+        _prAddDetalleVenta()
+        'btnModificar.Enabled = True 'aumentado para q funcione con el modelo de guido
     End Sub
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         Try
@@ -1980,15 +1714,15 @@ Public Class F0_RegistroBoleta
                 End If
 
                 grdetalle.Select()
-                If _codeBar = 1 Then
-                    If gb_CodigoBarra Then
-                        grdetalle.Col = 5
-                        grdetalle.Row = 0
-                    Else
-                        grdetalle.Col = 3
-                        grdetalle.Row = 0
-                    End If
-                End If
+                'If _codeBar = 1 Then
+                '    If gb_CodigoBarra Then
+                '        grdetalle.Col = 5
+                '        grdetalle.Row = 0
+                '    Else
+                '        grdetalle.Col = 3
+                '        grdetalle.Row = 0
+                '    End If
+                'End If
             End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -2058,34 +1792,69 @@ Public Class F0_RegistroBoleta
 
         End If
     End Sub
-
+    Dim posicion As Integer
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
         Dim _Error As Boolean = False
         If P_ValidarAgregar() Then
-            If grdetalle.RowCount Then
 
+            If _Nuevo = False Then
+
+                    MessageBox.Show("EDITAR")
+                    _fnObtenerFilaDetalle(posicion, grdetalle.GetValue("numi"))
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("nroPaq") = tbPaquetes.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("codTara") = tbCodigoTara.Text
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("ycdes3") = cbgrupo2.Text
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("corte") = cbgrupo3.Text
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("tipCan") = cbgrupo2.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("tipCor") = cbgrupo3.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("pesBru") = tbPesoBruto.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("pesTara") = tbPesoTara.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("placa") = placa
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("fleter") = propietario
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("pesNeto") = tbPesoBruto.Value - tbPesoTara.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(posicion).Item("estado") = 1
+                    _prAddDetalleVenta()
+                    limpiarDetalle()
+                Else
+                    If grdetalle.RowCount Then
+
+                    End If
+
+
+                    Dim pos As Integer = grdetalle.RowCount - 2
+                    grdetalle.Row = grdetalle.RowCount - 1
+                    _fnObtenerFilaDetalle(pos, grdetalle.GetValue("numi"))
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("nroPaq") = tbPaquetes.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("codTara") = tbCodigoTara.Text
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("ycdes3") = cbgrupo2.Text
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("corte") = cbgrupo3.Text
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tipCan") = cbgrupo2.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tipCor") = cbgrupo3.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pesBru") = tbPesoBruto.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pesTara") = tbPesoTara.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("placa") = placa
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("fleter") = propietario
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pesNeto") = tbPesoBruto.Value - tbPesoTara.Value
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("estado") = 1
+                    _prAddDetalleVenta()
+                    limpiarDetalle()
+                End If
+
+            Else
             End If
-            Dim pos As Integer = grdetalle.RowCount - 1
-            grdetalle.Row = grdetalle.RowCount - 1
-
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("nroPaq") = tbPaquetes.Value
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("codTara") = tbCodigoTara.Text
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("ycdes3") = cbgrupo2.Text
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("corte") = cbgrupo3.Text
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tipCan") = cbgrupo2.Value
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tipCor") = cbgrupo3.Value
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pesBru") = tbPesoBruto.Value
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pesTara") = tbPesoTara.Value
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("placa") = placa
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("fleter") = propietario
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pesNeto") = tbPesoBruto.Value - tbPesoTara.Value
-            _prAddDetalleVenta()
-        Else
 
 
-        End If
 
 
+
+    End Sub
+
+    Private Sub limpiarDetalle()
+        'MEP.Clear()
+        tbPesoBruto.Value = 0
+        tbPesoTara.Value = 0
+        tbCodigoTara.Text = String.Empty
+        tbPaquetes.Text = String.Empty
     End Sub
     Public Function P_ValidarAgregar() As Boolean
         Dim _Error As Boolean = True
@@ -2122,8 +1891,15 @@ Public Class F0_RegistroBoleta
             MEP.SetError(tbPaquetes, "Ingrese numero de paquete!".ToUpper)
             _Error = False
         Else
-            tbPaquetes.BackColor = Color.White
-            MEP.SetError(tbPaquetes, String.Empty)
+            If tbPaquetes.Text <= 0 Then
+                tbPaquetes.BackColor = Color.Red
+                MEP.SetError(tbPaquetes, "Ingrese número valido para paquete!".ToUpper)
+                _Error = False
+            Else
+                tbPaquetes.BackColor = Color.White
+                MEP.SetError(tbPaquetes, String.Empty)
+            End If
+
         End If
 
         If tbCodigoTara.Text.Trim = String.Empty Then
@@ -2174,6 +1950,127 @@ Public Class F0_RegistroBoleta
             End If
         End If
     End Sub
+
+    Private Sub tbCliente_KeyDown_1(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
+        If (_fnAccesible()) Then
+
+            If e.KeyData = Keys.Control + Keys.Enter Then
+
+                Dim dt As DataTable
+                'dt = L_fnListarClientes()
+                dt = L_fnListarClientesVenta()
+
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD. CLI", 100))
+                listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", False, "RAZÓN SOCIAL", 180))
+                listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
+                listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
+                listEstCeldas.Add(New Modelo.Celda("yddirec", False, "DIRECCIÓN", 220))
+                listEstCeldas.Add(New Modelo.Celda("ydtelf1", False, "Teléfono".ToUpper, 200))
+                listEstCeldas.Add(New Modelo.Celda("ydfnac", False, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
+                listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("vendedor,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("yddias", False, "CRED", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Nombre Factura", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydtipdocelec", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcorreo", False, "Nit/CI", 50))
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dt
+                ef.SeleclCol = 2
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 50
+                ef.ancho = 200
+                ef.Context = "Seleccione Cliente".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                    _CodCliente = Row.Cells("ydnumi").Value
+                    tbCliente.Text = Row.Cells("ydrazonsocial").Value
+                    _dias = Row.Cells("yddias").Value
+
+                    TbNombre1.Text = Row.Cells("ydcod").Value
+                    Dim dt1 As DataTable
+                    dt1 = L_fnListarCaneroInstitucion(_CodCliente)
+                    Dim row1 As DataRow = dt1.Rows(dt1.Rows.Count - 1)
+                    tbVendedor.Text = row1("institucion")
+                    tbNit.Text = row1("codInst")
+
+                    Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
+                    If (numiVendedor > 0) Then
+                        ''tbVendedor.Text = Row.Cells("vendedor").Value
+                        _CodEmpleado = Row.Cells("ydnumivend").Value
+
+                        grdetalle.Select()
+                    Else
+                        tbVendedor.Clear()
+                        _CodEmpleado = 0
+                        tbVendedor.Focus()
+
+                    End If
+                End If
+            End If
+        End If
+    End Sub
+
+
+
+    Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grdetalle.MouseClick
+        Try
+            If (Not _fnAccesible()) Then
+                Return
+            End If
+            If (grdetalle.RowCount >= 2) Then
+                If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
+                    _prEliminarFila()
+                    'CalculoDescuentoXProveedor()
+                End If
+            End If
+        Catch ex As Exception
+            MostrarMensajeError(ex.Message)
+        End Try
+    End Sub
+    Private Sub _PMostrarRegistro(_N As Integer)
+        Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)
+        If (IsNothing(CType(grdetalle.DataSource, DataTable))) Then
+            Return
+        End If
+
+        With grdetalle
+            tbCodigoTara.Text = .GetValue("codTara").ToString
+            tbPaquetes.Text = .GetValue("nroPaq").ToString
+            tbPesoTara.Value = .GetValue("pesTara")
+            tbPesoBruto.Value = .GetValue("pesBru")
+            cbgrupo2.Value = .GetValue("tipCan")
+            cbgrupo3.Value = .GetValue("tipCor")
+            'NumiCuenta = .GetValue("canumi").ToString
+
+        End With
+    End Sub
+    Private Sub grdetalle_SelectionChanged(sender As Object, e As EventArgs) Handles grdetalle.SelectionChanged
+
+    End Sub
+
+    Private Sub grdetalle_Click(sender As Object, e As EventArgs) Handles grdetalle.Click
+        Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)
+
+
+        If (dt.Rows(0).Item("nroPaq") > 0) Then
+
+            _PMostrarRegistro(grdetalle.Row)
+            posicion = grdetalle.Row
+        End If
+        If grdetalle.Row >= 0 Then
+
+
+        End If
+    End Sub
+
     Private Sub TaraNuevo()
         Dim frm As New F_ClienteNuevo
         Dim dt As DataTable

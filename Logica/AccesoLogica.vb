@@ -1952,6 +1952,34 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _resultado
     End Function
 
+    Public Shared Function L_fnGrabarBoleta(ByRef _nroBoleta As String, _fchBol As String, _codCan As String, _codInst As String, _cupo As String, _hora As String,
+                                            detalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@nroBoleta", _nroBoleta))
+        _listParam.Add(New Datos.DParametro("@fchBol", _fchBol))
+        _listParam.Add(New Datos.DParametro("@codCan", _codCan))
+        _listParam.Add(New Datos.DParametro("@codInst", _codInst))
+        _listParam.Add(New Datos.DParametro("@cupo", _cupo))
+        _listParam.Add(New Datos.DParametro("@hora", _hora))
+        _listParam.Add(New Datos.DParametro("@detBol", "", detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            '_tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
     Public Shared Function L_fnGrabarVentaCombustible(ByRef _tanumi As String, _taidCorelativo As String, _tafdoc As String, _taven As Integer, _tatven As Integer, _tafvcr As String, _taclpr As Integer,
                                            _tamon As Integer, _taobs As String,
                                            _tadesc As Double, _taice As Double,
@@ -2116,7 +2144,31 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _resultado
     End Function
+    Public Shared Function L_fnModificarBoleta(ByRef _nroBoleta As String, _fchBol As String, _codCan As String, _codInst As String, _cupo As String, _hora As String,
+                                            detalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@nroBoleta", _nroBoleta))
+        _listParam.Add(New Datos.DParametro("@fchBol", _fchBol))
+        _listParam.Add(New Datos.DParametro("@codCan", _codCan))
+        _listParam.Add(New Datos.DParametro("@codInst", _codInst))
+        _listParam.Add(New Datos.DParametro("@cupo", _cupo))
+        _listParam.Add(New Datos.DParametro("@hora", _hora))
+        _listParam.Add(New Datos.DParametro("@detBol", "", detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
+
+        If _Tabla.Rows.Count > 0 Then
+            '_tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
     Public Shared Function L_fnModificarVenta(_tanumi As String, _tafdoc As String, _taven As Integer, _tatven As Integer, _tafvcr As String, _taclpr As Integer,
                                            _tamon As Integer, _taobs As String,
                                            _tadesc As Double, _taice As Double, _tatotal As Double, detalle As DataTable, _almacen As Integer, _taprforma As Integer, monto As DataTable) As Boolean
@@ -2729,21 +2781,21 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     Public Shared Function L_fnEliminarServicio(numi As String, ByRef mensaje As String) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
-            Dim _listParam As New List(Of Datos.DParametro)
+        Dim _listParam As New List(Of Datos.DParametro)
 
-            _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
         _listParam.Add(New Datos.DParametro("@Id", numi))
         _listParam.Add(New Datos.DParametro("@aauact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_Servicios", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
-                _resultado = True
-            Else
-                _resultado = False
-            End If
+            _resultado = True
+        Else
+            _resultado = False
+        End If
 
-            Return _resultado
+        Return _resultado
     End Function
 
 

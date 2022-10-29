@@ -1195,6 +1195,13 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
+    Private Sub btRecuperarLaica_Click(sender As Object, e As EventArgs) Handles btRecuperarLaica.Click
+        Dim frm As New F_RecuperarDatosLaica
+        'frm._nameButton = btMantenimientoTara.Name
+        'frm._modulo = FP_ModuloCanero
+        frm.Show()
+    End Sub
+
 
 
 

@@ -534,6 +534,12 @@
     <Compile Include="F_ClienteNuevo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F_RecuperarDatosLaica.Designer.vb">
+      <DependentUpon>F_RecuperarDatosLaica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F_RecuperarDatosLaica.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="KardexClienteRes.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1304,6 +1310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F_ClienteNuevo.resx">
       <DependentUpon>F_ClienteNuevo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_RecuperarDatosLaica.resx">
+      <DependentUpon>F_RecuperarDatosLaica.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KardexClienteRes.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
