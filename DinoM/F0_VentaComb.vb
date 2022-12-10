@@ -690,6 +690,24 @@ Public Class F0_VentaComb
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
+        With grdetalle.RootTable.Columns("ygcodact")
+            .Width = 120
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+
+        With grdetalle.RootTable.Columns("ygcodu")
+            .Width = 120
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+
+        With grdetalle.RootTable.Columns("ygcodsin")
+            .Width = 120
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+
         With grdetalle
             .GroupByBoxVisible = False
             'diseño de la grilla
@@ -1773,8 +1791,8 @@ Public Class F0_VentaComb
 
                         If (SwSurtidor.Value = True) Then
 
-                            res = P_fnGrabarFacturarTFV001(numi)
-                            P_prImprimirFacturar(numi, True, True)
+                            ' res = P_fnGrabarFacturarTFV001(numi)
+                            '  P_prImprimirFacturar(numi, True, True)
                         End If
                         'Emite factura
 
@@ -3284,6 +3302,9 @@ Public Class F0_VentaComb
                 listEstCeldas.Add(New Modelo.Celda("yddias", False, "CRED", 50))
                 listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Nombre Factura", 50))
                 listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydtipdocelec", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcorreo", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcompleCi", False, "Nit/CI", 50))
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt

@@ -356,6 +356,7 @@ Public Class F1_Clientes
         TbCiEsposa.ReadOnly = False
         swEstado.IsReadOnly = False
         cbEstadoCiv.ReadOnly = False
+        tbComplemento.ReadOnly = False
         _prCrearCarpetaImagenes()
         _prCrearCarpetaTemporal()
         BtAdicionar.Visible = True
@@ -393,6 +394,7 @@ Public Class F1_Clientes
         cbEstadoCiv.ReadOnly = True
         TbNomEsposa.ReadOnly = True
         TbCiEsposa.ReadOnly = True
+        tbComplemento.ReadOnly = True
         _prStyleJanus()
         JGrM_Buscador.Focus()
         btnSearch.Visible = False
@@ -406,7 +408,7 @@ Public Class F1_Clientes
         tbDireccion.Clear()
         tbTelf1.Clear()
         tbRazonSocial.Clear()
-
+        tbComplemento.Clear()
         tbTelf2.Clear()
         tbObs.Clear()
         cbCatPrec.SelectedIndex = 0
@@ -471,7 +473,7 @@ Public Class F1_Clientes
             tokenSifac = F0_Venta2.ObtToken(5)
             If tokenSifac = "400" Then
 
-                MessageBox.Show("intente de nuevo")
+                MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
 
             Else
                 If F0_Venta2.verificarNit(tokenSifac, tbNit.Text) = "994" Then
@@ -481,7 +483,7 @@ Public Class F1_Clientes
                            NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
                            IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
                            _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
-                           nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text)
+                           nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
                     If res Then
                         Modificado = False
                         _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImg)
@@ -497,7 +499,7 @@ Public Class F1_Clientes
 
                     Else
                         Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                        ToastNotification.Show(Me, "El producto no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                        ToastNotification.Show(Me, "El cañero no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
                     End If
 
@@ -505,11 +507,11 @@ Public Class F1_Clientes
                 End If
             End If
         Else
-            res = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
-                          NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
-                          IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
-                          _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
-                          nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text)
+            'res = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
+            '              NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
+            '              IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
+            '              _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
+            '              nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
             If res Then
                 Modificado = False
                 _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImg)
@@ -534,30 +536,38 @@ Public Class F1_Clientes
     End Function
 
     Public Overrides Function _PMOModificarRegistro() As Boolean
-        Dim res As Boolean
+        Dim res As Boolean =false
 
         Dim nameImage As String = JGrM_Buscador.GetValue("ydimg")
-        If (Modificado = False) Then
 
-            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text, NumiVendedor,
+        If (Modificado = False) Then
+            If cbTipoDoc1.Value = 5 Then
+                tokenSifac = F0_Venta2.ObtToken(5)
+                If tokenSifac = "400" Then
+
+                    MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
+
+                Else
+                    If F0_Venta2.verificarNit(tokenSifac, tbNit.Text) = "994" Then
+                        MessageBox.Show("NIT INEXISTENTE")
+                    Else
+                        res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text, NumiVendedor,
                   0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
                   IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
                   tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
-                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text)
+                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
 
-            '    tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
-            '     NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
-            '     IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
-            '     _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
-            '     nameImg, 0
 
-        Else
-            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text, NumiVendedor,
-                  0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, cbEstadoCiv.Value, 0,
+                    End If
+                End If
+            Else
+                res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text, NumiVendedor,
+                  0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
                   IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
                   tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
-                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0)
+                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
 
+            End If
         End If
         If res Then
 
@@ -779,6 +789,9 @@ Public Class F1_Clientes
 
         listEstCeldas.Add(New Modelo.Celda("yddias", False))
         listEstCeldas.Add(New Modelo.Celda("ydlcred", False))
+        listEstCeldas.Add(New Modelo.Celda("ydtipdocelec", False))
+        listEstCeldas.Add(New Modelo.Celda("ydcorreo", False))
+        listEstCeldas.Add(New Modelo.Celda("ydcompleCi", False))
         Return listEstCeldas
     End Function
 
@@ -824,6 +837,7 @@ Public Class F1_Clientes
             TbCiEsposa.Text = .GetValue("ydciesposa").ToString
             cbTipoDoc1.Value = .GetValue("ydtipdocelec").ToString
             tbcorreo.Text = .GetValue("ydcorreo").ToString
+            tbComplemento.Text = .GetValue("ydcompleCi").ToString
             NumiVendedor = IIf(IsDBNull(.GetValue("ydnumivend")), 0, .GetValue("ydnumivend"))
         End With
         Dim name As String = JGrM_Buscador.GetValue("ydimg")
@@ -911,7 +925,7 @@ Public Class F1_Clientes
         tokenSifac = F0_Venta2.ObtToken(3)
         If tokenSifac = "400" Then
             Me.Close()
-            MessageBox.Show("intente de nuevo")
+            MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
 
         Else
             CodTipoDocumento(tokenSifac)
@@ -1165,7 +1179,6 @@ Public Class F1_Clientes
             .DataSource = result
             .Refresh()
         End With
-
 
     End Sub
 

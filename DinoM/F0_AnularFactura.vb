@@ -376,20 +376,24 @@ Public Class F0_AnularFactura
                     'Primero modifica factura correspondiente a la venta
                     tokenSifac = F0_Venta2.ObtToken(5)
                     If tokenSifac = "400" Then
-                        Me.Close()
-                        MessageBox.Show("intente de nuevo")
+                        'Me.Close()
+                        MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
 
                     Else
-                        F0_Venta2.Anula(tokenSifac, tbAlmacen.Text, tbCuf.Text, CbMotivo.Value)
-                        L_Modificar_Factura("fvanumi = " + Tb1Codigo.Text + " and fvanfac = " + NroFactura + " and fvaautoriz = " + NroAutorizacion, "", "", "", IIf(Sb1Estado.Value, "1", "0"))
-                        'Luego anula venta
-                        Dim mensajeError As String = ""
-                        Dim res As Boolean = L_fnEliminarVenta(Tb1Codigo.Text, mensajeError, Programa)
 
-                        P_LlenarDatosGrilla()
-                        ToastNotification.Show(Me, "La Factura: " + Tb2NroFactura.Text + " y Venta con código: " + Tb1Codigo.Text + " Se ANULARON correctamente",
-                                               My.Resources.OK, _DuracionSms * 1000,
-                                               eToastGlowColor.Blue, eToastPosition.BottomLeft)
+                        If F0_Venta2.Anula(tokenSifac, tbAlmacen.Text, tbCuf.Text, CbMotivo.Value) = 2 Then
+                            L_Modificar_Factura("fvanumi = " + Tb1Codigo.Text + " and fvanfac = " + NroFactura + " and fvaautoriz = " + NroAutorizacion, "", "", "", IIf(Sb1Estado.Value, "1", "0"))
+                            'Luego anula venta
+                            Dim mensajeError As String = ""
+                            Dim res As Boolean = L_fnEliminarVenta(Tb1Codigo.Text, mensajeError, Programa)
+
+                            P_LlenarDatosGrilla()
+                            ToastNotification.Show(Me, "La Factura: " + Tb2NroFactura.Text + " y Venta con código: " + Tb1Codigo.Text + " Se ANULARON correctamente",
+                                                   My.Resources.OK, _DuracionSms * 1000,
+                                                   eToastGlowColor.Blue, eToastPosition.BottomLeft)
+
+                        End If
+
                     End If
 
                 End If

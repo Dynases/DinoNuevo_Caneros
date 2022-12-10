@@ -577,6 +577,13 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Err = D_Eliminar_Datos("Institucion", _Where)
     End Sub
 
+    Public Shared Sub L_Boletas_Borrar(_Id As String)
+        Dim _Where As String
+        Dim _Err As Boolean
+        _Where = "fecha = " + "'" + _Id + "'"
+        _Err = D_Eliminar_Datos("analisis", _Where)
+    End Sub
+
     Public Shared Sub L_Taras_Borrar(_Id As String)
         Dim _Where As String
         Dim _Err As Boolean
@@ -993,7 +1000,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                              _ydfecing As String, _ydultvent As String, _ydimg As String,
                                              _ydrut As String, Optional _ydesciv As Integer = 1,
                                              Optional _ydEsposa As String = "", Optional _ydCiesposa As String = "",
-                                             Optional _ydtipdocelec As Integer = 1, Optional _ydcorreo As String = "") As Boolean
+                                             Optional _ydtipdocelec As Integer = 1, Optional _ydcorreo As String = "", Optional _ydcomplemento As String = "") As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -1034,6 +1041,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ydciesposa", _ydCiesposa))
         _listParam.Add(New Datos.DParametro("@ydtipdocelec", _ydtipdocelec))
         _listParam.Add(New Datos.DParametro("@ydcorreo", _ydcorreo))
+        _listParam.Add(New Datos.DParametro("@complemento", _ydcomplemento))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
 
@@ -1151,7 +1159,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                              _ydfnac As String, _ydnomfac As String,
                                              _ydtip As Integer, _ydnit As String, _yddias As String, _ydlcred As String, _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String,
                                                  Optional _ydesciv As Integer = 1, Optional _ydEsposa As String = "", Optional _ydCiesposa As String = "",
-                                             Optional _ydtipdocelec As Integer = 1, Optional _ydcorreo As String = "") As Boolean
+                                             Optional _ydtipdocelec As Integer = 1, Optional _ydcorreo As String = "", Optional _ydcomplemento As String = "") As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -1190,6 +1198,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ydciesposa", _ydCiesposa))
         _listParam.Add(New Datos.DParametro("@ydtipdocelec", _ydtipdocelec))
         _listParam.Add(New Datos.DParametro("@ydcorreo", _ydcorreo))
+        _listParam.Add(New Datos.DParametro("@complemento", _ydcomplemento))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
@@ -1425,6 +1434,27 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@TY007", "", _precio))
         _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _ygnumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnGrabarAnalisis(_ygnumi As String, _precio As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@analisis", "", _precio))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
 
         If _Tabla.Rows.Count > 0 Then
@@ -2255,6 +2285,19 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
             _resultado = False
         End If
         Return _resultado
+    End Function
+
+    Public Shared Function VerificarAnalisis(_fecha As String) As Boolean
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst("*", "analisis", "fecha= " + "'" + _fecha + "'")
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+
     End Function
 
     Public Shared Function L_fnVerificarSiSeContabilizoVenta(_canumi As String) As Boolean

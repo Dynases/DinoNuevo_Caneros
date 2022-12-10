@@ -435,9 +435,9 @@ Public Class F0_Instituciones
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
 
             ToastNotification.Show(Me, "Código de Institución ".ToUpper + t + " eliminado con Exito.".ToUpper,
-                                          img, 2000,
-                                          eToastGlowColor.Green,
-                                          eToastPosition.TopCenter)
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter)
 
         Else
             _PInhabilitar()

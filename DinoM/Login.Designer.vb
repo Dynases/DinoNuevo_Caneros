@@ -65,10 +65,9 @@ Partial Class Login
         Me.Panel2.Controls.Add(Me.Panel1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.Panel2.Size = New System.Drawing.Size(485, 501)
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Panel2.Size = New System.Drawing.Size(364, 407)
         Me.Panel2.TabIndex = 16
         '
         'Panel1
@@ -85,10 +84,9 @@ Partial Class Login
         Me.Panel1.Controls.Add(Me.tbPassword)
         Me.Panel1.Controls.Add(Me.btnIngresar)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(4, 4)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(477, 493)
+        Me.Panel1.Size = New System.Drawing.Size(358, 401)
         Me.Panel1.TabIndex = 16
         '
         'Label3
@@ -96,10 +94,9 @@ Partial Class Login
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.DodgerBlue
-        Me.Label3.Location = New System.Drawing.Point(92, 246)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(69, 200)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(286, 29)
+        Me.Label3.Size = New System.Drawing.Size(228, 24)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "INGRESO AL SISTEMA"
         '
@@ -110,9 +107,8 @@ Partial Class Login
         Me.Panel3.Controls.Add(Me.PictureBox2)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(477, 84)
+        Me.Panel3.Size = New System.Drawing.Size(358, 68)
         Me.Panel3.TabIndex = 16
         '
         'PictureBox2
@@ -121,9 +117,8 @@ Partial Class Login
         Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Left
         Me.PictureBox2.Image = Global.DinoM.My.Resources.Resources.dynasys1
         Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(477, 84)
+        Me.PictureBox2.Size = New System.Drawing.Size(358, 68)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 17
         Me.PictureBox2.TabStop = False
@@ -131,10 +126,9 @@ Partial Class Login
         'PictureBox1
         '
         Me.PictureBox1.ImageLocation = ""
-        Me.PictureBox1.Location = New System.Drawing.Point(40, 105)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox1.Location = New System.Drawing.Point(30, 85)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(399, 138)
+        Me.PictureBox1.Size = New System.Drawing.Size(299, 112)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
@@ -144,20 +138,18 @@ Partial Class Login
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.DodgerBlue
-        Me.Label1.Location = New System.Drawing.Point(23, 311)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(17, 253)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(104, 20)
+        Me.Label1.Size = New System.Drawing.Size(82, 16)
         Me.Label1.TabIndex = 15
         Me.Label1.Text = "USUARIO:"
         '
         'PictureBox4
         '
         Me.PictureBox4.Image = CType(resources.GetObject("PictureBox4.Image"), System.Drawing.Image)
-        Me.PictureBox4.Location = New System.Drawing.Point(389, 310)
-        Me.PictureBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox4.Location = New System.Drawing.Point(292, 252)
         Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(32, 28)
+        Me.PictureBox4.Size = New System.Drawing.Size(24, 23)
         Me.PictureBox4.TabIndex = 14
         Me.PictureBox4.TabStop = False
         '
@@ -166,20 +158,18 @@ Partial Class Login
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.DodgerBlue
-        Me.Label2.Location = New System.Drawing.Point(23, 367)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(17, 298)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(123, 20)
+        Me.Label2.Size = New System.Drawing.Size(95, 16)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "PASSWORD:"
         '
         'PictureBox3
         '
         Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
-        Me.PictureBox3.Location = New System.Drawing.Point(391, 366)
-        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox3.Location = New System.Drawing.Point(293, 297)
         Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(33, 28)
+        Me.PictureBox3.Size = New System.Drawing.Size(25, 23)
         Me.PictureBox3.TabIndex = 13
         Me.PictureBox3.TabStop = False
         '
@@ -191,14 +181,12 @@ Partial Class Login
         Me.tbUsuario.Border.Class = "TextBoxBorder"
         Me.tbUsuario.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbUsuario.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbUsuario.Location = New System.Drawing.Point(157, 308)
-        Me.tbUsuario.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbUsuario.Location = New System.Drawing.Point(118, 250)
         Me.tbUsuario.Multiline = True
         Me.tbUsuario.Name = "tbUsuario"
         Me.tbUsuario.PreventEnterBeep = True
-        Me.tbUsuario.Size = New System.Drawing.Size(267, 33)
+        Me.tbUsuario.Size = New System.Drawing.Size(200, 27)
         Me.tbUsuario.TabIndex = 0
-        Me.tbUsuario.Text = "DYNASYS"
         '
         'tbPassword
         '
@@ -208,15 +196,13 @@ Partial Class Login
         Me.tbPassword.Border.Class = "TextBoxBorder"
         Me.tbPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbPassword.Location = New System.Drawing.Point(160, 363)
-        Me.tbPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbPassword.Location = New System.Drawing.Point(120, 295)
         Me.tbPassword.Multiline = True
         Me.tbPassword.Name = "tbPassword"
         Me.tbPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.tbPassword.PreventEnterBeep = True
-        Me.tbPassword.Size = New System.Drawing.Size(267, 33)
+        Me.tbPassword.Size = New System.Drawing.Size(200, 27)
         Me.tbPassword.TabIndex = 1
-        Me.tbPassword.Text = "123"
         '
         'btnIngresar
         '
@@ -229,10 +215,9 @@ Partial Class Login
         Me.btnIngresar.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnIngresar.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnIngresar.Location = New System.Drawing.Point(160, 417)
-        Me.btnIngresar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnIngresar.Location = New System.Drawing.Point(120, 339)
         Me.btnIngresar.Name = "btnIngresar"
-        Me.btnIngresar.Size = New System.Drawing.Size(183, 46)
+        Me.btnIngresar.Size = New System.Drawing.Size(137, 37)
         Me.btnIngresar.TabIndex = 2
         Me.btnIngresar.TabStop = False
         Me.btnIngresar.Text = "INGRESAR"
@@ -240,14 +225,13 @@ Partial Class Login
         '
         'Login
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(485, 501)
+        Me.ClientSize = New System.Drawing.Size(364, 407)
         Me.Controls.Add(Me.Panel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Login"

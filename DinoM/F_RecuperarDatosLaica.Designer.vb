@@ -27,8 +27,10 @@ Partial Class F_RecuperarDatosLaica
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
-        Me.DateTimeInput1 = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        CType(Me.DateTimeInput1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tbFecha = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.grprecio = New Janus.Windows.GridEX.GridEX()
+        CType(Me.tbFecha, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grprecio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelSuperior
@@ -38,9 +40,8 @@ Partial Class F_RecuperarDatosLaica
         Me.PanelSuperior.DisabledBackColor = System.Drawing.Color.Empty
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
-        Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(556, 71)
+        Me.PanelSuperior.Size = New System.Drawing.Size(553, 58)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
         Me.PanelSuperior.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
@@ -58,11 +59,10 @@ Partial Class F_RecuperarDatosLaica
         Me.btnAgregar.Image = Global.DinoM.My.Resources.Resources.plus
         Me.btnAgregar.ImageFixedSize = New System.Drawing.Size(35, 30)
         Me.btnAgregar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnAgregar.Location = New System.Drawing.Point(149, 248)
-        Me.btnAgregar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAgregar.Location = New System.Drawing.Point(112, 202)
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(8)
-        Me.btnAgregar.Size = New System.Drawing.Size(262, 72)
+        Me.btnAgregar.Size = New System.Drawing.Size(196, 58)
         Me.btnAgregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAgregar.TabIndex = 246
         Me.btnAgregar.Text = "PROCESAR"
@@ -74,9 +74,10 @@ Partial Class F_RecuperarDatosLaica
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX1.Location = New System.Drawing.Point(149, 218)
+        Me.LabelX1.Location = New System.Drawing.Point(126, 178)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.Size = New System.Drawing.Size(225, 23)
+        Me.LabelX1.Size = New System.Drawing.Size(169, 19)
         Me.LabelX1.TabIndex = 247
         Me.LabelX1.Text = "Archivo de datos: C:\laica.bak"
         '
@@ -87,9 +88,10 @@ Partial Class F_RecuperarDatosLaica
         '
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX2.Location = New System.Drawing.Point(12, 78)
+        Me.LabelX2.Location = New System.Drawing.Point(9, 63)
+        Me.LabelX2.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX2.Name = "LabelX2"
-        Me.LabelX2.Size = New System.Drawing.Size(577, 36)
+        Me.LabelX2.Size = New System.Drawing.Size(433, 29)
         Me.LabelX2.TabIndex = 248
         Me.LabelX2.Text = "Se procedera a cargar datos en la tabla Analisis"
         '
@@ -100,73 +102,88 @@ Partial Class F_RecuperarDatosLaica
         '
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX4.Location = New System.Drawing.Point(89, 152)
+        Me.LabelX4.Location = New System.Drawing.Point(80, 124)
+        Me.LabelX4.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.Size = New System.Drawing.Size(124, 23)
+        Me.LabelX4.Size = New System.Drawing.Size(93, 19)
         Me.LabelX4.TabIndex = 249
         Me.LabelX4.Text = "Análisis del día:"
         '
-        'DateTimeInput1
+        'tbFecha
         '
         '
         '
         '
-        Me.DateTimeInput1.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DateTimeInput1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DateTimeInput1.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
-        Me.DateTimeInput1.ButtonDropDown.Visible = True
-        Me.DateTimeInput1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimeInput1.IsPopupCalendarOpen = False
-        Me.DateTimeInput1.Location = New System.Drawing.Point(253, 152)
-        Me.DateTimeInput1.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbFecha.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbFecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFecha.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbFecha.ButtonDropDown.Visible = True
+        Me.tbFecha.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFecha.IsPopupCalendarOpen = False
+        Me.tbFecha.Location = New System.Drawing.Point(190, 124)
         '
         '
         '
         '
         '
         '
-        Me.DateTimeInput1.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DateTimeInput1.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
-        Me.DateTimeInput1.MonthCalendar.ClearButtonVisible = True
+        Me.tbFecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFecha.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbFecha.MonthCalendar.ClearButtonVisible = True
         '
         '
         '
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DateTimeInput1.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
-        Me.DateTimeInput1.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        Me.tbFecha.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbFecha.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFecha.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbFecha.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbFecha.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbFecha.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbFecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFecha.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbFecha.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
         '
         '
         '
-        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
-        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
-        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
-        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DateTimeInput1.MonthCalendar.TodayButtonVisible = True
-        Me.DateTimeInput1.Name = "DateTimeInput1"
-        Me.DateTimeInput1.Size = New System.Drawing.Size(160, 26)
-        Me.DateTimeInput1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.DateTimeInput1.TabIndex = 250
+        Me.tbFecha.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbFecha.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFecha.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbFecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFecha.MonthCalendar.TodayButtonVisible = True
+        Me.tbFecha.Name = "tbFecha"
+        Me.tbFecha.Size = New System.Drawing.Size(120, 22)
+        Me.tbFecha.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbFecha.TabIndex = 250
+        '
+        'grprecio
+        '
+        Me.grprecio.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grprecio.Location = New System.Drawing.Point(8, 266)
+        Me.grprecio.Name = "grprecio"
+        Me.grprecio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.grprecio.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.grprecio.Size = New System.Drawing.Size(533, 158)
+        Me.grprecio.TabIndex = 254
+        Me.grprecio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'F_RecuperarDatosLaica
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(556, 577)
-        Me.Controls.Add(Me.DateTimeInput1)
+        Me.ClientSize = New System.Drawing.Size(553, 436)
+        Me.Controls.Add(Me.grprecio)
+        Me.Controls.Add(Me.tbFecha)
         Me.Controls.Add(Me.LabelX4)
         Me.Controls.Add(Me.LabelX2)
         Me.Controls.Add(Me.LabelX1)
         Me.Controls.Add(Me.btnAgregar)
         Me.Controls.Add(Me.PanelSuperior)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "F_RecuperarDatosLaica"
         Me.Text = "F_RecuperarDatosLaica"
-        CType(Me.DateTimeInput1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbFecha, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grprecio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -176,5 +193,6 @@ Partial Class F_RecuperarDatosLaica
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents DateTimeInput1 As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents tbFecha As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents grprecio As Janus.Windows.GridEX.GridEX
 End Class

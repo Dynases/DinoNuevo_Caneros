@@ -19,6 +19,7 @@
     Public Class RespEmisor
         ' Public Property response As String
         Public Property estadoEmisionEDOC As Integer
+        Public Property estadoAnulacionEDOC As Integer
         Public Property codigoRecepcion As String
 
         Public Property fechaEmision As String

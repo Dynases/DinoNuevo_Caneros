@@ -235,11 +235,13 @@ Public Class ModeloF1
             End If
 
         Else
+            If _PMOModificarRegistro() Then
+                _PMCargarBuscador()
+            End If
 
-            _PMOModificarRegistro()
 
             'actualizar el grid de buscador
-            _PMCargarBuscador()
+
 
             _PMSalir()
         End If
