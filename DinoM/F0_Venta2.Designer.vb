@@ -2232,7 +2232,7 @@ Partial Class F0_Venta2
         Me.btnBitacora.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
         Me.btnBitacora.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnBitacora.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnBitacora.Image = Global.DinoM.My.Resources.Resources.BUSQUEDA
+        Me.btnBitacora.Image = Global.DinoM.My.Resources.Resources.printee
         Me.btnBitacora.ImageFixedSize = New System.Drawing.Size(48, 48)
         Me.btnBitacora.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
         Me.btnBitacora.Location = New System.Drawing.Point(0, 0)
@@ -2240,9 +2240,8 @@ Partial Class F0_Venta2
         Me.btnBitacora.Size = New System.Drawing.Size(88, 72)
         Me.btnBitacora.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnBitacora.TabIndex = 18
-        Me.btnBitacora.Text = "BITÁCORA"
+        Me.btnBitacora.Text = "BOLETA"
         Me.btnBitacora.TextColor = System.Drawing.Color.White
-        Me.btnBitacora.Visible = False
         '
         'SwDescuentoProveedor
         '
