@@ -1623,6 +1623,107 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_prReporteCañeroUno(cod As String, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 13))
+        _listParam.Add(New Datos.DParametro("@Cliente", cod))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prReporteCañeroTodos(fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 14))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prReporteInstitucionUna(cod As String, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 15))
+        _listParam.Add(New Datos.DParametro("@CodInst", cod))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prReporteInstitucionUnaSola(cod As String, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 18))
+        _listParam.Add(New Datos.DParametro("@CodInst", cod))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prReporteInstitucionTodos(fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 16))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prReporteInstitucionSolos(fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 17))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+
+
+    Public Shared Function L_fnListarInstitucion() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 17))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnListarCaneros() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 31))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
+
+        Return _Tabla
+    End Function
 #End Region
 #Region "TV001 Ventas"
     Public Shared Function L_fnGeneralVenta(almacen As Integer) As DataTable
@@ -2399,6 +2500,46 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         _Err = D_Modificar_Datos("TV001", Sql, _where)
     End Sub
+
+    Public Shared Function L_prReporteDiarioVentas(almacen As Integer, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@almacen", almacen))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("Sp_Mam_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prRetiroInstitucionalUno(cod As String, almacen As String, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@Cliente", cod))
+        _listParam.Add(New Datos.DParametro("@almacen", almacen))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("Sp_Mam_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prRetiroInstitucionalTodos(almacen As String, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@almacen", almacen))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("Sp_Mam_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
 
 #End Region
 

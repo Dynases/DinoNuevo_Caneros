@@ -211,7 +211,7 @@ Partial Class F0_Venta2
         '
         'PanelInferior
         '
-        Me.PanelInferior.Location = New System.Drawing.Point(0, 751)
+        Me.PanelInferior.Location = New System.Drawing.Point(0, 702)
         Me.PanelInferior.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelInferior.Size = New System.Drawing.Size(1296, 39)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
@@ -283,7 +283,7 @@ Partial Class F0_Venta2
         'PanelPrincipal
         '
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1296, 790)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1296, 741)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
@@ -326,18 +326,18 @@ Partial Class F0_Venta2
         '
         Me.PanelContent.Controls.Add(Me.PanelEncabezado)
         Me.PanelContent.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelContent.Size = New System.Drawing.Size(1263, 679)
+        Me.PanelContent.Size = New System.Drawing.Size(1263, 630)
         Me.PanelContent.TabIndex = 3
         '
         'Panel1
         '
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel1.Size = New System.Drawing.Size(1296, 679)
+        Me.Panel1.Size = New System.Drawing.Size(1296, 630)
         '
         'MSuperTabControlPanel1
         '
         Me.MSuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(1263, 679)
+        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(1263, 630)
         '
         'MSuperTabControl
         '
@@ -357,7 +357,7 @@ Partial Class F0_Venta2
         Me.MSuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
         Me.MSuperTabControl.Margin = New System.Windows.Forms.Padding(2)
         Me.MSuperTabControl.SelectedTabIndex = 1
-        Me.MSuperTabControl.Size = New System.Drawing.Size(1296, 679)
+        Me.MSuperTabControl.Size = New System.Drawing.Size(1296, 630)
         Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
         Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
@@ -1025,7 +1025,7 @@ Partial Class F0_Venta2
         Me.GroupCobranza.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupCobranza.Location = New System.Drawing.Point(0, 115)
         Me.GroupCobranza.Name = "GroupCobranza"
-        Me.GroupCobranza.Size = New System.Drawing.Size(425, 434)
+        Me.GroupCobranza.Size = New System.Drawing.Size(425, 385)
         '
         '
         '
@@ -1949,7 +1949,7 @@ Partial Class F0_Venta2
         Me.gpDetalleVenta.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gpDetalleVenta.Location = New System.Drawing.Point(0, 0)
         Me.gpDetalleVenta.Name = "gpDetalleVenta"
-        Me.gpDetalleVenta.Size = New System.Drawing.Size(838, 549)
+        Me.gpDetalleVenta.Size = New System.Drawing.Size(838, 500)
         '
         '
         '
@@ -1990,7 +1990,7 @@ Partial Class F0_Venta2
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(832, 526)
+        Me.Panel5.Size = New System.Drawing.Size(832, 477)
         Me.Panel5.TabIndex = 0
         '
         'GPanelProductos
@@ -2001,7 +2001,7 @@ Partial Class F0_Venta2
         Me.GPanelProductos.DisabledBackColor = System.Drawing.Color.Empty
         Me.GPanelProductos.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GPanelProductos.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GPanelProductos.Location = New System.Drawing.Point(0, 126)
+        Me.GPanelProductos.Location = New System.Drawing.Point(0, 77)
         Me.GPanelProductos.Name = "GPanelProductos"
         Me.GPanelProductos.Size = New System.Drawing.Size(832, 400)
         '
@@ -2072,7 +2072,7 @@ Partial Class F0_Venta2
         Me.grdetalle.Name = "grdetalle"
         Me.grdetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grdetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grdetalle.Size = New System.Drawing.Size(832, 526)
+        Me.grdetalle.Size = New System.Drawing.Size(832, 477)
         Me.grdetalle.TabIndex = 3
         Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -2203,7 +2203,7 @@ Partial Class F0_Venta2
         Me.PanelFondoDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelFondoDetalle.Location = New System.Drawing.Point(0, 130)
         Me.PanelFondoDetalle.Name = "PanelFondoDetalle"
-        Me.PanelFondoDetalle.Size = New System.Drawing.Size(1263, 549)
+        Me.PanelFondoDetalle.Size = New System.Drawing.Size(1263, 500)
         Me.PanelFondoDetalle.TabIndex = 5
         '
         'PanelFacturaYCobranza
@@ -2213,7 +2213,7 @@ Partial Class F0_Venta2
         Me.PanelFacturaYCobranza.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelFacturaYCobranza.Location = New System.Drawing.Point(838, 0)
         Me.PanelFacturaYCobranza.Name = "PanelFacturaYCobranza"
-        Me.PanelFacturaYCobranza.Size = New System.Drawing.Size(425, 549)
+        Me.PanelFacturaYCobranza.Size = New System.Drawing.Size(425, 500)
         Me.PanelFacturaYCobranza.TabIndex = 239
         '
         'PanelEncabezado
@@ -2223,7 +2223,7 @@ Partial Class F0_Venta2
         Me.PanelEncabezado.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelEncabezado.Location = New System.Drawing.Point(0, 0)
         Me.PanelEncabezado.Name = "PanelEncabezado"
-        Me.PanelEncabezado.Size = New System.Drawing.Size(1263, 679)
+        Me.PanelEncabezado.Size = New System.Drawing.Size(1263, 630)
         Me.PanelEncabezado.TabIndex = 1
         '
         'btnBitacora
@@ -2288,7 +2288,7 @@ Partial Class F0_Venta2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1296, 790)
+        Me.ClientSize = New System.Drawing.Size(1296, 741)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "F0_Venta2"

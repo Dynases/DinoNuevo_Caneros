@@ -1202,6 +1202,26 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
+    Private Sub btReporteBoleta_Click(sender As Object, e As EventArgs) Handles btReporteBoleta.Click
+        Dim frm As New Pr_ReporteBoletaCaneroInstitucion
+        frm.Show()
+    End Sub
+
+    Private Sub bt_MovimientoDiario_Click(sender As Object, e As EventArgs) Handles bt_MovimientoDiario.Click
+        Dim frm As New Pr_BoletaMovimientoDiario
+        frm.Show()
+    End Sub
+
+    Private Sub btMovimientoDiarioVentas_Click(sender As Object, e As EventArgs) Handles btMovimientoDiarioVentas.Click
+        Dim frm As New Pr_MovimientoDiarioVentas
+        frm.Show()
+    End Sub
+
+    Private Sub btRetiroInstitucionalInsumos_Click(sender As Object, e As EventArgs) Handles btRetiroInstitucionalInsumos.Click
+        Dim form As New Pr_RetiroInstitucionalInsumos
+        form.Show()
+    End Sub
+
 
 
 

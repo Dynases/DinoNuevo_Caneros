@@ -136,9 +136,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Google Drive\Librerias\DotNet\DevComponents.TreeGX.dll</HintPath>
     </Reference>
-    <Reference Include="FlashControlV71">
-      <HintPath>C:\librerias\FlashControlV71.dll</HintPath>
-    </Reference>
     <Reference Include="Gma.QrCodeNet.Encoding">
       <HintPath>C:\librerias\QrCode\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
@@ -153,7 +150,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Interop.AcroPDFLib.1.0">
-      <HintPath>C:\librerias\Interop.AcroPDFLib.1.0.dll</HintPath>
+      <HintPath>C:\librerias\PDF\Interop.AcroPDFLib.1.0.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="itextsharp">
@@ -177,14 +174,14 @@
     <Reference Include="Janus.Windows.UI.v3">
       <HintPath>C:\librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\librerias\ZKTeco-dll64\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp">
+      <HintPath>C:\librerias\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -568,6 +565,12 @@
     <Compile Include="NroCaja.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pr_BoletaMovimientoDiario.Designer.vb">
+      <DependentUpon>Pr_BoletaMovimientoDiario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_BoletaMovimientoDiario.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pr_EstadoCuentasClientesTodos.Designer.vb">
       <DependentUpon>Pr_EstadoCuentasClientesTodos.vb</DependentUpon>
     </Compile>
@@ -590,6 +593,24 @@
       <DependentUpon>Pr_EstadoCuentasProveedores.vb</DependentUpon>
     </Compile>
     <Compile Include="Pr_EstadoCuentasProveedores.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pr_MovimientoDiarioVentas.Designer.vb">
+      <DependentUpon>Pr_MovimientoDiarioVentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_MovimientoDiarioVentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pr_ReporteBoletaCaneroInstitucion.Designer.vb">
+      <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_ReporteBoletaCaneroInstitucion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pr_RetiroInstitucionalInsumos.Designer.vb">
+      <DependentUpon>Pr_RetiroInstitucionalInsumos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_RetiroInstitucionalInsumos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pr_SAldosPorAlmacenLinea.Designer.vb">
@@ -687,6 +708,54 @@
     </Compile>
     <Compile Include="Pr_VentasAtendidas.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteCañero.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteCañero.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteCañeroTodos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteCañeroTodos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteDiario.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteDiario.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteDiarioVentas.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteDiarioVentas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteInsitucionUnaSolo.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteInsitucionUnaSolo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteInstitucion.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteInstitucion.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteInstituciones.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteInstituciones.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReporteInstitucionesSolo.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteInstitucionesSolo.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\LibroVenta3.vb">
       <AutoGen>True</AutoGen>
@@ -1108,6 +1177,18 @@
       <DependentUpon>R_VentasVendedor12Meses.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="RetiroInstitucionalTodos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetiroInstitucionalTodos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RetiroInsumosUno.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetiroInsumosUno.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="R_KardexCreditoPagos.Designer.vb">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>
     </Compile>
@@ -1327,6 +1408,9 @@
     <EmbeddedResource Include="NroCaja.resx">
       <DependentUpon>NroCaja.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pr_BoletaMovimientoDiario.resx">
+      <DependentUpon>Pr_BoletaMovimientoDiario.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pr_EstadoCuentasClientesTodos.resx">
       <DependentUpon>Pr_EstadoCuentasClientesTodos.vb</DependentUpon>
     </EmbeddedResource>
@@ -1338,6 +1422,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_EstadoCuentasProveedores.resx">
       <DependentUpon>Pr_EstadoCuentasProveedores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_MovimientoDiarioVentas.resx">
+      <DependentUpon>Pr_MovimientoDiarioVentas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_ReporteBoletaCaneroInstitucion.resx">
+      <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_RetiroInstitucionalInsumos.resx">
+      <DependentUpon>Pr_RetiroInstitucionalInsumos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_SAldosPorAlmacenLinea.resx">
       <DependentUpon>Pr_SAldosPorAlmacenLinea.vb</DependentUpon>
@@ -1386,6 +1479,38 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_VentasAtendidas.resx">
       <DependentUpon>Pr_VentasAtendidas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteCañero.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteCañero.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteCañeroTodos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteCañeroTodos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDiario.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteDiario.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDiarioVentas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteDiarioVentas.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteInsitucionUnaSolo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteInsitucionUnaSolo.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteInstitucion.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteInstitucion.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteInstituciones.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteInstituciones.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteInstitucionesSolo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteInstitucionesSolo.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\LibroVenta3.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1665,6 +1790,14 @@
     <EmbeddedResource Include="Reporte\R_VentasVendedor12Meses.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_VentasVendedor12Meses.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RetiroInstitucionalTodos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RetiroInstitucionalTodos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RetiroInsumosUno.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RetiroInsumosUno.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="R_KardexCreditoPagos.resx">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>
