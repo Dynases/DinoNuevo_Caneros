@@ -96,7 +96,7 @@ Public Class F0_Instituciones
             Tb_NomInst.Text = .GetValue("nomInst").ToString
             Tb_Telefono.Text = .GetValue("telf").ToString
             Tb_Direccion.Text = .GetValue("direc").ToString
-            tbCodBarra.Text = .GetValue("cacta").ToString
+            tbCodBarra.Text = .GetValue("cactaucg").ToString
             NumiCuenta = .GetValue("canumi").ToString
 
         End With
@@ -170,7 +170,7 @@ Public Class F0_Instituciones
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
         End With
-        With JGr_Buscador.RootTable.Columns("cacta")
+        With JGr_Buscador.RootTable.Columns("cactaucg")
             '   .Visible = False
             .Caption = "Num.Cuenta".ToUpper
             .Width = 200

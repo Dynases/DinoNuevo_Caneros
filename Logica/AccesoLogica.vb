@@ -429,7 +429,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Dim _Tabla As DataTable
         Dim _Ds As New DataSet
 
-        _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf,cuenta.cacta,cuenta.canumi", "Institucion")
+        _Tabla = D_Datos_Tabla1("Institucion.id,Institucion.codInst,Institucion.nomInst,Institucion.direc,Institucion.telf,cuenta.cactaucg,cuenta.canumi", "Institucion")
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
@@ -2201,7 +2201,9 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     End Function
     Public Shared Function L_fnModificarVenta(_tanumi As String, _tafdoc As String, _taven As Integer, _tatven As Integer, _tafvcr As String, _taclpr As Integer,
                                            _tamon As Integer, _taobs As String,
-                                           _tadesc As Double, _taice As Double, _tatotal As Double, detalle As DataTable, _almacen As Integer, _taprforma As Integer, monto As DataTable) As Boolean
+                                           _tadesc As Double, _taice As Double, _tatotal As Double, detalle As DataTable, _almacen As Integer, _taprforma As Integer,
+                                              monto As DataTable, _NroCaja As Integer,
+                                           _programa As String) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -2220,6 +2222,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@taobs", _taobs))
         _listParam.Add(New Datos.DParametro("@tadesc", _tadesc))
         _listParam.Add(New Datos.DParametro("@taice", _taice))
+        _listParam.Add(New Datos.DParametro("@taNrocaja", _NroCaja))
+        _listParam.Add(New Datos.DParametro("@bcprograma", _programa))
         _listParam.Add(New Datos.DParametro("@tatotal", _tatotal))
         _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@TV0011", "", detalle))
@@ -2326,6 +2330,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_fnListarClientesVentas(numi As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 181))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_fnVerificarCierreCaja(numi As String, tipo As String) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable

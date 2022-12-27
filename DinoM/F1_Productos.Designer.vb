@@ -78,6 +78,7 @@ Partial Class F1_Productos
         Me.tbCodigo = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.btnSearch = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
         Me.tbDescDet = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -172,7 +173,7 @@ Partial Class F1_Productos
         Me.SuperTabPrincipal.ControlBox.MenuBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabPrincipal.ControlBox.MenuBox, Me.SuperTabPrincipal.ControlBox.CloseBox})
-        Me.SuperTabPrincipal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SuperTabPrincipal.Margin = New System.Windows.Forms.Padding(4)
         Me.SuperTabPrincipal.Size = New System.Drawing.Size(1354, 711)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelBuscador, 0)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelRegistro, 0)
@@ -180,12 +181,12 @@ Partial Class F1_Productos
         'SuperTabControlPanelBuscador
         '
         Me.SuperTabControlPanelBuscador.Location = New System.Drawing.Point(0, 0)
-        Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(4)
         Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(1104, 711)
         '
         'SuperTabControlPanelRegistro
         '
-        Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(4)
         Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(1322, 711)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelInferior, 0)
@@ -193,7 +194,7 @@ Partial Class F1_Productos
         '
         'PanelSuperior
         '
-        Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelSuperior.Size = New System.Drawing.Size(1322, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.DarkSlateGray
@@ -207,7 +208,7 @@ Partial Class F1_Productos
         'PanelInferior
         '
         Me.PanelInferior.Location = New System.Drawing.Point(0, 675)
-        Me.PanelInferior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PanelInferior.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelInferior.Size = New System.Drawing.Size(1322, 36)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.DarkSlateGray
@@ -243,7 +244,7 @@ Partial Class F1_Productos
         '
         'TxtNombreUsu
         '
-        Me.TxtNombreUsu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TxtNombreUsu.Margin = New System.Windows.Forms.Padding(4)
         '
         'btnSalir
         '
@@ -255,7 +256,7 @@ Partial Class F1_Productos
         '
         Me.PanelToolBar2.Controls.Add(Me.btExcel)
         Me.PanelToolBar2.Location = New System.Drawing.Point(1167, 0)
-        Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelToolBar2.Size = New System.Drawing.Size(155, 72)
         Me.PanelToolBar2.Controls.SetChildIndex(Me.btExcel, 0)
         Me.PanelToolBar2.Controls.SetChildIndex(Me.btnImprimir, 0)
@@ -263,21 +264,21 @@ Partial Class F1_Productos
         'MPanelSup
         '
         Me.MPanelSup.Controls.Add(Me.TableLayoutPanel1)
-        Me.MPanelSup.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MPanelSup.Margin = New System.Windows.Forms.Padding(4)
         Me.MPanelSup.Size = New System.Drawing.Size(1322, 329)
         Me.MPanelSup.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.MPanelSup.Controls.SetChildIndex(Me.TableLayoutPanel1, 0)
         '
         'PanelPrincipal
         '
-        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelPrincipal.Size = New System.Drawing.Size(1322, 603)
         '
         'GroupPanelBuscador
         '
         Me.GroupPanelBuscador.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanelBuscador.Location = New System.Drawing.Point(0, 329)
-        Me.GroupPanelBuscador.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupPanelBuscador.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupPanelBuscador.Size = New System.Drawing.Size(1322, 274)
         '
         '
@@ -326,7 +327,7 @@ Partial Class F1_Productos
         Me.JGrM_Buscador.HeaderFormatStyle.FontUnderline = Janus.Windows.GridEX.TriState.[False]
         Me.JGrM_Buscador.HeaderFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
         Me.JGrM_Buscador.Hierarchical = True
-        Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
         Me.JGrM_Buscador.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.JGrM_Buscador.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.JGrM_Buscador.RowCheckStateBehavior = Janus.Windows.GridEX.RowCheckStateBehavior.CheckStateDependsOnChild
@@ -339,7 +340,7 @@ Partial Class F1_Productos
         'PanelUsuario
         '
         Me.PanelUsuario.Location = New System.Drawing.Point(869, 7)
-        Me.PanelUsuario.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PanelUsuario.Margin = New System.Windows.Forms.Padding(4)
         '
         'lblFecha
         '
@@ -349,7 +350,7 @@ Partial Class F1_Productos
         '
         Me.btnImprimir.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnImprimir.Image = Global.DinoM.My.Resources.Resources.codigobarra
-        Me.btnImprimir.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnImprimir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImprimir.Size = New System.Drawing.Size(107, 72)
         Me.btnImprimir.Text = "CDD. BARRAS"
         Me.btnImprimir.Visible = False
@@ -361,7 +362,7 @@ Partial Class F1_Productos
         'MPanelUserAct
         '
         Me.MPanelUserAct.Location = New System.Drawing.Point(1122, 0)
-        Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(4)
         '
         'GroupBox1
         '
@@ -951,7 +952,7 @@ Partial Class F1_Productos
         Me.tbDescCort.MaxLength = 15
         Me.tbDescCort.Name = "tbDescCort"
         Me.tbDescCort.PreventEnterBeep = True
-        Me.tbDescCort.Size = New System.Drawing.Size(126, 21)
+        Me.tbDescCort.Size = New System.Drawing.Size(210, 21)
         Me.tbDescCort.TabIndex = 2
         '
         'LabelX1
@@ -1050,6 +1051,7 @@ Partial Class F1_Productos
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.ButtonX1)
         Me.Panel3.Controls.Add(Me.btnSearch)
         Me.Panel3.Controls.Add(Me.LabelX13)
         Me.Panel3.Controls.Add(Me.tbDescDet)
@@ -1072,6 +1074,19 @@ Partial Class F1_Productos
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(428, 300)
         Me.Panel3.TabIndex = 227
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.BackColor = System.Drawing.Color.Transparent
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.ButtonX1.Image = Global.DinoM.My.Resources.Resources.search
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(28, 26)
+        Me.ButtonX1.Location = New System.Drawing.Point(393, 73)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(30, 28)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 238
         '
         'btnSearch
         '
@@ -1317,7 +1332,7 @@ Partial Class F1_Productos
         Me.SuperTabControl_Imagenes_DetalleProducto.Name = "SuperTabControl_Imagenes_DetalleProducto"
         Me.SuperTabControl_Imagenes_DetalleProducto.ReorderTabsEnabled = True
         Me.SuperTabControl_Imagenes_DetalleProducto.SelectedTabFont = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.SuperTabControl_Imagenes_DetalleProducto.SelectedTabIndex = 0
+        Me.SuperTabControl_Imagenes_DetalleProducto.SelectedTabIndex = 1
         Me.SuperTabControl_Imagenes_DetalleProducto.Size = New System.Drawing.Size(430, 317)
         Me.SuperTabControl_Imagenes_DetalleProducto.TabFont = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl_Imagenes_DetalleProducto.TabIndex = 224
@@ -1353,7 +1368,7 @@ Partial Class F1_Productos
         Me.UsImg.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.UsImg.BackColor = System.Drawing.Color.Transparent
         Me.UsImg.Location = New System.Drawing.Point(108, 6)
-        Me.UsImg.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.UsImg.Margin = New System.Windows.Forms.Padding(4)
         Me.UsImg.Name = "UsImg"
         Me.UsImg.Size = New System.Drawing.Size(290, 270)
         Me.UsImg.TabIndex = 222
@@ -1405,7 +1420,7 @@ Partial Class F1_Productos
         Me.CbProdServ.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.CbProdServ.SelectedIndex = -1
         Me.CbProdServ.SelectedItem = Nothing
-        Me.CbProdServ.Size = New System.Drawing.Size(414, 21)
+        Me.CbProdServ.Size = New System.Drawing.Size(414, 22)
         Me.CbProdServ.TabIndex = 441
         Me.CbProdServ.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -1423,7 +1438,7 @@ Partial Class F1_Productos
         Me.CbUmedida.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.CbUmedida.SelectedIndex = -1
         Me.CbUmedida.SelectedItem = Nothing
-        Me.CbUmedida.Size = New System.Drawing.Size(414, 21)
+        Me.CbUmedida.Size = New System.Drawing.Size(414, 22)
         Me.CbUmedida.TabIndex = 440
         Me.CbUmedida.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -1441,7 +1456,7 @@ Partial Class F1_Productos
         Me.CbAeconomica.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.CbAeconomica.SelectedIndex = -1
         Me.CbAeconomica.SelectedItem = Nothing
-        Me.CbAeconomica.Size = New System.Drawing.Size(414, 21)
+        Me.CbAeconomica.Size = New System.Drawing.Size(414, 22)
         Me.CbAeconomica.TabIndex = 439
         Me.CbAeconomica.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -1460,6 +1475,7 @@ Partial Class F1_Productos
         Me.TbPrecioPsifac.PreventEnterBeep = True
         Me.TbPrecioPsifac.Size = New System.Drawing.Size(90, 24)
         Me.TbPrecioPsifac.TabIndex = 438
+        Me.TbPrecioPsifac.Visible = False
         '
         'LabelX18
         '
@@ -1477,6 +1493,7 @@ Partial Class F1_Productos
         Me.LabelX18.Size = New System.Drawing.Size(107, 16)
         Me.LabelX18.TabIndex = 437
         Me.LabelX18.Text = "Precio Producto:"
+        Me.LabelX18.Visible = False
         '
         'LabelX19
         '
@@ -1605,7 +1622,7 @@ Partial Class F1_Productos
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1354, 711)
         Me.Location = New System.Drawing.Point(0, 0)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "F1_Productos"
         Me.Text = "F1_Productos"
         Me.Controls.SetChildIndex(Me.SuperTabPrincipal, 0)
@@ -1739,4 +1756,5 @@ Partial Class F1_Productos
     Friend WithEvents LabelX19 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX20 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX21 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class

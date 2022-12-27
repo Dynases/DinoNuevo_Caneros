@@ -11,6 +11,7 @@ Imports DinoM.UmedidaResp
 Imports DinoM.HomologResp
 Imports DinoM.ListarPServResp
 Public Class F1_Productos
+    Dim _CodProveedor As Integer = 2
     Dim _Inter As Integer = 0
 #Region "Variables Locales"
     Dim RutaGlobal As String = gs_CarpetaRaiz
@@ -173,8 +174,8 @@ Public Class F1_Productos
             .DropDownList.Columns("catcod").Caption = "COD"
             .DropDownList.Columns.Add("cat_desc").Width = 200
             .DropDownList.Columns("cat_desc").Caption = "DESCRIPCION"
-            .DropDownList.Columns.Add("cacta").Width = 100
-            .DropDownList.Columns("cacta").Caption = "Cuenta"
+            .DropDownList.Columns.Add("cactaucg").Width = 100
+            .DropDownList.Columns("cactaucg").Caption = "Cuenta"
             .ValueMember = "catcod"
             .DisplayMember = "cat_desc"
             .DataSource = dt
@@ -293,7 +294,7 @@ Public Class F1_Productos
         cbUniVenta.ReadOnly = False
         cbUnidMaxima.ReadOnly = False
         tbConversion.IsInputReadOnly = False
-
+        ButtonX1.Visible = True
         CbAeconomica.ReadOnly = False
         CbUmedida.ReadOnly = False
         'CbProdServ.ReadOnly = False
@@ -333,6 +334,7 @@ Public Class F1_Productos
         tbStockMinimo.IsInputReadOnly = True
         BtAdicionar.Visible = False
         btnSearch.Visible = False
+        ButtonX1.Visible = False
         CbAeconomica.ReadOnly = True
         CbUmedida.ReadOnly = True
         ' CbProdServ.ReadOnly = True
@@ -414,7 +416,7 @@ Public Class F1_Productos
 
 
         Dim res As Boolean = L_fnGrabarProducto(tbCodigo.Text, tbCodProd.Text, NumiCuenta, tbDescPro.Text,
-                                                tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value,
+                                                _CodProveedor, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value,
                                                 cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value, cbUnidMaxima.Value,
                                                 tbConversion.Text,
                                                 IIf(tbStockMinimo.Text = String.Empty, 0, tbStockMinimo.Text),
@@ -451,7 +453,7 @@ Public Class F1_Productos
         Dim nameImage As String = JGrM_Buscador.GetValue("yfimg")
         If (Modificado = False) Then
             res = L_fnModificarProducto(tbCodigo.Text, tbCodProd.Text, NumiCuenta, tbDescPro.Text,
-                                       tbDescCort.Text, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value,
+                                       _CodProveedor, cbgrupo1.Value, cbgrupo2.Value, cbgrupo3.Value,
                                        cbgrupo4.Value, cbUMed.Value, cbUniVenta.Value,
                                        cbUnidMaxima.Value, tbConversion.Text,
                                        IIf(tbStockMinimo.Text = String.Empty, 0, tbStockMinimo.Text),
@@ -694,7 +696,8 @@ Public Class F1_Productos
             NumiCuenta = .GetValue("nCuenta")
             tbCodBarra.Text = .GetValue("cuenta").ToString
             tbDescPro.Text = .GetValue("yfcdprod1").ToString
-            tbDescCort.Text = .GetValue("yfcdprod2").ToString
+            _CodProveedor = .GetValue("yfcdprod2").ToString
+            tbDescCort.Text = .GetValue("yddesc").ToString
             tbDescDet.Text = .GetValue("yfdetprod").ToString
             cbgrupo1.Value = .GetValue("yfgr1")
             cbgrupo2.Value = .GetValue("yfgr2")
@@ -1376,5 +1379,47 @@ Public Class F1_Productos
         Return ""
     End Function
 
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+
+
+        Dim dt As DataTable
+
+        dt = L_fnListarProveedores()
+        '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
+        ',a.ydtelf1 ,a.ydfnac 
+
+        Dim listEstCeldas As New List(Of Modelo.Celda)
+        listEstCeldas.Add(New Modelo.Celda("ydnumi,", False, "ID", 50))
+        listEstCeldas.Add(New Modelo.Celda("ydcod", True, "CÓDIGO", 70))
+        listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
+        listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
+        listEstCeldas.Add(New Modelo.Celda("yddirec", False, "DIRECCION", 220))
+        listEstCeldas.Add(New Modelo.Celda("ydtelf1", True, "Telefono".ToUpper, 200))
+        listEstCeldas.Add(New Modelo.Celda("ydfnac", False, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
+        Dim ef = New Efecto
+        ef.tipo = 3
+        ef.dt = dt
+        ef.SeleclCol = 2
+        ef.listEstCeldas = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Proveedor".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+            _CodProveedor = Row.Cells("ydnumi").Value
+            tbDescCort.Text = Row.Cells("yddesc").Value
+            'tbObservacion.Focus()
+
+        End If
+
+
+
+
+
+    End Sub
 
 End Class
