@@ -46,6 +46,9 @@ Partial Class Pr_RetiroInstitucionalInsumos
         '
         'GroupPanel1
         '
+        Me.GroupPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
         Me.GroupPanel1.Controls.Add(Me.GroupBox2)
@@ -53,7 +56,7 @@ Partial Class Pr_RetiroInstitucionalInsumos
         Me.GroupPanel1.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold)
         Me.GroupPanel1.Location = New System.Drawing.Point(0, 72)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(363, 633)
+        Me.GroupPanel1.Size = New System.Drawing.Size(363, 661)
         '
         '
         '
@@ -87,6 +90,9 @@ Partial Class Pr_RetiroInstitucionalInsumos
         '
         'GroupBox2
         '
+        Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
         Me.GroupBox2.Controls.Add(Me.tbInsCan)
         Me.GroupBox2.Controls.Add(Me.CheckTodos)
@@ -97,7 +103,6 @@ Partial Class Pr_RetiroInstitucionalInsumos
         Me.GroupBox2.Controls.Add(Me.tbFechaF)
         Me.GroupBox2.Controls.Add(Me.LabelX4)
         Me.GroupBox2.Controls.Add(Me.tbFechaI)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
@@ -355,11 +360,14 @@ Partial Class Pr_RetiroInstitucionalInsumos
         'CrystalReportViewer1
         '
         Me.CrystalReportViewer1.ActiveViewIndex = -1
+        Me.CrystalReportViewer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CrystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CrystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.CrystalReportViewer1.Location = New System.Drawing.Point(358, 0)
+        Me.CrystalReportViewer1.Location = New System.Drawing.Point(366, 0)
         Me.CrystalReportViewer1.Name = "CrystalReportViewer1"
-        Me.CrystalReportViewer1.Size = New System.Drawing.Size(938, 705)
+        Me.CrystalReportViewer1.Size = New System.Drawing.Size(930, 733)
         Me.CrystalReportViewer1.TabIndex = 17
         Me.CrystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         '
@@ -374,6 +382,7 @@ Partial Class Pr_RetiroInstitucionalInsumos
         Me.Name = "Pr_RetiroInstitucionalInsumos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pr_RetiroInstitucionalInsumos"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
