@@ -132,6 +132,7 @@ Public Class P_Principal
         listaTabs.Add(MenuCreditos)
         listaTabs.Add(MetroTilePanel8)
         listaTabs.Add(MetroTilePanel9)
+        listaTabs.Add(MetroTilePanel10)
 
         Dim idRolUsu As String = gi_userRol
 
@@ -1220,6 +1221,13 @@ Public Class P_Principal
     Private Sub btRetiroInstitucionalInsumos_Click(sender As Object, e As EventArgs) Handles btRetiroInstitucionalInsumos.Click
         Dim form As New Pr_RetiroInstitucionalInsumos
         form.Show()
+    End Sub
+
+    Private Sub BtPagoxCobrar_Click(sender As Object, e As EventArgs) Handles BtPagoxCobrar.Click
+        Dim frm As New F0_PagoCanero
+        frm._nameButton = BtPagoxCobrar.Name
+        frm._modulo = FP_CuentasCaneras
+        frm.Show()
     End Sub
 
 

@@ -128,7 +128,6 @@ Partial Class F0_Venta2
         Me.PanelEncabezado = New System.Windows.Forms.Panel()
         Me.btnBitacora = New DevComponents.DotNetBar.ButtonX()
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
-        Me.SwConta = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -185,7 +184,6 @@ Partial Class F0_Venta2
         '
         'PanelSuperior
         '
-        Me.PanelSuperior.Controls.Add(Me.SwConta)
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelSuperior.Size = New System.Drawing.Size(1296, 72)
@@ -206,7 +204,6 @@ Partial Class F0_Venta2
         Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar1, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar2, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.MRlAccion, 0)
-        Me.PanelSuperior.Controls.SetChildIndex(Me.SwConta, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PictureBox1, 0)
         '
         'PanelInferior
@@ -2263,26 +2260,6 @@ Partial Class F0_Venta2
         Me.SwDescuentoProveedor.ValueObject = "Y"
         Me.SwDescuentoProveedor.Visible = False
         '
-        'SwConta
-        '
-        '
-        '
-        '
-        Me.SwConta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.SwConta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SwConta.IsReadOnly = True
-        Me.SwConta.Location = New System.Drawing.Point(555, 3)
-        Me.SwConta.Name = "SwConta"
-        Me.SwConta.OffBackColor = System.Drawing.Color.LawnGreen
-        Me.SwConta.OffText = "CONTABILIZADO"
-        Me.SwConta.OnBackColor = System.Drawing.Color.Gold
-        Me.SwConta.OnText = "SIN CONTABILIZAR"
-        Me.SwConta.Size = New System.Drawing.Size(170, 28)
-        Me.SwConta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.SwConta.TabIndex = 389
-        Me.SwConta.Value = True
-        Me.SwConta.ValueObject = "Y"
-        '
         'F0_Venta2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2451,7 +2428,6 @@ Partial Class F0_Venta2
     Friend WithEvents SwDescuentoProveedor As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelAlmacen As Label
     Friend WithEvents LabelX23 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents SwConta As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents CbMetodoPago As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents tbComplemento As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX25 As DevComponents.DotNetBar.LabelX

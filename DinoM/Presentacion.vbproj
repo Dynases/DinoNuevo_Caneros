@@ -314,6 +314,12 @@
     <Compile Include="F0_Movimiento.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F0_PagoCanero.designer.vb">
+      <DependentUpon>F0_PagoCanero.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_PagoCanero.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F0_PagosInicial.Designer.vb">
       <DependentUpon>F0_PagosInicial.vb</DependentUpon>
     </Compile>
@@ -1289,6 +1295,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Movimiento.resx">
       <DependentUpon>F0_Movimiento.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_PagoCanero.resx">
+      <DependentUpon>F0_PagoCanero.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_PagosInicial.resx">
       <DependentUpon>F0_PagosInicial.vb</DependentUpon>
