@@ -1702,7 +1702,7 @@ Public Class F0_Venta2
                         _prCargarVenta()
                         If swTipoVenta.Value = False Then
                             MessageBox.Show(tbCodigo.Text)
-
+                            L_fnGrabarTxCobrar(tbCodigo.Text)
                         End If
 
                         _prSalir()
@@ -5080,4 +5080,6 @@ salirIf:
     Private Sub LabelX25_Click(sender As Object, e As EventArgs) Handles LabelX25.Click
 
     End Sub
+
+
 End Class

@@ -33,19 +33,19 @@ Partial Class F0_PagoCanero
         Me.btbBuscar = New DevComponents.DotNetBar.ButtonX()
         Me.swMoneda = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
-        Me.TextBoxX1 = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbinteres = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.cbFormaPago = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.btgrupo1 = New DevComponents.DotNetBar.ButtonX()
         Me.cbCambioDolar = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.DateTimeInput1 = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.tbfechadeudal = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX17 = New DevComponents.DotNetBar.LabelX()
         Me.TbNombre2 = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.tbFechaVenta = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.tbFechaPago = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.lbCtrlEnter = New DevComponents.DotNetBar.LabelX()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
         Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -87,9 +87,9 @@ Partial Class F0_PagoCanero
         Me.Panel2.SuspendLayout()
         CType(Me.cbFormaPago, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbCambioDolar, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DateTimeInput1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbfechadeudal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbFechaVenta, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbFechaPago, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gpDetalleVenta.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -105,7 +105,7 @@ Partial Class F0_PagoCanero
         '
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelSuperior.Size = New System.Drawing.Size(1012, 72)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1232, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
@@ -127,9 +127,9 @@ Partial Class F0_PagoCanero
         '
         'PanelInferior
         '
-        Me.PanelInferior.Location = New System.Drawing.Point(0, 622)
+        Me.PanelInferior.Location = New System.Drawing.Point(0, 616)
         Me.PanelInferior.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelInferior.Size = New System.Drawing.Size(1012, 39)
+        Me.PanelInferior.Size = New System.Drawing.Size(1232, 39)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Transparent
         Me.PanelInferior.Style.BackColor2.Color = System.Drawing.Color.Transparent
@@ -188,7 +188,7 @@ Partial Class F0_PagoCanero
         'PanelToolBar2
         '
         Me.PanelToolBar2.Controls.Add(Me.btnDuplicar)
-        Me.PanelToolBar2.Location = New System.Drawing.Point(752, 0)
+        Me.PanelToolBar2.Location = New System.Drawing.Point(972, 0)
         Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelToolBar2.Size = New System.Drawing.Size(260, 72)
         Me.PanelToolBar2.Controls.SetChildIndex(Me.btnImprimir, 0)
@@ -197,7 +197,7 @@ Partial Class F0_PagoCanero
         'PanelPrincipal
         '
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1012, 661)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1232, 655)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
@@ -223,7 +223,7 @@ Partial Class F0_PagoCanero
         '
         'MPanelUserAct
         '
-        Me.MPanelUserAct.Location = New System.Drawing.Point(812, 0)
+        Me.MPanelUserAct.Location = New System.Drawing.Point(1032, 0)
         Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(2)
         '
         'MRlAccion
@@ -233,25 +233,25 @@ Partial Class F0_PagoCanero
         '
         Me.MRlAccion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.MRlAccion.Margin = New System.Windows.Forms.Padding(2)
-        Me.MRlAccion.Size = New System.Drawing.Size(376, 72)
+        Me.MRlAccion.Size = New System.Drawing.Size(596, 72)
         Me.MRlAccion.Visible = False
         '
         'PanelContent
         '
         Me.PanelContent.Controls.Add(Me.PanelEncabezado)
         Me.PanelContent.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelContent.Size = New System.Drawing.Size(979, 550)
+        Me.PanelContent.Size = New System.Drawing.Size(1199, 544)
         Me.PanelContent.TabIndex = 3
         '
         'Panel1
         '
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel1.Size = New System.Drawing.Size(1012, 550)
+        Me.Panel1.Size = New System.Drawing.Size(1232, 544)
         '
         'MSuperTabControlPanel1
         '
         Me.MSuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(979, 550)
+        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(1199, 544)
         '
         'MSuperTabControl
         '
@@ -271,14 +271,14 @@ Partial Class F0_PagoCanero
         Me.MSuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
         Me.MSuperTabControl.Margin = New System.Windows.Forms.Padding(2)
         Me.MSuperTabControl.SelectedTabIndex = 1
-        Me.MSuperTabControl.Size = New System.Drawing.Size(1012, 550)
+        Me.MSuperTabControl.Size = New System.Drawing.Size(1232, 544)
         Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
         Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         '
         'PictureBox1
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(559, 0)
+        Me.PictureBox1.Location = New System.Drawing.Point(779, 0)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         '
         'GroupPanel2
@@ -290,7 +290,7 @@ Partial Class F0_PagoCanero
         Me.GroupPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupPanel2.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel2.Name = "GroupPanel2"
-        Me.GroupPanel2.Size = New System.Drawing.Size(979, 150)
+        Me.GroupPanel2.Size = New System.Drawing.Size(1199, 150)
         '
         '
         '
@@ -327,19 +327,19 @@ Partial Class F0_PagoCanero
         Me.Panel2.Controls.Add(Me.btbBuscar)
         Me.Panel2.Controls.Add(Me.swMoneda)
         Me.Panel2.Controls.Add(Me.LabelX5)
-        Me.Panel2.Controls.Add(Me.TextBoxX1)
+        Me.Panel2.Controls.Add(Me.tbinteres)
         Me.Panel2.Controls.Add(Me.LabelX4)
         Me.Panel2.Controls.Add(Me.cbFormaPago)
         Me.Panel2.Controls.Add(Me.LabelX3)
         Me.Panel2.Controls.Add(Me.btgrupo1)
         Me.Panel2.Controls.Add(Me.cbCambioDolar)
-        Me.Panel2.Controls.Add(Me.DateTimeInput1)
+        Me.Panel2.Controls.Add(Me.tbfechadeudal)
         Me.Panel2.Controls.Add(Me.LabelX1)
         Me.Panel2.Controls.Add(Me.LabelX2)
         Me.Panel2.Controls.Add(Me.LabelX17)
         Me.Panel2.Controls.Add(Me.TbNombre2)
         Me.Panel2.Controls.Add(Me.cbSucursal)
-        Me.Panel2.Controls.Add(Me.tbFechaVenta)
+        Me.Panel2.Controls.Add(Me.tbFechaPago)
         Me.Panel2.Controls.Add(Me.lbCtrlEnter)
         Me.Panel2.Controls.Add(Me.LabelX10)
         Me.Panel2.Controls.Add(Me.tbVendedor)
@@ -350,7 +350,7 @@ Partial Class F0_PagoCanero
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(973, 127)
+        Me.Panel2.Size = New System.Drawing.Size(1193, 127)
         Me.Panel2.TabIndex = 0
         '
         'btbBuscar
@@ -406,22 +406,22 @@ Partial Class F0_PagoCanero
         Me.LabelX5.TabIndex = 397
         Me.LabelX5.Text = "Interes % :"
         '
-        'TextBoxX1
+        'tbinteres
         '
-        Me.TextBoxX1.BackColor = System.Drawing.Color.White
+        Me.tbinteres.BackColor = System.Drawing.Color.White
         '
         '
         '
-        Me.TextBoxX1.Border.Class = "TextBoxBorder"
-        Me.TextBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.TextBoxX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBoxX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.TextBoxX1.Location = New System.Drawing.Point(755, 29)
-        Me.TextBoxX1.Name = "TextBoxX1"
-        Me.TextBoxX1.PreventEnterBeep = True
-        Me.TextBoxX1.Size = New System.Drawing.Size(50, 22)
-        Me.TextBoxX1.TabIndex = 396
-        Me.TextBoxX1.Text = "6"
+        Me.tbinteres.Border.Class = "TextBoxBorder"
+        Me.tbinteres.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbinteres.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbinteres.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbinteres.Location = New System.Drawing.Point(755, 29)
+        Me.tbinteres.Name = "tbinteres"
+        Me.tbinteres.PreventEnterBeep = True
+        Me.tbinteres.Size = New System.Drawing.Size(50, 22)
+        Me.tbinteres.TabIndex = 396
+        Me.tbinteres.Text = "6"
         '
         'LabelX4
         '
@@ -503,51 +503,51 @@ Partial Class F0_PagoCanero
         Me.cbCambioDolar.TabIndex = 391
         Me.cbCambioDolar.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'DateTimeInput1
+        'tbfechadeudal
         '
         '
         '
         '
-        Me.DateTimeInput1.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DateTimeInput1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DateTimeInput1.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
-        Me.DateTimeInput1.ButtonDropDown.Visible = True
-        Me.DateTimeInput1.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimeInput1.IsPopupCalendarOpen = False
-        Me.DateTimeInput1.Location = New System.Drawing.Point(93, 33)
+        Me.tbfechadeudal.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbfechadeudal.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbfechadeudal.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbfechadeudal.ButtonDropDown.Visible = True
+        Me.tbfechadeudal.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbfechadeudal.IsPopupCalendarOpen = False
+        Me.tbfechadeudal.Location = New System.Drawing.Point(93, 33)
         '
         '
         '
         '
         '
         '
-        Me.DateTimeInput1.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DateTimeInput1.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
-        Me.DateTimeInput1.MonthCalendar.ClearButtonVisible = True
+        Me.tbfechadeudal.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbfechadeudal.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbfechadeudal.MonthCalendar.ClearButtonVisible = True
         '
         '
         '
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
-        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DateTimeInput1.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
-        Me.DateTimeInput1.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        Me.tbfechadeudal.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbfechadeudal.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbfechadeudal.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbfechadeudal.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbfechadeudal.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbfechadeudal.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbfechadeudal.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbfechadeudal.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbfechadeudal.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
         '
         '
         '
-        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
-        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
-        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
-        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DateTimeInput1.MonthCalendar.TodayButtonVisible = True
-        Me.DateTimeInput1.Name = "DateTimeInput1"
-        Me.DateTimeInput1.Size = New System.Drawing.Size(116, 26)
-        Me.DateTimeInput1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.DateTimeInput1.TabIndex = 389
+        Me.tbfechadeudal.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbfechadeudal.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbfechadeudal.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbfechadeudal.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbfechadeudal.MonthCalendar.TodayButtonVisible = True
+        Me.tbfechadeudal.Name = "tbfechadeudal"
+        Me.tbfechadeudal.Size = New System.Drawing.Size(116, 26)
+        Me.tbfechadeudal.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbfechadeudal.TabIndex = 389
         '
         'LabelX1
         '
@@ -629,51 +629,51 @@ Partial Class F0_PagoCanero
         Me.cbSucursal.TabIndex = 270
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'tbFechaVenta
+        'tbFechaPago
         '
         '
         '
         '
-        Me.tbFechaVenta.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbFechaVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaVenta.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
-        Me.tbFechaVenta.ButtonDropDown.Visible = True
-        Me.tbFechaVenta.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaVenta.IsPopupCalendarOpen = False
-        Me.tbFechaVenta.Location = New System.Drawing.Point(315, 27)
+        Me.tbFechaPago.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbFechaPago.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaPago.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbFechaPago.ButtonDropDown.Visible = True
+        Me.tbFechaPago.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaPago.IsPopupCalendarOpen = False
+        Me.tbFechaPago.Location = New System.Drawing.Point(315, 27)
         '
         '
         '
         '
         '
         '
-        Me.tbFechaVenta.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaVenta.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
-        Me.tbFechaVenta.MonthCalendar.ClearButtonVisible = True
+        Me.tbFechaPago.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaPago.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbFechaPago.MonthCalendar.ClearButtonVisible = True
         '
         '
         '
-        Me.tbFechaVenta.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
-        Me.tbFechaVenta.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaVenta.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.tbFechaVenta.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.tbFechaVenta.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
-        Me.tbFechaVenta.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
-        Me.tbFechaVenta.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaVenta.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
-        Me.tbFechaVenta.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        Me.tbFechaPago.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbFechaPago.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaPago.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbFechaPago.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbFechaPago.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbFechaPago.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbFechaPago.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaPago.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbFechaPago.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
         '
         '
         '
-        Me.tbFechaVenta.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
-        Me.tbFechaVenta.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaVenta.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
-        Me.tbFechaVenta.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaVenta.MonthCalendar.TodayButtonVisible = True
-        Me.tbFechaVenta.Name = "tbFechaVenta"
-        Me.tbFechaVenta.Size = New System.Drawing.Size(116, 26)
-        Me.tbFechaVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.tbFechaVenta.TabIndex = 0
+        Me.tbFechaPago.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbFechaPago.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaPago.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbFechaPago.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaPago.MonthCalendar.TodayButtonVisible = True
+        Me.tbFechaPago.Name = "tbFechaPago"
+        Me.tbFechaPago.Size = New System.Drawing.Size(116, 26)
+        Me.tbFechaPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbFechaPago.TabIndex = 0
         '
         'lbCtrlEnter
         '
@@ -802,7 +802,7 @@ Partial Class F0_PagoCanero
         Me.gpDetalleVenta.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gpDetalleVenta.Location = New System.Drawing.Point(0, 0)
         Me.gpDetalleVenta.Name = "gpDetalleVenta"
-        Me.gpDetalleVenta.Size = New System.Drawing.Size(979, 400)
+        Me.gpDetalleVenta.Size = New System.Drawing.Size(1199, 394)
         '
         '
         '
@@ -842,7 +842,7 @@ Partial Class F0_PagoCanero
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(973, 377)
+        Me.Panel5.Size = New System.Drawing.Size(1193, 371)
         Me.Panel5.TabIndex = 0
         '
         'grdetalle
@@ -855,7 +855,7 @@ Partial Class F0_PagoCanero
         Me.grdetalle.Name = "grdetalle"
         Me.grdetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grdetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grdetalle.Size = New System.Drawing.Size(973, 377)
+        Me.grdetalle.Size = New System.Drawing.Size(1193, 371)
         Me.grdetalle.TabIndex = 3
         Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -985,7 +985,7 @@ Partial Class F0_PagoCanero
         Me.PanelFondoDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelFondoDetalle.Location = New System.Drawing.Point(0, 150)
         Me.PanelFondoDetalle.Name = "PanelFondoDetalle"
-        Me.PanelFondoDetalle.Size = New System.Drawing.Size(979, 400)
+        Me.PanelFondoDetalle.Size = New System.Drawing.Size(1199, 394)
         Me.PanelFondoDetalle.TabIndex = 5
         '
         'PanelEncabezado
@@ -995,7 +995,7 @@ Partial Class F0_PagoCanero
         Me.PanelEncabezado.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelEncabezado.Location = New System.Drawing.Point(0, 0)
         Me.PanelEncabezado.Name = "PanelEncabezado"
-        Me.PanelEncabezado.Size = New System.Drawing.Size(979, 550)
+        Me.PanelEncabezado.Size = New System.Drawing.Size(1199, 544)
         Me.PanelEncabezado.TabIndex = 1
         '
         'SwDescuentoProveedor
@@ -1022,7 +1022,7 @@ Partial Class F0_PagoCanero
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1012, 661)
+        Me.ClientSize = New System.Drawing.Size(1232, 655)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "F0_PagoCanero"
@@ -1051,9 +1051,9 @@ Partial Class F0_PagoCanero
         Me.Panel2.PerformLayout()
         CType(Me.cbFormaPago, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbCambioDolar, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DateTimeInput1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbfechadeudal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbFechaVenta, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbFechaPago, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gpDetalleVenta.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
         CType(Me.grdetalle, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1086,19 +1086,19 @@ Partial Class F0_PagoCanero
     Friend WithEvents Panel2 As Panel
     Friend WithEvents swMoneda As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents TextBoxX1 As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbinteres As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbFormaPago As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents btgrupo1 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents cbCambioDolar As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents DateTimeInput1 As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents tbfechadeudal As DevComponents.Editors.DateTimeAdv.DateTimeInput
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX17 As DevComponents.DotNetBar.LabelX
     Friend WithEvents TbNombre2 As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents cbSucursal As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents tbFechaVenta As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents tbFechaPago As DevComponents.Editors.DateTimeAdv.DateTimeInput
     Friend WithEvents lbCtrlEnter As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbVendedor As DevComponents.DotNetBar.Controls.TextBoxX

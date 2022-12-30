@@ -166,8 +166,8 @@ Public Class F0_PagoCanero
         tbCodigo.ReadOnly = True
         tbCliente.ReadOnly = True
         tbVendedor.ReadOnly = False
-        tbFechaVenta.IsInputReadOnly = True
-        tbFechaVenta.Enabled = False
+        tbFechaPago.IsInputReadOnly = True
+        tbFechaPago.Enabled = False
         swMoneda.IsReadOnly = True
 
 
@@ -201,8 +201,8 @@ Public Class F0_PagoCanero
         grVentas.Enabled = False
         tbCodigo.ReadOnly = False
 
-        tbFechaVenta.IsInputReadOnly = False
-        tbFechaVenta.Enabled = True
+        tbFechaPago.IsInputReadOnly = False
+        tbFechaPago.Enabled = True
 
         swMoneda.IsReadOnly = False
 
@@ -250,8 +250,8 @@ Public Class F0_PagoCanero
 
         _CodCliente = 0
         _CodEmpleado = 0
-        tbFechaVenta.Value = Now.Date
-
+        tbFechaPago.Value = Now.Date
+        tbfechadeudal.Value = Now.Date
         _prCargarDetalleVenta(-1)
         MSuperTabControl.SelectedTabIndex = 0
 
@@ -281,7 +281,7 @@ Public Class F0_PagoCanero
 
             cbSucursal.Value = .GetValue("taalm")
             tbCodigo.Text = .GetValue("tanumi")
-            tbFechaVenta.Value = .GetValue("tafdoc")
+            tbFechaPago.Value = .GetValue("tafdoc")
             _CodEmpleado = .GetValue("taven")
             _CodInstitucion = .GetValue("NroCaja")
             tbVendedor.Text = .GetValue("institucion")
@@ -808,7 +808,7 @@ Public Class F0_PagoCanero
         Return 1
     End Function
     Public Function _fnAccesible()
-        Return tbFechaVenta.IsInputReadOnly = False
+        Return tbFechaPago.IsInputReadOnly = False
     End Function
 
     Private Sub _HabilitarFocoDetalle(fila As Integer)
@@ -1526,10 +1526,10 @@ Public Class F0_PagoCanero
         '' AsignarClienteEmpleado()
 
         cbSucursal.Value = gi_userSuc
-        btnNuevo.Enabled = True
+        btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
-        btnGrabar.Enabled = False
+        btnGrabar.Enabled = True
         PanelNavegacion.Enabled = False
         tbCliente.Select()
     End Sub
@@ -1586,13 +1586,18 @@ Public Class F0_PagoCanero
 
                     tipoDocumento = Row.Cells("ydtipdocelec").Value
                     correo = Row.Cells("ydcorreo").Value
-
+                    'If btnNuevo.Enabled = True Then
+                    '    Dim dt1 As DataTable
+                    '    dt1 = L_fnListarCaneroInstitucion(_CodCliente)
+                    '    Dim row1 As DataRow = dt1.Rows(dt1.Rows.Count - 1)
+                    '    tbVendedor.Text = row1("institucion")
+                    'End If
                     Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
                     If (numiVendedor > 0) Then
                         ''tbVendedor.Text = Row.Cells("vendedor").Value
                         _CodEmpleado = Row.Cells("ydnumivend").Value
 
-                        grdetalle.Select()
+                        'grdetalle.Select()
                         Table_Producto = Nothing
                     Else
                         tbVendedor.Clear()
@@ -1656,8 +1661,7 @@ Public Class F0_PagoCanero
             'Habilitar solo las columnas de Precio, %, Monto y Observación
             'If (e.Column.Index = grdetalle.RootTable.Columns("yfcbarra").Index Or 'e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index) 
             ''e.Column.Index = grdetalle.RootTable.Columns("tbdesc").Index
-            If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index Or
-                e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index) Then
+            If (e.Column.Index = grdetalle.RootTable.Columns("pagar").Index) Then
 
                 e.Cancel = False
             Else
@@ -1671,6 +1675,20 @@ Public Class F0_PagoCanero
 
 
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
+
+        Try
+            If (Not _fnAccesible()) Then
+                Return
+            End If
+            If (grdetalle.RowCount >= 1) Then
+                If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("pagar").Index) Then
+                    MessageBox.Show(grdetalle.CurrentColumn.Index)
+                End If
+
+            End If
+        Catch ex As Exception
+            MostrarMensajeError(ex.Message)
+        End Try
         '        If (Not _fnAccesible()) Then
         '            Return
         '        End If
@@ -2058,118 +2076,118 @@ Public Class F0_PagoCanero
                 End If
             End If
             '''''''''''''''''''''PORCENTAJE DE DESCUENTO '''''''''''''''''''''
-            If (e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index) Then
-                If (Not IsNumeric(grdetalle.GetValue("tbporc")) Or grdetalle.GetValue("tbporc").ToString = String.Empty) Then
+            'If (e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index) Then
+            '    If (Not IsNumeric(grdetalle.GetValue("tbporc")) Or grdetalle.GetValue("tbporc").ToString = String.Empty) Then
 
-                    'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-                    '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
-                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                    Dim pos As Integer = -1
-                    _fnObtenerFilaDetalle(pos, lin)
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-                    'grdetalle.SetValue("tbcmin", 1)
-                    'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-                Else
-                    If (grdetalle.GetValue("tbporc") > 0 And grdetalle.GetValue("tbporc") <= 100) Then
+            '        'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+            '        '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+            '        Dim lin As Integer = grdetalle.GetValue("tbnumi")
+            '        Dim pos As Integer = -1
+            '        _fnObtenerFilaDetalle(pos, lin)
+            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
+            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
+            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
+            '        'grdetalle.SetValue("tbcmin", 1)
+            '        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+            '    Else
+            '        If (grdetalle.GetValue("tbporc") > 0 And grdetalle.GetValue("tbporc") <= 100) Then
 
-                        Dim porcdesc As Double = grdetalle.GetValue("tbporc")
-                        Dim montodesc As Double = (grdetalle.GetValue("tbptot") * (porcdesc / 100))
-                        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                        Dim pos As Integer = -1
-                        _fnObtenerFilaDetalle(pos, lin)
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
-                        grdetalle.SetValue("tbdesc", montodesc)
+            '            Dim porcdesc As Double = grdetalle.GetValue("tbporc")
+            '            Dim montodesc As Double = (grdetalle.GetValue("tbptot") * (porcdesc / 100))
+            '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
+            '            Dim pos As Integer = -1
+            '            _fnObtenerFilaDetalle(pos, lin)
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
+            '            grdetalle.SetValue("tbdesc", montodesc)
 
-                        Dim rowIndex As Integer = grdetalle.Row
-                        P_PonerTotal(rowIndex)
-                        CalculoDescuentoXProveedor()
-                    Else
-                        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                        Dim pos As Integer = -1
-                        _fnObtenerFilaDetalle(pos, lin)
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-                        grdetalle.SetValue("tbporc", 0)
-                        grdetalle.SetValue("tbdesc", 0)
-                        grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
-                        _prCalcularPrecioTotal()
-                        'grdetalle.SetValue("tbcmin", 1)
-                        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+            '            Dim rowIndex As Integer = grdetalle.Row
+            '            P_PonerTotal(rowIndex)
+            '            CalculoDescuentoXProveedor()
+            '        Else
+            '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
+            '            Dim pos As Integer = -1
+            '            _fnObtenerFilaDetalle(pos, lin)
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
+            '            grdetalle.SetValue("tbporc", 0)
+            '            grdetalle.SetValue("tbdesc", 0)
+            '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
+            '            _prCalcularPrecioTotal()
+            '            'grdetalle.SetValue("tbcmin", 1)
+            '            'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
 
-                    End If
-                End If
-            End If
+            '        End If
+            '    End If
+            'End If
 
 
             '''''''''''''''''''''MONTO DE DESCUENTO '''''''''''''''''''''
-            If (e.Column.Index = grdetalle.RootTable.Columns("tbdesc").Index) Then
-                If (Not IsNumeric(grdetalle.GetValue("tbdesc")) Or grdetalle.GetValue("tbdesc").ToString = String.Empty) Then
+            'If (e.Column.Index = grdetalle.RootTable.Columns("tbdesc").Index) Then
+            '    If (Not IsNumeric(grdetalle.GetValue("tbdesc")) Or grdetalle.GetValue("tbdesc").ToString = String.Empty) Then
 
-                    'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-                    '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
-                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                    Dim pos As Integer = -1
-                    _fnObtenerFilaDetalle(pos, lin)
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-                    'grdetalle.SetValue("tbcmin", 1)
-                    'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-                Else
-                    If (grdetalle.GetValue("tbdesc") > 0 And grdetalle.GetValue("tbdesc") <= grdetalle.GetValue("tbptot")) Then
+            '        'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+            '        '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+            '        Dim lin As Integer = grdetalle.GetValue("tbnumi")
+            '        Dim pos As Integer = -1
+            '        _fnObtenerFilaDetalle(pos, lin)
+            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
+            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
+            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
+            '        'grdetalle.SetValue("tbcmin", 1)
+            '        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+            '    Else
+            '        If (grdetalle.GetValue("tbdesc") > 0 And grdetalle.GetValue("tbdesc") <= grdetalle.GetValue("tbptot")) Then
 
-                        Dim montodesc As Double = grdetalle.GetValue("tbdesc")
-                        Dim pordesc As Double = ((montodesc * 100) / grdetalle.GetValue("tbptot"))
+            '            Dim montodesc As Double = grdetalle.GetValue("tbdesc")
+            '            Dim pordesc As Double = ((montodesc * 100) / grdetalle.GetValue("tbptot"))
 
-                        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                        Dim pos As Integer = -1
-                        _fnObtenerFilaDetalle(pos, lin)
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = pordesc
+            '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
+            '            Dim pos As Integer = -1
+            '            _fnObtenerFilaDetalle(pos, lin)
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = pordesc
 
-                        grdetalle.SetValue("tbporc", pordesc)
-                        Dim rowIndex As Integer = grdetalle.Row
-                        P_PonerTotal(rowIndex)
+            '            grdetalle.SetValue("tbporc", pordesc)
+            '            Dim rowIndex As Integer = grdetalle.Row
+            '            P_PonerTotal(rowIndex)
 
-                    Else
-                        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                        Dim pos As Integer = -1
-                        _fnObtenerFilaDetalle(pos, lin)
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-                        grdetalle.SetValue("tbporc", 0)
-                        grdetalle.SetValue("tbdesc", 0)
-                        grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
-                        _prCalcularPrecioTotal()
-                        'grdetalle.SetValue("tbcmin", 1)
-                        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+            '        Else
+            '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
+            '            Dim pos As Integer = -1
+            '            _fnObtenerFilaDetalle(pos, lin)
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
+            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
+            '            grdetalle.SetValue("tbporc", 0)
+            '            grdetalle.SetValue("tbdesc", 0)
+            '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
+            '            _prCalcularPrecioTotal()
+            '            'grdetalle.SetValue("tbcmin", 1)
+            '            'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
 
-                    End If
-                End If
-            End If
+            '        End If
+            '    End If
+            'End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
     End Sub
 
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grdetalle.MouseClick
-        Try
-            If (Not _fnAccesible()) Then
-                Return
-            End If
-            If (grdetalle.RowCount >= 2) Then
-                If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
-                    _prEliminarFila()
-                    CalculoDescuentoXProveedor()
-                End If
-            End If
-        Catch ex As Exception
-            MostrarMensajeError(ex.Message)
-        End Try
+        'Try
+        '    If (Not _fnAccesible()) Then
+        '        Return
+        '    End If
+        '    If (grdetalle.RowCount >= 2) Then
+        '        If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
+        '            _prEliminarFila()
+        '            CalculoDescuentoXProveedor()
+        '        End If
+        '    End If
+        'Catch ex As Exception
+        '    MostrarMensajeError(ex.Message)
+        'End Try
 
     End Sub
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
@@ -2444,32 +2462,15 @@ Public Class F0_PagoCanero
 
     Private Sub grdetalle_Enter(sender As Object, e As EventArgs) Handles grdetalle.Enter
         Try
-            If (_fnAccesible()) Then
-                If (_CodCliente <= 0) Then
-                    ToastNotification.Show(Me, "           Antes de Continuar Por favor Seleccione un Cliente!!             ", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    tbCliente.Focus()
-
-                    Return
-                End If
-                If (_CodEmpleado <= 0) Then
-
-
-                    ToastNotification.Show(Me, "           Antes de Continuar Por favor Seleccione un Vendedor!!             ", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    tbVendedor.Focus()
-                    Return
-
-                End If
-
-                grdetalle.Select()
-                If _codeBar = 1 Then
-                    If gb_CodigoBarra Then
-                        grdetalle.Col = 5
-                        grdetalle.Row = 0
-                    Else
-                        grdetalle.Col = 3
-                        grdetalle.Row = 0
-                    End If
-                End If
+            If (Not _fnAccesible()) Then
+                Return
+            End If
+            If (grdetalle.RowCount >= 1) Then
+                'If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
+                '    _prEliminarFila()
+                '    CalculoDescuentoXProveedor()
+                'End If
+                MessageBox.Show(grdetalle.RootTable.Columns("pagar").ToString)
             End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -2707,48 +2708,6 @@ Public Class F0_PagoCanero
             _prCargarDetalleVenta(-1)
         End If
     End Sub
-    Private Sub btnBitacora_Click(sender As Object, e As EventArgs)
-
-        If _ValidarCampos() = False Then
-            Exit Sub
-        End If
-
-        If (tbCodigo.Text = String.Empty) Then
-
-            _GuardarNuevoImprimirBoleta()
-
-        Else
-            If (tbCodigo.Text <> String.Empty) Then
-
-                _prGuardarModificado()
-                ''    _prInhabiliitar() RODRIGO RLA
-
-            End If
-        End If
-        'Dim dtb As DataTable
-        'dtb = L_prBitacora(tbCodigo.Text)
-        'If dtb.Rows.Count > 0 Then
-        '    Dim listEstCeldas As New List(Of Modelo.Celda)
-        '    listEstCeldas.Add(New Modelo.Celda("accion", True, "ACCIÓN", 120))
-        '    listEstCeldas.Add(New Modelo.Celda("vcfact", True, "FECHA", 80))
-        '    listEstCeldas.Add(New Modelo.Celda("vchact", True, "HORA", 70))
-        '    listEstCeldas.Add(New Modelo.Celda("vcuact", True, "USUARIO", 120))
-        '    listEstCeldas.Add(New Modelo.Celda("vcnumi", False, "ID", 50))
-
-        '    Dim ef = New Efecto
-        '    ef.tipo = 3
-        '    ef.dt = dtb
-        '    ef.SeleclCol = 2
-        '    ef.listEstCeldas = listEstCeldas
-        '    ef.AutoScrollPosition = AutoScrollPosition
-        '    'ef.alto = 450
-        '    'ef.ancho = 180
-        '    ef.Context = "BITÁCORA DE LA VENTA"
-        '    ef.ShowDialog()
-        'Else
-        '    ToastNotification.Show(Me, "No existe bitácora para este registro".ToUpper, My.Resources.WARNING, 3000, eToastGlowColor.Blue, eToastPosition.TopCenter)
-        'End If
-    End Sub
     'Private Sub TbNombre1_KeyDown(sender As Object, e As KeyEventArgs) Handles TbNombre1.KeyDown
     '    If (e.KeyData = Keys.Enter) Then
     '        grdetalle.Col = 7
@@ -2847,7 +2806,7 @@ Public Class F0_PagoCanero
     End Function
 
     Private Sub tbCliente_TextChanged(sender As Object, e As EventArgs) Handles tbCliente.TextChanged
-        If btnNuevo.Enabled = True Then
+        If btnNuevo.Enabled = False Then
             Dim dt As DataTable
             dt = L_fnListarCaneroInstitucion(_CodCliente)
             Dim row As DataRow = dt.Rows(dt.Rows.Count - 1)
@@ -2904,9 +2863,118 @@ Public Class F0_PagoCanero
         Return Token
     End Function
 
+    Private Sub btbBuscar_Click(sender As Object, e As EventArgs) Handles btbBuscar.Click
+        _prCargarTxCobrar()
+    End Sub
+    Private Sub _prCargarTxCobrar()
+        Dim dt As New DataTable
+        dt = L_fnCuentasxCobrar(_CodCliente, tbinteres.Text, tbFechaPago.Text)
+        grdetalle.DataSource = dt
+        grdetalle.RetrieveStructure()
+        grdetalle.AlternatingColors = True
+        '   a.tamon ,IIF(tamon=1,'Boliviano','Dolar') as moneda,a.taest ,a.taobs ,
+        'a.tadesc ,a.tafact ,a.tahact ,a.tauact,(Sum(b.tbptot)-a.tadesc ) as total
+
+        With grdetalle.RootTable.Columns("numi")
+            .Width = 90
+            .Caption = "NUMERO"
+            .Visible = False
+
+        End With
+        With grdetalle.RootTable.Columns("tanumi")
+            .Width = 90
+            .Caption = "NUMERO"
+            .Visible = True
+
+        End With
+
+        With grdetalle.RootTable.Columns("taalm")
+            .Width = 50
+            .Visible = False
+        End With
+
+        With grdetalle.RootTable.Columns("tafdoc")
+            .Width = 110
+            .Visible = True
+            .Caption = "FECHA"
+        End With
+
+        With grdetalle.RootTable.Columns("idInst")
+            .Width = 90
+            .Visible = False
+            .Caption = "FECHA"
+        End With
+
+        With grdetalle.RootTable.Columns("ydnumi")
+            .Width = 160
+            .Visible = False
+        End With
+        With grdetalle.RootTable.Columns("tbty5prod")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "CÓDIGO"
+        End With
+        With grdetalle.RootTable.Columns("tbcmin")
+            .Width = 250
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+            .Caption = ""
+        End With
+        With grdetalle.RootTable.Columns("tbpbas")
+            .Width = 250
+            .Visible = False
+            .Caption = "INSTITUCION".ToUpper
+        End With
 
 
+        With grdetalle.RootTable.Columns("tbdebe")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "DEBE".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grdetalle.RootTable.Columns("pago")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "pago".ToUpper
+            .FormatString = "0.00"
+        End With
 
+        With grdetalle.RootTable.Columns("aporte")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "aporte".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grdetalle.RootTable.Columns("total")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "Total".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grdetalle.RootTable.Columns("tbdetalle")
+            .Width = 500
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "descripción".ToUpper
+        End With
+        With grdetalle.RootTable.Columns("est")
+            .Width = 250
+            .Visible = False
+            .Caption = "INSTITUCION".ToUpper
+        End With
+        With grdetalle.RootTable.Columns("pagar")
+            .Width = 80
+            .Caption = "A pagar".ToUpper
+            '.CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+            .Visible = True
+            .FormatString = "0.00"
+        End With
 
-
+    End Sub
 End Class
