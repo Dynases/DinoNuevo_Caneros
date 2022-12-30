@@ -53,6 +53,8 @@ Public Class Efecto
                 _prMostrarAyudaDetalleServicio()
             Case 4
                 _prLogin()
+            Case 5
+                _prMostrarMensajePendiente()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -171,6 +173,22 @@ Public Class Efecto
     Sub _prMostrarMensajeDelete()
 
         Dim info As New TaskDialogInfo(Context, eTaskDialogIcon.Delete, "advertencia".ToUpper, Header, eTaskDialogButton.Yes Or eTaskDialogButton.Cancel, eTaskDialogBackgroundColor.Default)
+        Dim result As eTaskDialogResult = TaskDialog.Show(info)
+        If result = eTaskDialogResult.Yes Then
+            Dim mensajeError As String = ""
+            band = True
+            Me.Close()
+
+        Else
+            band = False
+            Me.Close()
+
+        End If
+    End Sub
+
+    Sub _prMostrarMensajePendiente()
+
+        Dim info As New TaskDialogInfo(Context, eTaskDialogIcon.Help, "advertencia".ToUpper, Header, eTaskDialogButton.Yes Or eTaskDialogButton.Cancel, eTaskDialogBackgroundColor.Default)
         Dim result As eTaskDialogResult = TaskDialog.Show(info)
         If result = eTaskDialogResult.Yes Then
             Dim mensajeError As String = ""
