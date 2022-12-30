@@ -1263,8 +1263,17 @@ Public Class F0_MCompras
 
         Dim objrep As New R_NotaCompra
         objrep.SetDataSource(dt)
+        Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
+        Dim fechacom As String = dt.Rows(0).Item("FechaCompra")
+        Dim mes As Integer = Month(fechacom)
+        Dim dia As Integer = Microsoft.VisualBasic.DateAndTime.Day(fechacom)
+        Dim anio As Integer = Year(fechacom)
+        Dim mes1 As String = _Meses(mes - 1)
+        objrep.SetParameterValue("almacen", gs_userSucNom)
+        objrep.SetParameterValue("dia", dia)
+        objrep.SetParameterValue("mes", mes1)
+        objrep.SetParameterValue("anio", anio)
 
-        objrep.SetParameterValue("Literal", _Literal)
 
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.ShowDialog() 'Comentar
