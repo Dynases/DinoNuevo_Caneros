@@ -3633,6 +3633,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return D_Eliminar_Datos(Tabla, Where)
     End Function
 
+    Public Shared Function TraerEstadoFacturas() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 25))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+        Return _Tabla
+    End Function
+
 #End Region
 
 #Region "Anular Factura"

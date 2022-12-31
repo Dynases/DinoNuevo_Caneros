@@ -500,19 +500,38 @@ Public Class P_Principal
 #Region "Modulo Venta"
 
     Private Sub btVentVenta_Click(sender As Object, e As EventArgs) Handles btVentVenta.Click
-        'SideNav1.IsMenuExpanded = False
-        'Ventana.Select()
-        Dim frm As New F0_Venta2
-        frm._nameButton = btVentVenta.Name
-        'Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        'frm._tab = tab3
-        frm._modulo = FP_VENTAS
-        'Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        'superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        'tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        'tab3.Text = frm.Text
-        'tab3.Icon = frm.Icon
+        Dim Ds As DataTable
+        Ds = TraerEstadoFacturas()
+        If Ds.Rows.Count > 0 Then
+            Dim ef = New Efecto
+            ef.tipo = 5
+            ef.Context = "TIENE FACTURAS PENDIENTES".ToUpper
+            ef.Header = "¿Desea consultar el estado de las facturas?".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                Dim frm As New F0_Venta2
+                frm._nameButton = btVentVenta.Name
+                frm._modulo = FP_VENTAS
+                frm.Show()
+            ElseIf (bandera = False) Then
+                'SideNav1.IsMenuExpanded = False
+                'Ventana.Select()
+                Dim frm As New F0_Venta2
+                frm._nameButton = btVentVenta.Name
+                'Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+                'frm._tab = tab3
+                frm._modulo = FP_VENTAS
+                'Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+                'superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+                'tab3.AttachedControl.Controls.Add(panel)
+                frm.Show()
+                'tab3.Text = frm.Text
+                'tab3.Icon = frm.Icon
+            End If
+        End If
+
     End Sub
 
     Private Sub btVentAnularFactura_Click(sender As Object, e As EventArgs) Handles btVentAnularFactura.Click
