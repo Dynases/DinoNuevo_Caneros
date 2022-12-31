@@ -5045,7 +5045,7 @@ salirIf:
     Public Function ConsultarEstadoEmision(tokenObtenido, sucursal, numeroDocumento)
 
         Dim api = New DBApi()
-        Dim Emenvio = New EmisorEnvio.Emisor()
+        Dim Emenvio = New EmisorEnvio.consultarEstadoEmision()
 
         Dim NumFactura As Integer
         Dim dsApi As DataSet
@@ -5053,7 +5053,7 @@ salirIf:
 
         'NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
 
-        Emenvio.nitEmisor = 1028395023
+        Emenvio.nit = 1028395023
         If sucursal = 1 Then
             Emenvio.codigoSucursal = 0
         ElseIf sucursal = 2 Then
@@ -5062,12 +5062,12 @@ salirIf:
         Emenvio.codigoPuntoVenta = 0
         Emenvio.codigoDocumentoSector = 1
         Emenvio.numeroDocumento = numeroDocumento
-        Emenvio.AnioEmision = Year(tbFechaVenta.Text)
+        Emenvio.AnioEmision = "2022" '2022 ' Year(tbFechaVenta.Text)
 
 
 
         Dim json = JsonConvert.SerializeObject(Emenvio)
-        Dim url = "https://labbo-emp-operaciones-v2-1.guru-soft.com/api/Operaciones/AnulaDocumento"
+        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultaDocumentoXId?nit=1028395023&anioEmision=2022&codigoDocumentoSector=1&codigoSucursal=0&codigoPuntoVenta=0&numeroDocumento=309"
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),
@@ -5076,7 +5076,7 @@ salirIf:
 
         Dim parametros = New List(Of Parametro)
 
-        Dim response = api.Post(url, headers, parametros, Emenvio)
+        Dim response = api.MGet(url, headers, parametros)
 
         Dim result = JsonConvert.DeserializeObject(Of RespEmisor)(response)
         Dim resultError = JsonConvert.DeserializeObject(Of Resp400)(response)

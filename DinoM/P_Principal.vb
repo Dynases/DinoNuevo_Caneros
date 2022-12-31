@@ -6,7 +6,7 @@ Imports DevComponents.DotNetBar
 Imports DevComponents.DotNetBar.Rendering
 
 Public Class P_Principal
-
+    Public tokenSifac As String
 #Region "Atributos"
 
 #End Region
@@ -511,6 +511,14 @@ Public Class P_Principal
             Dim bandera As Boolean = False
             bandera = ef.band
             If (bandera = True) Then
+                tokenSifac = F0_Venta2.ObtToken(3)
+                If tokenSifac = "400" Then
+                    Me.Close()
+                    MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
+
+                Else
+                    F0_Venta2.ConsultarEstadoEmision(tokenSifac, 1, 309)
+                End If
                 Dim frm As New F0_Venta2
                 frm._nameButton = btVentVenta.Name
                 frm._modulo = FP_VENTAS

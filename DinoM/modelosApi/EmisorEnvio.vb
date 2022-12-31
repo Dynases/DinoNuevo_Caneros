@@ -14,6 +14,7 @@
     End Class
 
     Public Class Emisor
+        Public Property nit As Integer
         Public Property nitEmisor As Integer
         Public Property razonSocialEmisor As String
         Public Property municipio As String
@@ -59,6 +60,26 @@
         Public Property codigoPuntoVenta As Integer
 
         Public Property nitVerificar As String
+
+    End Class
+
+    Public Class consultarEstadoEmision
+        Public Property nit As String
+        Public Property AnioEmision As Integer
+        Public Property codigoDocumentoSector As Integer
+        Public Property codigoSucursal As Integer
+        Public Property codigoPuntoVenta As Integer
+
+
+        Public Property numeroDocumento As String
+
+
+
+
+
+
+
+        Public Property actividadEconomica As Integer
 
     End Class
 End Class
