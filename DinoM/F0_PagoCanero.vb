@@ -264,7 +264,7 @@ Public Class F0_PagoCanero
             .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
             .Visible = True
         End With
-        _prAddDetalleVenta()
+        '_prAddDetalleVenta()
 
         FilaSelectLote = Nothing
 
@@ -703,7 +703,7 @@ Public Class F0_PagoCanero
             Exit Sub
         End If
 
-        If (tbCodigo.Text <> String.Empty) Then
+        If (tbCodigo.Text = String.Empty) Then
 
             _GuardarNuevo()
 
@@ -820,7 +820,7 @@ Public Class F0_PagoCanero
 
     Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
         For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
-            Dim _numi As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("tbnumi")
+            Dim _numi As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("tanumi")
             If (_numi = numi) Then
                 pos = i
                 Return
@@ -1120,20 +1120,22 @@ Public Class F0_PagoCanero
         Dim aux As Integer = 0
         Dim detalle = CType(grdetalle.DataSource, DataTable)
         Dim Lmensaje As List(Of String) = New List(Of String)
-        detalle.DefaultView.RowFilter = "estado >= '" + 0.ToString() + "'"
+        ' detalle.DefaultView.RowFilter = "estado >= '" + 0.ToString() + "'"
         detalle = detalle.DefaultView.ToTable
         For Each fila As DataRow In detalle.Rows
-            Dim idProducto = fila.Item("tbty5prod")
+            Dim idProducto = fila.Item("numi")
             If aux <> idProducto Then
-                dtSaldos = L_fnObteniendoSaldosTI001(fila.Item("tbty5prod"), cbSucursal.Value)
-                Dim inventario = dtSaldos.Compute("SUM(iccven)", String.Empty)
+                'dtSaldos = L_fnObteniendoSaldosTI001(fila.Item("tbty5prod"), cbSucursal.Value)
+                'Dim inventario = dtSaldos.Compute("SUM(iccven)", String.Empty)
 
-                detalle.DefaultView.RowFilter = "tbty5prod = '" + fila.Item("tbty5prod").ToString() + "'"
-                Dim productoRepeditos = detalle.DefaultView.ToTable
-                Dim saldo = productoRepeditos.Compute("SUM(tbcmin)", String.Empty)
-                'Dim saldo = fila.Item("tbcmin")
-                If inventario < saldo Then
-                    Dim mensaje As String = "No existe stock para el producto: " + fila.Item("producto") + " stock actual = " + inventario.ToString()
+                'detalle.DefaultView.RowFilter = "tbty5prod = '" + fila.Item("tbty5prod").ToString() + "'"
+                'Dim productoRepeditos = detalle.DefaultView.ToTable
+                'Dim saldo = productoRepeditos.Compute("SUM(tbcmin)", String.Empty)
+                ''Dim saldo = fila.Item("tbcmin")
+                Dim total As Double = fila.Item("total").ToString
+                Dim pagar As Double = fila.Item("pagar").ToString
+                If pagar > total Then
+                    Dim mensaje As String = "Existen montos a pagar mayor al total - PRODUCTO: " + fila.Item("tbdetalle")
                     Lmensaje.Add(mensaje)
                     'Throw New Exception("No existe stock para el producto:" + fila.Item("producto") + " stock actual =" + inventario)
                 End If
@@ -1201,8 +1203,8 @@ Public Class F0_PagoCanero
                     End If
 
                 Else
-                    MessageBox.Show(mensajeRespuesta)
-                End If
+                'MessageBox.Show(mensajeRespuesta)
+            End If
 
 
         Catch ex As Exception
@@ -1676,108 +1678,6 @@ Public Class F0_PagoCanero
 
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
 
-        Try
-            If (Not _fnAccesible()) Then
-                Return
-            End If
-            If (grdetalle.RowCount >= 1) Then
-                If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("pagar").Index) Then
-                    MessageBox.Show(grdetalle.CurrentColumn.Index)
-                End If
-
-            End If
-        Catch ex As Exception
-            MostrarMensajeError(ex.Message)
-        End Try
-        '        If (Not _fnAccesible()) Then
-        '            Return
-        '        End If
-        '        If (e.KeyData = Keys.Enter) Then
-        '            Dim f, c As Integer
-        '            c = grdetalle.Col
-        '            f = grdetalle.Row
-
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("tbcmin").Index) Then
-        '                If (grdetalle.GetValue("producto") <> String.Empty) Then
-        '                    _prAddDetalleVenta()
-        '                    _HabilitarProductos()
-        '                Else
-        '                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
-        '                If (grdetalle.GetValue("producto") <> String.Empty) Then
-        '                    _prAddDetalleVenta()
-        '                    _HabilitarProductos()
-        '                Else
-        '                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
-        '                If (grdetalle.GetValue("yfcbarra").ToString().Trim() <> String.Empty) Then
-        '                    cargarProductos()
-        '                    If (grdetalle.Row = grdetalle.RowCount - 1) Then
-        '                        If (existeProducto(grdetalle.GetValue("yfcbarra").ToString)) Then
-        '                            If (Not verificarExistenciaUnica(grdetalle.GetValue("yfcbarra").ToString)) Then
-        '                                ponerProducto(grdetalle.GetValue("yfcbarra").ToString)
-        '                                _prAddDetalleVenta()
-        '                            Else
-        '                                sumarCantidad(grdetalle.GetValue("yfcbarra").ToString)
-        '                            End If
-        '                        Else
-        '                            grdetalle.DataChanged = False
-        '                            ToastNotification.Show(Me, "El código de barra del producto no existe", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                        End If
-        '                    Else
-        '                        grdetalle.DataChanged = False
-        '                        grdetalle.Row = grdetalle.RowCount - 1
-        '                        grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index
-        '                        ToastNotification.Show(Me, "El cursor debe situarse en la ultima fila", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                    End If
-        '                Else
-        '                    ToastNotification.Show(Me, "El código de barra no puede quedar vacio", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            'opcion para cargar la grilla con el codigo de barra
-        '            'If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
-
-        '            '    If (grdetalle.GetValue("yfcbarra") <> String.Empty) Then
-        '            '        _buscarRegistro(grdetalle.GetValue("yfcbarra"))
-
-
-        '            '        '_prAddDetalleVenta()
-        '            '        '_HabilitarProductos()
-        '            '        ' MsgBox("hola de la grilla" + grdetalle.GetValue("yfcbarra") + t.Container.ToString)
-        '            '        'ojo
-        '            '    Else
-        '            '        ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '            '    End If
-
-        '            'End If
-        'salirIf:
-        '        End If
-
-        '        If (e.KeyData = Keys.Control + Keys.Enter And grdetalle.Row >= 0 And
-        '            grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
-        '            Dim indexfil As Integer = grdetalle.Row
-        '            Dim indexcol As Integer = grdetalle.Col
-        '            _HabilitarProductos()
-
-        '        End If
-        '        If (e.KeyData = Keys.Escape And grdetalle.Row >= 0) Then
-
-        '            _prEliminarFila()
-
-
-        '        End If
-        '        If (e.KeyData = Keys.Control + Keys.S) Then
-        '            tbMontoBs.Select()
-        '        End If
-
-
 
     End Sub
 
@@ -2002,206 +1902,41 @@ Public Class F0_PagoCanero
 
     End Sub
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellValueChanged
-        Try
-            If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index) Or (e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index) Then
-                If (Not IsNumeric(grdetalle.GetValue("tbcmin")) Or grdetalle.GetValue("tbcmin").ToString = String.Empty) Then
 
-                    'L_fnListarDescuentosTodos
-                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
+        Try
+            If (e.Column.Index = grdetalle.RootTable.Columns("pagar").Index) Then
+                If (Not IsNumeric(grdetalle.GetValue("pagar")) Or grdetalle.GetValue("pagar").ToString = String.Empty) Then
+                    Dim lin As Integer = grdetalle.GetValue("tanumi")
                     Dim pos As Integer = -1
                     Dim rowIndex As Integer = grdetalle.Row
                     _fnObtenerFilaDetalle(pos, lin)
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcmin") = 1
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
 
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpcos")
-                    grdetalle.SetValue("tbcmin", 1)
-                    grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-
-
-                    CalcularDescuentos(grdetalle.GetValue("tbty5prod"), 1, grdetalle.GetValue("tbpbas"), pos)
-
-                    P_PonerTotal(rowIndex)
+                    grdetalle.SetValue("pagar", 0)
                 Else
-                    If (grdetalle.GetValue("tbcmin") > 0) Then
-                        Dim rowIndex As Integer = grdetalle.Row
-                        Dim porcdesc As Double = grdetalle.GetValue("tbporc")
-                        Dim montodesc As Double = ((grdetalle.GetValue("tbpbas") * grdetalle.GetValue("tbcmin")) * (porcdesc / 100))
-                        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                        Dim pos As Integer = -1
-                        _fnObtenerFilaDetalle(pos, lin)
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot") = grdetalle.GetValue("tbpbas") * grdetalle.GetValue("tbcmin")
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcmin") = grdetalle.GetValue("tbcmin")
-                        'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
-                        'grdetalle.SetValue("tbdesc", montodesc)
-                        'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = (grdetalle.GetValue("tbpbas") * grdetalle.GetValue("tbcmin")) - montodesc
+                    Dim total As Double = grdetalle.GetValue("total").ToString
+                    Dim pagar As Double = grdetalle.GetValue("pagar").ToString
 
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = grdetalle.GetValue("tbpcos") * grdetalle.GetValue("tbcmin")
+                    If (pagar > total) Then
+                        MessageBox.Show("El Valor A Pagar Es Mayor Al Total")
 
-
-                        CalcularDescuentos(grdetalle.GetValue("tbty5prod"), grdetalle.GetValue("tbcmin"), grdetalle.GetValue("tbpbas"), pos)
-
-
-                        P_PonerTotal(rowIndex)
-                        CalculoDescuentoXProveedor()
-
-                    Else
-                        Dim rowIndex As Integer = grdetalle.Row
-                        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                        Dim pos As Integer = -1
-                        _fnObtenerFilaDetalle(pos, lin)
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcmin") = 1
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
-
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpcos")
-                        grdetalle.SetValue("tbcmin", 1)
-                        grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-
-                        CalcularDescuentos(grdetalle.GetValue("tbty5prod"), grdetalle.GetValue("tbcmin"), grdetalle.GetValue("tbpbas"), pos)
-
-
-                        _prCalcularPrecioTotal()
-                        P_PonerTotal(rowIndex)
-                        CalculoDescuentoXProveedor()
-                        'grdetalle.SetValue("tbcmin", 1)
-                        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
 
                     End If
                 End If
             End If
-            '''''''''''''''''''''PORCENTAJE DE DESCUENTO '''''''''''''''''''''
-            'If (e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index) Then
-            '    If (Not IsNumeric(grdetalle.GetValue("tbporc")) Or grdetalle.GetValue("tbporc").ToString = String.Empty) Then
 
-            '        'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-            '        '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
-            '        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-            '        Dim pos As Integer = -1
-            '        _fnObtenerFilaDetalle(pos, lin)
-            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-            '        'grdetalle.SetValue("tbcmin", 1)
-            '        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-            '    Else
-            '        If (grdetalle.GetValue("tbporc") > 0 And grdetalle.GetValue("tbporc") <= 100) Then
-
-            '            Dim porcdesc As Double = grdetalle.GetValue("tbporc")
-            '            Dim montodesc As Double = (grdetalle.GetValue("tbptot") * (porcdesc / 100))
-            '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
-            '            Dim pos As Integer = -1
-            '            _fnObtenerFilaDetalle(pos, lin)
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
-            '            grdetalle.SetValue("tbdesc", montodesc)
-
-            '            Dim rowIndex As Integer = grdetalle.Row
-            '            P_PonerTotal(rowIndex)
-            '            CalculoDescuentoXProveedor()
-            '        Else
-            '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
-            '            Dim pos As Integer = -1
-            '            _fnObtenerFilaDetalle(pos, lin)
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-            '            grdetalle.SetValue("tbporc", 0)
-            '            grdetalle.SetValue("tbdesc", 0)
-            '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
-            '            _prCalcularPrecioTotal()
-            '            'grdetalle.SetValue("tbcmin", 1)
-            '            'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-
-            '        End If
-            '    End If
-            'End If
-
-
-            '''''''''''''''''''''MONTO DE DESCUENTO '''''''''''''''''''''
-            'If (e.Column.Index = grdetalle.RootTable.Columns("tbdesc").Index) Then
-            '    If (Not IsNumeric(grdetalle.GetValue("tbdesc")) Or grdetalle.GetValue("tbdesc").ToString = String.Empty) Then
-
-            '        'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-            '        '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
-            '        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-            '        Dim pos As Integer = -1
-            '        _fnObtenerFilaDetalle(pos, lin)
-            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-            '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-            '        'grdetalle.SetValue("tbcmin", 1)
-            '        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-            '    Else
-            '        If (grdetalle.GetValue("tbdesc") > 0 And grdetalle.GetValue("tbdesc") <= grdetalle.GetValue("tbptot")) Then
-
-            '            Dim montodesc As Double = grdetalle.GetValue("tbdesc")
-            '            Dim pordesc As Double = ((montodesc * 100) / grdetalle.GetValue("tbptot"))
-
-            '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
-            '            Dim pos As Integer = -1
-            '            _fnObtenerFilaDetalle(pos, lin)
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = pordesc
-
-            '            grdetalle.SetValue("tbporc", pordesc)
-            '            Dim rowIndex As Integer = grdetalle.Row
-            '            P_PonerTotal(rowIndex)
-
-            '        Else
-            '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
-            '            Dim pos As Integer = -1
-            '            _fnObtenerFilaDetalle(pos, lin)
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-            '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-            '            grdetalle.SetValue("tbporc", 0)
-            '            grdetalle.SetValue("tbdesc", 0)
-            '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
-            '            _prCalcularPrecioTotal()
-            '            'grdetalle.SetValue("tbcmin", 1)
-            '            'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-
-            '        End If
-            '    End If
-            'End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
     End Sub
 
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grdetalle.MouseClick
-        'Try
-        '    If (Not _fnAccesible()) Then
-        '        Return
-        '    End If
-        '    If (grdetalle.RowCount >= 2) Then
-        '        If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
-        '            _prEliminarFila()
-        '            CalculoDescuentoXProveedor()
-        '        End If
-        '    End If
-        'Catch ex As Exception
-        '    MostrarMensajeError(ex.Message)
-        'End Try
 
     End Sub
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
 
-        tokenSifac = ObtToken(1)
-        If tokenSifac = "400" Then
-            Me.Close()
-            MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
 
-        Else
+        _prGuardar()
 
-            _prGuardar()
-
-        End If
 
     End Sub
 
@@ -2350,28 +2085,6 @@ Public Class F0_PagoCanero
         End If
     End Sub
 
-    Private Sub TbNit_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
-        If btnGrabar.Enabled = True Then
-            'Dim nom1, nom2 As String
-            'nom1 = ""
-            'nom2 = ""
-            'If (tbNit.Text.Trim = String.Empty) Then
-            '    tbNit.Text = "0"
-            'End If
-            'L_Validar_Nit(tbNit.Text.Trim, nom1, nom2)
-            'If nom1 = "" Then
-            '    TbNombre1.Focus()
-            'Else
-            '    TbNombre1.Text = nom1
-            '    TbNombre2.Text = nom2
-            'End If
-            Dim nom1, nom2 As String
-            nom1 = ""
-            nom2 = ""
-
-
-        End If
-    End Sub
 
 
     Private Sub TbNit_KeyPress(sender As Object, e As KeyPressEventArgs)
@@ -2461,20 +2174,7 @@ Public Class F0_PagoCanero
     End Sub
 
     Private Sub grdetalle_Enter(sender As Object, e As EventArgs) Handles grdetalle.Enter
-        Try
-            If (Not _fnAccesible()) Then
-                Return
-            End If
-            If (grdetalle.RowCount >= 1) Then
-                'If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
-                '    _prEliminarFila()
-                '    CalculoDescuentoXProveedor()
-                'End If
-                MessageBox.Show(grdetalle.RootTable.Columns("pagar").ToString)
-            End If
-        Catch ex As Exception
-            MostrarMensajeError(ex.Message)
-        End Try
+
     End Sub
 
 
@@ -2487,74 +2187,6 @@ Public Class F0_PagoCanero
             Me.Opacity = 100
             Timer1.Enabled = False
         End If
-    End Sub
-    Public Sub _GuardarNuevoImprimirBoleta()
-        'Try
-        '    Dim numi As String = ""
-        '    Dim tabla As DataTable = L_fnMostrarMontos(0)
-        '    Dim factura = gb_FacturaEmite
-        '    _prInsertarMontoNuevo(tabla)
-        '    ''Verifica si existe estock para los productos
-        '    If _prExisteStockParaProducto() Then
-        '        ' Dim Succes As String = Emisor(tokenSifac)
-        '        'If Succes = 2 Or Succes = 8 Or Succes = 5 Then
-        '        Dim dtDetalle As DataTable = rearmarDetalle()
-        '        Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-        '                                                 IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-        '                                                Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-        '                                                 _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-        '                                                  tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-        '                                                  dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
-        '        If res Then
-        '            'res = P_fnGrabarFacturarTFV001(numi)
-        '            'Emite factura
-        '            'If (gb_FacturaEmite) Then
-        '            '    If tbNit.Text <> String.Empty Then
-
-        '            '        P_fnGenerarFactura(numi)
-        '            '        _prImiprimirNotaVenta(numi)
-        '            '    Else
-        '            '        _prImiprimirNotaVenta(numi)
-        '            '    End If
-        '            ' Else
-        '            _prImiprimirNotaVenta(numi)
-        '            ' End If
-        '            _prCargarVenta1()
-        '            _prInhabiliitar()
-        '            If grVentas.RowCount > 0 Then
-        '                _prMostrarRegistro(0)
-
-        '            End If
-
-        '            'contabilizar()
-
-        '            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-        '            ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
-        '                                          img, 2000,
-        '                                          eToastGlowColor.Green,
-        '                                          eToastPosition.TopCenter
-        '                                          )
-
-
-        '            '_Limpiar()
-        '            'Table_Producto = Nothing
-
-        '        Else
-        '            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-        '            ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-
-        '        End If
-
-        '        'Else
-        '        '    MessageBox.Show(mensajeRespuesta)
-        '        'End If
-
-        '    End If
-        'Catch ex As Exception
-        '    MostrarMensajeError(ex.Message)
-        'End Try
-
-
     End Sub
 
     Private Sub _prCargarVenta1()
@@ -2977,4 +2609,6 @@ Public Class F0_PagoCanero
         End With
 
     End Sub
+
+
 End Class

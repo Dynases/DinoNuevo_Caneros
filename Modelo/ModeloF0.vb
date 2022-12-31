@@ -31,5 +31,4 @@ Public Class ModeloF0
         TxtNombreUsu.ReadOnly = True
     End Sub
 
-
 End Class

@@ -105,7 +105,7 @@ Partial Class F0_PagoCanero
         '
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelSuperior.Size = New System.Drawing.Size(1232, 72)
+        Me.PanelSuperior.Size = New System.Drawing.Size(1337, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
@@ -129,7 +129,7 @@ Partial Class F0_PagoCanero
         '
         Me.PanelInferior.Location = New System.Drawing.Point(0, 616)
         Me.PanelInferior.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelInferior.Size = New System.Drawing.Size(1232, 39)
+        Me.PanelInferior.Size = New System.Drawing.Size(1337, 39)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Transparent
         Me.PanelInferior.Style.BackColor2.Color = System.Drawing.Color.Transparent
@@ -188,7 +188,7 @@ Partial Class F0_PagoCanero
         'PanelToolBar2
         '
         Me.PanelToolBar2.Controls.Add(Me.btnDuplicar)
-        Me.PanelToolBar2.Location = New System.Drawing.Point(972, 0)
+        Me.PanelToolBar2.Location = New System.Drawing.Point(1077, 0)
         Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelToolBar2.Size = New System.Drawing.Size(260, 72)
         Me.PanelToolBar2.Controls.SetChildIndex(Me.btnImprimir, 0)
@@ -197,7 +197,7 @@ Partial Class F0_PagoCanero
         'PanelPrincipal
         '
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1232, 655)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(1337, 655)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
@@ -223,7 +223,7 @@ Partial Class F0_PagoCanero
         '
         'MPanelUserAct
         '
-        Me.MPanelUserAct.Location = New System.Drawing.Point(1032, 0)
+        Me.MPanelUserAct.Location = New System.Drawing.Point(1137, 0)
         Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(2)
         '
         'MRlAccion
@@ -233,25 +233,25 @@ Partial Class F0_PagoCanero
         '
         Me.MRlAccion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.MRlAccion.Margin = New System.Windows.Forms.Padding(2)
-        Me.MRlAccion.Size = New System.Drawing.Size(596, 72)
+        Me.MRlAccion.Size = New System.Drawing.Size(701, 72)
         Me.MRlAccion.Visible = False
         '
         'PanelContent
         '
         Me.PanelContent.Controls.Add(Me.PanelEncabezado)
         Me.PanelContent.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelContent.Size = New System.Drawing.Size(1199, 544)
+        Me.PanelContent.Size = New System.Drawing.Size(1304, 544)
         Me.PanelContent.TabIndex = 3
         '
         'Panel1
         '
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel1.Size = New System.Drawing.Size(1232, 544)
+        Me.Panel1.Size = New System.Drawing.Size(1337, 544)
         '
         'MSuperTabControlPanel1
         '
         Me.MSuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(1199, 544)
+        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(1304, 544)
         '
         'MSuperTabControl
         '
@@ -271,14 +271,14 @@ Partial Class F0_PagoCanero
         Me.MSuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
         Me.MSuperTabControl.Margin = New System.Windows.Forms.Padding(2)
         Me.MSuperTabControl.SelectedTabIndex = 1
-        Me.MSuperTabControl.Size = New System.Drawing.Size(1232, 544)
+        Me.MSuperTabControl.Size = New System.Drawing.Size(1337, 544)
         Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
         Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         '
         'PictureBox1
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(779, 0)
+        Me.PictureBox1.Location = New System.Drawing.Point(884, 0)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         '
         'GroupPanel2
@@ -290,7 +290,7 @@ Partial Class F0_PagoCanero
         Me.GroupPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupPanel2.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel2.Name = "GroupPanel2"
-        Me.GroupPanel2.Size = New System.Drawing.Size(1199, 150)
+        Me.GroupPanel2.Size = New System.Drawing.Size(1304, 150)
         '
         '
         '
@@ -350,7 +350,7 @@ Partial Class F0_PagoCanero
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1193, 127)
+        Me.Panel2.Size = New System.Drawing.Size(1298, 127)
         Me.Panel2.TabIndex = 0
         '
         'btbBuscar
@@ -802,7 +802,7 @@ Partial Class F0_PagoCanero
         Me.gpDetalleVenta.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gpDetalleVenta.Location = New System.Drawing.Point(0, 0)
         Me.gpDetalleVenta.Name = "gpDetalleVenta"
-        Me.gpDetalleVenta.Size = New System.Drawing.Size(1199, 394)
+        Me.gpDetalleVenta.Size = New System.Drawing.Size(1304, 394)
         '
         '
         '
@@ -842,7 +842,7 @@ Partial Class F0_PagoCanero
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1193, 371)
+        Me.Panel5.Size = New System.Drawing.Size(1298, 371)
         Me.Panel5.TabIndex = 0
         '
         'grdetalle
@@ -855,7 +855,7 @@ Partial Class F0_PagoCanero
         Me.grdetalle.Name = "grdetalle"
         Me.grdetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grdetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grdetalle.Size = New System.Drawing.Size(1193, 371)
+        Me.grdetalle.Size = New System.Drawing.Size(1298, 371)
         Me.grdetalle.TabIndex = 3
         Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -985,7 +985,7 @@ Partial Class F0_PagoCanero
         Me.PanelFondoDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelFondoDetalle.Location = New System.Drawing.Point(0, 150)
         Me.PanelFondoDetalle.Name = "PanelFondoDetalle"
-        Me.PanelFondoDetalle.Size = New System.Drawing.Size(1199, 394)
+        Me.PanelFondoDetalle.Size = New System.Drawing.Size(1304, 394)
         Me.PanelFondoDetalle.TabIndex = 5
         '
         'PanelEncabezado
@@ -995,7 +995,7 @@ Partial Class F0_PagoCanero
         Me.PanelEncabezado.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelEncabezado.Location = New System.Drawing.Point(0, 0)
         Me.PanelEncabezado.Name = "PanelEncabezado"
-        Me.PanelEncabezado.Size = New System.Drawing.Size(1199, 544)
+        Me.PanelEncabezado.Size = New System.Drawing.Size(1304, 544)
         Me.PanelEncabezado.TabIndex = 1
         '
         'SwDescuentoProveedor
@@ -1022,7 +1022,7 @@ Partial Class F0_PagoCanero
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1232, 655)
+        Me.ClientSize = New System.Drawing.Size(1337, 655)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "F0_PagoCanero"

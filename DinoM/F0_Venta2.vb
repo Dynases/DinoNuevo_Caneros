@@ -5041,6 +5041,66 @@ salirIf:
 
         Return codigo
     End Function
+
+    Public Function ConsultarEstadoEmision(tokenObtenido, sucursal, numeroDocumento)
+
+        Dim api = New DBApi()
+        Dim Emenvio = New EmisorEnvio.Emisor()
+
+        Dim NumFactura As Integer
+        Dim dsApi As DataSet
+
+
+        'NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
+
+        Emenvio.nitEmisor = 1028395023
+        If sucursal = 1 Then
+            Emenvio.codigoSucursal = 0
+        ElseIf sucursal = 2 Then
+            Emenvio.codigoSucursal = 3
+        End If
+        Emenvio.codigoPuntoVenta = 0
+        Emenvio.codigoDocumentoSector = 1
+        Emenvio.numeroDocumento = numeroDocumento
+        Emenvio.AnioEmision = Year(tbFechaVenta.Text)
+
+
+
+        Dim json = JsonConvert.SerializeObject(Emenvio)
+        Dim url = "https://labbo-emp-operaciones-v2-1.guru-soft.com/api/Operaciones/AnulaDocumento"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.Post(url, headers, parametros, Emenvio)
+
+        Dim result = JsonConvert.DeserializeObject(Of RespEmisor)(response)
+        Dim resultError = JsonConvert.DeserializeObject(Of Resp400)(response)
+        MessageBox.Show(result.mensajeRespuesta)
+        'codigoRecepcion = result.codigoRecepcion
+        estadoEmisionEdoc = result.estadoAnulacionEDOC
+        'fechaEmision1 = result.fechaEmision
+        'cuf = result.cuf
+        'cuis = result.cuis
+        'cufd = result.cufd
+        'codigoControl = result.codigoControl
+        'linkCodigoQr = result.linkCodigoQR
+        'codigoError = result.codigoError
+        'mensajeRespuesta = result.mensajeRespuesta
+
+        Dim codigo = result.estadoAnulacionEDOC 'result.codigoError
+        Dim xml As String
+
+
+
+
+
+        Return codigo
+    End Function
     Public Function MetodoPago(tokenObtenido)
 
         Dim api = New DBApi()
@@ -5073,13 +5133,6 @@ salirIf:
         Return ""
     End Function
 
-    Private Sub LabelX19_Click(sender As Object, e As EventArgs) Handles LabelX19.Click
-
-    End Sub
-
-    Private Sub LabelX25_Click(sender As Object, e As EventArgs) Handles LabelX25.Click
-
-    End Sub
 
 
 End Class

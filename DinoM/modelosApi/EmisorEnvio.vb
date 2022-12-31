@@ -44,6 +44,7 @@
         Public Property descuentoAdicional As Integer
         Public Property codigoExcepcion As Integer
         Public Property usuario As String
+        Public Property AnioEmision As String
         Public Property email As String
         Public Property cuf As String
         Public Property actividadEconomica As Integer
