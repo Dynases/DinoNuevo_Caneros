@@ -500,8 +500,11 @@ Public Class P_Principal
 #Region "Modulo Venta"
 
     Private Sub btVentVenta_Click(sender As Object, e As EventArgs) Handles btVentVenta.Click
+
         Dim Ds As DataTable
         Ds = TraerEstadoFacturas()
+        Dim Listafac(Ds.Rows.Count - 1) As Integer
+        Dim i As Integer = 0
         If Ds.Rows.Count > 0 Then
             Dim ef = New Efecto
             ef.tipo = 5
@@ -517,15 +520,43 @@ Public Class P_Principal
                     MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
 
                 Else
-                    F0_Venta2.ConsultarEstadoEmision(tokenSifac, 1, 309)
+                    For Each row As DataRow In Ds.Rows
+                        Dim codigoFac As Integer = row("fvanumi")
+                        Dim fecha As String = row("fvafec")
+                        Dim numFac As Integer = row("fvanfac")
+                        Dim sucursal As Integer = gi_userSuc
+                        Dim estado = F0_Venta2.ConsultarEstadoEmision(tokenSifac, sucursal, numFac, fecha)
+                        If estado = 2 Then
+                            cambiarEstadoEmision(codigoFac, fecha, numFac)
+                            Listafac(i) = numFac
+                        End If
+
+                        i = i + 1
+                    Next
+
                 End If
-                Dim frm As New F0_Venta2
-                frm._nameButton = btVentVenta.Name
-                frm._modulo = FP_VENTAS
-                frm.Show()
+                Dim codigos As String = ""
+                For Each Valor In Listafac
+                    If Valor.ToString = "0" Then
+                        Return
+
+                    Else
+                        codigos = codigos + "," + Valor.ToString
+                    End If
+                Next
+                codigos = Mid(codigos, 2)
+                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                ToastNotification.Show(Me, "Se revisaron las facturas pendiente Se actualizo el estado de las facturas con codigo(s): " + codigos, img, 10000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                'Dim frm As New F0_Venta2
+                'frm._nameButton = btVentVenta.Name
+                'frm._modulo = FP_VENTAS
+                'frm.Show()
+
+
             ElseIf (bandera = False) Then
                 'SideNav1.IsMenuExpanded = False
                 'Ventana.Select()
+
                 Dim frm As New F0_Venta2
                 frm._nameButton = btVentVenta.Name
                 'Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
@@ -537,8 +568,16 @@ Public Class P_Principal
                 frm.Show()
                 'tab3.Text = frm.Text
                 'tab3.Icon = frm.Icon
+
+
             End If
+        Else
+            Dim frm As New F0_Venta2
+            frm._nameButton = btVentVenta.Name
+            frm._modulo = FP_VENTAS
+            frm.Show()
         End If
+
 
     End Sub
 

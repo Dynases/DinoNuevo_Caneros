@@ -5042,14 +5042,13 @@ salirIf:
         Return codigo
     End Function
 
-    Public Function ConsultarEstadoEmision(tokenObtenido, sucursal, numeroDocumento)
+    Public Function ConsultarEstadoEmision(tokenObtenido, sucursal, numeroDocumento, fechaFac)
 
         Dim api = New DBApi()
         Dim Emenvio = New EmisorEnvio.consultarEstadoEmision()
 
         Dim NumFactura As Integer
         Dim dsApi As DataSet
-
 
         'NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
 
@@ -5062,12 +5061,12 @@ salirIf:
         Emenvio.codigoPuntoVenta = 0
         Emenvio.codigoDocumentoSector = 1
         Emenvio.numeroDocumento = numeroDocumento
-        Emenvio.AnioEmision = "2022" '2022 ' Year(tbFechaVenta.Text)
+        Emenvio.AnioEmision = Year(fechaFac) '2022 ' Year(tbFechaVenta.Text)
 
 
 
         Dim json = JsonConvert.SerializeObject(Emenvio)
-        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultaDocumentoXId?nit=1028395023&anioEmision=2022&codigoDocumentoSector=1&codigoSucursal=0&codigoPuntoVenta=0&numeroDocumento=309"
+        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultaDocumentoXId?nit=1028395023&anioEmision=" + Emenvio.AnioEmision.ToString + "&codigoDocumentoSector=1&codigoSucursal=" + Emenvio.codigoSucursal.ToString + "&codigoPuntoVenta=0&numeroDocumento=" + Emenvio.numeroDocumento.ToString
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),
@@ -5080,9 +5079,9 @@ salirIf:
 
         Dim result = JsonConvert.DeserializeObject(Of RespEmisor)(response)
         Dim resultError = JsonConvert.DeserializeObject(Of Resp400)(response)
-        MessageBox.Show(result.mensajeRespuesta)
+        'MessageBox.Show(result.mensajeRespuesta)
         'codigoRecepcion = result.codigoRecepcion
-        estadoEmisionEdoc = result.estadoAnulacionEDOC
+        estadoEmisionEdoc = result.estadoEmisionEDOC
         'fechaEmision1 = result.fechaEmision
         'cuf = result.cuf
         'cuis = result.cuis
@@ -5092,7 +5091,7 @@ salirIf:
         'codigoError = result.codigoError
         'mensajeRespuesta = result.mensajeRespuesta
 
-        Dim codigo = result.estadoAnulacionEDOC 'result.codigoError
+        Dim codigo = result.estadoEmisionEDOC  'result.codigoError
         Dim xml As String
 
 
