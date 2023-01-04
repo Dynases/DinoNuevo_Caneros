@@ -304,8 +304,8 @@ Public Class F0_Venta2
         _CodEmpleado = 0
         tbFechaVenta.Value = Now.Date
         swTipoVenta.Value = False
-        tbFechaVenc.Visible = True
-        lbCredito.Visible = True
+        tbFechaVenc.Visible = False
+        lbCredito.Visible = False
         _prCargarDetalleVenta(-1)
         MSuperTabControl.SelectedTabIndex = 0
         tbSubTotal.Value = 0
@@ -1701,7 +1701,7 @@ Public Class F0_Venta2
                         '_Limpiar()
                         _prCargarVenta()
                         If swTipoVenta.Value = False Then
-                            MessageBox.Show(tbCodigo.Text)
+                            'MessageBox.Show(tbCodigo.Text)
                             L_fnGrabarTxCobrar(tbCodigo.Text)
                         End If
 
@@ -2852,8 +2852,8 @@ Public Class F0_Venta2
     End Sub
     Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs) Handles swTipoVenta.ValueChanged
         If (swTipoVenta.Value = False) Then
-            lbCredito.Visible = True
-            tbFechaVenc.Visible = True
+            lbCredito.Visible = False
+            tbFechaVenc.Visible = False
             tbFechaVenc.Value = DateAdd(DateInterval.Day, _dias, Now.Date)
 
         Else
@@ -3776,9 +3776,9 @@ salirIf:
             Dim dt As DataTable
             'dt = L_fnListarClientes()
             dt = L_fnListarClientesVentas(_CodCliente)
-            TbNombre1.Text = dt.Rows(1).Item(11)
-            tbNit.Text = dt.Rows(1).Item(12)
-            _CodEmpleado = dt.Rows(1).Item(8)
+            TbNombre1.Text = dt.Rows(0).Item(11)
+            tbNit.Text = dt.Rows(0).Item(12)
+            _CodEmpleado = dt.Rows(0).Item(8)
             tipoDocumento = dt.Rows(0)("ydtipdocelec") 'dt.Rows(1).Item(8) ' dt.Row.Cells("ydtipdocelec").Value
             dtiFechaFactura.Value = Now.Date
             'swTipoVenta.Value = grVentas.GetValue("tatven")
@@ -4877,7 +4877,7 @@ salirIf:
         Emenvio.numeroFactura = NumFactura
         Emenvio.montoTotal = PrecioTot
         Emenvio.montoTotalSujetoIva = PrecioTot
-        Emenvio.codigoMoneda = 2
+        Emenvio.codigoMoneda = 1
         Emenvio.tipoCambio = 1
         Emenvio.montoTotalMoneda = PrecioTot
         Emenvio.codigoMetodoPago = CbMetodoPago.Value
