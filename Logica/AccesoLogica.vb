@@ -1704,7 +1704,20 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function L_prReporteRetiroCaneroUno(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@cliente", CodCan))
+        _listParam.Add(New Datos.DParametro("@vendedor", CodIns))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("Sp_Mam_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnListarInstitucion() As DataTable
         Dim _Tabla As DataTable
 
@@ -1720,6 +1733,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 31))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnListarCanerosxInst(Cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 13))
+        _listParam.Add(New Datos.DParametro("@ydcod", Cod))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
 
         Return _Tabla

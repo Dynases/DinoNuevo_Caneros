@@ -607,6 +607,12 @@
     <Compile Include="Pr_MovimientoDiarioVentas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pr_ProductoRetiradoxCañero.Designer.vb">
+      <DependentUpon>Pr_ProductoRetiradoxCañero.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_ProductoRetiradoxCañero.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pr_ReporteBoletaCaneroInstitucion.Designer.vb">
       <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
     </Compile>
@@ -1201,6 +1207,12 @@
     <Compile Include="R_KardexCreditoPagos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="R_ProductoRetiradoxCañero.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_ProductoRetiradoxCañero.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\Efecto.Designer.vb">
       <DependentUpon>Efecto.vb</DependentUpon>
     </Compile>
@@ -1434,6 +1446,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_MovimientoDiarioVentas.resx">
       <DependentUpon>Pr_MovimientoDiarioVentas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_ProductoRetiradoxCañero.resx">
+      <DependentUpon>Pr_ProductoRetiradoxCañero.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_ReporteBoletaCaneroInstitucion.resx">
       <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
@@ -1810,6 +1825,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="R_KardexCreditoPagos.resx">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R_ProductoRetiradoxCañero.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_ProductoRetiradoxCañero.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>

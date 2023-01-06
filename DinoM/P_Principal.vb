@@ -547,10 +547,10 @@ Public Class P_Principal
                 codigos = Mid(codigos, 2)
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                 ToastNotification.Show(Me, "Se revisaron las facturas pendiente Se actualizo el estado de las facturas con codigo(s): " + codigos, img, 10000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                'Dim frm As New F0_Venta2
-                'frm._nameButton = btVentVenta.Name
-                'frm._modulo = FP_VENTAS
-                'frm.Show()
+                Dim frm As New F0_Venta2
+                frm._nameButton = btVentVenta.Name
+                frm._modulo = FP_VENTAS
+                frm.Show()
 
 
             ElseIf (bandera = False) Then
@@ -1296,7 +1296,10 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
-
+    Private Sub btProductoRetiradoxCañero_Click(sender As Object, e As EventArgs) Handles btProductoRetiradoxCañero.Click
+        Dim frm As New Pr_ProductoRetiradoxCañero
+        frm.Show()
+    End Sub
 
 
     'Private Sub btnCredPagoCliente_Click(sender As Object, e As EventArgs) Handles btnCredPagoCliente.Click

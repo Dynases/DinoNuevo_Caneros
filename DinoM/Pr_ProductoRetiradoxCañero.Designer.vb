@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Pr_ReporteBoletaCaneroInstitucion
+Partial Class Pr_ProductoRetiradoxCañero
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -22,9 +22,16 @@ Partial Class Pr_ReporteBoletaCaneroInstitucion
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
+        Me.PanelEx1 = New DevComponents.DotNetBar.PanelEx()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.tbNomCan = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.CheckTodosCan = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.CheckUnaCan = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.tbCodCan = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.tbInsCan = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.CheckTodos = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.CheckUna = New DevComponents.DotNetBar.Controls.CheckBoxX()
@@ -34,33 +41,77 @@ Partial Class Pr_ReporteBoletaCaneroInstitucion
         Me.tbFechaF = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.swSubTipo = New DevComponents.DotNetBar.Controls.SwitchButton()
-        Me.swTipo = New DevComponents.DotNetBar.Controls.SwitchButton()
-        Me.PanelEx1 = New DevComponents.DotNetBar.PanelEx()
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.CrystalReportViewer1 = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
+        Me.PanelEx1.SuspendLayout()
         Me.GroupPanel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
-        Me.PanelEx1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'PanelEx1
+        '
+        Me.PanelEx1.CanvasColor = System.Drawing.SystemColors.Control
+        Me.PanelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.PanelEx1.Controls.Add(Me.ButtonX2)
+        Me.PanelEx1.Controls.Add(Me.ButtonX1)
+        Me.PanelEx1.DisabledBackColor = System.Drawing.Color.Empty
+        Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelEx1.Name = "PanelEx1"
+        Me.PanelEx1.Size = New System.Drawing.Size(363, 72)
+        Me.PanelEx1.Style.Alignment = System.Drawing.StringAlignment.Center
+        Me.PanelEx1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.PanelEx1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.PanelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
+        Me.PanelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
+        Me.PanelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
+        Me.PanelEx1.Style.GradientAngle = 90
+        Me.PanelEx1.TabIndex = 13
+        '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.ButtonX2.Image = Global.DinoM.My.Resources.Resources.ventasCostos
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.ButtonX2.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX2.Location = New System.Drawing.Point(98, 0)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(72, 72)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX2.TabIndex = 1
+        Me.ButtonX2.Text = "GENERAR"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.ButtonX1.Image = Global.DinoM.My.Resources.Resources.atras1
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.ButtonX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX1.Location = New System.Drawing.Point(168, 0)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(72, 69)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 0
+        Me.ButtonX1.Text = "SALIR"
+        Me.ButtonX1.TextColor = System.Drawing.Color.White
         '
         'GroupPanel1
         '
+        Me.GroupPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
         Me.GroupPanel1.Controls.Add(Me.GroupBox2)
-        Me.GroupPanel1.Controls.Add(Me.GroupBox1)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.GroupPanel1.Location = New System.Drawing.Point(0, 72)
+        Me.GroupPanel1.Location = New System.Drawing.Point(0, 75)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(363, 659)
+        Me.GroupPanel1.Size = New System.Drawing.Size(363, 375)
         '
         '
         '
@@ -89,7 +140,7 @@ Partial Class Pr_ReporteBoletaCaneroInstitucion
         '
         '
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupPanel1.TabIndex = 10
+        Me.GroupPanel1.TabIndex = 15
         Me.GroupPanel1.Text = "F I L T R O S"
         '
         'GroupBox2
@@ -98,6 +149,11 @@ Partial Class Pr_ReporteBoletaCaneroInstitucion
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.tbNomCan)
+        Me.GroupBox2.Controls.Add(Me.CheckTodosCan)
+        Me.GroupBox2.Controls.Add(Me.CheckUnaCan)
+        Me.GroupBox2.Controls.Add(Me.tbCodCan)
+        Me.GroupBox2.Controls.Add(Me.LabelX2)
         Me.GroupBox2.Controls.Add(Me.tbInsCan)
         Me.GroupBox2.Controls.Add(Me.CheckTodos)
         Me.GroupBox2.Controls.Add(Me.CheckUna)
@@ -108,12 +164,83 @@ Partial Class Pr_ReporteBoletaCaneroInstitucion
         Me.GroupBox2.Controls.Add(Me.LabelX4)
         Me.GroupBox2.Controls.Add(Me.tbFechaI)
         Me.GroupBox2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 79)
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(357, 554)
+        Me.GroupBox2.Size = New System.Drawing.Size(351, 355)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos"
+        '
+        'tbNomCan
+        '
+        '
+        '
+        '
+        Me.tbNomCan.Border.Class = "TextBoxBorder"
+        Me.tbNomCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNomCan.Location = New System.Drawing.Point(53, 156)
+        Me.tbNomCan.Name = "tbNomCan"
+        Me.tbNomCan.PreventEnterBeep = True
+        Me.tbNomCan.Size = New System.Drawing.Size(185, 21)
+        Me.tbNomCan.TabIndex = 250
+        '
+        'CheckTodosCan
+        '
+        '
+        '
+        '
+        Me.CheckTodosCan.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckTodosCan.Location = New System.Drawing.Point(294, 157)
+        Me.CheckTodosCan.Name = "CheckTodosCan"
+        Me.CheckTodosCan.Size = New System.Drawing.Size(55, 23)
+        Me.CheckTodosCan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckTodosCan.TabIndex = 249
+        Me.CheckTodosCan.Text = "Todos"
+        '
+        'CheckUnaCan
+        '
+        '
+        '
+        '
+        Me.CheckUnaCan.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckUnaCan.Location = New System.Drawing.Point(244, 157)
+        Me.CheckUnaCan.Name = "CheckUnaCan"
+        Me.CheckUnaCan.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnaCan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckUnaCan.TabIndex = 246
+        Me.CheckUnaCan.Text = "Una"
+        '
+        'tbCodCan
+        '
+        '
+        '
+        '
+        Me.tbCodCan.Border.Class = "TextBoxBorder"
+        Me.tbCodCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodCan.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodCan.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodCan.Location = New System.Drawing.Point(3, 156)
+        Me.tbCodCan.Name = "tbCodCan"
+        Me.tbCodCan.PreventEnterBeep = True
+        Me.tbCodCan.Size = New System.Drawing.Size(44, 22)
+        Me.tbCodCan.TabIndex = 248
+        Me.tbCodCan.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'LabelX2
+        '
+        Me.LabelX2.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX2.Location = New System.Drawing.Point(3, 127)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX2.Size = New System.Drawing.Size(133, 23)
+        Me.LabelX2.TabIndex = 247
+        Me.LabelX2.Text = "Cañero:"
         '
         'tbInsCan
         '
@@ -310,115 +437,6 @@ Partial Class Pr_ReporteBoletaCaneroInstitucion
         Me.tbFechaI.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaI.TabIndex = 232
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
-        Me.GroupBox1.Controls.Add(Me.swSubTipo)
-        Me.GroupBox1.Controls.Add(Me.swTipo)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(357, 79)
-        Me.GroupBox1.TabIndex = 2
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Agrupados"
-        '
-        'swSubTipo
-        '
-        '
-        '
-        '
-        Me.swSubTipo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.swSubTipo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.swSubTipo.Location = New System.Drawing.Point(69, 51)
-        Me.swSubTipo.Name = "swSubTipo"
-        Me.swSubTipo.OffBackColor = System.Drawing.Color.DarkSlateGray
-        Me.swSubTipo.OffText = "MOSTRAR INSTITUCION"
-        Me.swSubTipo.OffTextColor = System.Drawing.Color.White
-        Me.swSubTipo.OnBackColor = System.Drawing.Color.Gold
-        Me.swSubTipo.OnText = "MOSTRAR CAÑEROS"
-        Me.swSubTipo.Size = New System.Drawing.Size(207, 22)
-        Me.swSubTipo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swSubTipo.TabIndex = 7
-        Me.swSubTipo.Value = True
-        Me.swSubTipo.ValueObject = "Y"
-        '
-        'swTipo
-        '
-        '
-        '
-        '
-        Me.swTipo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.swTipo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swTipo.Location = New System.Drawing.Point(96, 20)
-        Me.swTipo.Name = "swTipo"
-        Me.swTipo.OffBackColor = System.Drawing.Color.DarkSlateGray
-        Me.swTipo.OffText = "CAÑEROS"
-        Me.swTipo.OffTextColor = System.Drawing.Color.White
-        Me.swTipo.OnBackColor = System.Drawing.Color.Gold
-        Me.swTipo.OnText = "INSTITUCION"
-        Me.swTipo.Size = New System.Drawing.Size(162, 22)
-        Me.swTipo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swTipo.TabIndex = 6
-        Me.swTipo.Value = True
-        Me.swTipo.ValueObject = "Y"
-        '
-        'PanelEx1
-        '
-        Me.PanelEx1.CanvasColor = System.Drawing.SystemColors.Control
-        Me.PanelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.PanelEx1.Controls.Add(Me.ButtonX2)
-        Me.PanelEx1.Controls.Add(Me.ButtonX1)
-        Me.PanelEx1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.PanelEx1.Location = New System.Drawing.Point(1, 0)
-        Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(363, 72)
-        Me.PanelEx1.Style.Alignment = System.Drawing.StringAlignment.Center
-        Me.PanelEx1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.PanelEx1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.PanelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
-        Me.PanelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
-        Me.PanelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
-        Me.PanelEx1.Style.GradientAngle = 90
-        Me.PanelEx1.TabIndex = 9
-        '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.ButtonX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.ButtonX2.Image = Global.DinoM.My.Resources.Resources.ventasCostos
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.ButtonX2.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.ButtonX2.Location = New System.Drawing.Point(98, 0)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(72, 72)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX2.TabIndex = 1
-        Me.ButtonX2.Text = "GENERAR"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.ButtonX1.Image = Global.DinoM.My.Resources.Resources.atras1
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.ButtonX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.ButtonX1.Location = New System.Drawing.Point(168, 0)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(72, 69)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 0
-        Me.ButtonX1.Text = "SALIR"
-        Me.ButtonX1.TextColor = System.Drawing.Color.White
-        '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        '
         'CrystalReportViewer1
         '
         Me.CrystalReportViewer1.ActiveViewIndex = -1
@@ -427,33 +445,36 @@ Partial Class Pr_ReporteBoletaCaneroInstitucion
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CrystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CrystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.CrystalReportViewer1.Location = New System.Drawing.Point(365, 0)
+        Me.CrystalReportViewer1.Location = New System.Drawing.Point(369, 0)
         Me.CrystalReportViewer1.Name = "CrystalReportViewer1"
-        Me.CrystalReportViewer1.Size = New System.Drawing.Size(989, 731)
-        Me.CrystalReportViewer1.TabIndex = 11
+        Me.CrystalReportViewer1.Size = New System.Drawing.Size(432, 450)
+        Me.CrystalReportViewer1.TabIndex = 14
         Me.CrystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         '
-        'Pr_ReporteBoletaCaneroInstitucion
+        'Pr_ProductoRetiradoxCañero
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1354, 733)
-        Me.Controls.Add(Me.CrystalReportViewer1)
+        Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.GroupPanel1)
+        Me.Controls.Add(Me.CrystalReportViewer1)
         Me.Controls.Add(Me.PanelEx1)
-        Me.Name = "Pr_ReporteBoletaCaneroInstitucion"
-        Me.Text = "Pr_ReporteBoletaCaneroInstitucion"
+        Me.Name = "Pr_ProductoRetiradoxCañero"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Pr_ProductoRetiradoxCañero"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
+        Me.PanelEx1.ResumeLayout(False)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.PanelEx1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
 
+    Friend WithEvents PanelEx1 As DevComponents.DotNetBar.PanelEx
+    Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents CrystalReportViewer1 As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents GroupBox2 As GroupBox
@@ -466,11 +487,9 @@ Partial Class Pr_ReporteBoletaCaneroInstitucion
     Friend WithEvents tbFechaF As DevComponents.Editors.DateTimeAdv.DateTimeInput
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbFechaI As DevComponents.Editors.DateTimeAdv.DateTimeInput
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents swTipo As DevComponents.DotNetBar.Controls.SwitchButton
-    Friend WithEvents PanelEx1 As DevComponents.DotNetBar.PanelEx
-    Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents Timer1 As Timer
-    Friend WithEvents swSubTipo As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents tbNomCan As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents CheckTodosCan As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents CheckUnaCan As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents tbCodCan As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
 End Class
