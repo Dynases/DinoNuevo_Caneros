@@ -2486,6 +2486,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 181))
+        _listParam.Add(New Datos.DParametro("@tanumi", numi))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
 
         Return _Tabla

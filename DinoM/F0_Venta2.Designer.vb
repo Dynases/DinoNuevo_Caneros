@@ -612,6 +612,7 @@ Partial Class F0_Venta2
         Me.lbCredito.Size = New System.Drawing.Size(90, 23)
         Me.lbCredito.TabIndex = 358
         Me.lbCredito.Text = "Venc. Crédito:"
+        Me.lbCredito.Visible = False
         '
         'tbFechaVenc
         '

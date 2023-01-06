@@ -507,11 +507,11 @@ Public Class F1_Clientes
                 End If
             End If
         Else
-            'res = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
-            '              NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
-            '              IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
-            '              _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
-            '              nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
+            res = L_fnGrabarCLiente(tbCodigoOriginal.Text, tbCodCliente.Text, tbRazonSocial.Text, tbRazonSocial.Text,
+                          NumiVendedor, 0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
+                          IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), tbNombFac.Text,
+                          _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbFIngr.Value.ToString("yyyy/MM/dd"),
+                          nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
             If res Then
                 Modificado = False
                 _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImg)
@@ -527,7 +527,7 @@ Public Class F1_Clientes
 
             Else
                 Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                ToastNotification.Show(Me, "El producto no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                ToastNotification.Show(Me, "El Cañero no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
             End If
         End If
