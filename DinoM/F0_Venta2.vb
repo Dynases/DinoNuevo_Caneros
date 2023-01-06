@@ -174,7 +174,7 @@ Public Class F0_Venta2
 
         tbCodigo.ReadOnly = True
         tbCliente.ReadOnly = True
-        tbVendedor.ReadOnly = False
+        tbVendedor.ReadOnly = True
         tbFechaVenta.IsInputReadOnly = True
         tbFechaVenta.Enabled = False
         swMoneda.IsReadOnly = True
@@ -182,6 +182,8 @@ Public Class F0_Venta2
         swTipoVenta.IsReadOnly = True
         txtEstado.ReadOnly = True
         tbComplemento.ReadOnly = True
+        cbCambioDolar.ReadOnly = True
+        CbMetodoPago.ReadOnly = True
 
         'Datos facturacion
         tbNroAutoriz.ReadOnly = True
@@ -223,6 +225,7 @@ Public Class F0_Venta2
         tbNit.ReadOnly = True
         TbNombre1.ReadOnly = True
         TbNombre2.ReadOnly = True
+        tbObservacion.ReadOnly = True
         cbSucursal.ReadOnly = True
         FilaSelectLote = Nothing
     End Sub
@@ -233,21 +236,23 @@ Public Class F0_Venta2
         ''  tbCliente.ReadOnly = False  por que solo podra seleccionar Cliente
         ''  tbVendedor.ReadOnly = False
         tbFechaVenc.IsInputReadOnly = False
-
+        cbCambioDolar.ReadOnly = False
+        CbMetodoPago.ReadOnly = False
         swTipoVenta.IsReadOnly = False
         swTipoVenta.Value = 0
         'btnContabilizar.Visible = False
         tbFechaVenta.IsInputReadOnly = False
         tbFechaVenta.Enabled = True
-        tbComplemento.ReadOnly = False
+        'tbComplemento.ReadOnly = False
         swMoneda.IsReadOnly = False
 
         btnGrabar.Enabled = False
         btnBitacora.Enabled = True
 
-        tbNit.ReadOnly = False
-        TbNombre1.ReadOnly = False
+        ' tbNit.ReadOnly = False
+        'TbNombre1.ReadOnly = False
         TbNombre2.ReadOnly = False
+        tbObservacion.ReadOnly = False
 
         'Datos facturacion
         tbNroAutoriz.ReadOnly = False
@@ -1767,36 +1772,38 @@ Public Class F0_Venta2
     Private Sub _prGuardarModificado()
         Dim tabla As DataTable = L_fnMostrarMontos(0)
         _prInsertarMontoModificar(tabla)
-        Dim dtDetalle As DataTable = rearmarDetalle()
-        Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi, IIf(swTipoVenta.Value = True, 1, 0),
-                                                IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-                                                _CodCliente, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text, dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
+        If _prExisteStockParaProducto() Then
+            Dim dtDetalle As DataTable = rearmarDetalle()
+            Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi, IIf(swTipoVenta.Value = True, 1, 0),
+                                                    IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
+                                                    _CodCliente, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text, dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
 
-        'numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-        '                                                 IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-        '                                                Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-        '                                                 _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-        '                                                  tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-        '                                                  dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
-        If res Then
-            'If (gb_FacturaEmite) Then
-            '    L_fnEliminarDatos("TFV001", "fvanumi=" + tbCodigo.Text.Trim)
-            '    L_fnEliminarDatos("TFV0011", "fvbnumi=" + tbCodigo.Text.Trim)
-            '    P_fnGenerarFactura(tbCodigo.Text.Trim)
-            'End If
-            _prImiprimirNotaVenta(tbCodigo.Text)
-            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-            ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper,
-                                      img, 2000,
-                                      eToastGlowColor.Green,
-                                      eToastPosition.TopCenter
-                                      )
-            _prCargarVenta()
-            _prSalir()
-        Else
-            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-            ToastNotification.Show(Me, "La Venta no pudo ser Modificada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            'numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
+            '                                                 IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
+            '                                                Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
+            '                                                 _CodCliente, IIf(swMoneda.Value = True, 1, 0),
+            '                                                  tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+            '                                                  dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
+            If res Then
+                'If (gb_FacturaEmite) Then
+                '    L_fnEliminarDatos("TFV001", "fvanumi=" + tbCodigo.Text.Trim)
+                '    L_fnEliminarDatos("TFV0011", "fvbnumi=" + tbCodigo.Text.Trim)
+                '    P_fnGenerarFactura(tbCodigo.Text.Trim)
+                'End If
+                _prImiprimirNotaVenta(tbCodigo.Text)
+                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper,
+                                          img, 2000,
+                                          eToastGlowColor.Green,
+                                          eToastPosition.TopCenter
+                                          )
+                _prCargarVenta()
+                _prSalir()
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                ToastNotification.Show(Me, "La Venta no pudo ser Modificada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
+            End If
         End If
     End Sub
     Private Sub _prSalir()
@@ -2715,6 +2722,7 @@ Public Class F0_Venta2
             CbMetodoPago.SelectedIndex = -1
 
             _IniciarTodo()
+
         End If
 
     End Sub
@@ -4263,14 +4271,17 @@ salirIf:
                 Else
                     Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
                     ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-
                 End If
 
-                'Else
-                '    MessageBox.Show(mensajeRespuesta)
-                'End If
-
             End If
+
+
+            'Else
+            '    MessageBox.Show(mensajeRespuesta)
+            'End If
+
+
+
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
