@@ -118,6 +118,19 @@ Public Class F0_MCompras
         tbNDui.ReadOnly = True
         tbSACF.ReadOnly = True
 
+        tbChofer.Visible = False
+        tbCamion.Visible = False
+        tbPlaca.Visible = False
+        tbRecibio.Visible = False
+        tbEntrego.Visible = False
+        tbHojaRuta.Visible = False
+        LabelX15.Visible = False
+        LabelX17.Visible = False
+        LabelX18.Visible = False
+        LabelX19.Visible = False
+        LabelX20.Visible = False
+        LabelX21.Visible = False
+
         ''''''''''
         btnModificar.Enabled = True
         btnGrabar.Enabled = False
@@ -300,6 +313,8 @@ Public Class F0_MCompras
             lbFecha.Text = CType(.GetValue("cafact"), Date).ToString("dd/MM/yyyy")
             lbHora.Text = .GetValue("cahact").ToString
             lbUsuario.Text = .GetValue("cauact").ToString
+
+
 
 
         End With
@@ -1094,7 +1109,8 @@ Public Class F0_MCompras
                                                   tbtotal.Value, CType(grdetalle.DataSource, DataTable),
                                                   _detalleCompras, IIf(swEmision.Value = True, 1, 0),
                                                   tbNFactura.Text, IIf(swConsigna.Value = True, 1, 0),
-                                                  IIf(swRetencion.Value = True, 1, 0), IIf(swMoneda.Value = True, 1, tbTipoCambio.Value))
+                                                  IIf(swRetencion.Value = True, 1, 0), IIf(swMoneda.Value = True, 1, tbTipoCambio.Value), tbChofer.Text,
+                                                  tbCamion.Text, tbPlaca.Text, tbRecibio.Text, tbEntrego.Text, CInt(tbHojaRuta.Text))
             If res Then
 
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -2017,6 +2033,37 @@ salirIf:
             _prAddDetalleVenta()
             _DesHabilitarProductos()
         End If
+        If btnGrabar.Enabled = True And cbSucursal.Value = 3 Then
+            tbChofer.Visible = True
+            tbCamion.Visible = True
+            tbPlaca.Visible = True
+            tbRecibio.Visible = True
+            tbEntrego.Visible = True
+            tbHojaRuta.Visible = True
+            LabelX15.Visible = True
+            LabelX17.Visible = True
+            LabelX18.Visible = True
+            LabelX19.Visible = True
+            LabelX20.Visible = True
+            LabelX21.Visible = True
+        Else
+            tbChofer.Visible = False
+            tbCamion.Visible = False
+            tbPlaca.Visible = False
+            tbRecibio.Visible = False
+            tbEntrego.Visible = False
+            tbHojaRuta.Visible = False
+            LabelX15.Visible = False
+            LabelX17.Visible = False
+            LabelX18.Visible = False
+            LabelX19.Visible = False
+            LabelX20.Visible = False
+            LabelX21.Visible = False
+        End If
+    End Sub
+
+    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
+
     End Sub
 
 #End Region
