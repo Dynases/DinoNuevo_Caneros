@@ -142,6 +142,8 @@ Partial Class F0_VentaComb
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grProductos = New Janus.Windows.GridEX.GridEX()
         Me.SwConta = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.LabelX29 = New DevComponents.DotNetBar.LabelX()
+        Me.tbAutoriza = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -531,6 +533,8 @@ Partial Class F0_VentaComb
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.LabelX29)
+        Me.Panel2.Controls.Add(Me.tbAutoriza)
         Me.Panel2.Controls.Add(Me.SwSurtidor)
         Me.Panel2.Controls.Add(Me.cbDespachador)
         Me.Panel2.Controls.Add(Me.cbSurtidor)
@@ -1017,6 +1021,7 @@ Partial Class F0_VentaComb
         Me.lbCredito.Size = New System.Drawing.Size(90, 23)
         Me.lbCredito.TabIndex = 358
         Me.lbCredito.Text = "Venc. Crédito:"
+        Me.lbCredito.Visible = False
         '
         'tbFechaVenc
         '
@@ -1063,6 +1068,7 @@ Partial Class F0_VentaComb
         Me.tbFechaVenc.Size = New System.Drawing.Size(120, 26)
         Me.tbFechaVenc.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaVenc.TabIndex = 0
+        Me.tbFechaVenc.Visible = False
         '
         'LabelX1
         '
@@ -1153,7 +1159,7 @@ Partial Class F0_VentaComb
         cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
         Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
         Me.cbSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.Location = New System.Drawing.Point(499, 240)
+        Me.cbSucursal.Location = New System.Drawing.Point(453, 242)
         Me.cbSucursal.Name = "cbSucursal"
         Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -2471,6 +2477,36 @@ Partial Class F0_VentaComb
         Me.SwConta.Value = True
         Me.SwConta.ValueObject = "Y"
         '
+        'LabelX29
+        '
+        '
+        '
+        '
+        Me.LabelX29.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX29.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX29.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX29.Location = New System.Drawing.Point(471, 239)
+        Me.LabelX29.Name = "LabelX29"
+        Me.LabelX29.Size = New System.Drawing.Size(95, 23)
+        Me.LabelX29.TabIndex = 416
+        Me.LabelX29.Text = "Nº AUTORIZ.:"
+        '
+        'tbAutoriza
+        '
+        Me.tbAutoriza.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbAutoriza.Border.Class = "TextBoxBorder"
+        Me.tbAutoriza.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAutoriza.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbAutoriza.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbAutoriza.Location = New System.Drawing.Point(567, 241)
+        Me.tbAutoriza.Name = "tbAutoriza"
+        Me.tbAutoriza.PreventEnterBeep = True
+        Me.tbAutoriza.Size = New System.Drawing.Size(120, 21)
+        Me.tbAutoriza.TabIndex = 415
+        '
         'F0_VentaComb
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2651,4 +2687,6 @@ Partial Class F0_VentaComb
     Friend WithEvents cbDespachador As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents SwConta As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents SwSurtidor As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents LabelX29 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbAutoriza As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

@@ -237,8 +237,16 @@ Public Class F0_Movimiento
             .Caption = "COD. PRODUCTO"
             .Visible = True
         End With
+
+        With grdetalle.RootTable.Columns("yfdetprod")
+            .Caption = "ARTÍCULO"
+            .Width = 180
+            .Visible = True
+
+
+        End With
         With grdetalle.RootTable.Columns("producto")
-            .Caption = "PRODUCTOS"
+            .Caption = "DESCRIPCIÓN DE ARTÍCULO"
             .Width = 250
             .Visible = True
 
@@ -466,9 +474,15 @@ Public Class F0_Movimiento
             .Visible = True
 
         End With
+        With grproducto.RootTable.Columns("yfdetprod")
+            .Width = 180
+            .Caption = "ARTÍCULO"
+            .Visible = True
+
+        End With
         With grproducto.RootTable.Columns("yfcdprod1")
             .Width = 350
-            .Caption = "PRODUCTOS"
+            .Caption = "DESCRIPCÍON ARTÍCULO"
             .Visible = True
 
         End With
@@ -618,7 +632,7 @@ Public Class F0_Movimiento
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", "", "", "", 0, "20500101", CDate("2050/01/01"), Bin.GetBuffer, 0, 0)
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, 0, "", "", "", "", 0, "20500101", CDate("2050/01/01"), Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _fnSiguienteNumi()
         Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)

@@ -81,7 +81,7 @@ Public Class F0_Precios
                     Dim rowIndex As Integer = precio.Rows.IndexOf(result(i))
                     Dim columnprecio As String = result(i).Item("yhcatpre")
                     Dim columnestado As String = "estado_" + result(i).Item("ygcod")
-                    productos.Rows(j).Item(columnprecio) = Math.Round(result(i).Item("yhprecio"), 2)
+                    productos.Rows(j).Item(columnprecio) = Math.Round(result(i).Item("yhprecio"), 5)
                     productos.Rows(j).Item(columnestado) = Str(result(i).Item("estado")) + "_" + Str(rowIndex).Trim
 
                 Next
@@ -107,12 +107,18 @@ Public Class F0_Precios
                     .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
                     .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
                     .Visible = True
-                    .FormatString = "0.00"
+                    .FormatString = "0.00000"
                 End With
 
             Next
 
             'a.yfcprod ,a.yfnumi ,a.yfcdprod1,gr3.ycdes3 as Laboratorio,gr4.ycdes3 as Presentacion 
+
+            With grprecio.RootTable.Columns("yfdetprod")
+                .Caption = "Artículo"
+                .Width = 150
+                .Visible = True
+            End With
             With grprecio.RootTable.Columns("yfcprod")
                 .Caption = "COD PR"
                 .Width = 100
@@ -124,7 +130,7 @@ Public Class F0_Precios
                 .Visible = False
             End With
             With grprecio.RootTable.Columns("yfcdprod1")
-                .Caption = "PRODUCTO"
+                .Caption = "Descripción de Artículo"
                 .Width = 370
                 .Visible = True
             End With
@@ -237,7 +243,7 @@ Public Class F0_Precios
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             '.CellStyle.TextAlignment = Janus.Windows.GridEX.format
             .Visible = True
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
             .Caption = "MARGEN"
         End With
         With grcategoria.RootTable.Columns("ygfact")
