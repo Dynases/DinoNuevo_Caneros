@@ -359,7 +359,7 @@ Public Class F0_Libreria
             Dim img As New Bitmap(My.Resources.delete, 28, 28)
             img.Save(Bin, Imaging.ImageFormat.Png)
             'a.yccod1 ,a.yccod2 ,a.yccod3  ,a.ycdes3,1 as estado,Cast(null as image) as img   from TY0031 as a
-            CType(grLibreria.DataSource, DataTable).Rows.Add(Str(cbPrograma.Value), Str(cbCategoria.Value), _fnSiguienteNumi() + 1, tblibreria.Text, 0, Bin.ToArray())
+            CType(grLibreria.DataSource, DataTable).Rows.Add(Str(cbPrograma.Value), Str(cbCategoria.Value), _fnSiguienteNumi(), tblibreria.Text, 0, Bin.ToArray())
             tblibreria.Clear()
             tblibreria.Focus()
 

@@ -133,6 +133,8 @@ Public Class P_Principal
         listaTabs.Add(MetroTilePanel8)
         listaTabs.Add(MetroTilePanel9)
         listaTabs.Add(MetroTilePanel10)
+        listaTabs.Add(MetroTilePanel11)
+
 
         Dim idRolUsu As String = gi_userRol
 
@@ -1298,6 +1300,15 @@ Public Class P_Principal
 
     Private Sub btProductoRetiradoxCañero_Click(sender As Object, e As EventArgs) Handles btProductoRetiradoxCañero.Click
         Dim frm As New Pr_ProductoRetiradoxCañero
+        frm.Show()
+    End Sub
+
+    Private Sub lbUsuario_TextChanged(sender As Object, e As EventArgs) Handles lbUsuario.TextChanged
+
+    End Sub
+
+    Private Sub btRegistroPrestamos_Click(sender As Object, e As EventArgs) Handles btRegistroPrestamos.Click
+        Dim frm As New F0_Prestamos
         frm.Show()
     End Sub
 

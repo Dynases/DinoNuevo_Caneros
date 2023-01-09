@@ -362,6 +362,12 @@
     <Compile Include="F0_Factura.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F0_Prestamos.Designer.vb">
+      <DependentUpon>F0_Prestamos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_Prestamos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F0_RegistroBoleta.designer.vb">
       <DependentUpon>F0_RegistroBoleta.vb</DependentUpon>
     </Compile>
@@ -1331,6 +1337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Factura.resx">
       <DependentUpon>F0_Factura.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_Prestamos.resx">
+      <DependentUpon>F0_Prestamos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_RegistroBoleta.resx">
       <DependentUpon>F0_RegistroBoleta.vb</DependentUpon>
