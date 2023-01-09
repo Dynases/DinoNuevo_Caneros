@@ -2238,7 +2238,7 @@ Partial Class F0_Venta2
         Me.btnBitacora.Size = New System.Drawing.Size(88, 72)
         Me.btnBitacora.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnBitacora.TabIndex = 18
-        Me.btnBitacora.Text = "BOLETA"
+        Me.btnBitacora.Text = "ORDEN DE RETIRO"
         Me.btnBitacora.TextColor = System.Drawing.Color.White
         '
         'SwDescuentoProveedor

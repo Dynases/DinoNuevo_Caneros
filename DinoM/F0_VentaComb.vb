@@ -571,21 +571,21 @@ Public Class F0_VentaComb
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
             .Caption = "Precio U.".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbptot")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = False
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
             .Caption = "SubTotal".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbporc")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = False
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
             .Caption = "P.Desc(%)".ToUpper
 
         End With
@@ -593,14 +593,14 @@ Public Class F0_VentaComb
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = False
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
             .Caption = "M.Desc".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbtotdesc")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
             .Caption = "Total".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbobs")
@@ -848,7 +848,7 @@ Public Class F0_VentaComb
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "TOTAL"
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
         End With
         With grVentas
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -1454,7 +1454,7 @@ Public Class F0_VentaComb
         Dim montodesc As Double = tbMdesc.Value
         Dim pordesc As Double = ((montodesc * 100) / TotalDescuento)
         tbPdesc.Value = pordesc
-        Dim subtotal = Convert.ToDouble(Format(TotalDescuento, "0.00"))
+        Dim subtotal = Convert.ToDouble(Format(TotalDescuento, "0.00000"))
         tbSubTotal.Value = subtotal
 
         'tbTotalBs.Text = total.ToString()
@@ -1665,7 +1665,7 @@ Public Class F0_VentaComb
                                 Dim pos As Integer = dtDetalle.Rows.Count - 1
 
                                 Dim precio As Double = dtDetalle.Rows(pos).Item("tbpbas")
-                                Dim total As Decimal = CStr(Format(precio * saldo, "####0.00"))
+                                Dim total As Decimal = CStr(Format(precio * saldo, "####0.00000"))
 
                                 dtDetalle.Rows(pos).Item("tbptot") = total
                                 dtDetalle.Rows(pos).Item("tbtotdesc") = total - dtDetalle.Rows(pos).Item("tbdesc")
@@ -1688,7 +1688,7 @@ Public Class F0_VentaComb
                                     Dim pos As Integer = dtDetalle.Rows.Count - 1
 
                                     Dim precio As Double = dtDetalle.Rows(pos).Item("tbpbas")
-                                    Dim total As Decimal = CStr(Format(precio * inventario, "####0.00"))
+                                    Dim total As Decimal = CStr(Format(precio * inventario, "####0.00000"))
                                     dtDetalle.Rows(pos).Item("tbptot") = total
                                     dtDetalle.Rows(pos).Item("tbtotdesc") = total - dtDetalle.Rows(pos).Item("tbdesc")
                                     'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = total
@@ -1711,7 +1711,7 @@ Public Class F0_VentaComb
                             dtDetalle.ImportRow(dt.Rows(i))
                             Dim pos As Integer = dtDetalle.Rows.Count - 1
                             Dim precio As Double = dtDetalle.Rows(pos).Item("tbpbas")
-                            Dim total As Decimal = CStr(Format(precio * saldo, "####0.00"))
+                            Dim total As Decimal = CStr(Format(precio * saldo, "####0.00000"))
                             dtDetalle.Rows(pos).Item("tbptot") = total
                             dtDetalle.Rows(pos).Item("tbtotdesc") = total - dtDetalle.Rows(pos).Item("tbdesc")
                             dtDetalle.Rows(pos).Item("tbcmin") = saldo
@@ -1783,7 +1783,7 @@ Public Class F0_VentaComb
                                                          IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
                                                         Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
                                                          _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-                                                          tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+                                                        tbTramOrden.Text + " - " + tbNitTraOrden.Text + " - PLACA: " + tbPlaca.Text + " - Autoriz.:" + tbAutoriza.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
                                                           dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text,
                                                           tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text,
                                                           TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value)
@@ -2564,6 +2564,8 @@ Public Class F0_VentaComb
         Dim total As Decimal = Convert.ToDecimal(tbTotalBs.Text)
         Dim totald As Double = (total * 6.96)
         Dim fechaven As String = dt.Rows(0).Item("fechaventa")
+        Dim retiro As String = dt.Rows(0).Item("RETIRO")
+        Dim fechaImpresion As String = Today.ToLongDateString
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
         End If
@@ -2615,16 +2617,16 @@ Public Class F0_VentaComb
         For Each fila As DataRow In empresaHabilitada.Rows
             Select Case fila.Item("TipoReporte").ToString
                 Case ENReporteTipo.NOTAVENTA_Carta
-                    objrep = New R_NotaVenta_Carta
-                    SetParametrosNotaVenta(dt, total, li, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep)
+                    objrep = New R_NotaVenta_Carta_Diesel
+                    SetParametrosNotaVenta(dt, total, li, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep, retiro)
                 Case ENReporteTipo.NOTAVENTA_Ticket
                     objrep = New R_NotaVenta_7_5X100
-                    SetParametrosNotaVenta(dt, total, li, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep)
+                    SetParametrosNotaVenta(dt, total, li, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep, "")
             End Select
         Next
     End Sub
 
-    Private Sub SetParametrosNotaVenta(dt As DataTable, total As Decimal, li As String, _Hora As String, _Ds2 As DataSet, _Ds3 As DataSet, tipoReporte As String, objrep As Object)
+    Private Sub SetParametrosNotaVenta(dt As DataTable, total As Decimal, li As String, _Hora As String, _Ds2 As DataSet, _Ds3 As DataSet, tipoReporte As String, objrep As Object, retiro As String)
 
         Select Case tipoReporte
             Case ENReporteTipo.NOTAVENTA_Carta
@@ -2634,7 +2636,9 @@ Public Class F0_VentaComb
                 objrep.SetParameterValue("Logo", gb_UbiLogo)
                 objrep.SetParameterValue("NotaAdicional1", gb_NotaAdicional)
                 objrep.SetParameterValue("Descuento", tbMdesc.Value)
+                objrep.SetParameterValue("fechaImpresion", Today.Date)
                 objrep.SetParameterValue("Total", total)
+                objrep.SetParameterValue("retiro", retiro)
             Case ENReporteTipo.NOTAVENTA_Ticket
                 objrep.SetDataSource(dt)
                 objrep.SetParameterValue("ECasaMatriz", _Ds2.Tables(0).Rows(0).Item("scsuc").ToString)
@@ -2658,6 +2662,19 @@ Public Class F0_VentaComb
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+
+                Dim c As Integer
+                Dim doctoprint As New System.Drawing.Printing.PrintDocument()
+                doctoprint.PrinterSettings.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+                Dim rawKind As Integer
+                For c = 0 To doctoprint.PrinterSettings.PaperSizes.Count - 1
+                    If doctoprint.PrinterSettings.PaperSizes(c).PaperName = "orden retiro" Then
+                        rawKind = CInt(doctoprint.PrinterSettings.PaperSizes(c).GetType().GetField("kind", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic).GetValue(doctoprint.PrinterSettings.PaperSizes(c)))
+                        Exit For
+                    End If
+                Next
+                objrep.PrintOptions.PaperSize = CType(rawKind, CrystalDecisions.Shared.PaperSize)
+
                 objrep.PrintToPrinter(1, True, 0, 0)
             End If
         End If
@@ -3629,7 +3646,7 @@ Public Class F0_VentaComb
     Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs) Handles swTipoVenta.ValueChanged
         If (swTipoVenta.Value = False) Then
             lbCredito.Visible = True
-            tbFechaVenc.Visible = True
+            tbFechaVenc.Visible = False
             tbFechaVenc.Value = DateAdd(DateInterval.Day, _dias, Now.Date)
         Else
             lbCredito.Visible = False

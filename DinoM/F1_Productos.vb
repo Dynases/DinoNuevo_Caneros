@@ -640,11 +640,11 @@ Public Class F1_Productos
         'a.yfMed, a.yfumin, a.yfusup, a.yfmstk, a.yfclot, a.yfsmin, a.yfap, a.yfimg, a.yffact, a.yfhact, a.yfuact
         listEstCeldas.Add(New Modelo.Celda("yfnumi", True, "Código".ToUpper, 80))
         listEstCeldas.Add(New Modelo.Celda("yfcprod", True, "Cod.Prod".ToUpper, 100))
-        listEstCeldas.Add(New Modelo.Celda("yfcdprod2", True, "Cod. Proveedor".ToUpper, 140))
+        listEstCeldas.Add(New Modelo.Celda("yddesc", True, "Proveedor".ToUpper, 140))
         listEstCeldas.Add(New Modelo.Celda("yfclot", False, "Num.Cuenta".ToUpper, 140))
         listEstCeldas.Add(New Modelo.Celda("nCuenta", False, "Num.Cuenta".ToUpper, 250))
         listEstCeldas.Add(New Modelo.Celda("cuenCont", True, "Num.Cuenta".ToUpper, 150))
-        listEstCeldas.Add(New Modelo.Celda("yfcdprod1", True, "Descripcion Producto".ToUpper, 250))
+        listEstCeldas.Add(New Modelo.Celda("yfcdprod1", True, "Descripcion Artículo".ToUpper, 250))
         listEstCeldas.Add(New Modelo.Celda("cuenta", False))
 
         listEstCeldas.Add(New Modelo.Celda("yfgr1", False))
@@ -670,9 +670,10 @@ Public Class F1_Productos
 
         listEstCeldas.Add(New Modelo.Celda("UnidMin", True, "UniVenta".ToUpper, 150))
         listEstCeldas.Add(New Modelo.Celda("Umax", True, "UniMaxima".ToUpper, 150))
-        listEstCeldas.Add(New Modelo.Celda("yfdetprod", False, "Descripcion".ToUpper, 150))
+        listEstCeldas.Add(New Modelo.Celda("yfdetprod", True, "Artículo".ToUpper, 150))
 
         listEstCeldas.Add(New Modelo.Celda("ygcodact", False))
+        listEstCeldas.Add(New Modelo.Celda("yfcdprod2", False))
         listEstCeldas.Add(New Modelo.Celda("ygcodu", False))
         listEstCeldas.Add(New Modelo.Celda("ygcodsin", False))
         listEstCeldas.Add(New Modelo.Celda("ygprecio", False))

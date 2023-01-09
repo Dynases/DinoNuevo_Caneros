@@ -404,8 +404,14 @@ Public Class F0_MCompras
             .Visible = False
         End With
 
+        With grdetalle.RootTable.Columns("yfdetprod")
+            .Caption = "ARTÍCULO"
+            .Width = 180
+            .Visible = True
+
+        End With
         With grdetalle.RootTable.Columns("producto")
-            .Caption = "PRODUCTOS"
+            .Caption = "DESCRIPCIÓN DE ARTÍCULO"
             .Width = 280
             .Visible = True
 
@@ -727,15 +733,19 @@ Public Class F0_MCompras
             .Visible = True
 
         End With
-
+        With grProductos.RootTable.Columns("yfdetprod")
+            .Width = 180
+            .Visible = True
+            .Caption = "ARTÍCULO"
+        End With
         With grProductos.RootTable.Columns("yfcdprod1")
             .Width = 200
             .Visible = True
-            .Caption = "DESCRIPCIÓN"
+            .Caption = "DESCRIPCIÓN ARTÍCULO"
         End With
         With grProductos.RootTable.Columns("yfcdprod2")
             .Width = 150
-            .Visible = False
+            .Visible = True
             .Caption = "Descripcion Corta"
         End With
 
@@ -868,7 +878,7 @@ Public Class F0_MCompras
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", 0, 0, 0, "",
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", "", 0, 0, 0, "",
                                                         0, "20500101", CDate("2050/01/01"), 0, 0, 0, "", Now.Date, "", "", 0, Bin.GetBuffer, 0, 0)
     End Sub
 
@@ -1493,6 +1503,7 @@ salirIf:
                 If (pos >= 0) Then ''And (Not existe))
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbty5prod") = grProductos.GetValue("yfnumi")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("producto") = grProductos.GetValue("yfcdprod1")
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfdetprod") = grProductos.GetValue("yfdetprod")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbumin") = grProductos.GetValue("yfumin")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("unidad") = grProductos.GetValue("UnidMin")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbpcost") = grProductos.GetValue("yhprecio")

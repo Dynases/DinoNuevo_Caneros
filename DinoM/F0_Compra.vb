@@ -228,7 +228,13 @@ Public Class F0_Compra
         End With
 
         With grdetalle.RootTable.Columns("producto")
-            .Caption = "PRODUCTOS"
+            .Caption = "DESCRIPCIÓN DE ARTÍCULO"
+            .Width = 250
+            .Visible = True
+
+        End With
+        With grdetalle.RootTable.Columns("yfdetprod")
+            .Caption = "ARTÍCULO"
             .Width = 250
             .Visible = True
 
@@ -484,11 +490,16 @@ Public Class F0_Compra
             .Visible = False
 
         End With
+        With grProductos.RootTable.Columns("yfdetprod")
+            .Width = 180
+            .Visible = True
+            .Caption = "Artículo"
+        End With
 
         With grProductos.RootTable.Columns("yfcdprod1")
             .Width = 200
             .Visible = True
-            .Caption = "Descripcion"
+            .Caption = "Descripción Articuló"
         End With
         With grProductos.RootTable.Columns("yfcdprod2")
             .Width = 150
@@ -1020,6 +1031,7 @@ salirIf:
                 If (pos >= 0) Then ''And (Not existe)
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbty5prod") = grProductos.GetValue("yfnumi")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("producto") = grProductos.GetValue("yfcdprod1")
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfdetprod") = grProductos.GetValue("yfdetprod")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbumin") = grProductos.GetValue("yfumin")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("unidad") = grProductos.GetValue("UnidMin")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbpcost") = grProductos.GetValue("yhprecio")

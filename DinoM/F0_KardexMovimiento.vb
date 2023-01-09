@@ -127,7 +127,8 @@ Public Class F0_KardexMovimiento
 
             Dim listEstCeldas As New List(Of Modelo.Celda)
             listEstCeldas.Add(New Modelo.Celda("yfnumi", True, "ID", 50))
-            listEstCeldas.Add(New Modelo.Celda("producto", True, "PRODUCTO", 280))
+            listEstCeldas.Add(New Modelo.Celda("yfdetprod", True, "ARTÍCULO", 180))
+            listEstCeldas.Add(New Modelo.Celda("producto", True, "DESCRIPCIÓN ARTÍCULO", 280))
             listEstCeldas.Add(New Modelo.Celda("descripcioncorta", True, "DESC. CORTA".ToUpper, 150))
             listEstCeldas.Add(New Modelo.Celda("yfcprod", False, "COD PRODUCTO", 150))
 

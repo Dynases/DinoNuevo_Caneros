@@ -499,10 +499,14 @@ Public Class F0_Venta2
             .Visible = gb_CodigoBarra
             .Visible = False
         End With
-
         With grdetalle.RootTable.Columns("producto")
-            .Caption = "Productos".ToUpper
+            .Caption = "Descripción de Artículo".ToUpper
             .Width = 440
+            .Visible = True
+        End With
+        With grdetalle.RootTable.Columns("yfdetprod")
+            .Caption = "ARTÍCULO".ToUpper
+            .Width = 120
             .Visible = True
         End With
 
@@ -921,10 +925,17 @@ Public Class F0_Venta2
             .Visible = gb_CodigoBarra
             .Visible = False
         End With
+        With grProductos.RootTable.Columns("yfdetprod")
+            .Width = IIf(visualizarGrupo, 150, 360)
+            .Visible = True
+            .Caption = "Artículo"
+            .WordWrap = True
+            .MaxLines = 20
+        End With
         With grProductos.RootTable.Columns("yfcdprod1")
             .Width = IIf(visualizarGrupo, 300, 360)
             .Visible = True
-            .Caption = "Descripción"
+            .Caption = "Descripción de Artículo"
             .WordWrap = True
             .MaxLines = 20
         End With
@@ -1244,7 +1255,7 @@ Public Class F0_Venta2
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", 0, "", 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, "20170101", CDate("2017/01/01"), 0, Now.Date, "", "", 0, Bin.GetBuffer, 0, 0, 0)
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", 0, "", "", 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, "20170101", CDate("2017/01/01"), 0, Now.Date, "", "", 0, Bin.GetBuffer, 0, 0, 0)
     End Sub
 
     Public Function _fnSiguienteNumi()
@@ -1845,6 +1856,7 @@ Public Class F0_Venta2
         If ((pos >= 0) And (Not existe)) Then
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbty5prod") = grProductos.GetValue("yfnumi")
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("codigo") = grProductos.GetValue("yfcprod")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfdetprod") = grProductos.GetValue("yfdetprod")
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfcbarra") = grProductos.GetValue("yfcbarra")
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("producto") = grProductos.GetValue("yfcdprod1")
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbumin") = grProductos.GetValue("yfumin")
@@ -2412,7 +2424,7 @@ Public Class F0_Venta2
 
     End Sub
     Private Sub P_GenerarReporte(numi As String)
-        Dim dt As DataTable = L_fnVentaNotaDeVenta(numi)
+        Dim dt As DataTable = L_fnVentaNotaDeVenta1(numi)
         If (gb_DetalleProducto) Then
             ponerDescripcionProducto(dt)
         End If
@@ -2510,15 +2522,29 @@ Public Class F0_Venta2
         Else
             Dim pd As New PrintDocument()
             pd.PrinterSettings.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+
             If (Not pd.PrinterSettings.IsValid) Then
                 ToastNotification.Show(Me, "La Impresora ".ToUpper + _Ds3.Tables(0).Rows(0).Item("cbrut").ToString + Chr(13) + "No Existe".ToUpper,
                                        My.Resources.WARNING, 5 * 1000,
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+
+                Dim c As Integer
+                Dim doctoprint As New System.Drawing.Printing.PrintDocument()
+                doctoprint.PrinterSettings.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+                Dim rawKind As Integer
+                For c = 0 To doctoPrint.PrinterSettings.PaperSizes.Count - 1
+                    If doctoprint.PrinterSettings.PaperSizes(c).PaperName = "factura" Then
+                        rawKind = CInt(doctoprint.PrinterSettings.PaperSizes(c).GetType().GetField("kind", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic).GetValue(doctoprint.PrinterSettings.PaperSizes(c)))
+                        Exit For
+                    End If
+                Next
+                objrep.PrintOptions.PaperSize = CType(rawKind, CrystalDecisions.Shared.PaperSize)
+
                 objrep.PrintToPrinter(1, True, 0, 0)
 
-            End If
+                    End If
         End If
     End Sub
 
@@ -2981,6 +3007,7 @@ Public Class F0_Venta2
 
 
         Try
+
             If (Not _fnAccesible()) Then
                 Return
             End If
@@ -3342,6 +3369,7 @@ salirIf:
                             'b.yfcdprod1, a.iclot, a.icfven, a.iccven
                             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbty5prod") = FilaSelectLote.Item("yfnumi")
                             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("codigo") = FilaSelectLote.Item("yfcprod")
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfdetprod") = FilaSelectLote.Item("yfdetprod")
                             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfcbarra") = FilaSelectLote.Item("yfcbarra")
                             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("producto") = FilaSelectLote.Item("yfcdprod1")
                             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbFamilia") = FilaSelectLote.Item("yfgr4")
