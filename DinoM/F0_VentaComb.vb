@@ -186,6 +186,8 @@ Public Class F0_VentaComb
         cbTipoSolicitud.ReadOnly = True
         cbSurtidor.ReadOnly = True
 
+        tbAutoriza.ReadOnly = True
+
 
         'Datos facturacion
         tbNroAutoriz.ReadOnly = True
@@ -275,6 +277,7 @@ Public Class F0_VentaComb
         cbDespachador.ReadOnly = False
         cbTipoSolicitud.ReadOnly = False
         cbSurtidor.ReadOnly = False
+        tbAutoriza.ReadOnly = False
 
         'txtCambio1.IsInputReadOnly = False
         'txtMontoPagado1.IsInputReadOnly = False
@@ -349,7 +352,7 @@ Public Class F0_VentaComb
         tbRetSurtidor.Text = ""
         tbNitRetSurtidor.Text = ""
 
-
+        tbAutoriza.Text = ""
 
         With grdetalle.RootTable.Columns("img")
             .Width = 80
@@ -423,6 +426,7 @@ Public Class F0_VentaComb
             tbNit.Text = .GetValue("tcfacnit")
             cbTipoSolicitud.Value = .GetValue("tcsolicitud")
             cbSurtidor.Value = .GetValue("tcsurtidor")
+            tbAutoriza.Text = .GetValue("tcnroautorizacion")
             If grVentas.GetValue("taest") = 1 Then
                 txtEstado.Text = "VIGENTE"
                 txtEstado.BackColor = Color.Green
@@ -1786,7 +1790,7 @@ Public Class F0_VentaComb
                                                         tbTramOrden.Text + " - " + tbNitTraOrden.Text + " - PLACA: " + tbPlaca.Text + " - Autoriz.:" + tbAutoriza.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
                                                           dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text,
                                                           tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text,
-                                                          TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value)
+                                                          TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text)
                     If res Then
 
                         If (SwSurtidor.Value = True) Then
@@ -1834,7 +1838,7 @@ Public Class F0_VentaComb
                                                     Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
                                                      _CodCliente, IIf(swMoneda.Value = True, 1, 0),
                                                       tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value)
+                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text)
                 If res Then
 
                     If (SwSurtidor.Value = True) Then
