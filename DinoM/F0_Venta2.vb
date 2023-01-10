@@ -4015,10 +4015,12 @@ salirIf:
                                               eToastPosition.TopCenter)
                         Exit Sub
                     End If
-                    ReimprimirFactura(tbCodigo.Text, True, True)
-                    _prImiprimirNotaVenta(tbCodigo.Text)
+                    If tbNit.Text <> String.Empty Then
+                        ReimprimirFactura(tbCodigo.Text, True, True)
+                    End If
+                    '_prImiprimirNotaVenta(tbCodigo.Text)
                 Else
-                    _prImiprimirNotaVenta(tbCodigo.Text)
+                        _prImiprimirNotaVenta(tbCodigo.Text)
                 End If
             End If
         Catch ex As Exception
@@ -4867,13 +4869,13 @@ salirIf:
             EmenvioDetalle.descripcion = (row("producto").ToString)
             EmenvioDetalle.unidadMedida = row("ygcodu").ToString
             EmenvioDetalle.cantidad = (row("tbcmin"))
-            EmenvioDetalle.precioUnitario = Format((Convert.ToDecimal(row("tbpbas"))) * 6.96, "0.00")
+            EmenvioDetalle.precioUnitario = Format((Convert.ToDecimal(row("tbpbas"))) * 6.96, "0.00000")
             EmenvioDetalle.montoDescuento = 0
-            EmenvioDetalle.subTotal = Format(Format((Convert.ToDecimal(row("tbpbas"))) * 6.96, "0.00") * (row("tbcmin")), "0.00")
+            EmenvioDetalle.subTotal = Format(Format((Convert.ToDecimal(row("tbpbas"))) * 6.96, "0.00000") * (row("tbcmin")), "0.00000")
             EmenvioDetalle.numeroSerie = ""
             EmenvioDetalle.numeroImei = ""
 
-            PrecioTot = Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00") * (row("tbcmin")), "0.00") 'total
+            PrecioTot = Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00000") * (row("tbcmin")), "0.00000") 'total
 
 
             array(val) = EmenvioDetalle
@@ -4945,7 +4947,7 @@ salirIf:
         'Emenvio.actividadEconomica = 692000 'falta
         Emenvio.detalles = array
         Dim json = JsonConvert.SerializeObject(Emenvio)
-        Dim url = "https://labbo-emp-emision-v2-1.guru-soft.com/api/Emitir/EmisionFacturaCompraVenta"
+        Dim url = "https://labbo-emp-emision-v2-1.guru-soft.com/api/Emitir/EmisionFacturaCompraVentaBonificaciones"
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),
