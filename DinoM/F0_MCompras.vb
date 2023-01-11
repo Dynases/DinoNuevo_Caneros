@@ -223,6 +223,14 @@ Public Class F0_MCompras
         tbNDui.Clear()
         tbSACF.Clear()
 
+        tbChofer.Clear()
+        tbCamion.Clear()
+        tbPlaca.Clear()
+        tbRecibio.Clear()
+        tbEntrego.Clear()
+        tbHojaRuta.Clear()
+
+
         _prCargarDetalleVenta(-1)
 
         MSuperTabControl.SelectedTabIndex = 0
@@ -314,7 +322,15 @@ Public Class F0_MCompras
             lbHora.Text = .GetValue("cahact").ToString
             lbUsuario.Text = .GetValue("cauact").ToString
 
-
+            If .GetValue("caalm") = 3 Then
+                _HabilitarCamposExtras()
+                tbChofer.Text = .GetValue("tccho")
+                tbCamion.Text = .GetValue("tccam")
+                tbPlaca.Text = .GetValue("tcpla")
+                tbRecibio.Text = .GetValue("tcrec")
+                tbEntrego.Text = .GetValue("tcent")
+                tbHojaRuta.Text = .GetValue("tcnru")
+            End If
 
 
         End With
@@ -922,6 +938,24 @@ Public Class F0_MCompras
         'grProductos.Height = 260
 
     End Sub
+
+    Private Sub _HabilitarCamposExtras()
+        tbChofer.Visible = True
+        tbCamion.Visible = True
+        tbPlaca.Visible = True
+        tbRecibio.Visible = True
+        tbEntrego.Visible = True
+        tbHojaRuta.Visible = True
+        LabelX15.Visible = True
+        LabelX17.Visible = True
+        LabelX18.Visible = True
+        LabelX19.Visible = True
+        LabelX20.Visible = True
+        LabelX21.Visible = True
+    End Sub
+
+
+
     Private Sub _DesHabilitarProductos()
         GPanelProductos.Visible = False
         PanelTotal.Visible = True
@@ -1101,6 +1135,10 @@ Public Class F0_MCompras
 
     Public Sub _GuardarNuevo()
         Try
+            Dim mes As String = tbFechaVenta.Value.ToString("MMM").ToUpper
+            Dim Hora As String = DateTime.Now.ToString("HH:mm")
+            Dim obs As String = "TI " + tbFechaVenta.Value.ToString("dd") + "/" + mes + " " + Hora + " HRS"
+            tbObservacion.Text = obs
             RecuperarDatosTFC001()  'Recupera datos para grabar en la BDDiconDino en la Tabla TFC001
             Dim res As Boolean = L_fnGrabarCompra("", cbSucursal.Value, tbFechaVenta.Value.ToString("yyyy/MM/dd"),
                                                   _CodProveedor, IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
@@ -1262,52 +1300,67 @@ Public Class F0_MCompras
     End Sub
 
     Private Sub P_GenerarReporteCompra()
-        Dim dt As DataTable = L_fnNotaCompras(tbCodigo.Text)
-        'Dim dt2 = L_DatosEmpresa("1")
-        Dim _TotalLi As Decimal
-        Dim _Literal, _TotalDecimal, _TotalDecimal2, moneda As String
+        Dim dt As DataTable
+        If cbSucursal.Value = 3 Then
+            dt = L_fnNotaCompras2(tbCodigo.Text)
 
-        'Literal 
-        _TotalLi = dt.Rows(0).Item("total")
-        _TotalDecimal = _TotalLi - Math.Truncate(_TotalLi)
-        _TotalDecimal2 = CDbl(_TotalDecimal) * 100
+            P_Global.Visualizador = New Visualizador
+            Dim objrep As New NotaCompraCombustible
+            objrep.SetDataSource(dt)
 
-        If swMoneda.Value = True Then
-            moneda = "Bolivianos"
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.ShowDialog() 'Comentar
+            P_Global.Visualizador.BringToFront()
         Else
-            moneda = "Dólares"
+            dt = L_fnNotaCompras(tbCodigo.Text)
+
+
+            'Dim dt2 = L_DatosEmpresa("1")
+            Dim _TotalLi As Decimal
+            Dim _Literal, _TotalDecimal, _TotalDecimal2, moneda As String
+
+            'Literal 
+            _TotalLi = dt.Rows(0).Item("total")
+            _TotalDecimal = _TotalLi - Math.Truncate(_TotalLi)
+            _TotalDecimal2 = CDbl(_TotalDecimal) * 100
+
+            If swMoneda.Value = True Then
+                moneda = "Bolivianos"
+            Else
+                moneda = "Dólares"
+            End If
+
+            _Literal = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_TotalLi) - CDbl(_TotalDecimal)) + "  " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 " + moneda
+
+
+            If Not IsNothing(P_Global.Visualizador) Then
+                P_Global.Visualizador.Close()
+            End If
+
+            P_Global.Visualizador = New Visualizador
+
+            Dim objrep As New R_NotaCompra
+            objrep.SetDataSource(dt)
+            Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
+            Dim fechacom As String = dt.Rows(0).Item("FechaCompra")
+            Dim mes As Integer = Month(fechacom)
+            Dim dia As Integer = Microsoft.VisualBasic.DateAndTime.Day(fechacom)
+            Dim anio As Integer = Year(fechacom)
+            Dim mes1 As String = _Meses(mes - 1)
+            objrep.SetParameterValue("almacen", gs_userSucNom)
+            objrep.SetParameterValue("dia", dia)
+            objrep.SetParameterValue("mes", mes1)
+            objrep.SetParameterValue("anio", anio)
+
+
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.ShowDialog() 'Comentar
+            P_Global.Visualizador.BringToFront()
+
+            'P_Global.Visualizador.CRV1.ReportSource = objrep
+            'P_Global.Visualizador.Show()
+            'P_Global.Visualizador.BringToFront()
         End If
-
-        _Literal = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_TotalLi) - CDbl(_TotalDecimal)) + "  " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 " + moneda
-
-
-        If Not IsNothing(P_Global.Visualizador) Then
-            P_Global.Visualizador.Close()
-        End If
-
-        P_Global.Visualizador = New Visualizador
-
-        Dim objrep As New R_NotaCompra
-        objrep.SetDataSource(dt)
-        Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
-        Dim fechacom As String = dt.Rows(0).Item("FechaCompra")
-        Dim mes As Integer = Month(fechacom)
-        Dim dia As Integer = Microsoft.VisualBasic.DateAndTime.Day(fechacom)
-        Dim anio As Integer = Year(fechacom)
-        Dim mes1 As String = _Meses(mes - 1)
-        objrep.SetParameterValue("almacen", gs_userSucNom)
-        objrep.SetParameterValue("dia", dia)
-        objrep.SetParameterValue("mes", mes1)
-        objrep.SetParameterValue("anio", anio)
-
-
-        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-        P_Global.Visualizador.ShowDialog() 'Comentar
-        P_Global.Visualizador.BringToFront()
-
-        'P_Global.Visualizador.CRV1.ReportSource = objrep
-        'P_Global.Visualizador.Show()
-        'P_Global.Visualizador.BringToFront()
     End Sub
 #End Region
 
@@ -2063,6 +2116,10 @@ salirIf:
     End Sub
 
     Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
+
+    End Sub
+
+    Private Sub tbHojaRuta_TextChanged(sender As Object, e As EventArgs) Handles tbHojaRuta.TextChanged
 
     End Sub
 

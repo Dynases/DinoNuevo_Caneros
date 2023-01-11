@@ -362,10 +362,10 @@
     <Compile Include="F0_Factura.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F0_Prestamos.Designer.vb">
-      <DependentUpon>F0_Prestamos.vb</DependentUpon>
+    <Compile Include="F0_Prestamo.Designer.vb">
+      <DependentUpon>F0_Prestamo.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_Prestamos.vb">
+    <Compile Include="F0_Prestamo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F0_RegistroBoleta.designer.vb">
@@ -571,6 +571,12 @@
     <Compile Include="modelosApi\RespMetodosPago.vb" />
     <Compile Include="modelosApi\RespTipoDoc.vb" />
     <Compile Include="modelosApi\UmedidaResp.vb" />
+    <Compile Include="NotaCompraCombustible.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotaCompraCombustible.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="NroCaja.Designer.vb">
       <DependentUpon>NroCaja.vb</DependentUpon>
     </Compile>
@@ -1344,8 +1350,8 @@
     <EmbeddedResource Include="F0_Factura.resx">
       <DependentUpon>F0_Factura.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F0_Prestamos.resx">
-      <DependentUpon>F0_Prestamos.vb</DependentUpon>
+    <EmbeddedResource Include="F0_Prestamo.resx">
+      <DependentUpon>F0_Prestamo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_RegistroBoleta.resx">
       <DependentUpon>F0_RegistroBoleta.vb</DependentUpon>
@@ -1440,6 +1446,10 @@
     <EmbeddedResource Include="KardexClienteRes.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>KardexClienteRes.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotaCompraCombustible.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NotaCompraCombustible.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="NroCaja.resx">
       <DependentUpon>NroCaja.vb</DependentUpon>

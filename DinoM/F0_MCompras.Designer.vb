@@ -45,6 +45,18 @@ Partial Class F0_MCompras
         Me.PanelContentSup = New System.Windows.Forms.Panel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.tbHojaRuta = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbEntrego = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbRecibio = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbPlaca = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbCamion = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbChofer = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX20 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX18 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX17 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX15 = New DevComponents.DotNetBar.LabelX()
         Me.lbTipoCambio = New DevComponents.DotNetBar.LabelX()
         Me.tbTipoCambio = New DevComponents.Editors.DoubleInput()
         Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
@@ -92,18 +104,6 @@ Partial Class F0_MCompras
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.grCompra = New Janus.Windows.GridEX.GridEX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.LabelX15 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX17 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX18 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX20 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
-        Me.tbChofer = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbCamion = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbPlaca = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbRecibio = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbEntrego = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbHojaRuta = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -691,6 +691,174 @@ Partial Class F0_MCompras
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1311, 207)
         Me.Panel2.TabIndex = 234
+        '
+        'tbHojaRuta
+        '
+        '
+        '
+        '
+        Me.tbHojaRuta.Border.Class = "TextBoxBorder"
+        Me.tbHojaRuta.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbHojaRuta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.tbHojaRuta.Location = New System.Drawing.Point(755, 152)
+        Me.tbHojaRuta.Name = "tbHojaRuta"
+        Me.tbHojaRuta.PreventEnterBeep = True
+        Me.tbHojaRuta.Size = New System.Drawing.Size(150, 22)
+        Me.tbHojaRuta.TabIndex = 687
+        '
+        'tbEntrego
+        '
+        '
+        '
+        '
+        Me.tbEntrego.Border.Class = "TextBoxBorder"
+        Me.tbEntrego.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbEntrego.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.tbEntrego.Location = New System.Drawing.Point(755, 118)
+        Me.tbEntrego.Name = "tbEntrego"
+        Me.tbEntrego.PreventEnterBeep = True
+        Me.tbEntrego.Size = New System.Drawing.Size(150, 22)
+        Me.tbEntrego.TabIndex = 686
+        '
+        'tbRecibio
+        '
+        '
+        '
+        '
+        Me.tbRecibio.Border.Class = "TextBoxBorder"
+        Me.tbRecibio.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRecibio.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.tbRecibio.Location = New System.Drawing.Point(755, 89)
+        Me.tbRecibio.Name = "tbRecibio"
+        Me.tbRecibio.PreventEnterBeep = True
+        Me.tbRecibio.Size = New System.Drawing.Size(150, 22)
+        Me.tbRecibio.TabIndex = 685
+        '
+        'tbPlaca
+        '
+        '
+        '
+        '
+        Me.tbPlaca.Border.Class = "TextBoxBorder"
+        Me.tbPlaca.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbPlaca.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.tbPlaca.Location = New System.Drawing.Point(483, 152)
+        Me.tbPlaca.Name = "tbPlaca"
+        Me.tbPlaca.PreventEnterBeep = True
+        Me.tbPlaca.Size = New System.Drawing.Size(150, 22)
+        Me.tbPlaca.TabIndex = 684
+        '
+        'tbCamion
+        '
+        '
+        '
+        '
+        Me.tbCamion.Border.Class = "TextBoxBorder"
+        Me.tbCamion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCamion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.tbCamion.Location = New System.Drawing.Point(483, 123)
+        Me.tbCamion.Name = "tbCamion"
+        Me.tbCamion.PreventEnterBeep = True
+        Me.tbCamion.Size = New System.Drawing.Size(150, 22)
+        Me.tbCamion.TabIndex = 683
+        '
+        'tbChofer
+        '
+        '
+        '
+        '
+        Me.tbChofer.Border.Class = "TextBoxBorder"
+        Me.tbChofer.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbChofer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.tbChofer.Location = New System.Drawing.Point(483, 91)
+        Me.tbChofer.Name = "tbChofer"
+        Me.tbChofer.PreventEnterBeep = True
+        Me.tbChofer.Size = New System.Drawing.Size(150, 22)
+        Me.tbChofer.TabIndex = 682
+        '
+        'LabelX21
+        '
+        '
+        '
+        '
+        Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX21.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX21.Location = New System.Drawing.Point(690, 146)
+        Me.LabelX21.Name = "LabelX21"
+        Me.LabelX21.Size = New System.Drawing.Size(70, 40)
+        Me.LabelX21.TabIndex = 681
+        Me.LabelX21.Text = "Nro Hoja " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "de Ruta:"
+        '
+        'LabelX20
+        '
+        '
+        '
+        '
+        Me.LabelX20.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX20.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX20.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX20.Location = New System.Drawing.Point(690, 119)
+        Me.LabelX20.Name = "LabelX20"
+        Me.LabelX20.Size = New System.Drawing.Size(75, 23)
+        Me.LabelX20.TabIndex = 680
+        Me.LabelX20.Text = "Entrego:"
+        '
+        'LabelX19
+        '
+        '
+        '
+        '
+        Me.LabelX19.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX19.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX19.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX19.Location = New System.Drawing.Point(690, 90)
+        Me.LabelX19.Name = "LabelX19"
+        Me.LabelX19.Size = New System.Drawing.Size(75, 23)
+        Me.LabelX19.TabIndex = 679
+        Me.LabelX19.Text = "Recibio:"
+        '
+        'LabelX18
+        '
+        '
+        '
+        '
+        Me.LabelX18.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX18.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX18.Location = New System.Drawing.Point(402, 151)
+        Me.LabelX18.Name = "LabelX18"
+        Me.LabelX18.Size = New System.Drawing.Size(75, 23)
+        Me.LabelX18.TabIndex = 678
+        Me.LabelX18.Text = "Nro Placa:"
+        '
+        'LabelX17
+        '
+        '
+        '
+        '
+        Me.LabelX17.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX17.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX17.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX17.Location = New System.Drawing.Point(402, 122)
+        Me.LabelX17.Name = "LabelX17"
+        Me.LabelX17.Size = New System.Drawing.Size(75, 23)
+        Me.LabelX17.TabIndex = 677
+        Me.LabelX17.Text = "Camión:"
+        '
+        'LabelX15
+        '
+        '
+        '
+        '
+        Me.LabelX15.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX15.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX15.Location = New System.Drawing.Point(402, 90)
+        Me.LabelX15.Name = "LabelX15"
+        Me.LabelX15.Size = New System.Drawing.Size(75, 23)
+        Me.LabelX15.TabIndex = 676
+        Me.LabelX15.Text = "Chofer:"
         '
         'lbTipoCambio
         '
@@ -1548,168 +1716,6 @@ Partial Class F0_MCompras
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 500
-        '
-        'LabelX15
-        '
-        '
-        '
-        '
-        Me.LabelX15.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX15.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX15.Location = New System.Drawing.Point(402, 90)
-        Me.LabelX15.Name = "LabelX15"
-        Me.LabelX15.Size = New System.Drawing.Size(75, 23)
-        Me.LabelX15.TabIndex = 676
-        Me.LabelX15.Text = "Chofer:"
-        '
-        'LabelX17
-        '
-        '
-        '
-        '
-        Me.LabelX17.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX17.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX17.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX17.Location = New System.Drawing.Point(402, 122)
-        Me.LabelX17.Name = "LabelX17"
-        Me.LabelX17.Size = New System.Drawing.Size(75, 23)
-        Me.LabelX17.TabIndex = 677
-        Me.LabelX17.Text = "Camión:"
-        '
-        'LabelX18
-        '
-        '
-        '
-        '
-        Me.LabelX18.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX18.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX18.Location = New System.Drawing.Point(402, 151)
-        Me.LabelX18.Name = "LabelX18"
-        Me.LabelX18.Size = New System.Drawing.Size(75, 23)
-        Me.LabelX18.TabIndex = 678
-        Me.LabelX18.Text = "Nro Placa:"
-        '
-        'LabelX19
-        '
-        '
-        '
-        '
-        Me.LabelX19.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX19.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX19.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX19.Location = New System.Drawing.Point(690, 90)
-        Me.LabelX19.Name = "LabelX19"
-        Me.LabelX19.Size = New System.Drawing.Size(75, 23)
-        Me.LabelX19.TabIndex = 679
-        Me.LabelX19.Text = "Recibio:"
-        '
-        'LabelX20
-        '
-        '
-        '
-        '
-        Me.LabelX20.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX20.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX20.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX20.Location = New System.Drawing.Point(690, 119)
-        Me.LabelX20.Name = "LabelX20"
-        Me.LabelX20.Size = New System.Drawing.Size(75, 23)
-        Me.LabelX20.TabIndex = 680
-        Me.LabelX20.Text = "Entrego:"
-        '
-        'LabelX21
-        '
-        '
-        '
-        '
-        Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX21.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX21.Location = New System.Drawing.Point(690, 146)
-        Me.LabelX21.Name = "LabelX21"
-        Me.LabelX21.Size = New System.Drawing.Size(70, 40)
-        Me.LabelX21.TabIndex = 681
-        Me.LabelX21.Text = "Nro Hoja " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "de Ruta:"
-        '
-        'tbChofer
-        '
-        '
-        '
-        '
-        Me.tbChofer.Border.Class = "TextBoxBorder"
-        Me.tbChofer.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbChofer.Location = New System.Drawing.Point(483, 91)
-        Me.tbChofer.Name = "tbChofer"
-        Me.tbChofer.PreventEnterBeep = True
-        Me.tbChofer.Size = New System.Drawing.Size(150, 22)
-        Me.tbChofer.TabIndex = 682
-        '
-        'tbCamion
-        '
-        '
-        '
-        '
-        Me.tbCamion.Border.Class = "TextBoxBorder"
-        Me.tbCamion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCamion.Location = New System.Drawing.Point(483, 123)
-        Me.tbCamion.Name = "tbCamion"
-        Me.tbCamion.PreventEnterBeep = True
-        Me.tbCamion.Size = New System.Drawing.Size(150, 22)
-        Me.tbCamion.TabIndex = 683
-        '
-        'tbPlaca
-        '
-        '
-        '
-        '
-        Me.tbPlaca.Border.Class = "TextBoxBorder"
-        Me.tbPlaca.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbPlaca.Location = New System.Drawing.Point(483, 152)
-        Me.tbPlaca.Name = "tbPlaca"
-        Me.tbPlaca.PreventEnterBeep = True
-        Me.tbPlaca.Size = New System.Drawing.Size(150, 22)
-        Me.tbPlaca.TabIndex = 684
-        '
-        'tbRecibio
-        '
-        '
-        '
-        '
-        Me.tbRecibio.Border.Class = "TextBoxBorder"
-        Me.tbRecibio.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbRecibio.Location = New System.Drawing.Point(755, 89)
-        Me.tbRecibio.Name = "tbRecibio"
-        Me.tbRecibio.PreventEnterBeep = True
-        Me.tbRecibio.Size = New System.Drawing.Size(150, 22)
-        Me.tbRecibio.TabIndex = 685
-        '
-        'tbEntrego
-        '
-        '
-        '
-        '
-        Me.tbEntrego.Border.Class = "TextBoxBorder"
-        Me.tbEntrego.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbEntrego.Location = New System.Drawing.Point(755, 118)
-        Me.tbEntrego.Name = "tbEntrego"
-        Me.tbEntrego.PreventEnterBeep = True
-        Me.tbEntrego.Size = New System.Drawing.Size(150, 22)
-        Me.tbEntrego.TabIndex = 686
-        '
-        'tbHojaRuta
-        '
-        '
-        '
-        '
-        Me.tbHojaRuta.Border.Class = "TextBoxBorder"
-        Me.tbHojaRuta.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbHojaRuta.Location = New System.Drawing.Point(755, 152)
-        Me.tbHojaRuta.Name = "tbHojaRuta"
-        Me.tbHojaRuta.PreventEnterBeep = True
-        Me.tbHojaRuta.Size = New System.Drawing.Size(150, 22)
-        Me.tbHojaRuta.TabIndex = 687
         '
         'F0_MCompras
         '
