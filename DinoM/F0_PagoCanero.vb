@@ -284,6 +284,7 @@ Public Class F0_PagoCanero
             tbFechaPago.Value = .GetValue("prfec")
             _CodInstitucion = .GetValue("prinst")
             tbVendedor.Text = .GetValue("nomInst")
+            tbinteres.Text = .GetValue("printe")
             _CodCliente = .GetValue("prcan")
             tbCliente.Text = .GetValue("ydrazonsocial")
             swMoneda.Value = .GetValue("prmon")
@@ -2517,6 +2518,7 @@ Public Class F0_PagoCanero
             dt = L_fnListarCaneroInstitucion(_CodCliente)
             Dim row As DataRow = dt.Rows(dt.Rows.Count - 1)
             tbVendedor.Text = row("institucion")
+            _CodInstitucion = row("id")
         End If
 
 
