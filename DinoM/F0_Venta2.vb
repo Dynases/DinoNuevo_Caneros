@@ -53,7 +53,7 @@ Public Class F0_Venta2
     Public CodProducto As String
     Public Cantidad As Integer
     Public PrecioU As Integer
-    Public PrecioTot As Double
+    Public PrecioTot As Decimal
     Public NombreProd As String
     Public NroFact As Integer
     Public fechaEmision As String
@@ -325,9 +325,9 @@ Public Class F0_Venta2
         tipoDocumento = -1
         'txtCambio1.Value = 0
         'txtMontoPagado1.Value = 0
-        txtCambio1.Text = "0.00"
-        txtMontoPagado1.Text = "0.00"
-        tbTotalBs.Text = "0.00"
+        txtCambio1.Text = "0.00000"
+        txtMontoPagado1.Text = "0.00000"
+        tbTotalBs.Text = "0.00000"
         tbTotalDo.Text = "0.00"
 
         txtEstado.BackColor = Color.White
@@ -1391,8 +1391,8 @@ Public Class F0_Venta2
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
             If (dt.Rows(i).Item("estado") >= 0) Then
-                TotalDescuento = TotalDescuento + Format(Format((dt.Rows(i).Item("tbpbas") * Convert.ToDecimal(cbCambioDolar.Text)), "0.00") * dt.Rows(i).Item("tbcmin"), "0.00")
-                TotalDescuento1 = TotalDescuento1 + Format(dt.Rows(i).Item("tbpbas") * dt.Rows(i).Item("tbcmin"), "0.00")
+                TotalDescuento = TotalDescuento + Format(Format((dt.Rows(i).Item("tbpbas") * Convert.ToDecimal(cbCambioDolar.Text)), "0.00000") * dt.Rows(i).Item("tbcmin"), "0.00000")
+                TotalDescuento1 = TotalDescuento1 + Format(dt.Rows(i).Item("tbpbas") * dt.Rows(i).Item("tbcmin"), "0.00000")
 
                 TotalCosto = TotalCosto + dt.Rows(i).Item("tbptot2")
             End If
@@ -1404,11 +1404,11 @@ Public Class F0_Venta2
         Dim montodesc As Double = tbMdesc.Value
         Dim pordesc As Double = ((montodesc * 100) / TotalDescuento)
         tbPdesc.Value = pordesc
-        Dim subtotal = Convert.ToDouble(Format(TotalDescuento, "0.00"))
+        Dim subtotal = Convert.ToDouble(Format(TotalDescuento, "0.00000"))
         tbSubTotal.Value = subtotal
 
         'tbTotalBs.Text = total.ToString()
-        tbTotalBs.Text = Format(tbSubTotal.Value - montodesc, "0.00")
+        tbTotalBs.Text = Format(tbSubTotal.Value - montodesc, "0.00000")
         montoDo = Convert.ToDecimal(tbTotalBs.Text) / IIf(cbCambioDolar.Text = "", 1, Convert.ToDecimal(cbCambioDolar.Text))
         tbTotalDo.Text = Format(TotalDescuento1, "0.00")
         tbIce.Value = TotalCosto * (gi_ICE / 100)
@@ -4455,7 +4455,7 @@ salirIf:
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "TOTAL"
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
         End With
         With grVentas
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -4581,9 +4581,9 @@ salirIf:
         Dim montoDo As Decimal
         tbSubTotal.Value = subTotalVenta
         tbMdesc.Value = subTotalDescuento
-        tbTotalBs.Text = Format(subTotalVenta - subTotalDescuento, "0.00")
+        tbTotalBs.Text = Format(subTotalVenta - subTotalDescuento, "0.00000")
         montoDo = Convert.ToDecimal(tbTotalBs.Text) / IIf(cbCambioDolar.Text = "", 1, Convert.ToDecimal(cbCambioDolar.Text))
-        tbTotalDo.Text = Format(montoDo, "0.00")
+        tbTotalDo.Text = Format(montoDo, "0.00000")
         calcularCambio()
     End Sub
 
@@ -4860,12 +4860,12 @@ salirIf:
 
         Dim array(rearmarDetalle().Rows.Count - 1) As EmisorEnvio.Detalle
         Dim val = 0
-        PrecioTot = 0
+        PrecioTot = 0.00000
         For Each row In rearmarDetalle().Rows
             Dim EmenvioDetalle = New EmisorEnvio.Detalle()
             EmenvioDetalle.actividadEconomica = row("ygcodact").ToString
             EmenvioDetalle.codigoProductoSin = row("ygcodsin").ToString
-            EmenvioDetalle.codigoProducto = (row("tbty5prod").ToString)
+            EmenvioDetalle.codigoProducto = (row("codigo").ToString)
             EmenvioDetalle.descripcion = (row("producto").ToString)
             EmenvioDetalle.unidadMedida = row("ygcodu").ToString
             EmenvioDetalle.cantidad = (row("tbcmin"))
@@ -4875,7 +4875,7 @@ salirIf:
             EmenvioDetalle.numeroSerie = ""
             EmenvioDetalle.numeroImei = ""
 
-            PrecioTot = Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00000") * (row("tbcmin")), "0.00000") 'total
+            PrecioTot = Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00000") * (row("tbcmin")), "0.00") 'total
 
 
             array(val) = EmenvioDetalle
@@ -4898,7 +4898,7 @@ salirIf:
         Emenvio.nitEmisor = 1028395023
         Emenvio.razonSocialEmisor = "ASOCIACION GREMIAL AGROPECUARIA DE CAÑEROS GUABIRA"
         Emenvio.municipio = "MONTERO"
-        Emenvio.direccion = "CALLE LIBERTAD ESQ.BOLIVAR ALEGRIA VIRGEN DE COTOCA"
+        Emenvio.direccion = "CALLE LIBERTAD ESQ.BOLIVAR"
         Emenvio.telefonoEmisor = "9221563"
         Emenvio.nombreRazonSocial = TbNombre1.Text.ToString()
         Emenvio.codigoTipoDocumentoIdentidad = TDoc

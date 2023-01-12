@@ -6,9 +6,9 @@
         Public Property descripcion As String
         Public Property unidadMedida As Integer
         Public Property cantidad As Integer
-        Public Property precioUnitario As Double
-        Public Property montoDescuento As Double
-        Public Property subTotal As Double
+        Public Property precioUnitario As Decimal
+        Public Property montoDescuento As Decimal
+        Public Property subTotal As Decimal
         Public Property numeroSerie As String
         Public Property numeroImei As String
     End Class
@@ -38,9 +38,9 @@
         Public Property codigoDocumentoSector As Integer
         Public Property codigoMoneda As Integer
         Public Property tipoCambio As Integer
-        Public Property montoTotal As Double
-        Public Property montoTotalSujetoIva As Double
-        Public Property montoTotalMoneda As Double
+        Public Property montoTotal As Decimal
+        Public Property montoTotalSujetoIva As Decimal
+        Public Property montoTotalMoneda As Decimal
         Public Property montoGiftCard As Integer
         Public Property descuentoAdicional As Integer
         Public Property codigoExcepcion As Integer
