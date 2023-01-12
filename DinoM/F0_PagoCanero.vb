@@ -84,7 +84,7 @@ Public Class F0_PagoCanero
         'lbTipoMoneda.Visible = False
         swMoneda.Visible = True
         P_prCargarVariablesIndispensables()
-        _prCargarVenta()
+        _prCargarPagos()
         _prInhabiliitar()
         grVentas.Focus()
         Me.Text = "VENTAS"
@@ -179,17 +179,17 @@ Public Class F0_PagoCanero
         btnNuevo.Enabled = True
         'btnEliminar.Enabled = True
 
-        If grVentas.GetValue("taest") = 1 Then
-            btnEliminar.Enabled = True
-        Else
-            btnEliminar.Enabled = False
-        End If
+        'If grVentas.GetValue("taest") = 1 Then
+        '    btnEliminar.Enabled = True
+        'Else
+        '    btnEliminar.Enabled = False
+        'End If
 
 
 
         grVentas.Enabled = True
         PanelNavegacion.Enabled = True
-        grdetalle.RootTable.Columns("img").Visible = False
+        'grdetalle.RootTable.Columns("img").Visible = False
 
 
         TbNombre2.ReadOnly = True
@@ -231,7 +231,7 @@ Public Class F0_PagoCanero
     Public Sub _prFiltrar()
         'cargo el buscador
         Dim _Mpos As Integer
-        _prCargarVenta()
+        _prCargarPagos()
         If grVentas.RowCount > 0 Then
             _Mpos = 0
             grVentas.Row = _Mpos
@@ -272,6 +272,7 @@ Public Class F0_PagoCanero
         ' Table_Producto = Nothing
     End Sub
     Public Sub _prMostrarRegistro(_N As Integer)
+        Dim cod As String
         '' grVentas.Row = _N
         '     a.tanumi ,a.taalm ,a.tafdoc ,a.taven ,vendedor .yddesc as vendedor ,a.tatven ,a.tafvcr ,a.taclpr,
         'cliente.yddesc as cliente ,a.tamon ,IIF(tamon=1,'Boliviano','Dolar') as moneda,a.taest ,a.taobs ,
@@ -279,37 +280,89 @@ Public Class F0_PagoCanero
 
         With grVentas
 
-            cbSucursal.Value = .GetValue("taalm")
-            tbCodigo.Text = .GetValue("tanumi")
-            tbFechaPago.Value = .GetValue("tafdoc")
-            _CodEmpleado = .GetValue("taven")
-            _CodInstitucion = .GetValue("NroCaja")
-            tbVendedor.Text = .GetValue("institucion")
-            _CodCliente = .GetValue("taclpr")
-            tbCliente.Text = .GetValue("cliente")
-            swMoneda.Value = .GetValue("tamon")
+            cbSucursal.Value = .GetValue("pralm")
+            tbFechaPago.Value = .GetValue("prfec")
+            _CodInstitucion = .GetValue("prinst")
+            tbVendedor.Text = .GetValue("nomInst")
+            _CodCliente = .GetValue("prcan")
+            tbCliente.Text = .GetValue("ydrazonsocial")
+            swMoneda.Value = .GetValue("prmon")
+            cod = .GetValue("prnumi")
 
+            'If grVentas.GetValue("taest") = 1 Then
 
-            If grVentas.GetValue("taest") = 1 Then
+            '    btnEliminar.Enabled = True
+            'Else
 
-                btnEliminar.Enabled = True
-            Else
+            '    btnEliminar.Enabled = False
+            'End If
 
-                btnEliminar.Enabled = False
-            End If
-
-            lbFecha.Text = CType(.GetValue("tafact"), Date).ToString("dd/MM/yyyy")
-            lbHora.Text = .GetValue("tahact").ToString
-            lbUsuario.Text = .GetValue("tauact").ToString
+            'lbFecha.Text = CType(.GetValue("tafact"), Date).ToString("dd/MM/yyyy")
+            'lbHora.Text = .GetValue("tahact").ToString
+            'lbUsuario.Text = .GetValue("tauact").ToString
 
         End With
 
-        _prCargarDetalleVenta(tbCodigo.Text)
+        _prCargarDetallePago(cod)
+        '_prCargarDetalleVenta(tbCodigo.Text)
 
-        _prCalcularPrecioTotal()
+        '_prCalcularPrecioTotal()
 
     End Sub
 
+    Private Sub _prCargarDetallePago(_numi As String)
+        Dim dt As New DataTable
+        dt = L_fnDetallePagos(_numi)
+        grdetalle.DataSource = dt
+        grdetalle.RetrieveStructure()
+        grdetalle.AlternatingColors = True
+
+        With grdetalle.RootTable.Columns("numi")
+            .Width = 400
+            .Caption = "CODIGO"
+            .Visible = False
+        End With
+
+        With grdetalle.RootTable.Columns("prnumi")
+            .Width = 90
+            .Visible = False
+        End With
+        With grdetalle.RootTable.Columns("tbdetalle")
+            .Width = 500
+            .Caption = "DETALLE"
+            .Visible = True
+        End With
+        With grdetalle.RootTable.Columns("tbdebe")
+            .Width = 180
+            .TextAlignment = 3
+            .Caption = "DEBE"
+            .Visible = True
+        End With
+        With grdetalle.RootTable.Columns("tbapag")
+            .Width = 180
+            .TextAlignment = 3
+            .Caption = "A PAGAR"
+            .Visible = True
+        End With
+        With grdetalle.RootTable.Columns("tbapor")
+            .Width = 180
+            .TextAlignment = 3
+            .Caption = "APORTE"
+            .Visible = True
+        End With
+        With grdetalle.RootTable.Columns("tbtot")
+            .Width = 180
+            .TextAlignment = 3
+            .Caption = "TOTAL"
+            .Visible = True
+        End With
+
+
+
+        Dim Total As String = grVentas.RowCount
+        Dim Actual As String = grVentas.Row + 1
+        LblPaginacion.Text = Actual + "/" + Total
+    End Sub
     Private Sub _prCargarDetalleVenta(_numi As String)
         Dim dt As New DataTable
         dt = L_fnDetalleVenta(_numi)
@@ -544,6 +597,14 @@ Public Class F0_PagoCanero
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
         End With
+    End Sub
+
+    Private Sub _prCargarPagos()
+        Dim dt As New DataTable
+        dt = L_fnGeneralPagos()
+        grVentas.DataSource = dt
+        grVentas.RetrieveStructure()
+        grVentas.AlternatingColors = True
     End Sub
 
     Private Sub _prCargarVenta()
@@ -1157,54 +1218,66 @@ Public Class F0_PagoCanero
 
     Public Sub _GuardarNuevo()
         Try
-            Dim numi As String = ""
-            Dim tabla As DataTable = L_fnMostrarMontos(0)
-            Dim factura = gb_FacturaEmite
+            L_fnPagarCuenta(tbFechaPago.Value.ToString("yyyy-MM-dd"), _CodCliente, _CodInstitucion, tbinteres.Text, cbFormaPago.Value, cbSucursal.Value, If(swMoneda.Value = True, 1, 0), CType(grdetalle.DataSource, DataTable))
+            _Limpiar()
+            _prCargarPagos()
+            _prSalir()
 
-            ''Verifica si existe estock para los productos
-            If _prExisteStockParaProducto() Then
-
-
-                Dim dtDetalle As DataTable = rearmarDetalle()
-                    'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-                    '                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-                    '                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-                    '                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-                    '                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                    '                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
-                    If tbCodigo.Text <> String.Empty Then 'res Then
-                        'res = P_fnGrabarFacturarTFV001(numi)
-                        'Emite factura
-                        If (gb_FacturaEmite) Then
-
-                        Else
-                            '_prImiprimirNotaVenta(numi)
-                        End If
-                        '_Limpiar()
-                        _prCargarVenta()
-                        _prSalir()
-
-
-                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                        ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+            ToastNotification.Show(Me, "Pago ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
                                                   img, 2000,
                                                   eToastGlowColor.Green,
                                                   eToastPosition.TopCenter
                                                   )
 
+            'Dim numi As String = ""
+            'Dim tabla As DataTable = L_fnMostrarMontos(0)
+            'Dim factura = gb_FacturaEmite
+
+            '''Verifica si existe estock para los productos
+            'If _prExisteStockParaProducto() Then
 
 
-                        Table_Producto = Nothing
+            '    Dim dtDetalle As DataTable = rearmarDetalle()
+            '        'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
+            '        '                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
+            '        '                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
+            '        '                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
+            '        '                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+            '        '                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
+            '        If tbCodigo.Text <> String.Empty Then 'res Then
+            '            'res = P_fnGrabarFacturarTFV001(numi)
+            '            'Emite factura
+            '            If (gb_FacturaEmite) Then
 
-                    Else
-                        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                        ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            '            Else
+            '                '_prImiprimirNotaVenta(numi)
+            '            End If
+            '            '_Limpiar()
+            '            _prCargarVenta()
+            '            _prSalir()
 
-                    End If
 
-                Else
-                'MessageBox.Show(mensajeRespuesta)
-            End If
+            '            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+            '            ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+            '                                      img, 2000,
+            '                                      eToastGlowColor.Green,
+            '                                      eToastPosition.TopCenter
+            '                                      )
+
+
+
+            '            Table_Producto = Nothing
+
+            '        Else
+            '            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+            '            ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+            '        End If
+
+            '    Else
+            '    'MessageBox.Show(mensajeRespuesta)
+            'End If
 
 
         Catch ex As Exception
@@ -2051,8 +2124,9 @@ Public Class F0_PagoCanero
         Dim _pos As Integer = grVentas.Row
         If _pos < grVentas.RowCount - 1 And _pos >= 0 Then
             _pos = grVentas.Row + 1
-            '' _prMostrarRegistro(_pos)
+
             grVentas.Row = _pos
+            '_prMostrarRegistro(_pos)
         End If
     End Sub
 
@@ -2509,12 +2583,14 @@ Public Class F0_PagoCanero
 
         With grdetalle.RootTable.Columns("numi")
             .Width = 90
+            .TextAlignment = 3
             .Caption = "NUMERO"
             .Visible = False
 
         End With
         With grdetalle.RootTable.Columns("tanumi")
             .Width = 90
+
             .Caption = "NUMERO"
             .Visible = True
 
@@ -2563,6 +2639,7 @@ Public Class F0_PagoCanero
         With grdetalle.RootTable.Columns("tbdebe")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .TextAlignment = 3
             .Visible = True
             .Caption = "DEBE".ToUpper
             .FormatString = "0.00"
@@ -2570,6 +2647,7 @@ Public Class F0_PagoCanero
         With grdetalle.RootTable.Columns("pago")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .TextAlignment = 3
             .Visible = True
             .Caption = "pago".ToUpper
             .FormatString = "0.00"
@@ -2578,6 +2656,7 @@ Public Class F0_PagoCanero
         With grdetalle.RootTable.Columns("aporte")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .TextAlignment = 3
             .Visible = True
             .Caption = "aporte".ToUpper
             .FormatString = "0.00"
@@ -2585,6 +2664,7 @@ Public Class F0_PagoCanero
         With grdetalle.RootTable.Columns("total")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .TextAlignment = 3
             .Visible = True
             .Caption = "Total".ToUpper
             .FormatString = "0.00"
@@ -2604,6 +2684,7 @@ Public Class F0_PagoCanero
             .Width = 80
             .Caption = "A pagar".ToUpper
             '.CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+            .TextAlignment = 3
             .Visible = True
             .FormatString = "0.00"
         End With

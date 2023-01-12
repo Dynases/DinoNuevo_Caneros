@@ -1,6 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class F0_Prestamos
-    Inherits System.Windows.Forms.Form
+Partial Class F0_Prestamo
+    Inherits Modelo.ModeloF0
+    'Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -22,31 +23,12 @@ Partial Class F0_Prestamos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_Prestamos))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_Prestamo))
+        Dim tbMoneda_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim tbPrest_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim tbFinan_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim tbMoneda_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Me.PanelSuperior = New DevComponents.DotNetBar.PanelEx()
-        Me.PanelToolBar1 = New System.Windows.Forms.Panel()
-        Me.btnSalir = New DevComponents.DotNetBar.ButtonX()
-        Me.btnGrabar = New DevComponents.DotNetBar.ButtonX()
-        Me.btnEliminar = New DevComponents.DotNetBar.ButtonX()
-        Me.btnModificar = New DevComponents.DotNetBar.ButtonX()
-        Me.btnNuevo = New DevComponents.DotNetBar.ButtonX()
-        Me.PanelInferior = New DevComponents.DotNetBar.PanelEx()
-        Me.MPanelUserAct = New System.Windows.Forms.Panel()
-        Me.BubbleBarUsuario = New DevComponents.DotNetBar.BubbleBar()
-        Me.BubbleBarTabUsuario = New DevComponents.DotNetBar.BubbleBarTab(Me.components)
-        Me.BubbleButton3 = New DevComponents.DotNetBar.BubbleButton()
-        Me.TxtNombreUsu = New System.Windows.Forms.TextBox()
-        Me.PanelNavegacion = New System.Windows.Forms.Panel()
-        Me.LblPaginacion = New System.Windows.Forms.Label()
-        Me.btnUltimo = New DevComponents.DotNetBar.ButtonX()
-        Me.btnSiguiente = New DevComponents.DotNetBar.ButtonX()
-        Me.btnAnterior = New DevComponents.DotNetBar.ButtonX()
-        Me.btnPrimero = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.tbMoneda = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbPrest = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbFinan = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
@@ -65,33 +47,35 @@ Partial Class F0_Prestamos
         Me.codFin = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbCanero = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.codCan = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbInst = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.codIns = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.codMon = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbfecha = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.tbInst = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbMoneda = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.PanelSuperior.SuspendLayout()
-        Me.PanelToolBar1.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
-        Me.MPanelUserAct.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelToolBar1.SuspendLayout()
+        Me.PanelToolBar2.SuspendLayout()
+        Me.PanelPrincipal.SuspendLayout()
+        Me.PanelUsuario.SuspendLayout()
         Me.PanelNavegacion.SuspendLayout()
+        Me.MPanelUserAct.SuspendLayout()
+        CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelContent.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.MSuperTabControlPanel1.SuspendLayout()
+        CType(Me.MSuperTabControl, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MSuperTabControl.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel1.SuspendLayout()
+        CType(Me.tbMoneda, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbPrest, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFinan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbfecha, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbMoneda, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelSuperior
         '
-        Me.PanelSuperior.CanvasColor = System.Drawing.SystemColors.Control
-        Me.PanelSuperior.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.OfficeXP
-        Me.PanelSuperior.Controls.Add(Me.PanelToolBar1)
-        Me.PanelSuperior.DisabledBackColor = System.Drawing.Color.Empty
-        Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
-        Me.PanelSuperior.Name = "PanelSuperior"
         Me.PanelSuperior.Size = New System.Drawing.Size(800, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
@@ -105,117 +89,11 @@ Partial Class F0_Prestamos
         Me.PanelSuperior.StyleMouseDown.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
-        Me.PanelSuperior.TabIndex = 4
-        '
-        'PanelToolBar1
-        '
-        Me.PanelToolBar1.Controls.Add(Me.btnSalir)
-        Me.PanelToolBar1.Controls.Add(Me.btnGrabar)
-        Me.PanelToolBar1.Controls.Add(Me.btnEliminar)
-        Me.PanelToolBar1.Controls.Add(Me.btnModificar)
-        Me.PanelToolBar1.Controls.Add(Me.btnNuevo)
-        Me.PanelToolBar1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PanelToolBar1.Location = New System.Drawing.Point(0, 0)
-        Me.PanelToolBar1.Name = "PanelToolBar1"
-        Me.PanelToolBar1.Size = New System.Drawing.Size(376, 72)
-        Me.PanelToolBar1.TabIndex = 5
-        '
-        'btnSalir
-        '
-        Me.btnSalir.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnSalir.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnSalir.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSalir.Image = Global.DinoM.My.Resources.Resources.atras1
-        Me.btnSalir.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnSalir.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnSalir.Location = New System.Drawing.Point(288, 0)
-        Me.btnSalir.Name = "btnSalir"
-        Me.btnSalir.Size = New System.Drawing.Size(88, 72)
-        Me.btnSalir.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnSalir.TabIndex = 10
-        Me.btnSalir.Text = "SALIR"
-        Me.btnSalir.TextColor = System.Drawing.Color.White
-        '
-        'btnGrabar
-        '
-        Me.btnGrabar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnGrabar.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnGrabar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnGrabar.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnGrabar.Image = Global.DinoM.My.Resources.Resources.save
-        Me.btnGrabar.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnGrabar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnGrabar.Location = New System.Drawing.Point(216, 0)
-        Me.btnGrabar.Name = "btnGrabar"
-        Me.btnGrabar.Size = New System.Drawing.Size(72, 72)
-        Me.btnGrabar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnGrabar.TabIndex = 9
-        Me.btnGrabar.Text = "GRABAR"
-        Me.btnGrabar.TextColor = System.Drawing.Color.White
-        '
-        'btnEliminar
-        '
-        Me.btnEliminar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnEliminar.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnEliminar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnEliminar.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEliminar.Image = Global.DinoM.My.Resources.Resources.trash
-        Me.btnEliminar.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnEliminar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnEliminar.Location = New System.Drawing.Point(144, 0)
-        Me.btnEliminar.Name = "btnEliminar"
-        Me.btnEliminar.Size = New System.Drawing.Size(72, 72)
-        Me.btnEliminar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnEliminar.TabIndex = 8
-        Me.btnEliminar.Text = "ELIMINAR"
-        Me.btnEliminar.TextColor = System.Drawing.Color.White
-        '
-        'btnModificar
-        '
-        Me.btnModificar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnModificar.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnModificar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnModificar.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnModificar.Image = Global.DinoM.My.Resources.Resources.edit2
-        Me.btnModificar.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnModificar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnModificar.Location = New System.Drawing.Point(72, 0)
-        Me.btnModificar.Name = "btnModificar"
-        Me.btnModificar.Size = New System.Drawing.Size(72, 72)
-        Me.btnModificar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnModificar.TabIndex = 7
-        Me.btnModificar.Text = "MODIFICAR"
-        Me.btnModificar.TextColor = System.Drawing.Color.White
-        '
-        'btnNuevo
-        '
-        Me.btnNuevo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnNuevo.BackColor = System.Drawing.Color.Transparent
-        Me.btnNuevo.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta
-        Me.btnNuevo.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnNuevo.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNuevo.Image = Global.DinoM.My.Resources.Resources.add2
-        Me.btnNuevo.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnNuevo.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnNuevo.Location = New System.Drawing.Point(0, 0)
-        Me.btnNuevo.Name = "btnNuevo"
-        Me.btnNuevo.Size = New System.Drawing.Size(72, 72)
-        Me.btnNuevo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnNuevo.TabIndex = 6
-        Me.btnNuevo.Text = "NUEVO"
-        Me.btnNuevo.TextColor = System.Drawing.Color.White
+        Me.PanelSuperior.StyleMouseOver.BackgroundImage = CType(resources.GetObject("PanelSuperior.StyleMouseOver.BackgroundImage"), System.Drawing.Image)
         '
         'PanelInferior
         '
-        Me.PanelInferior.CanvasColor = System.Drawing.SystemColors.Control
-        Me.PanelInferior.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.PanelInferior.Controls.Add(Me.MPanelUserAct)
-        Me.PanelInferior.Controls.Add(Me.PanelNavegacion)
-        Me.PanelInferior.DisabledBackColor = System.Drawing.Color.Empty
-        Me.PanelInferior.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PanelInferior.Location = New System.Drawing.Point(0, 411)
-        Me.PanelInferior.Name = "PanelInferior"
         Me.PanelInferior.Size = New System.Drawing.Size(800, 39)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Transparent
@@ -225,22 +103,9 @@ Partial Class F0_Prestamos
         Me.PanelInferior.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.PanelInferior.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.PanelInferior.Style.GradientAngle = 90
-        Me.PanelInferior.TabIndex = 8
-        '
-        'MPanelUserAct
-        '
-        Me.MPanelUserAct.Controls.Add(Me.BubbleBarUsuario)
-        Me.MPanelUserAct.Controls.Add(Me.TxtNombreUsu)
-        Me.MPanelUserAct.Dock = System.Windows.Forms.DockStyle.Right
-        Me.MPanelUserAct.Location = New System.Drawing.Point(600, 0)
-        Me.MPanelUserAct.Name = "MPanelUserAct"
-        Me.MPanelUserAct.Size = New System.Drawing.Size(200, 39)
-        Me.MPanelUserAct.TabIndex = 21
         '
         'BubbleBarUsuario
         '
-        Me.BubbleBarUsuario.Alignment = DevComponents.DotNetBar.eBubbleButtonAlignment.Bottom
-        Me.BubbleBarUsuario.AntiAlias = True
         '
         '
         '
@@ -259,136 +124,76 @@ Partial Class F0_Prestamos
         Me.BubbleBarUsuario.ButtonBackAreaStyle.PaddingLeft = 3
         Me.BubbleBarUsuario.ButtonBackAreaStyle.PaddingRight = 3
         Me.BubbleBarUsuario.ButtonBackAreaStyle.PaddingTop = 3
-        Me.BubbleBarUsuario.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BubbleBarUsuario.ImageSizeLarge = New System.Drawing.Size(60, 60)
-        Me.BubbleBarUsuario.ImageSizeNormal = New System.Drawing.Size(28, 28)
-        Me.BubbleBarUsuario.Location = New System.Drawing.Point(0, 0)
         Me.BubbleBarUsuario.MouseOverTabColors.BorderColor = System.Drawing.SystemColors.Highlight
-        Me.BubbleBarUsuario.Name = "BubbleBarUsuario"
-        Me.BubbleBarUsuario.SelectedTab = Me.BubbleBarTabUsuario
         Me.BubbleBarUsuario.SelectedTabColors.BorderColor = System.Drawing.Color.Black
-        Me.BubbleBarUsuario.Size = New System.Drawing.Size(200, 39)
-        Me.BubbleBarUsuario.TabIndex = 13
-        Me.BubbleBarUsuario.Tabs.Add(Me.BubbleBarTabUsuario)
-        Me.BubbleBarUsuario.TabsVisible = False
-        Me.BubbleBarUsuario.Text = "BubbleBar5"
-        '
-        'BubbleBarTabUsuario
-        '
-        Me.BubbleBarTabUsuario.BackColor = System.Drawing.Color.FromArgb(CType(CType(221, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(247, Byte), Integer))
-        Me.BubbleBarTabUsuario.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(228, Byte), Integer))
-        Me.BubbleBarTabUsuario.Buttons.AddRange(New DevComponents.DotNetBar.BubbleButton() {Me.BubbleButton3})
-        Me.BubbleBarTabUsuario.DarkBorderColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(105, Byte), Integer), CType(CType(105, Byte), Integer), CType(CType(105, Byte), Integer))
-        Me.BubbleBarTabUsuario.LightBorderColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.BubbleBarTabUsuario.Name = "BubbleBarTabUsuario"
-        Me.BubbleBarTabUsuario.PredefinedColor = DevComponents.DotNetBar.eTabItemColor.Blue
-        Me.BubbleBarTabUsuario.Text = "BubbleBarTab3"
-        Me.BubbleBarTabUsuario.TextColor = System.Drawing.Color.Black
-        '
-        'BubbleButton3
-        '
-        Me.BubbleButton3.Image = Global.DinoM.My.Resources.Resources.man_18
-        Me.BubbleButton3.Name = "BubbleButton3"
         '
         'TxtNombreUsu
         '
-        Me.TxtNombreUsu.BackColor = System.Drawing.Color.Gold
-        Me.TxtNombreUsu.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtNombreUsu.ForeColor = System.Drawing.Color.Black
-        Me.TxtNombreUsu.Location = New System.Drawing.Point(59, 5)
-        Me.TxtNombreUsu.Multiline = True
-        Me.TxtNombreUsu.Name = "TxtNombreUsu"
-        Me.TxtNombreUsu.Size = New System.Drawing.Size(135, 27)
-        Me.TxtNombreUsu.TabIndex = 14
-        Me.TxtNombreUsu.Text = "MARCO"
-        Me.TxtNombreUsu.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.TxtNombreUsu.Visible = False
+        Me.TxtNombreUsu.ReadOnly = True
+        Me.TxtNombreUsu.Text = "DEFAULT"
         '
-        'PanelNavegacion
+        'btnSalir
         '
-        Me.PanelNavegacion.Controls.Add(Me.LblPaginacion)
-        Me.PanelNavegacion.Controls.Add(Me.btnUltimo)
-        Me.PanelNavegacion.Controls.Add(Me.btnSiguiente)
-        Me.PanelNavegacion.Controls.Add(Me.btnAnterior)
-        Me.PanelNavegacion.Controls.Add(Me.btnPrimero)
-        Me.PanelNavegacion.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PanelNavegacion.Location = New System.Drawing.Point(0, 0)
-        Me.PanelNavegacion.Name = "PanelNavegacion"
-        Me.PanelNavegacion.Size = New System.Drawing.Size(288, 39)
-        Me.PanelNavegacion.TabIndex = 20
         '
-        'LblPaginacion
+        'PanelToolBar2
         '
-        Me.LblPaginacion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LblPaginacion.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPaginacion.ForeColor = System.Drawing.Color.White
-        Me.LblPaginacion.Location = New System.Drawing.Point(172, 0)
-        Me.LblPaginacion.Name = "LblPaginacion"
-        Me.LblPaginacion.Size = New System.Drawing.Size(116, 39)
-        Me.LblPaginacion.TabIndex = 22
-        Me.LblPaginacion.Text = "0/0"
-        Me.LblPaginacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.LblPaginacion.Visible = False
+        Me.PanelToolBar2.Location = New System.Drawing.Point(720, 0)
         '
-        'btnUltimo
+        'PanelPrincipal
         '
-        Me.btnUltimo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnUltimo.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnUltimo.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnUltimo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUltimo.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnUltimo.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnUltimo.Location = New System.Drawing.Point(129, 0)
-        Me.btnUltimo.Name = "btnUltimo"
-        Me.btnUltimo.Size = New System.Drawing.Size(43, 39)
-        Me.btnUltimo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnUltimo.TabIndex = 14
-        Me.btnUltimo.Visible = False
+        Me.PanelPrincipal.Size = New System.Drawing.Size(800, 450)
+        Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelInferior, 0)
+        Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
+        Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
+        Me.PanelPrincipal.Controls.SetChildIndex(Me.Panel1, 0)
         '
-        'btnSiguiente
+        'MPanelUserAct
         '
-        Me.btnSiguiente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnSiguiente.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnSiguiente.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnSiguiente.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSiguiente.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnSiguiente.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnSiguiente.Location = New System.Drawing.Point(86, 0)
-        Me.btnSiguiente.Name = "btnSiguiente"
-        Me.btnSiguiente.Size = New System.Drawing.Size(43, 39)
-        Me.btnSiguiente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnSiguiente.TabIndex = 13
-        Me.btnSiguiente.Visible = False
+        Me.MPanelUserAct.Location = New System.Drawing.Point(600, 0)
         '
-        'btnAnterior
+        'MRlAccion
         '
-        Me.btnAnterior.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnAnterior.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnAnterior.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnAnterior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAnterior.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnAnterior.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnAnterior.Location = New System.Drawing.Point(43, 0)
-        Me.btnAnterior.Name = "btnAnterior"
-        Me.btnAnterior.Size = New System.Drawing.Size(43, 39)
-        Me.btnAnterior.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnAnterior.TabIndex = 12
-        Me.btnAnterior.Visible = False
         '
-        'btnPrimero
         '
-        Me.btnPrimero.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnPrimero.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnPrimero.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnPrimero.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPrimero.ImageFixedSize = New System.Drawing.Size(30, 30)
-        Me.btnPrimero.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnPrimero.Location = New System.Drawing.Point(0, 0)
-        Me.btnPrimero.Name = "btnPrimero"
-        Me.btnPrimero.Size = New System.Drawing.Size(43, 39)
-        Me.btnPrimero.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnPrimero.TabIndex = 11
-        Me.btnPrimero.Visible = False
+        '
+        Me.MRlAccion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.MRlAccion.ForeColor = System.Drawing.Color.Transparent
+        Me.MRlAccion.Size = New System.Drawing.Size(344, 72)
+        '
+        'PanelContent
+        '
+        Me.PanelContent.Controls.Add(Me.GroupPanel1)
+        Me.PanelContent.Size = New System.Drawing.Size(767, 339)
+        '
+        'Panel1
+        '
+        Me.Panel1.Size = New System.Drawing.Size(800, 339)
+        '
+        'MSuperTabControlPanel1
+        '
+        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(767, 339)
+        '
+        'MSuperTabControl
+        '
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.MSuperTabControl.ControlBox.CloseBox.Name = ""
+        '
+        '
+        '
+        Me.MSuperTabControl.ControlBox.MenuBox.Name = ""
+        Me.MSuperTabControl.ControlBox.Name = ""
+        Me.MSuperTabControl.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.MSuperTabControl.ControlBox.MenuBox, Me.MSuperTabControl.ControlBox.CloseBox})
+        Me.MSuperTabControl.Size = New System.Drawing.Size(800, 339)
+        Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Location = New System.Drawing.Point(527, 0)
         '
         'GroupPanel1
         '
@@ -423,9 +228,9 @@ Partial Class F0_Prestamos
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.GroupPanel1.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.GroupPanel1.Location = New System.Drawing.Point(0, 73)
+        Me.GroupPanel1.Location = New System.Drawing.Point(-2, 1)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(800, 337)
+        Me.GroupPanel1.Size = New System.Drawing.Size(770, 337)
         '
         '
         '
@@ -454,8 +259,25 @@ Partial Class F0_Prestamos
         '
         '
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupPanel1.TabIndex = 9
+        Me.GroupPanel1.TabIndex = 11
         Me.GroupPanel1.Text = "DATOS"
+        '
+        'tbMoneda
+        '
+        Me.tbMoneda.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        Me.tbMoneda.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
+        tbMoneda_DesignTimeLayout.LayoutString = resources.GetString("tbMoneda_DesignTimeLayout.LayoutString")
+        Me.tbMoneda.DesignTimeLayout = tbMoneda_DesignTimeLayout
+        Me.tbMoneda.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.tbMoneda.Location = New System.Drawing.Point(182, 64)
+        Me.tbMoneda.Name = "tbMoneda"
+        Me.tbMoneda.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.tbMoneda.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.tbMoneda.SelectedIndex = -1
+        Me.tbMoneda.SelectedItem = Nothing
+        Me.tbMoneda.Size = New System.Drawing.Size(191, 21)
+        Me.tbMoneda.TabIndex = 34
+        Me.tbMoneda.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'tbPrest
         '
@@ -708,6 +530,19 @@ Partial Class F0_Prestamos
         Me.codCan.Size = New System.Drawing.Size(50, 21)
         Me.codCan.TabIndex = 9
         '
+        'tbInst
+        '
+        '
+        '
+        '
+        Me.tbInst.Border.Class = "TextBoxBorder"
+        Me.tbInst.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbInst.Location = New System.Drawing.Point(182, 90)
+        Me.tbInst.Name = "tbInst"
+        Me.tbInst.PreventEnterBeep = True
+        Me.tbInst.Size = New System.Drawing.Size(400, 21)
+        Me.tbInst.TabIndex = 8
+        '
         'codIns
         '
         '
@@ -779,95 +614,49 @@ Partial Class F0_Prestamos
         Me.tbfecha.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbfecha.TabIndex = 4
         '
-        'tbInst
-        '
-        '
-        '
-        '
-        Me.tbInst.Border.Class = "TextBoxBorder"
-        Me.tbInst.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbInst.Location = New System.Drawing.Point(182, 90)
-        Me.tbInst.Name = "tbInst"
-        Me.tbInst.PreventEnterBeep = True
-        Me.tbInst.Size = New System.Drawing.Size(400, 21)
-        Me.tbInst.TabIndex = 8
-        '
-        'tbMoneda
-        '
-        Me.tbMoneda.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
-        Me.tbMoneda.ControlThemedAreas = Janus.Windows.GridEX.ControlThemedAreas.Button
-        tbMoneda_DesignTimeLayout.LayoutString = resources.GetString("tbMoneda_DesignTimeLayout.LayoutString")
-        Me.tbMoneda.DesignTimeLayout = tbMoneda_DesignTimeLayout
-        Me.tbMoneda.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.tbMoneda.Location = New System.Drawing.Point(182, 64)
-        Me.tbMoneda.Name = "tbMoneda"
-        Me.tbMoneda.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.tbMoneda.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.tbMoneda.SelectedIndex = -1
-        Me.tbMoneda.SelectedItem = Nothing
-        Me.tbMoneda.Size = New System.Drawing.Size(191, 21)
-        Me.tbMoneda.TabIndex = 34
-        Me.tbMoneda.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'F0_Prestamos
+        'F0_Prestamo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.GroupPanel1)
-        Me.Controls.Add(Me.PanelInferior)
-        Me.Controls.Add(Me.PanelSuperior)
-        Me.Name = "F0_Prestamos"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "F0_Prestamos"
+        Me.Location = New System.Drawing.Point(0, 0)
+        Me.Name = "F0_Prestamo"
+        Me.Opacity = 0.99R
+        Me.Text = "F0_Prestamo"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Normal
+        Me.Controls.SetChildIndex(Me.PanelPrincipal, 0)
         Me.PanelSuperior.ResumeLayout(False)
-        Me.PanelToolBar1.ResumeLayout(False)
         Me.PanelInferior.ResumeLayout(False)
+        CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelToolBar1.ResumeLayout(False)
+        Me.PanelToolBar2.ResumeLayout(False)
+        Me.PanelPrincipal.ResumeLayout(False)
+        Me.PanelUsuario.ResumeLayout(False)
+        Me.PanelUsuario.PerformLayout()
+        Me.PanelNavegacion.ResumeLayout(False)
         Me.MPanelUserAct.ResumeLayout(False)
         Me.MPanelUserAct.PerformLayout()
-        CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelNavegacion.ResumeLayout(False)
+        CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelContent.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.MSuperTabControlPanel1.ResumeLayout(False)
+        CType(Me.MSuperTabControl, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MSuperTabControl.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel1.PerformLayout()
+        CType(Me.tbMoneda, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbPrest, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFinan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbfecha, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbMoneda, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Public WithEvents PanelSuperior As DevComponents.DotNetBar.PanelEx
-    Protected WithEvents PanelToolBar1 As Panel
-    Protected WithEvents btnSalir As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents btnGrabar As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents btnEliminar As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents btnModificar As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents btnNuevo As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents PanelInferior As DevComponents.DotNetBar.PanelEx
-    Protected WithEvents MPanelUserAct As Panel
-    Protected WithEvents BubbleBarUsuario As DevComponents.DotNetBar.BubbleBar
-    Protected WithEvents BubbleBarTabUsuario As DevComponents.DotNetBar.BubbleBarTab
-    Friend WithEvents BubbleButton3 As DevComponents.DotNetBar.BubbleButton
-    Protected WithEvents TxtNombreUsu As TextBox
-    Protected WithEvents PanelNavegacion As Panel
-    Protected WithEvents LblPaginacion As Label
-    Protected WithEvents btnUltimo As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents btnSiguiente As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents btnAnterior As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents btnPrimero As DevComponents.DotNetBar.ButtonX
     Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
-    Friend WithEvents codPres As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents codFin As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents tbCanero As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents codCan As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents codIns As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents codMon As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents tbfecha As DevComponents.Editors.DateTimeAdv.DateTimeInput
-    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbGlosa As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents tbInteres As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents tbTotal As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbMoneda As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents tbPrest As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents tbFinan As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
@@ -876,8 +665,16 @@ Partial Class F0_Prestamos
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbPrest As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents tbFinan As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents tbMoneda As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbGlosa As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbInteres As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbTotal As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents codPres As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents codFin As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbCanero As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents codCan As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbInst As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents codIns As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents codMon As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbfecha As DevComponents.Editors.DateTimeAdv.DateTimeInput
 End Class

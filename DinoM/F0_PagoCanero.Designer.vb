@@ -850,6 +850,7 @@ Partial Class F0_PagoCanero
         Me.grdetalle.BackColor = System.Drawing.Color.GhostWhite
         Me.grdetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdetalle.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grdetalle.GroupByBoxVisible = False
         Me.grdetalle.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.grdetalle.Location = New System.Drawing.Point(0, 0)
         Me.grdetalle.Name = "grdetalle"

@@ -1,8 +1,21 @@
-﻿Imports Logica.AccesoLogica
+﻿Imports DevComponents.DotNetBar
+Imports DevComponents.DotNetBar.Controls
+Imports Logica.AccesoLogica
 
-Public Class F0_Prestamos
+Public Class F0_Prestamo
 
+#Region "Variables Globales"
+    Dim _CodCliente As Integer = 0
+    Dim _CodEmpleado As Integer = 0
+    Dim _CodInstitucion As Integer = 0
     Dim cod As Integer
+    Public _nameButton As String
+    Public _tab As SuperTabItem
+    Public _modulo As SideNavItem
+
+
+#End Region
+
     Public Sub iniciarcomponentes()
         tbInst.ReadOnly = True
         codIns.ReadOnly = True
@@ -12,13 +25,33 @@ Public Class F0_Prestamos
         codFin.ReadOnly = True
         codPres.ReadOnly = True
         codMon.ReadOnly = True
-        btnModificar.Visible = False
-        btnEliminar.Visible = False
-        btnGrabar.Enabled = False
+        'tbFinan.ReadOnly = True
+        'tbPrest.ReadOnly = True
         _prCargarComboFinanciador(tbFinan)
         _prCargarComboMoneda(tbMoneda)
 
 
+    End Sub
+
+    Private Sub _prCargarComboFinanciador(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnGeneralFinanciadores()
+
+        'a.ylcod1 ,a.yldes1 
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("ylcod2").Width = 70
+            .DropDownList.Columns("ylcod2").Caption = "COD"
+            .DropDownList.Columns.Add("yldes2").Width = mCombo.Width - 70
+            .DropDownList.Columns("yldes2").Caption = "DESCRIPCION"
+            .ValueMember = "ylcod2"
+            .DisplayMember = "yldes2"
+            .DataSource = dt
+            .Refresh()
+        End With
+        If (CType(tbFinan.DataSource, DataTable).Rows.Count > 0) Then
+            tbFinan.SelectedIndex = 0
+        End If
     End Sub
 
     Private Sub _prCargarComboMoneda(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
@@ -41,26 +74,7 @@ Public Class F0_Prestamos
             tbMoneda.SelectedIndex = 0
         End If
     End Sub
-    Private Sub _prCargarComboFinanciador(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
-        Dim dt As New DataTable
-        dt = L_fnGeneralFinanciadores()
 
-        'a.ylcod1 ,a.yldes1 
-        With mCombo
-            .DropDownList.Columns.Clear()
-            .DropDownList.Columns.Add("ylcod2").Width = 70
-            .DropDownList.Columns("ylcod2").Caption = "COD"
-            .DropDownList.Columns.Add("yldes2").Width = mCombo.Width - 70
-            .DropDownList.Columns("yldes2").Caption = "DESCRIPCION"
-            .ValueMember = "ylcod2"
-            .DisplayMember = "yldes2"
-            .DataSource = dt
-            .Refresh()
-        End With
-        If (CType(tbFinan.DataSource, DataTable).Rows.Count > 0) Then
-            tbFinan.SelectedIndex = 0
-        End If
-    End Sub
     Private Sub _prCargarComboTipoPrestamo(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim Finan As Integer = tbFinan.Value
         codFin.Text = Finan
@@ -83,24 +97,31 @@ Public Class F0_Prestamos
             tbPrest.SelectedIndex = 0
         End If
     End Sub
-    Private Sub btnNuevo_Click(sender As Object, e As EventArgs)
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
 
     End Sub
 
-    Private Sub TextBoxX8_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub LabelX1_Click(sender As Object, e As EventArgs) Handles LabelX1.Click
-
-    End Sub
-
-    Private Sub F0_Prestamos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub F0_Prestamo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         iniciarcomponentes()
     End Sub
 
-    Private Sub TextBoxX7_TextChanged(sender As Object, e As EventArgs) Handles codFin.TextChanged
+    Private Sub tbMoneda_ValueChanged(sender As Object, e As EventArgs) Handles tbMoneda.ValueChanged
+        codMon.Text = tbMoneda.Value
+    End Sub
 
+    Private Sub tbFinan_ValueChanged(sender As Object, e As EventArgs) Handles tbFinan.ValueChanged
+        _prCargarComboTipoPrestamo(tbPrest)
+    End Sub
+
+    Private Sub tbInst_TextChanged(sender As Object, e As EventArgs) Handles tbInst.TextChanged
+
+    End Sub
+
+    Private Sub tbCanero_TextChanged(sender As Object, e As EventArgs) Handles tbCanero.TextChanged
+        Dim dt As DataTable
+        dt = L_fnListarCaneroInstitucion(cod)
+        Dim row As DataRow = dt.Rows(dt.Rows.Count - 1)
+        tbInst.Text = row("institucion")
     End Sub
 
     Private Sub tbCanero_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCanero.KeyDown
@@ -163,27 +184,8 @@ Public Class F0_Prestamos
         End If
     End Sub
 
-    Private Sub tbCanero_TextChanged(sender As Object, e As EventArgs) Handles tbCanero.TextChanged
-        Dim dt As DataTable
-        dt = L_fnListarCaneroInstitucion(cod)
-        Dim row As DataRow = dt.Rows(dt.Rows.Count - 1)
-        tbInst.Text = row("institucion")
-    End Sub
-
-    Private Sub tbFinan_ValueChanged(sender As Object, e As EventArgs) Handles tbFinan.ValueChanged
-        _prCargarComboTipoPrestamo(tbPrest)
-    End Sub
-
     Private Sub tbPrest_ValueChanged(sender As Object, e As EventArgs) Handles tbPrest.ValueChanged
         Dim Pres As Integer = tbPrest.Value
         codPres.Text = Pres
-    End Sub
-
-    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-        Me.Close()
-    End Sub
-
-    Private Sub tbMoneda_ValueChanged(sender As Object, e As EventArgs) Handles tbMoneda.ValueChanged
-        codMon.Text = tbMoneda.Value
     End Sub
 End Class

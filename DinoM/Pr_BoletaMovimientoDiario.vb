@@ -19,7 +19,7 @@ Public Class Pr_BoletaMovimientoDiario
     Private Sub _prCargarReporte()
 
         Dim _dt As New DataTable
-            _prInterpretarDatos(_dt)
+        _prInterpretarDatos(_dt)
         If (_dt.Rows.Count > 0) Then
 
             Dim objrep As New ReporteDiario
@@ -29,9 +29,9 @@ Public Class Pr_BoletaMovimientoDiario
 
             objrep.SetParameterValue("fechaI", fechaI)
             objrep.SetParameterValue("fechaF", fechaF)
-            CrystalReportViewer1.ReportSource = objrep
-            CrystalReportViewer1.Show()
-            CrystalReportViewer1.BringToFront()
+            MReportViewer.ReportSource = objrep
+            MReportViewer.Show()
+            MReportViewer.BringToFront()
 
 
 
@@ -43,20 +43,21 @@ Public Class Pr_BoletaMovimientoDiario
             My.Resources.INFORMATION, 2000,
             eToastGlowColor.Blue,
             eToastPosition.BottomLeft)
-            CrystalReportViewer1.ReportSource = Nothing
+            MReportViewer.ReportSource = Nothing
         End If
 
 
-    End Sub
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Me.Close()
     End Sub
 
     Private Sub Pr_BoletaMovimientoDiario_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         iniciarcomponentes()
     End Sub
 
-    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
         _prCargarReporte()
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
     End Sub
 End Class

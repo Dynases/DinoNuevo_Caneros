@@ -2913,6 +2913,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_fnNotaCompras2(_canumi As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 13))
+        _listParam.Add(New Datos.DParametro("@canumi", _canumi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarEstadoCuentasCompraTotal(idProveedor As Integer, fechai As String) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -7140,4 +7152,50 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
     End Function
 #End Region
+
+#Region "Cuentas Cañeras"
+
+    Public Shared Function L_fnGeneralPagos() As DataTable
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 15))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnDetallePagos(codigo As String) As DataTable
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 16))
+        _listParam.Add(New Datos.DParametro("@interes", codigo))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnPagarCuenta(fecha As String, codcan As Integer, codInst As Integer, interes As Integer, formaPago As Integer, Almacen As Integer, moneda As Integer, detalle As DataTable) As DataTable
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 14))
+        _listParam.Add(New Datos.DParametro("@cafdoc", fecha))
+        _listParam.Add(New Datos.DParametro("@cliente", codcan))
+        _listParam.Add(New Datos.DParametro("@inst", codInst))
+        _listParam.Add(New Datos.DParametro("@interes", interes))
+        _listParam.Add(New Datos.DParametro("@forpa", formaPago))
+        _listParam.Add(New Datos.DParametro("@caalm", Almacen))
+        _listParam.Add(New Datos.DParametro("@camon", moneda))
+        _listParam.Add(New Datos.DParametro("@TaPagar", "", detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+        Return _Tabla
+    End Function
+
+
+
+
+#End Region
+
 End Class

@@ -1308,7 +1308,7 @@ Public Class P_Principal
     End Sub
 
     Private Sub btRegistroPrestamos_Click(sender As Object, e As EventArgs) Handles btRegistroPrestamos.Click
-        Dim frm As New F0_Prestamos
+        Dim frm As New F0_Prestamo
         frm.Show()
     End Sub
 

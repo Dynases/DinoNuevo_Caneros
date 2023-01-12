@@ -43,7 +43,7 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
                         My.Resources.INFORMATION, 2000,
                         eToastGlowColor.Blue,
                         eToastPosition.BottomLeft)
-            CrystalReportViewer1.ReportSource = Nothing
+            MReportViewer.ReportSource = Nothing
 
         Else
             Dim _dt As New DataTable
@@ -62,9 +62,9 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
                         objrep.SetParameterValue("cañero", canero)
                         objrep.SetParameterValue("fechaI", fechaI)
                         objrep.SetParameterValue("fechaF", fechaF)
-                        CrystalReportViewer1.ReportSource = objrep
-                        CrystalReportViewer1.Show()
-                        CrystalReportViewer1.BringToFront()
+                        MReportViewer.ReportSource = objrep
+                        MReportViewer.Show()
+                        MReportViewer.BringToFront()
                     Else
                         Dim objrep As New ReporteCañeroTodos
                         objrep.SetDataSource(_dt)
@@ -74,9 +74,9 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
                         Dim codcanero As String = tbCod.Text
                         objrep.SetParameterValue("fechaI", fechaI)
                         objrep.SetParameterValue("fechaF", fechaF)
-                        CrystalReportViewer1.ReportSource = objrep
-                        CrystalReportViewer1.Show()
-                        CrystalReportViewer1.BringToFront()
+                        MReportViewer.ReportSource = objrep
+                        MReportViewer.Show()
+                        MReportViewer.BringToFront()
                     End If
 
                 Else swTipo.Value = True
@@ -93,9 +93,9 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
                             objrep.SetParameterValue("institucion", canero)
                             objrep.SetParameterValue("fechaI", fechaI)
                             objrep.SetParameterValue("fechaF", fechaF)
-                            CrystalReportViewer1.ReportSource = objrep
-                            CrystalReportViewer1.Show()
-                            CrystalReportViewer1.BringToFront()
+                            MReportViewer.ReportSource = objrep
+                            MReportViewer.Show()
+                            MReportViewer.BringToFront()
                         Else
                             Dim objrep As New ReporteInsitucionUnaSolo
                             objrep.SetDataSource(_dt)
@@ -107,9 +107,9 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
                             objrep.SetParameterValue("institucion", canero)
                             objrep.SetParameterValue("fechaI", fechaI)
                             objrep.SetParameterValue("fechaF", fechaF)
-                            CrystalReportViewer1.ReportSource = objrep
-                            CrystalReportViewer1.Show()
-                            CrystalReportViewer1.BringToFront()
+                            MReportViewer.ReportSource = objrep
+                            MReportViewer.Show()
+                            MReportViewer.BringToFront()
                         End If
                     Else
                         If swSubTipo.Value = True Then
@@ -119,9 +119,9 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
                             Dim fechaF As String = tbFechaF.Value.ToString("dd/MM/yyyy")
                             objrep.SetParameterValue("fechaI", fechaI)
                             objrep.SetParameterValue("fechaF", fechaF)
-                            CrystalReportViewer1.ReportSource = objrep
-                            CrystalReportViewer1.Show()
-                            CrystalReportViewer1.BringToFront()
+                            MReportViewer.ReportSource = objrep
+                            MReportViewer.Show()
+                            MReportViewer.BringToFront()
                         Else
                             Dim objrep As New ReporteInstitucionesSolo
                             objrep.SetDataSource(_dt)
@@ -129,21 +129,21 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
                             Dim fechaF As String = tbFechaF.Value.ToString("dd/MM/yyyy")
                             objrep.SetParameterValue("fechaI", fechaI)
                             objrep.SetParameterValue("fechaF", fechaF)
-                            CrystalReportViewer1.ReportSource = objrep
-                            CrystalReportViewer1.Show()
-                            CrystalReportViewer1.BringToFront()
+                            MReportViewer.ReportSource = objrep
+                            MReportViewer.Show()
+                            MReportViewer.BringToFront()
                         End If
 
                     End If
                 End If
 
-                    Else
+            Else
 
                 ToastNotification.Show(Me, "NO HAY DATOS PARA LOS PARAMETROS SELECCIONADOS..!!!",
                 My.Resources.INFORMATION, 2000,
                 eToastGlowColor.Blue,
                 eToastPosition.BottomLeft)
-                CrystalReportViewer1.ReportSource = Nothing
+                MReportViewer.ReportSource = Nothing
             End If
 
         End If
@@ -151,11 +151,8 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
 
 
     End Sub
-    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
-        _prCargarReporte()
-    End Sub
 
-    Private Sub swTipo_Click(sender As Object, e As EventArgs) Handles swTipo.Click
+    Private Sub swTipo_Click(sender As Object, e As EventArgs)
         tbCod.Text = ""
         tbInsCan.Text = ""
     End Sub
@@ -280,18 +277,29 @@ Public Class Pr_ReporteBoletaCaneroInstitucion
         End If
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Me.Close()
-    End Sub
-
     Private Sub swTipo_ValueChanged(sender As Object, e As EventArgs) Handles swTipo.ValueChanged
-        If (swTipo.Value = True) And (CheckTodos.Checked = True) Then
+        If (swTipo.Value = True) Then
             swSubTipo.Visible = True
+            CheckTodos.Checked = True
+            CheckUna.Checked = False
         ElseIf swTipo.Value = False Then
-            swSubTipo.
-                Visible = False
+            swSubTipo.Visible = False
+            CheckTodos.Checked = True
+            'CheckUna.Checked = False
         Else
             swSubTipo.Visible = False
         End If
+    End Sub
+
+    Private Sub swSubTipo_ValueChanged(sender As Object, e As EventArgs) Handles swSubTipo.ValueChanged
+
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
+    End Sub
+
+    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
+        _prCargarReporte()
     End Sub
 End Class

@@ -29,7 +29,7 @@ Public Class Pr_RetiroInstitucionalInsumos
                         My.Resources.INFORMATION, 2000,
                         eToastGlowColor.Blue,
                         eToastPosition.BottomLeft)
-            CrystalReportViewer1.ReportSource = Nothing
+            MReportViewer.ReportSource = Nothing
 
         Else
             Dim _dt As New DataTable
@@ -49,9 +49,9 @@ Public Class Pr_RetiroInstitucionalInsumos
                     objrep.SetParameterValue("almacen", sucursal)
                     objrep.SetParameterValue("fechaI", fechaI)
                     objrep.SetParameterValue("fechaF", fechaF)
-                    CrystalReportViewer1.ReportSource = objrep
-                    CrystalReportViewer1.Show()
-                    CrystalReportViewer1.BringToFront()
+                    MReportViewer.ReportSource = objrep
+                    MReportViewer.Show()
+                    MReportViewer.BringToFront()
                 Else
                     Dim objrep As New RetiroInstitucionalTodos
                     objrep.SetDataSource(_dt)
@@ -61,9 +61,9 @@ Public Class Pr_RetiroInstitucionalInsumos
                     objrep.SetParameterValue("sucursal", sucursal)
                     objrep.SetParameterValue("fechaI", fechaI)
                     objrep.SetParameterValue("fechaF", fechaF)
-                    CrystalReportViewer1.ReportSource = objrep
-                    CrystalReportViewer1.Show()
-                    CrystalReportViewer1.BringToFront()
+                    MReportViewer.ReportSource = objrep
+                    MReportViewer.Show()
+                    MReportViewer.BringToFront()
                 End If
             Else
 
@@ -71,16 +71,13 @@ Public Class Pr_RetiroInstitucionalInsumos
                 My.Resources.INFORMATION, 2000,
                 eToastGlowColor.Blue,
                 eToastPosition.BottomLeft)
-                CrystalReportViewer1.ReportSource = Nothing
+                MReportViewer.ReportSource = Nothing
             End If
 
         End If
 
 
 
-    End Sub
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Me.Close()
     End Sub
 
     Private Sub Pr_RetiroInstitucionalInsumos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -151,11 +148,19 @@ Public Class Pr_RetiroInstitucionalInsumos
         End If
     End Sub
 
-    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+    Private Sub CrystalReportViewer1_Load(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
+    End Sub
+
+    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
         _prCargarReporte()
     End Sub
 
-    Private Sub CrystalReportViewer1_Load(sender As Object, e As EventArgs) Handles CrystalReportViewer1.Load
+    Private Sub MReportViewer_Load(sender As Object, e As EventArgs) Handles MReportViewer.Load
 
     End Sub
 End Class
