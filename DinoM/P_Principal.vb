@@ -1225,7 +1225,7 @@ Public Class P_Principal
     Private Sub btConfInstituciones_Click(sender As Object, e As EventArgs) Handles btConfInstituciones.Click
         Dim frm As New F0_Instituciones
 
-        frm._nameButton = btConfUsuarios.Name
+        frm._nameButton = btConfInstituciones.Name
         frm._modulo = FP_Configuracion
 
         frm.Show()

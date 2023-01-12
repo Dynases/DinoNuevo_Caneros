@@ -552,6 +552,11 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         _where = "id = " + _numi
         _Err = D_Modificar_Datos("Institucion", Sql, _where)
+        Sql =
+        " cadesc = '" + _nomInst + "' "
+
+        _where = "canumi = " + _campo1
+        _Err = D_Modificar_Datos("BDDiconCaneros.dbo.TC001", Sql, _where)
         Return _Err
     End Function
 
