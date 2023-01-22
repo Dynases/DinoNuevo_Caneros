@@ -27,7 +27,7 @@ Public Class P_Principal
         _prLeerArchivoConfig()
 
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
-        L_prAbrirConexionBitacora(gs_Ip, gs_UsuarioSql, gs_ClaveSql, "BDDiconDinoEco")
+        L_prAbrirConexionBitacora(gs_Ip, gs_UsuarioSql, gs_ClaveSql, "BDDiconCaneros")
 
         Me.WindowState = FormWindowState.Maximized
 
@@ -1311,6 +1311,7 @@ Public Class P_Principal
         Dim frm As New F0_Prestamo
         frm.Show()
     End Sub
+
 
 
     'Private Sub btnCredPagoCliente_Click(sender As Object, e As EventArgs) Handles btnCredPagoCliente.Click

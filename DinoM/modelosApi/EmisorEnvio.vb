@@ -37,7 +37,7 @@
         Public Property codigoPuntoVenta As Integer
         Public Property codigoDocumentoSector As Integer
         Public Property codigoMoneda As Integer
-        Public Property tipoCambio As Integer
+        Public Property tipoCambio As Decimal
         Public Property montoTotal As Decimal
         Public Property montoTotalSujetoIva As Decimal
         Public Property montoTotalMoneda As Decimal

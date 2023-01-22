@@ -14,4 +14,9 @@
         Public Property codigo As String
         Public Property descripcion As String
     End Class
+
+    Public Class leyendas
+        Public Property codigoActividadEconomica As String
+        Public Property leyenda As String
+    End Class
 End Class

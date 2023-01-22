@@ -471,6 +471,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return _Err
     End Function
+
+
     'Public Shared Function L_Institucion_Grabar(ByRef _numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
     '    Dim _Actualizacion As String
     '    Dim _Err As Boolean
@@ -1804,6 +1806,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnGeneralVentaTodos() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 333))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
 
     Public Shared Function L_fnCuentasxCobrar(idCanero As Integer, tbinteres As String, fechaPago As String) As DataTable
         Dim _Tabla As DataTable
@@ -2930,6 +2943,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_recibo(_canumi As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@ienumi", _canumi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prListarEstadoCuentasCompraTotal(idProveedor As Integer, fechai As String) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -3476,7 +3501,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                 + "" + _Nscf + ", " _
                 + "" + _NumAsiento + ""
 
-            D_Insertar_Datos("BDDiconDinoEco.dbo.TPA001", Sql)
+            D_Insertar_Datos("BDDiconCaneros.dbo.TPA001", Sql)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -7008,9 +7033,20 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_ListaVentasCobrar() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 27))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prIngresoEgresoGrabar(ByRef _ienumi As String, _ieFecha As String, _ieTipo As String,
                                            _ieDescripcion As String, _ieConcepto As String, _ieMonto As Decimal,
-                                           _ieObs As String, _NroCaja As Integer) As Boolean
+                                           _ieObs As String, _NroCaja As Integer, tbIdCaja As String) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -7025,6 +7061,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ieObs", _ieObs))
         _listParam.Add(New Datos.DParametro("@ieEstado", 1))
         _listParam.Add(New Datos.DParametro("@Nrocaja", _NroCaja))
+        _listParam.Add(New Datos.DParametro("@idCaja", tbIdCaja))
         _listParam.Add(New Datos.DParametro("@ieuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
 

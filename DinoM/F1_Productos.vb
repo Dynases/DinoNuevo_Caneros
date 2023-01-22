@@ -1286,7 +1286,7 @@ Public Class F1_Productos
 
         Dim api = New DBApi()
 
-        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=1"
+        Dim url = "https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=1"
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),
@@ -1317,7 +1317,7 @@ Public Class F1_Productos
 
         Dim api = New DBApi()
 
-        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoProductos?nit=1028395023"
+        Dim url = "	https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoProductos?nit=1028395023"
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),
@@ -1352,7 +1352,7 @@ Public Class F1_Productos
 
         Dim api = New DBApi()
 
-        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=15"
+        Dim url = "https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=15"
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),

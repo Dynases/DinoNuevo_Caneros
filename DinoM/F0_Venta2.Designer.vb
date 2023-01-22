@@ -28,6 +28,7 @@ Partial Class F0_Venta2
         Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim CbMetodoPago_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbCambioDolar_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbleyendas_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.tbComplemento = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -128,6 +129,7 @@ Partial Class F0_Venta2
         Me.PanelEncabezado = New System.Windows.Forms.Panel()
         Me.btnBitacora = New DevComponents.DotNetBar.ButtonX()
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.cbleyendas = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -180,6 +182,7 @@ Partial Class F0_Venta2
         Me.PanelFondoDetalle.SuspendLayout()
         Me.PanelFacturaYCobranza.SuspendLayout()
         Me.PanelEncabezado.SuspendLayout()
+        CType(Me.cbleyendas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelSuperior
@@ -684,6 +687,7 @@ Partial Class F0_Venta2
         '
         Me.swTipoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swTipoVenta.IsReadOnly = True
         Me.swTipoVenta.Location = New System.Drawing.Point(1075, 9)
         Me.swTipoVenta.Name = "swTipoVenta"
         Me.swTipoVenta.OffBackColor = System.Drawing.Color.LawnGreen
@@ -992,6 +996,7 @@ Partial Class F0_Venta2
         Me.GroupCobranza.BackColor = System.Drawing.Color.White
         Me.GroupCobranza.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupCobranza.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupCobranza.Controls.Add(Me.cbleyendas)
         Me.GroupCobranza.Controls.Add(Me.LabelX25)
         Me.GroupCobranza.Controls.Add(Me.CbMetodoPago)
         Me.GroupCobranza.Controls.Add(Me.GroupBox1)
@@ -1800,7 +1805,7 @@ Partial Class F0_Venta2
         Me.dtiFechaFactura.ButtonDropDown.Visible = True
         Me.dtiFechaFactura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtiFechaFactura.IsPopupCalendarOpen = False
-        Me.dtiFechaFactura.Location = New System.Drawing.Point(139, 32)
+        Me.dtiFechaFactura.Location = New System.Drawing.Point(139, 42)
         '
         '
         '
@@ -1845,7 +1850,7 @@ Partial Class F0_Venta2
         Me.tbNroFactura.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNroFactura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbNroFactura.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbNroFactura.Location = New System.Drawing.Point(139, 62)
+        Me.tbNroFactura.Location = New System.Drawing.Point(139, 68)
         Me.tbNroFactura.Name = "tbNroFactura"
         Me.tbNroFactura.PreventEnterBeep = True
         Me.tbNroFactura.Size = New System.Drawing.Size(120, 22)
@@ -1862,10 +1867,11 @@ Partial Class F0_Venta2
         Me.tbNroAutoriz.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNroAutoriz.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbNroAutoriz.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbNroAutoriz.Location = New System.Drawing.Point(139, 4)
+        Me.tbNroAutoriz.Location = New System.Drawing.Point(138, 3)
+        Me.tbNroAutoriz.Multiline = True
         Me.tbNroAutoriz.Name = "tbNroAutoriz"
         Me.tbNroAutoriz.PreventEnterBeep = True
-        Me.tbNroAutoriz.Size = New System.Drawing.Size(200, 22)
+        Me.tbNroAutoriz.Size = New System.Drawing.Size(273, 35)
         Me.tbNroAutoriz.TabIndex = 239
         Me.tbNroAutoriz.TabStop = False
         '
@@ -1878,7 +1884,7 @@ Partial Class F0_Venta2
         Me.LabelX15.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX15.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX15.Location = New System.Drawing.Point(3, 61)
+        Me.LabelX15.Location = New System.Drawing.Point(3, 64)
         Me.LabelX15.Name = "LabelX15"
         Me.LabelX15.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX15.Size = New System.Drawing.Size(130, 23)
@@ -1894,7 +1900,7 @@ Partial Class F0_Venta2
         Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX14.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX14.Location = New System.Drawing.Point(3, 32)
+        Me.LabelX14.Location = New System.Drawing.Point(3, 39)
         Me.LabelX14.Name = "LabelX14"
         Me.LabelX14.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX14.Size = New System.Drawing.Size(130, 23)
@@ -1924,7 +1930,8 @@ Partial Class F0_Venta2
         '
         Me.swMoneda.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swMoneda.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swMoneda.Location = New System.Drawing.Point(289, 32)
+        Me.swMoneda.IsReadOnly = True
+        Me.swMoneda.Location = New System.Drawing.Point(307, 44)
         Me.swMoneda.Name = "swMoneda"
         Me.swMoneda.OffBackColor = System.Drawing.Color.LawnGreen
         Me.swMoneda.OffText = "DOLAR"
@@ -2261,6 +2268,25 @@ Partial Class F0_Venta2
         Me.SwDescuentoProveedor.ValueObject = "Y"
         Me.SwDescuentoProveedor.Visible = False
         '
+        'cbleyendas
+        '
+        Me.cbleyendas.BorderStyle = Janus.Windows.GridEX.BorderStyle.Flat
+        Me.cbleyendas.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        cbleyendas_DesignTimeLayout.LayoutString = resources.GetString("cbleyendas_DesignTimeLayout.LayoutString")
+        Me.cbleyendas.DesignTimeLayout = cbleyendas_DesignTimeLayout
+        Me.cbleyendas.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbleyendas.Location = New System.Drawing.Point(135, 195)
+        Me.cbleyendas.MaxLength = 40
+        Me.cbleyendas.Name = "cbleyendas"
+        Me.cbleyendas.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbleyendas.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbleyendas.SelectedIndex = -1
+        Me.cbleyendas.SelectedItem = Nothing
+        Me.cbleyendas.Size = New System.Drawing.Size(280, 19)
+        Me.cbleyendas.TabIndex = 443
+        Me.cbleyendas.Visible = False
+        Me.cbleyendas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
         'F0_Venta2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2327,6 +2353,7 @@ Partial Class F0_Venta2
         Me.PanelFondoDetalle.ResumeLayout(False)
         Me.PanelFacturaYCobranza.ResumeLayout(False)
         Me.PanelEncabezado.ResumeLayout(False)
+        CType(Me.cbleyendas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2432,4 +2459,5 @@ Partial Class F0_Venta2
     Friend WithEvents CbMetodoPago As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents tbComplemento As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX25 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbleyendas As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

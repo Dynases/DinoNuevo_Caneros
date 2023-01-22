@@ -1155,7 +1155,7 @@ Public Class F1_Clientes
 
         Dim api = New DBApi()
 
-        Dim url = "https://labbo-emp-consulta-v2-1.guru-soft.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=8"
+        Dim url = "https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=8"
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),
