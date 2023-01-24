@@ -2796,7 +2796,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@placa", "", placa))
         _listParam.Add(New Datos.DParametro("@recibio", "", recibio))
         _listParam.Add(New Datos.DParametro("@entrego", "", entrego))
-        _listParam.Add(New Datos.DParametro("@hojaRuta", "", hojaRuta))
+        _listParam.Add(New Datos.DParametro("@hojaRuta", hojaRuta))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
 
 

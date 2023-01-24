@@ -389,7 +389,7 @@ Public Class F0_Venta2
             swMoneda.Value = .GetValue("tamon")
             tbFechaVenc.Value = .GetValue("tafvcr")
             swTipoVenta.Value = .GetValue("tatven")
-            CbMetodoPago.SelectedIndex = .GetValue("tametpago")
+            CbMetodoPago.Value = .GetValue("tametpago").ToString
             'SwConta.Value = IIf(.GetValue("taproforma") = 0, 1, 0)
             tbObservacion.Text = .GetValue("taobs")
             lbNroCaja.Text = .GetValue("vendedor")
@@ -2505,7 +2505,12 @@ Public Class F0_Venta2
         For Each fila As DataRow In empresaHabilitada.Rows
             Select Case fila.Item("TipoReporte").ToString
                 Case ENReporteTipo.NOTAVENTA_Carta
-                    objrep = New R_NotaVenta_Carta
+                    If cbSucursal.Value = 2 Then
+                        objrep = New R_NotaVenta_Cartashoping
+                    Else
+                        objrep = New R_NotaVenta_Carta
+                    End If
+
                     SetParametrosNotaVenta(dt, total, li, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep)
                 Case ENReporteTipo.NOTAVENTA_Ticket
                     objrep = New R_NotaVenta_7_5X100
@@ -2776,7 +2781,7 @@ Public Class F0_Venta2
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         _Limpiar()
         _prhabilitar()
-
+        CbMetodoPago.Value = "239"
         '' AsignarClienteEmpleado()
         lbNroCaja.Text = gs_user
         LabelAlmacen.Text = gi_userSuc
@@ -2927,9 +2932,9 @@ Public Class F0_Venta2
         End If
         If swTipoVenta.IsReadOnly = False Then
             If swTipoVenta.Value = True Then
-                CbMetodoPago.SelectedIndex = 0
+                CbMetodoPago.Value = "1"
             Else
-                CbMetodoPago.SelectedIndex = 155
+                CbMetodoPago.Value = "239"
             End If
         End If
     End Sub
@@ -4037,29 +4042,47 @@ salirIf:
         Try
             If (Not _fnAccesible()) Then
 
-                If (gb_FacturaEmite) Then
-                    If tbCodigo.Text = String.Empty Then
-                        Throw New Exception("Venta no encontrada")
-                    End If
-                    If tbNit.Text = String.Empty Then
-                        _prImiprimirNotaVenta(tbCodigo.Text)
-                        ' Return
-                    ElseIf (Not P_fnValidarFacturaVigente()) Then
 
-                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
 
-                        ToastNotification.Show(Me, "No se puede imprimir la factura con numero ".ToUpper + tbNroFactura.Text + ", su factura esta anulada".ToUpper,
-                                              img, 3000,
-                                              eToastGlowColor.Green,
-                                              eToastPosition.TopCenter)
-                        Exit Sub
+                _prImiprimirNotaVenta(tbCodigo.Text)
+
+
+                    Dim ef1 = New Efecto
+
+
+                ef1.tipo = 2
+                ef1.Context = "MENSAJE PRINCIPAL".ToUpper
+                ef1.Header = "¿Desea imprimir la factura?".ToUpper
+                ef1.ShowDialog()
+                Dim bandera1 As Boolean = False
+                bandera1 = ef1.band
+                If (bandera1 = True) Then
+
+
+                    If (gb_FacturaEmite) Then
+                        If tbCodigo.Text = String.Empty Then
+                            Throw New Exception("Venta no encontrada")
+                        End If
+                        If tbNit.Text = String.Empty Then
+                            '_prImiprimirNotaVenta(tbCodigo.Text)
+                            ' Return
+                        ElseIf (Not P_fnValidarFacturaVigente()) Then
+
+                            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                            ToastNotification.Show(Me, "No se puede imprimir la factura con numero ".ToUpper + tbNroFactura.Text + ", su factura esta anulada".ToUpper,
+                                                  img, 3000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                            Exit Sub
+                        End If
+                        If tbNit.Text <> String.Empty Then
+                            ReimprimirFactura(tbCodigo.Text, True, True)
+                        End If
+                        '_prImiprimirNotaVenta(tbCodigo.Text)
+                    Else
+                        '_prImiprimirNotaVenta(tbCodigo.Text)
                     End If
-                    If tbNit.Text <> String.Empty Then
-                        ReimprimirFactura(tbCodigo.Text, True, True)
-                    End If
-                    '_prImiprimirNotaVenta(tbCodigo.Text)
-                Else
-                        _prImiprimirNotaVenta(tbCodigo.Text)
                 End If
             End If
         Catch ex As Exception

@@ -228,7 +228,7 @@ Public Class F0_MCompras
         tbPlaca.Clear()
         tbRecibio.Clear()
         tbEntrego.Clear()
-        tbHojaRuta.Clear()
+        tbHojaRuta.Text = "0"
 
 
         _prCargarDetalleVenta(-1)
@@ -1148,7 +1148,7 @@ Public Class F0_MCompras
                                                   _detalleCompras, IIf(swEmision.Value = True, 1, 0),
                                                   tbNFactura.Text, IIf(swConsigna.Value = True, 1, 0),
                                                   IIf(swRetencion.Value = True, 1, 0), IIf(swMoneda.Value = True, 1, tbTipoCambio.Value), tbChofer.Text,
-                                                  tbCamion.Text, tbPlaca.Text, tbRecibio.Text, tbEntrego.Text, CInt(tbHojaRuta.Text))
+                                                  tbCamion.Text, tbPlaca.Text, tbRecibio.Text, tbEntrego.Text, Convert.ToInt32(tbHojaRuta.Text))
             If res Then
 
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -1325,9 +1325,9 @@ Public Class F0_MCompras
             _TotalDecimal2 = CDbl(_TotalDecimal) * 100
 
             If swMoneda.Value = True Then
-                moneda = "Bolivianos"
+                moneda = "BOLIVIANO"
             Else
-                moneda = "Dólares"
+                moneda = "DOLARES AMERICANOS"
             End If
 
             _Literal = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_TotalLi) - CDbl(_TotalDecimal)) + "  " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 " + moneda
@@ -1569,7 +1569,7 @@ salirIf:
                 grdetalle.Row = grdetalle.RowCount - 1
                 _fnObtenerFilaDetalle(pos, grdetalle.GetValue("cbnumi"))
                 Dim existe As Boolean = _fnExisteProducto(grProductos.GetValue("yfnumi"))
-                If (pos >= 0) Then ''And (Not existe))
+                If ((pos >= 0) And (Not existe)) Then
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbty5prod") = grProductos.GetValue("yfnumi")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("producto") = grProductos.GetValue("yfcdprod1")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfdetprod") = grProductos.GetValue("yfdetprod")

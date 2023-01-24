@@ -877,6 +877,12 @@
       <DependentUpon>R_NotaCompra.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reporte\R_NotaVenta_Carta%28shoping%29.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_NotaVenta_Carta%28shoping%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reporte\R_NotaVenta_Carta_Diesel.vb">
       <DependentUpon>R_NotaVenta_Carta_Diesel.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1635,6 +1641,10 @@
     <EmbeddedResource Include="Reporte\R_NotaCompra.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_NotaCompra.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_NotaVenta_Carta%28shoping%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_NotaVenta_Carta%28shoping%29.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_NotaVenta_Carta_Diesel.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
