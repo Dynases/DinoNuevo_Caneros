@@ -498,7 +498,7 @@ Public Class F0_Venta2
         With grdetalle.RootTable.Columns("Codigo")
             .Caption = "Código".ToUpper
             .Width = 100
-            .Visible = False
+            .Visible = True
         End With
 
         With grdetalle.RootTable.Columns("yfcbarra")
@@ -1724,6 +1724,13 @@ Public Class F0_Venta2
                     If tbCodigo.Text <> String.Empty Then 'res Then
                         'res = P_fnGrabarFacturarTFV001(numi)
                         'Emite factura
+                        If swTipoVenta.Value = True Then
+                            contabilizarContado()
+                        Else
+                            contabilizar()
+                            L_fnGrabarTxCobrar(tbCodigo.Text)
+                        End If
+
                         If (gb_FacturaEmite) Then
                             If tbNit.Text <> String.Empty Then
 
@@ -1734,17 +1741,10 @@ Public Class F0_Venta2
                         End If
                         '_Limpiar()
                         _prCargarVenta()
-                        If swTipoVenta.Value = False Then
-                            'MessageBox.Show(tbCodigo.Text)
-                            L_fnGrabarTxCobrar(tbCodigo.Text)
-                        End If
+
 
                         _prSalir()
-                        If swTipoVenta.Value = True Then
-                            contabilizarContado()
-                        Else
-                            contabilizar()
-                        End If
+
 
                         Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                         ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
@@ -1935,6 +1935,7 @@ Public Class F0_Venta2
         If (res) Then
             If (P_fnValidarFactura()) Then
                 'Validar para facturar
+
                 P_prImprimirFacturar(numi, True, True) '_Codigo de a tabla TV001
             Else
                 'Volver todo al estada anterior
@@ -1956,7 +1957,7 @@ Public Class F0_Venta2
     End Function
 
     Private Function P_fnGrabarFacturarTFV001(numi As String) As Boolean
-        Dim a As Double = CDbl(Convert.ToDouble(tbTotalBs.Text) + tbMdesc.Value)
+        Dim a As Double = CDbl(Convert.ToDouble(tbTotalDo.Text) + tbMdesc.Value)
         'Dim b As Double = CDbl(IIf(IsDBNull(tbIce.Value), 0, tbIce.Value)) 'Ya esta calculado el 55% del ICE
         Dim b As Double = CDbl(0)
         Dim c As Double = CDbl("0")
@@ -2171,7 +2172,7 @@ Public Class F0_Venta2
                 If _Ds1.Tables(0).Rows(0).Item("sbalm") = 1 Then
                     nombreSucursal = "MATRIZ"
                 ElseIf _Ds1.Tables(0).Rows(0).Item("sbalm") = 2 Then
-                    nombreSucursal = "SUCURSAL 3"
+                    nombreSucursal = "SUCURSAL 2"
                 End If
                 objrep.SetParameterValue("Fecliteral", fechaLiteral)
                 objrep.SetParameterValue("Direccionpr", "Dirección: " + _Ds2.Tables(0).Rows(0).Item("scdir").ToString)
@@ -3989,6 +3990,36 @@ salirIf:
     End Sub
 
     Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
+        'If swTipoVenta.Value = True Then
+        '    contabilizarContado()
+        'Else
+        '    contabilizar()
+        '    L_fnGrabarTxCobrar(tbCodigo.Text)
+        'End If
+        'Dim a As Double = CDbl(Convert.ToDouble(tbTotalDo.Text) + tbMdesc.Value)
+        ''Dim b As Double = CDbl(IIf(IsDBNull(tbIce.Value), 0, tbIce.Value)) 'Ya esta calculado el 55% del ICE
+        'Dim b As Double = CDbl(0)
+        'Dim c As Double = CDbl("0")
+        'Dim d As Double = CDbl("0")
+        'Dim ee As Double = a - b - c - d
+        'Dim f As Double = CDbl(tbMdesc.Value)
+        'Dim g As Double = ee - f
+        'Dim h As Double = g * (gi_IVA / 100)
+
+        'Dim res As Boolean = False
+        'Dim _Hora As String = Now.Hour.ToString("D2") + ":" + Now.Minute.ToString("D2")
+
+
+        ''Grabar Nuevo y Modificado en la BDDiconDinoEco en la tabla TPA001
+        'If (tbCodigo.Text = String.Empty) Then
+        '    L_Grabar_TPA001(tbCodigo.Text, dtiFechaFactura.Value.ToString("yyyy/MM/dd"), "2", _CodCliente, TbNombre1.Text, "1",
+        '                "1", CStr(Format(g, "####0.00")), "1", "6.96", "0", "0")
+        'Else
+        '    If (tbCodigo.Text <> String.Empty) Then
+        '        L_Grabar_TPA001(tbCodigo.Text, dtiFechaFactura.Value.ToString("yyyy/MM/dd"), "2", _CodCliente, TbNombre1.Text, "1",
+        '                 "2", CStr(Format(g, "####0.00")), "1", "6.96", "0", "0")
+        '    End If
+        'End If
         Dim _MPos As Integer = grVentas.Row
         If _MPos > 0 And grVentas.RowCount > 0 Then
             _MPos = _MPos - 1
@@ -4695,7 +4726,7 @@ salirIf:
     Private Sub contabilizar()
         Dim codigoVenta = tbCodigo.Text
         Dim codCanero = "P/Ord." + codigoVenta + " " + Convert.ToString(_CodCliente) + " " + tbCliente.Text 'obobs
-        Dim total = tbTotalBs.Text 'para obtener debe haber
+        Dim total = tbTotalDo.Text 'para obtener debe haber
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
         Dim debebs, haberbs, debeus, haberus As Double
@@ -4726,17 +4757,17 @@ salirIf:
                     For Each detalle In dtDetalle.Rows
                         cuenta = detalle("yfclot")
                         If row("dh") = 1 Then
-                            debeus = (Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            debeus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
                             debebs = debeus * 6.96
                             haberus = 0.00
                             haberbs = 0.00
-                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
                         Else
-                            haberus = (Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            haberus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
                             haberbs = haberus * 6.96
                             debeus = 0.00
                             debebs = 0.00
-                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
                         End If
 
                         Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
@@ -4774,10 +4805,12 @@ salirIf:
         L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
 
+
+
     Private Sub contabilizarContado()
         Dim codigoVenta = tbCodigo.Text
         Dim codCanero = "P/Ord." + codigoVenta + " " + Convert.ToString(_CodCliente) + " " + tbCliente.Text 'obobs
-        Dim total = tbTotalBs.Text 'para obtener debe haber
+        Dim total = tbTotalDo.Text 'para obtener debe haber
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
         Dim debebs, haberbs, debeus, haberus As Double
@@ -4803,17 +4836,17 @@ salirIf:
                     For Each detalle In dtDetalle.Rows
                         cuenta = detalle("yfclot")
                         If row("dh") = 1 Then
-                            debeus = (Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            debeus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
                             debebs = debeus * 6.96
                             haberus = 0.00
                             haberbs = 0.00
-                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
                         Else
-                            haberus = (Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            haberus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
                             haberbs = haberus * 6.96
                             debeus = 0.00
                             debebs = 0.00
-                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
                         End If
 
                         Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
@@ -5020,7 +5053,7 @@ salirIf:
             EmenvioDetalle.numeroSerie = ""
             EmenvioDetalle.numeroImei = ""
 
-            PrecioTot = Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00000") * (row("tbcmin")), "0.00") 'total
+            PrecioTot = PrecioTot + EmenvioDetalle.subTotal 'Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00000") * (row("tbcmin")), "0.00") 'total
 
 
             array(val) = EmenvioDetalle
@@ -5055,14 +5088,14 @@ salirIf:
         If cbSucursal.Value = 1 Then
             Emenvio.codigoSucursal = 0
         ElseIf cbSucursal.Value = 2 Then
-            Emenvio.codigoSucursal = 3
+            Emenvio.codigoSucursal = 2
         End If
 
 
 
         Emenvio.numeroFactura = NumFactura
-        Emenvio.montoTotal = PrecioTot
-        Emenvio.montoTotalSujetoIva = PrecioTot
+        Emenvio.montoTotal = Format(PrecioTot, "0.00")
+        Emenvio.montoTotalSujetoIva = Format(PrecioTot, "0.00")
         Emenvio.codigoMoneda = 2
         Emenvio.tipoCambio = 6.96
         Emenvio.montoTotalMoneda = Format(PrecioTot / 6.96, "0.00")
@@ -5214,29 +5247,28 @@ salirIf:
 
         Return codigo
     End Function
+    Private _codigoRecepcion1 As String
 
-    Public Function ConsultarEstadoEmision(tokenObtenido, sucursal, numeroDocumento, fechaFac)
+    Public ReadOnly Property CodigoRecepcion1 As String
+        Get
+            Return _codigoRecepcion1
+        End Get
+    End Property
+    Public Function ConsultarEstadoEmision(tokenObtenido, sucursal, numeroDocumento, fechaFac, ByRef codigo)
 
         Dim api = New DBApi()
         Dim Emenvio = New EmisorEnvio.consultarEstadoEmision()
-
-        Dim NumFactura As Integer
-        Dim dsApi As DataSet
-
-        'NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
 
         Emenvio.nit = 1028395023
         If sucursal = 1 Then
             Emenvio.codigoSucursal = 0
         ElseIf sucursal = 2 Then
-            Emenvio.codigoSucursal = 3
+            Emenvio.codigoSucursal = 2
         End If
         Emenvio.codigoPuntoVenta = 0
         Emenvio.codigoDocumentoSector = 35
         Emenvio.numeroDocumento = numeroDocumento
-        Emenvio.AnioEmision = Year(fechaFac) '2022 ' Year(tbFechaVenta.Text)
-
-
+        Emenvio.AnioEmision = Year(fechaFac)
 
         Dim json = JsonConvert.SerializeObject(Emenvio)
         Dim url = "https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultaDocumentoXId?nit=1028395023&anioEmision=" + Emenvio.AnioEmision.ToString + "&codigoDocumentoSector=35&codigoSucursal=" + Emenvio.codigoSucursal.ToString + "&codigoPuntoVenta=0&numeroDocumento=" + Emenvio.numeroDocumento.ToString
@@ -5252,26 +5284,11 @@ salirIf:
 
         Dim result = JsonConvert.DeserializeObject(Of RespEmisor)(response)
         Dim resultError = JsonConvert.DeserializeObject(Of Resp400)(response)
-        'MessageBox.Show(result.mensajeRespuesta)
-        'codigoRecepcion = result.codigoRecepcion
+
+        codigo = result.codigoRecepcion
         estadoEmisionEdoc = result.estadoEmisionEDOC
-        'fechaEmision1 = result.fechaEmision
-        'cuf = result.cuf
-        'cuis = result.cuis
-        'cufd = result.cufd
-        'codigoControl = result.codigoControl
-        'linkCodigoQr = result.linkCodigoQR
-        'codigoError = result.codigoError
-        'mensajeRespuesta = result.mensajeRespuesta
 
-        Dim codigo = result.estadoEmisionEDOC  'result.codigoError
-        Dim xml As String
-
-
-
-
-
-        Return codigo
+        Return estadoEmisionEdoc
     End Function
     Public Function MetodoPago(tokenObtenido)
 
@@ -5309,7 +5326,7 @@ salirIf:
 
         Dim api = New DBApi()
 
-        Dim url = "	https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoLeyendas?nit=1028395023"
+        Dim url = "https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoLeyendas?nit=1028395023"
 
         Dim headers = New List(Of Parametro) From {
             New Parametro("Authorization", "Bearer " + tokenObtenido),
@@ -5337,4 +5354,38 @@ salirIf:
         Return ""
     End Function
 
+    Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
+        'If swTipoVenta.Value = True Then
+        '    contabilizarContado()
+        'Else
+        '    contabilizar()
+        '    L_fnGrabarTxCobrar(tbCodigo.Text)
+        'End If
+        'Dim a As Double = CDbl(Convert.ToDouble(tbTotalDo.Text) + tbMdesc.Value)
+        ''Dim b As Double = CDbl(IIf(IsDBNull(tbIce.Value), 0, tbIce.Value)) 'Ya esta calculado el 55% del ICE
+        'Dim b As Double = CDbl(0)
+        'Dim c As Double = CDbl("0")
+        'Dim d As Double = CDbl("0")
+        'Dim ee As Double = a - b - c - d
+        'Dim f As Double = CDbl(tbMdesc.Value)
+        'Dim g As Double = ee - f
+        'Dim h As Double = g * (gi_IVA / 100)
+
+        'Dim res As Boolean = False
+        'Dim _Hora As String = Now.Hour.ToString("D2") + ":" + Now.Minute.ToString("D2")
+
+
+        ''Grabar Nuevo y Modificado en la BDDiconDinoEco en la tabla TPA001
+        'If (tbCodigo.Text = String.Empty) Then
+        '    L_Grabar_TPA001(tbCodigo.Text, dtiFechaFactura.Value.ToString("yyyy/MM/dd"), "2", _CodCliente, TbNombre1.Text, "1",
+        '                "1", CStr(Format(g, "####0.00")), "1", "6.96", "0", "0")
+        'Else
+        '    If (tbCodigo.Text <> String.Empty) Then
+        '        L_Grabar_TPA001(tbCodigo.Text, dtiFechaFactura.Value.ToString("yyyy/MM/dd"), "2", _CodCliente, TbNombre1.Text, "1",
+        '                 "2", CStr(Format(g, "####0.00")), "1", "6.96", "0", "0")
+        '    End If
+        'End If
+
+
+    End Sub
 End Class

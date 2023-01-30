@@ -376,6 +376,11 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Tabla = D_Datos_TablaInst("*", "Institucion", "id= " + _TipoVenta)
         Return _Tabla
     End Function
+    Public Shared Function ObtenerNumCuentaProveedor(_NomTabla As String, _TipoVenta As String) As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst("*", "TY004", "ydnumi= " + _TipoVenta + "and ydtip=3")
+        Return _Tabla
+    End Function
     Public Shared Function CargarProductoDiesel(_NomTabla As String, _TipoVenta As String) As DataTable
         Dim _Tabla As DataTable
         _Tabla = D_Datos_Tabla("* ", _NomTabla, "yfcprod= " + _TipoVenta)
@@ -2699,6 +2704,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnDetalleCompra1(_numi As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 44))
+        _listParam.Add(New Datos.DParametro("@canumi", _numi))
+        _listParam.Add(New Datos.DParametro("@cauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnDetalleCompraTFC001(_numi As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -2761,7 +2778,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
-    Public Shared Function L_fnGrabarCompra(_canumi As String, _caalm As Integer, _cafdoc As String, _caTy4prov As Integer, _catven As Integer, _cafvcr As String,
+    Public Shared Function L_fnGrabarCompra(ByRef _canumi As String, _caalm As Integer, _cafdoc As String, _caTy4prov As Integer, _catven As Integer, _cafvcr As String,
                                            _camon As Integer, _caobs As String,
                                            _cadesc As Double, _catotal As Double, detalle As DataTable, detalleCompra As DataTable, _emision As Integer, _numemision As Integer,
                                            _consigna As Integer, _retenc As Integer, _tipocambio As Double, chofer As String, camion As String, placa As String, recibio As String,
@@ -3764,12 +3781,13 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
-    Public Shared Function cambiarEstadoEmision(codigo As Integer, fecha As String, factura As Integer) As DataTable
+    Public Shared Function cambiarEstadoEmision(codigo As Integer, fecha As String, factura As Integer, codigoRecepcion As String) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 26))
         _listParam.Add(New Datos.DParametro("@tanumi", codigo))
         _listParam.Add(New Datos.DParametro("@taven", factura))
+        _listParam.Add(New Datos.DParametro("@tcentregado", codigoRecepcion))
         _listParam.Add(New Datos.DParametro("@tafvcr", fecha))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
         Return _Tabla

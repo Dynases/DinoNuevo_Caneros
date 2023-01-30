@@ -527,9 +527,12 @@ Public Class P_Principal
                         Dim fecha As String = row("fvafec")
                         Dim numFac As Integer = row("fvanfac")
                         Dim sucursal As Integer = gi_userSuc
-                        Dim estado = F0_Venta2.ConsultarEstadoEmision(tokenSifac, sucursal, numFac, fecha)
+                        Dim codigo As String = ""
+                        Dim estado = F0_Venta2.ConsultarEstadoEmision(tokenSifac, sucursal, numFac, fecha, codigo)
+
+
                         If estado = 2 Then
-                            cambiarEstadoEmision(codigoFac, fecha, numFac)
+                            cambiarEstadoEmision(codigoFac, fecha, numFac, codigo)
                             Listafac(i) = numFac
                         End If
 

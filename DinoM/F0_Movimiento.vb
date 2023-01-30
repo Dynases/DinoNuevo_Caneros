@@ -254,7 +254,7 @@ Public Class F0_Movimiento
         End With
         With grdetalle.RootTable.Columns("Laboratorio")
             .Caption = "U. MEDIDA"
-            .Width = 200
+            .Width = 100
             .Visible = True
 
 
@@ -376,9 +376,10 @@ Public Class F0_Movimiento
         End With
 
         With grmovimiento.RootTable.Columns("ibalm")
-            .Width = 50
+            .Width = 200
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-            .Visible = False
+            .Visible = True
+            .Caption = "ALMACEN"
         End With
         With grmovimiento.RootTable.Columns("ibiddc")
             .Width = 50
