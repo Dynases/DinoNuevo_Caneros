@@ -188,4 +188,6 @@ Public Class F0_Prestamo
         Dim Pres As Integer = tbPrest.Value
         codPres.Text = Pres
     End Sub
+
+
 End Class

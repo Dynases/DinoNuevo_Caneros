@@ -1151,7 +1151,14 @@ Public Class F0_MCompras
                                                   IIf(swRetencion.Value = True, 1, 0), IIf(swMoneda.Value = True, 1, tbTipoCambio.Value), tbChofer.Text,
                                                   tbCamion.Text, tbPlaca.Text, tbRecibio.Text, tbEntrego.Text, Convert.ToInt32(tbHojaRuta.Text))
             If res Then
+                Dim dt As New DataTable
+                Dim precio As Decimal = 0.00000
+                dt = L_fnDetalleCompra(numi)
 
+                For Each detalle In dt.Rows
+                    precio = Format((PrecioPonderado(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod"))) + obtenerCompras(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod")))) / obtenerUnidadesRestantes(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod"))), "0.00000")
+                    ActualizarPrecioCostoPonderado(cbSucursal.Value, detalle("cbty5prod"), precio)
+                Next
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                 ToastNotification.Show(Me, "Código de Compra ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
                                           img, 2000,
@@ -1372,6 +1379,7 @@ Public Class F0_MCompras
 
     End Sub
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
+
         _Limpiar()
         _prhabilitar()
 
@@ -2205,7 +2213,7 @@ salirIf:
             Next
         Next
 
-        L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+        'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
 
 

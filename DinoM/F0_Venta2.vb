@@ -1957,7 +1957,7 @@ Public Class F0_Venta2
     End Function
 
     Private Function P_fnGrabarFacturarTFV001(numi As String) As Boolean
-        Dim a As Double = CDbl(Convert.ToDouble(tbTotalDo.Text) + tbMdesc.Value)
+        Dim a As Double = CDbl(Convert.ToDouble(tbTotalBs.Text) + tbMdesc.Value)
         'Dim b As Double = CDbl(IIf(IsDBNull(tbIce.Value), 0, tbIce.Value)) 'Ya esta calculado el 55% del ICE
         Dim b As Double = CDbl(0)
         Dim c As Double = CDbl("0")
@@ -1997,11 +1997,11 @@ Public Class F0_Venta2
         'Grabar Nuevo y Modificado en la BDDiconDinoEco en la tabla TPA001
         If (tbCodigo.Text = String.Empty) Then
             L_Grabar_TPA001(numi, dtiFechaFactura.Value.ToString("yyyy/MM/dd"), "2", _CodCliente, TbNombre1.Text, "1",
-                        "1", CStr(Format(g, "####0.00")), "1", "6.96", "0", "0")
+                        "1", CStr(Format(g / 6.96, "####0.00")), "1", "6.96", "0", "0")
         Else
             If (tbCodigo.Text <> String.Empty) Then
                 L_Grabar_TPA001(numi, dtiFechaFactura.Value.ToString("yyyy/MM/dd"), "2", _CodCliente, TbNombre1.Text, "1",
-                         "2", CStr(Format(g, "####0.00")), "1", "6.96", "0", "0")
+                         "2", CStr(Format(g / 6.96, "####0.00")), "1", "6.96", "0", "0")
             End If
         End If
 

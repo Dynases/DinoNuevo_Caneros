@@ -371,6 +371,45 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function PrecioPonderado(_NomTabla As Integer, _TipoVenta As Integer) As Decimal
+        Dim resultado As Decimal = 0.00000
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaPrecioPonderado("Select dbo.obtenerSaldoAnterio(" + _NomTabla.ToString + "," + _TipoVenta.ToString + ")")
+        If _Tabla.Rows.Count > 0 Then
+            resultado = _Tabla.Rows(0).Item(0)
+
+        Else
+
+        End If
+
+        Return Format(resultado, "0.00000")
+    End Function
+    Public Shared Function obtenerCompras(_NomTabla As Integer, _TipoVenta As Integer) As Decimal
+        Dim resultado As Decimal = 0.00000
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaPrecioPonderado("Select dbo.obtenerCompras(" + _NomTabla.ToString + "," + _TipoVenta.ToString + ")")
+        If _Tabla.Rows.Count > 0 Then
+            resultado = _Tabla.Rows(0).Item(0)
+
+        Else
+
+        End If
+
+        Return Format(resultado, "0.00000")
+    End Function
+    Public Shared Function obtenerUnidadesRestantes(_NomTabla As Integer, _TipoVenta As Integer) As Decimal
+        Dim resultado As Decimal = 0.00000
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaPrecioPonderado("Select dbo.obtenerUnidadesRestantes(" + _NomTabla.ToString + "," + _TipoVenta.ToString + ")")
+        If _Tabla.Rows.Count > 0 Then
+            resultado = _Tabla.Rows(0).Item(0)
+
+        Else
+
+        End If
+
+        Return Format(resultado, "0.00000")
+    End Function
     Public Shared Function ObtenerNumCuenta(_NomTabla As String, _TipoVenta As String) As DataTable
         Dim _Tabla As DataTable
         _Tabla = D_Datos_TablaInst("*", "Institucion", "id= " + _TipoVenta)
@@ -1834,6 +1873,21 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tafvcr", fechaPago))
         _listParam.Add(New Datos.DParametro("@taobs", tbinteres))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ActualizarPrecioCostoPonderado(sucursal As Integer, numiProd As String, precio As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 17))
+        _listParam.Add(New Datos.DParametro("@cauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@caalm", sucursal))
+        _listParam.Add(New Datos.DParametro("@canumi", numiProd))
+        _listParam.Add(New Datos.DParametro("@precioCosto", precio))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Tc001", _listParam)
 
         Return _Tabla
     End Function
