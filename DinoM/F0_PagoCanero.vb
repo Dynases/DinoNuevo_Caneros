@@ -319,9 +319,15 @@ Public Class F0_PagoCanero
         grdetalle.AlternatingColors = True
 
         With grdetalle.RootTable.Columns("numi")
-            .Width = 400
+            .Width = 50
             .Caption = "CODIGO"
             .Visible = False
+        End With
+
+        With grdetalle.RootTable.Columns("tanumi")
+            .Width = 80
+            .Caption = "CODIGO"
+            .Visible = True
         End With
 
         With grdetalle.RootTable.Columns("prnumi")
@@ -329,7 +335,7 @@ Public Class F0_PagoCanero
             .Visible = False
         End With
         With grdetalle.RootTable.Columns("tbdetalle")
-            .Width = 500
+            .Width = 450
             .Caption = "DETALLE"
             .Visible = True
         End With
@@ -338,24 +344,28 @@ Public Class F0_PagoCanero
             .TextAlignment = 3
             .Caption = "DEBE"
             .Visible = True
+            .FormatString = "0.00"
         End With
         With grdetalle.RootTable.Columns("tbapag")
             .Width = 180
             .TextAlignment = 3
             .Caption = "A PAGAR"
             .Visible = True
+            .FormatString = "0.00"
         End With
         With grdetalle.RootTable.Columns("tbapor")
             .Width = 180
             .TextAlignment = 3
             .Caption = "APORTE"
             .Visible = True
+            .FormatString = "0.00"
         End With
         With grdetalle.RootTable.Columns("tbtot")
             .Width = 180
             .TextAlignment = 3
             .Caption = "TOTAL"
             .Visible = True
+            .FormatString = "0.00"
         End With
 
 
@@ -1053,6 +1063,29 @@ Public Class F0_PagoCanero
 
             End If
 
+            If grdetalle.GetValue("pagar").ToString = "" Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Ingrese un monto a pagar".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Return False
+            End If
+
+            Dim total As Double = grdetalle.GetValue("total").ToString
+            Dim pagar As Double = grdetalle.GetValue("pagar").ToString
+
+            If (pagar > total) Then
+
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "El valor a pagar debe ser menor o igual al total".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Return False
+
+
+            End If
+
+            If pagar = 0.00 Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "El monto a pagar debe ser superior a 0".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Return False
+            End If
             'Validación para controlar caducidad de Dosificacion
 
 
@@ -1991,7 +2024,9 @@ Public Class F0_PagoCanero
                     Dim pagar As Double = grdetalle.GetValue("pagar").ToString
 
                     If (pagar > total) Then
+
                         MessageBox.Show("El Valor A Pagar Es Mayor Al Total")
+                        grdetalle.SetValue("pagar", 0.00)
 
 
                     End If
