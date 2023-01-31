@@ -107,6 +107,10 @@ Public Class F1_IngresosEgresos
         cbConcepto.ReadOnly = False
         tbMonto.IsInputReadOnly = False
         tbObservacion.ReadOnly = False
+        If swTipo.Value = True Then
+            btnVentCobros.Enabled = True
+        End If
+
 
     End Sub
     Public Overrides Sub _PMOInhabilitar()
@@ -118,6 +122,7 @@ Public Class F1_IngresosEgresos
         cbConcepto.ReadOnly = True
         tbMonto.IsInputReadOnly = True
         tbObservacion.ReadOnly = True
+        btnVentCobros.Enabled = False
 
     End Sub
     Public Overrides Sub _PMOHabilitarFocus()
@@ -143,6 +148,12 @@ Public Class F1_IngresosEgresos
 
         tbDescripcion.Focus()
         lbNroCaja.Text = ""
+
+        tbcodCanero.Text = ""
+        tbcodInst.Text = ""
+        tbdescCanero.Text = ""
+        tbInstitucion.Text = ""
+        tbfecha.Text = ""
     End Sub
     Public Overrides Sub _PMOLimpiarErrores()
         MEP.Clear()
@@ -226,6 +237,11 @@ Public Class F1_IngresosEgresos
             lbFecha.Text = CType(.GetValue("iefact"), Date).ToString("dd/MM/yyyy")
             lbHora.Text = .GetValue("iehact").ToString
             lbUsuario.Text = .GetValue("ieuact").ToString
+            tbcodCanero.Text = .GetValue("codCan").ToString
+            tbcodInst.Text = .GetValue("codIsnt").ToString
+            tbdescCanero.Text = .GetValue("yddesc").ToString
+            tbInstitucion.Text = .GetValue("nomInst").ToString
+            tbfecha.Text = .GetValue("tafdoc").ToString
 
             'diseño de la grilla para el Total
             .TotalRow = InheritableBoolean.True
@@ -242,7 +258,7 @@ Public Class F1_IngresosEgresos
     Public Overrides Function _PMOGrabarRegistro() As Boolean
 
         Dim tipo As Integer = IIf(swTipo.Value = True, 1, 0)
-        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja)
+        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, tbIdCaja.Text)
         If res Then
             Modificado = False
             _PMOLimpiar()
@@ -350,6 +366,76 @@ Public Class F1_IngresosEgresos
         End If
 
     End Sub
+
+    Private Sub TextBoxX3_TextChanged(sender As Object, e As EventArgs) Handles tbcodCanero.TextChanged
+
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnVentCobros.Click
+        Dim frm As New F_listaVentasCobrar
+
+        frm.ShowDialog()
+        tbIdCaja.Text = frm.Codigo
+        tbfecha.Text = frm.Fecha
+        tbMonto.Text = frm.Total
+        tbcodCanero.Text = frm.Codcanero
+        tbdescCanero.Text = frm.Canero
+        tbcodInst.Text = frm.Codinstitucion
+        tbInstitucion.Text = frm.Institucion
+        tbDescripcion.Text = "PAGO POR VTA DE INSUMOS S/O " + frm.Codigo
+    End Sub
+
+    Private Sub swTipo_ValueChanged(sender As Object, e As EventArgs) Handles swTipo.ValueChanged
+        If swTipo.Value = True Then
+            btnVentCobros.Enabled = True
+        Else
+            btnVentCobros.Enabled = False
+            tbIdCaja.Text = ""
+            tbfecha.Text = ""
+            tbMonto.Text = ""
+            tbcodCanero.Text = ""
+            tbdescCanero.Text = ""
+            tbcodInst.Text = ""
+            tbInstitucion.Text = ""
+            tbDescripcion.Text = ""
+        End If
+    End Sub
+
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+        Dim dt As DataTable
+        If swTipo.Value = True Then
+            dt = L_recibo(tbcodigo.Text)
+
+
+            'Literal 
+            Dim _Autorizacion, _Nit, _Fechainv, _Total, _Key, _Cod_Control, _Hora,
+            _Literal, _TotalDecimal, _TotalDecimal2 As String
+            Dim _TotalLi As Decimal
+            _TotalLi = Format(tbMonto.Value, "0.00")
+            _TotalDecimal = _TotalLi - Math.Truncate(_TotalLi)
+            _TotalDecimal2 = CDbl(_TotalDecimal) * 100
+
+            'Dim li As String = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_Total) - CDbl(_TotalDecimal)) + " con " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 Bolivianos"
+            _Literal = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_TotalLi) - CDbl(_TotalDecimal)) + "  " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 DOLARES AMERICANOS"
+            P_Global.Visualizador = New Visualizador
+            Dim objrep As New R_reciboIngreso
+
+
+            objrep.SetDataSource(dt)
+            objrep.SetParameterValue("literal", _Literal.ToUpper)
+            objrep.SetParameterValue("fecha", DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"))
+            objrep.SetParameterValue("fechaLiteral", DateTime.Now.ToLongDateString())
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.ShowDialog() 'Comentar
+            P_Global.Visualizador.BringToFront()
+        Else
+
+        End If
+    End Sub
+
+
+
+
 
 
 

@@ -371,9 +371,53 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function PrecioPonderado(_NomTabla As Integer, _TipoVenta As Integer) As Decimal
+        Dim resultado As Decimal = 0.00000
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaPrecioPonderado("Select dbo.obtenerSaldoAnterio(" + _NomTabla.ToString + "," + _TipoVenta.ToString + ")")
+        If _Tabla.Rows.Count > 0 Then
+            resultado = _Tabla.Rows(0).Item(0)
+
+        Else
+
+        End If
+
+        Return Format(resultado, "0.00000")
+    End Function
+    Public Shared Function obtenerCompras(_NomTabla As Integer, _TipoVenta As Integer) As Decimal
+        Dim resultado As Decimal = 0.00000
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaPrecioPonderado("Select dbo.obtenerCompras(" + _NomTabla.ToString + "," + _TipoVenta.ToString + ")")
+        If _Tabla.Rows.Count > 0 Then
+            resultado = _Tabla.Rows(0).Item(0)
+
+        Else
+
+        End If
+
+        Return Format(resultado, "0.00000")
+    End Function
+    Public Shared Function obtenerUnidadesRestantes(_NomTabla As Integer, _TipoVenta As Integer) As Decimal
+        Dim resultado As Decimal = 0.00000
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaPrecioPonderado("Select dbo.obtenerUnidadesRestantes(" + _NomTabla.ToString + "," + _TipoVenta.ToString + ")")
+        If _Tabla.Rows.Count > 0 Then
+            resultado = _Tabla.Rows(0).Item(0)
+
+        Else
+
+        End If
+
+        Return Format(resultado, "0.00000")
+    End Function
     Public Shared Function ObtenerNumCuenta(_NomTabla As String, _TipoVenta As String) As DataTable
         Dim _Tabla As DataTable
         _Tabla = D_Datos_TablaInst("*", "Institucion", "id= " + _TipoVenta)
+        Return _Tabla
+    End Function
+    Public Shared Function ObtenerNumCuentaProveedor(_NomTabla As String, _TipoVenta As String) As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst("*", "TY004", "ydnumi= " + _TipoVenta + "and ydtip=3")
         Return _Tabla
     End Function
     Public Shared Function CargarProductoDiesel(_NomTabla As String, _TipoVenta As String) As DataTable
@@ -471,6 +515,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return _Err
     End Function
+
+
     'Public Shared Function L_Institucion_Grabar(ByRef _numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
     '    Dim _Actualizacion As String
     '    Dim _Err As Boolean
@@ -1804,6 +1850,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnGeneralVentaTodos() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 333))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
 
     Public Shared Function L_fnCuentasxCobrar(idCanero As Integer, tbinteres As String, fechaPago As String) As DataTable
         Dim _Tabla As DataTable
@@ -1816,6 +1873,21 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tafvcr", fechaPago))
         _listParam.Add(New Datos.DParametro("@taobs", tbinteres))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ActualizarPrecioCostoPonderado(sucursal As Integer, numiProd As String, precio As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 17))
+        _listParam.Add(New Datos.DParametro("@cauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@caalm", sucursal))
+        _listParam.Add(New Datos.DParametro("@canumi", numiProd))
+        _listParam.Add(New Datos.DParametro("@precioCosto", precio))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Tc001", _listParam)
 
         Return _Tabla
     End Function
@@ -2686,6 +2758,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnDetalleCompra1(_numi As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 44))
+        _listParam.Add(New Datos.DParametro("@canumi", _numi))
+        _listParam.Add(New Datos.DParametro("@cauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnDetalleCompraTFC001(_numi As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -2748,7 +2832,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
-    Public Shared Function L_fnGrabarCompra(_canumi As String, _caalm As Integer, _cafdoc As String, _caTy4prov As Integer, _catven As Integer, _cafvcr As String,
+    Public Shared Function L_fnGrabarCompra(ByRef _canumi As String, _caalm As Integer, _cafdoc As String, _caTy4prov As Integer, _catven As Integer, _cafvcr As String,
                                            _camon As Integer, _caobs As String,
                                            _cadesc As Double, _catotal As Double, detalle As DataTable, detalleCompra As DataTable, _emision As Integer, _numemision As Integer,
                                            _consigna As Integer, _retenc As Integer, _tipocambio As Double, chofer As String, camion As String, placa As String, recibio As String,
@@ -2783,7 +2867,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@placa", "", placa))
         _listParam.Add(New Datos.DParametro("@recibio", "", recibio))
         _listParam.Add(New Datos.DParametro("@entrego", "", entrego))
-        _listParam.Add(New Datos.DParametro("@hojaRuta", "", hojaRuta))
+        _listParam.Add(New Datos.DParametro("@hojaRuta", hojaRuta))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
 
 
@@ -2927,6 +3011,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tipo", 13))
         _listParam.Add(New Datos.DParametro("@canumi", _canumi))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_recibo(_canumi As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@ienumi", _canumi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
 
         Return _Tabla
     End Function
@@ -3476,7 +3572,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                 + "" + _Nscf + ", " _
                 + "" + _NumAsiento + ""
 
-            D_Insertar_Datos("BDDiconDinoEco.dbo.TPA001", Sql)
+            D_Insertar_Datos("BDDiconCaneros.dbo.TPA001", Sql)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -3739,12 +3835,13 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
-    Public Shared Function cambiarEstadoEmision(codigo As Integer, fecha As String, factura As Integer) As DataTable
+    Public Shared Function cambiarEstadoEmision(codigo As Integer, fecha As String, factura As Integer, codigoRecepcion As String) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 26))
         _listParam.Add(New Datos.DParametro("@tanumi", codigo))
         _listParam.Add(New Datos.DParametro("@taven", factura))
+        _listParam.Add(New Datos.DParametro("@tcentregado", codigoRecepcion))
         _listParam.Add(New Datos.DParametro("@tafvcr", fecha))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
         Return _Tabla
@@ -7008,9 +7105,20 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_ListaVentasCobrar() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 27))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prIngresoEgresoGrabar(ByRef _ienumi As String, _ieFecha As String, _ieTipo As String,
                                            _ieDescripcion As String, _ieConcepto As String, _ieMonto As Decimal,
-                                           _ieObs As String, _NroCaja As Integer) As Boolean
+                                           _ieObs As String, _NroCaja As Integer, tbIdCaja As String) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -7025,6 +7133,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ieObs", _ieObs))
         _listParam.Add(New Datos.DParametro("@ieEstado", 1))
         _listParam.Add(New Datos.DParametro("@Nrocaja", _NroCaja))
+        _listParam.Add(New Datos.DParametro("@idCaja", tbIdCaja))
         _listParam.Add(New Datos.DParametro("@ieuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
 

@@ -135,6 +135,9 @@ Partial Class F0_Prestamo
         'btnSalir
         '
         '
+        'btnGrabar
+        '
+        '
         'PanelToolBar2
         '
         Me.PanelToolBar2.Location = New System.Drawing.Point(720, 0)

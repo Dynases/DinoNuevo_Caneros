@@ -201,7 +201,9 @@ Partial Class F0_MCompras
         '
         'TxtNombreUsu
         '
+        Me.TxtNombreUsu.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtNombreUsu.ReadOnly = True
+        Me.TxtNombreUsu.Size = New System.Drawing.Size(135, 32)
         Me.TxtNombreUsu.Text = "DEFAULT"
         '
         'btnSalir
@@ -233,6 +235,7 @@ Partial Class F0_MCompras
         '
         'btnUltimo
         '
+        Me.btnUltimo.Margin = New System.Windows.Forms.Padding(2)
         '
         'btnSiguiente
         '
@@ -255,6 +258,11 @@ Partial Class F0_MCompras
         Me.PanelContent.Controls.Add(Me.PanelDetalle)
         Me.PanelContent.Controls.Add(Me.PanelTotal)
         Me.PanelContent.Controls.Add(Me.PanelContentSup)
+        Me.PanelContent.Margin = New System.Windows.Forms.Padding(2)
+        '
+        'MSuperTabControlPanel1
+        '
+        Me.MSuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
         '
         'MSuperTabControl
         '
@@ -705,6 +713,7 @@ Partial Class F0_MCompras
         Me.tbHojaRuta.PreventEnterBeep = True
         Me.tbHojaRuta.Size = New System.Drawing.Size(150, 22)
         Me.tbHojaRuta.TabIndex = 687
+        Me.tbHojaRuta.Text = "0"
         '
         'tbEntrego
         '
@@ -770,7 +779,7 @@ Partial Class F0_MCompras
         Me.tbChofer.Border.Class = "TextBoxBorder"
         Me.tbChofer.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbChofer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.tbChofer.Location = New System.Drawing.Point(483, 91)
+        Me.tbChofer.Location = New System.Drawing.Point(483, 87)
         Me.tbChofer.Name = "tbChofer"
         Me.tbChofer.PreventEnterBeep = True
         Me.tbChofer.Size = New System.Drawing.Size(150, 22)
@@ -913,6 +922,7 @@ Partial Class F0_MCompras
         '
         Me.swMoneda.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swMoneda.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swMoneda.IsReadOnly = True
         Me.swMoneda.Location = New System.Drawing.Point(796, 6)
         Me.swMoneda.Name = "swMoneda"
         Me.swMoneda.OffBackColor = System.Drawing.Color.LawnGreen
@@ -922,8 +932,6 @@ Partial Class F0_MCompras
         Me.swMoneda.Size = New System.Drawing.Size(120, 22)
         Me.swMoneda.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.swMoneda.TabIndex = 672
-        Me.swMoneda.Value = True
-        Me.swMoneda.ValueObject = "Y"
         '
         'swRetencion
         '
@@ -998,7 +1006,7 @@ Partial Class F0_MCompras
         '
         Me.swEmision.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swEmision.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swEmision.Location = New System.Drawing.Point(579, 90)
+        Me.swEmision.Location = New System.Drawing.Point(275, 9)
         Me.swEmision.Name = "swEmision"
         Me.swEmision.OffBackColor = System.Drawing.Color.LawnGreen
         Me.swEmision.OffText = "RECIBO"
@@ -1436,6 +1444,7 @@ Partial Class F0_MCompras
         '
         Me.swTipoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swTipoVenta.IsReadOnly = True
         Me.swTipoVenta.Location = New System.Drawing.Point(554, 6)
         Me.swTipoVenta.Name = "swTipoVenta"
         Me.swTipoVenta.OffBackColor = System.Drawing.Color.LawnGreen
@@ -1445,8 +1454,6 @@ Partial Class F0_MCompras
         Me.swTipoVenta.Size = New System.Drawing.Size(120, 22)
         Me.swTipoVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.swTipoVenta.TabIndex = 5
-        Me.swTipoVenta.Value = True
-        Me.swTipoVenta.ValueObject = "Y"
         '
         'tbFechaVenta
         '
@@ -1723,6 +1730,7 @@ Partial Class F0_MCompras
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1350, 729)
         Me.Location = New System.Drawing.Point(0, 0)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "F0_MCompras"
         Me.Text = "F0_MCompras"
         Me.Controls.SetChildIndex(Me.PanelPrincipal, 0)

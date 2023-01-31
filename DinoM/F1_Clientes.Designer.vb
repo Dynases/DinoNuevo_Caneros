@@ -1232,7 +1232,7 @@ Partial Class F1_Clientes
         Me.TbLCred.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.TbLCred.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbLCred.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.TbLCred.Location = New System.Drawing.Point(319, 277)
+        Me.TbLCred.Location = New System.Drawing.Point(328, 278)
         Me.TbLCred.Name = "TbLCred"
         Me.TbLCred.PreventEnterBeep = True
         Me.TbLCred.Size = New System.Drawing.Size(70, 22)

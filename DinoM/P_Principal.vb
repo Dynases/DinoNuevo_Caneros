@@ -27,7 +27,7 @@ Public Class P_Principal
         _prLeerArchivoConfig()
 
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
-        L_prAbrirConexionBitacora(gs_Ip, gs_UsuarioSql, gs_ClaveSql, "BDDiconDinoEco")
+        L_prAbrirConexionBitacora(gs_Ip, gs_UsuarioSql, gs_ClaveSql, "BDDiconCaneros")
 
         Me.WindowState = FormWindowState.Maximized
 
@@ -527,9 +527,12 @@ Public Class P_Principal
                         Dim fecha As String = row("fvafec")
                         Dim numFac As Integer = row("fvanfac")
                         Dim sucursal As Integer = gi_userSuc
-                        Dim estado = F0_Venta2.ConsultarEstadoEmision(tokenSifac, sucursal, numFac, fecha)
+                        Dim codigo As String = ""
+                        Dim estado = F0_Venta2.ConsultarEstadoEmision(tokenSifac, sucursal, numFac, fecha, codigo)
+
+
                         If estado = 2 Then
-                            cambiarEstadoEmision(codigoFac, fecha, numFac)
+                            cambiarEstadoEmision(codigoFac, fecha, numFac, codigo)
                             Listafac(i) = numFac
                         End If
 
@@ -1311,6 +1314,7 @@ Public Class P_Principal
         Dim frm As New F0_Prestamo
         frm.Show()
     End Sub
+
 
 
     'Private Sub btnCredPagoCliente_Click(sender As Object, e As EventArgs) Handles btnCredPagoCliente.Click

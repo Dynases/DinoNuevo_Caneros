@@ -543,6 +543,12 @@
     <Compile Include="F_ClienteNuevo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F_listaVentasCobrar.Designer.vb">
+      <DependentUpon>F_listaVentasCobrar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F_listaVentasCobrar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F_RecuperarDatosLaica.Designer.vb">
       <DependentUpon>F_RecuperarDatosLaica.vb</DependentUpon>
     </Compile>
@@ -871,6 +877,12 @@
       <DependentUpon>R_NotaCompra.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reporte\R_NotaVenta_Carta%28shoping%29.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_NotaVenta_Carta%28shoping%29.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reporte\R_NotaVenta_Carta_Diesel.vb">
       <DependentUpon>R_NotaVenta_Carta_Diesel.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -935,6 +947,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_Proforma_010.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_reciboIngreso.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_reciboIngreso.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_ReporteCobranzasCarta.vb">
@@ -1440,6 +1458,9 @@
     <EmbeddedResource Include="F_ClienteNuevo.resx">
       <DependentUpon>F_ClienteNuevo.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F_listaVentasCobrar.resx">
+      <DependentUpon>F_listaVentasCobrar.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_RecuperarDatosLaica.resx">
       <DependentUpon>F_RecuperarDatosLaica.vb</DependentUpon>
     </EmbeddedResource>
@@ -1621,6 +1642,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_NotaCompra.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_NotaVenta_Carta%28shoping%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_NotaVenta_Carta%28shoping%29.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_NotaVenta_Carta_Diesel.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_NotaVenta_Carta_Diesel.vb</LastGenOutput>
@@ -1664,6 +1689,10 @@
     <EmbeddedResource Include="Reporte\R_Proforma_010.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_Proforma_010.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_reciboIngreso.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_reciboIngreso.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_ReporteCobranzasCarta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
