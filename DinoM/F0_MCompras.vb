@@ -1138,8 +1138,8 @@ Public Class F0_MCompras
             Dim numi As String = ""
             Dim mes As String = tbFechaVenta.Value.ToString("MMM").ToUpper
             Dim Hora As String = DateTime.Now.ToString("HH:mm")
-            Dim obs As String = "TI " + tbFechaVenta.Value.ToString("dd") + "/" + mes + " " + Hora + " HRS"
-            tbObservacion.Text = obs
+            'Dim obs As String = "TI " + tbFechaVenta.Value.ToString("dd") + "/" + mes + " " + Hora + " HRS"
+            'tbObservacion.Text = obs
             RecuperarDatosTFC001()  'Recupera datos para grabar en la BDDiconDino en la Tabla TFC001
             Dim res As Boolean = L_fnGrabarCompra(numi, cbSucursal.Value, tbFechaVenta.Value.ToString("yyyy/MM/dd"),
                                                   _CodProveedor, IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
@@ -1156,7 +1156,7 @@ Public Class F0_MCompras
                 dt = L_fnDetalleCompra(numi)
 
                 For Each detalle In dt.Rows
-                    precio = Format((PrecioPonderado(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod"))) + obtenerCompras(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod")))) / obtenerUnidadesRestantes(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod"))), "0.00000")
+                    precio = Format((PrecioPonderado(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod")), Convert.ToDecimal(detalle("cbcmin"))) + obtenerCompras("0", numi)) / obtenerUnidadesRestantes(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod"))), "0.00000")
                     ActualizarPrecioCostoPonderado(cbSucursal.Value, detalle("cbty5prod"), precio)
                 Next
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -1844,7 +1844,7 @@ salirIf:
             _GuardarNuevo()
         Else
             If (tbCodigo.Text <> String.Empty) Then
-                _prGuardarModificado()
+                '_prGuardarModificado()
                 ''    _prInhabiliitar()
 
             End If
@@ -2136,7 +2136,7 @@ salirIf:
 
     Private Sub contabilizarComprasCredito(numi As String)
         Dim codigoVenta = numi
-        Dim codCanero = "Se adquiere de " + codigoVenta + " " + Convert.ToString(tbProveedor.Text) + " mercaderia al credito."  'obobs
+        Dim codCanero = "Se adquiere de " + Convert.ToString(tbProveedor.Text.Trim()) + " mercaderia al credito. Ord. " + codigoVenta  'obobs
         Dim total = tbtotal.Text 'para obtener debe haber
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
@@ -2145,7 +2145,7 @@ salirIf:
 
 
 
-        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value) 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value, 3, "", codCanero) 'numi cabecera to001
         'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
         For a As Integer = 5 To 6 Step 1
@@ -2181,7 +2181,7 @@ salirIf:
                             totalCosto = totalCosto + Convert.ToDouble(detalle("cbptot"))
                         End If
 
-                        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, "Se adquiere de " + Convert.ToString(tbProveedor.Text).Trim() + ". " + detalle("cbcmin").ToString + " " + detalle("unidad").ToString + " " + detalle("producto").ToString, debebs, haberbs, debeus, haberus)
                         oblin = oblin + 1
                     Next
 
