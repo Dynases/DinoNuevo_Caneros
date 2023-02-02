@@ -371,10 +371,10 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
-    Public Shared Function PrecioPonderado(_NomTabla As Integer, _TipoVenta As Integer) As Decimal
+    Public Shared Function PrecioPonderado(_NomTabla As Integer, _TipoVenta As Integer, _cantidad As Decimal) As Decimal
         Dim resultado As Decimal = 0.00000
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_TablaPrecioPonderado("Select dbo.obtenerSaldoAnterio(" + _NomTabla.ToString + "," + _TipoVenta.ToString + ")")
+        _Tabla = D_Datos_TablaPrecioPonderado("Select dbo.obtenerSaldoAnterio(" + _NomTabla.ToString + "," + _TipoVenta.ToString + "," + _cantidad.ToString + ")")
         If _Tabla.Rows.Count > 0 Then
             resultado = _Tabla.Rows(0).Item(0)
 
@@ -2858,7 +2858,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
     Public Shared Function L_fnGrabarCompra(ByRef _canumi As String, _caalm As Integer, _cafdoc As String, _caTy4prov As Integer, _catven As Integer, _cafvcr As String,
                                            _camon As Integer, _caobs As String,
-                                           _cadesc As Double, _catotal As Double, detalle As DataTable, detalleCompra As DataTable, _emision As Integer, _numemision As Integer,
+                                           _cadesc As Double, _catotal As Double, detalle As DataTable, detalleCompra As DataTable, _emision As String, _numemision As String,
                                            _consigna As Integer, _retenc As Integer, _tipocambio As Double, chofer As String, camion As String, placa As String, recibio As String,
                                            entrego As String, hojaRuta As Integer) As Boolean
         Dim _Tabla As DataTable
