@@ -1464,6 +1464,30 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function L_fnGeneralTipoCambio() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 17))
+        _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnGeneralDocumento() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 18))
+        _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_fnGeneralMoneda() As DataTable
         Dim _Tabla As DataTable
 
@@ -2873,6 +2897,77 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         If _Tabla.Rows.Count > 0 Then
             _canumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnGrabarPrestamo(_tbfec As String, _tbmon As Integer, tbtcam As Integer, _tbins As Integer, _tbcan As Integer,
+                                           _tbfin As Integer, _tbpre As Integer,
+                                           _tbprov As Integer, _tbdoc As Integer, _tbcite As String, _tbcap As Double, _tbapor As Double, _tbobs As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '   @canumi ,@caalm,@cafdoc ,@caty4prov  ,@catven,
+        '@cafvcr,@camon ,@caest  ,@caobs ,@cadesc ,@newFecha,@newHora,@cauact
+        _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _listParam.Add(New Datos.DParametro("@tbfec", _tbfec))
+        _listParam.Add(New Datos.DParametro("@tbmon", _tbmon))
+        _listParam.Add(New Datos.DParametro("@tbtcam", tbtcam))
+        _listParam.Add(New Datos.DParametro("@tbins", _tbins))
+        _listParam.Add(New Datos.DParametro("@tbcan", _tbcan))
+        _listParam.Add(New Datos.DParametro("@tbfin", _tbfin))
+        _listParam.Add(New Datos.DParametro("@tbpre", _tbpre))
+        _listParam.Add(New Datos.DParametro("@tbprov", _tbprov))
+        _listParam.Add(New Datos.DParametro("@tbdoc", _tbdoc))
+        _listParam.Add(New Datos.DParametro("@tbcite", _tbcite))
+        _listParam.Add(New Datos.DParametro("@tbcap", _tbcap))
+        _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@tbapor", _tbapor))
+        _listParam.Add(New Datos.DParametro("@tbobs", _tbobs))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnModificarPrestamo(id As Integer, _tbfec As String, _tbmon As Integer, tbtcam As Integer, _tbins As Integer, _tbcan As Integer,
+                                           _tbfin As Integer, _tbpre As Integer,
+                                           _tbprov As Integer, _tbdoc As Integer, _tbcite As String, _tbcap As Double, _tbapor As Double, _tbobs As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '   @canumi ,@caalm,@cafdoc ,@caty4prov  ,@catven,
+        '@cafvcr,@camon ,@caest  ,@caobs ,@cadesc ,@newFecha,@newHora,@cauact
+        _listParam.Add(New Datos.DParametro("@tipo", 22))
+        _listParam.Add(New Datos.DParametro("@tbid", id))
+        _listParam.Add(New Datos.DParametro("@tbfec", _tbfec))
+        _listParam.Add(New Datos.DParametro("@tbmon", _tbmon))
+        _listParam.Add(New Datos.DParametro("@tbtcam", tbtcam))
+        _listParam.Add(New Datos.DParametro("@tbins", _tbins))
+        _listParam.Add(New Datos.DParametro("@tbcan", _tbcan))
+        _listParam.Add(New Datos.DParametro("@tbfin", _tbfin))
+        _listParam.Add(New Datos.DParametro("@tbpre", _tbpre))
+        _listParam.Add(New Datos.DParametro("@tbprov", _tbprov))
+        _listParam.Add(New Datos.DParametro("@tbdoc", _tbdoc))
+        _listParam.Add(New Datos.DParametro("@tbcite", _tbcite))
+        _listParam.Add(New Datos.DParametro("@tbcap", _tbcap))
+        _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@tbapor", _tbapor))
+        _listParam.Add(New Datos.DParametro("@tbobs", _tbobs))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
             _resultado = True
         Else
             _resultado = False
@@ -7310,6 +7405,33 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
 
 
+#End Region
+
+#Region "Prestamos"
+    Public Shared Function L_fnGeneralPrestamos() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 20))
+        _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnTraerInteres(cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 21))
+        _listParam.Add(New Datos.DParametro("@tbpre", cod))
+        _listParam.Add(New Datos.DParametro("@yguact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY006", _listParam)
+
+        Return _Tabla
+    End Function
 #End Region
 
 End Class
