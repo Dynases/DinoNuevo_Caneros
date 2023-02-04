@@ -1711,8 +1711,8 @@ Public Class F0_Venta2
             Dim factura = gb_FacturaEmite
             _prInsertarMontoNuevo(tabla)
             ''Verifica si existe estock para los productos
-            If _prExisteStockParaProducto() Then
-                Dim Succes As String = Emisor(tokenSifac)
+            ' If _prExisteStockParaProducto() Then
+            Dim Succes As String = Emisor(tokenSifac)
                 If Succes = 2 Or Succes = 8 Or Succes = 5 Then
                     Dim dtDetalle As DataTable = rearmarDetalle()
                     'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
@@ -1767,7 +1767,7 @@ Public Class F0_Venta2
                     MessageBox.Show(mensajeRespuesta)
                 End If
 
-            End If
+           ' End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try

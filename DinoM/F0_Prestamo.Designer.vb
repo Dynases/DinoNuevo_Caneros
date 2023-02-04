@@ -30,6 +30,8 @@ Partial Class F0_Prestamo
         Dim tbPrest_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim tbFinan_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.tbcod = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
         Me.tbObs = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbTipoCambio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
@@ -62,10 +64,8 @@ Partial Class F0_Prestamo
         Me.codIns = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.codMon = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbfecha = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.grPrestamo = New Janus.Windows.GridEX.GridEX()
         Me.CachedKardexClienteRes1 = New DinoM.CachedKardexClienteRes()
-        Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
-        Me.tbcod = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.grPrestamo = New Janus.Windows.GridEX.GridEX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -173,6 +173,9 @@ Partial Class F0_Prestamo
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.Panel1, 0)
+        '
+        'btnImprimir
+        '
         '
         'btnUltimo
         '
@@ -312,6 +315,33 @@ Partial Class F0_Prestamo
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel1.TabIndex = 11
         Me.GroupPanel1.Text = "DATOS"
+        '
+        'tbcod
+        '
+        '
+        '
+        '
+        Me.tbcod.Border.Class = "TextBoxBorder"
+        Me.tbcod.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbcod.Location = New System.Drawing.Point(128, 6)
+        Me.tbcod.Name = "tbcod"
+        Me.tbcod.PreventEnterBeep = True
+        Me.tbcod.Size = New System.Drawing.Size(100, 21)
+        Me.tbcod.TabIndex = 46
+        '
+        'LabelX14
+        '
+        Me.LabelX14.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX14.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX14.Location = New System.Drawing.Point(11, 3)
+        Me.LabelX14.Name = "LabelX14"
+        Me.LabelX14.Size = New System.Drawing.Size(110, 23)
+        Me.LabelX14.TabIndex = 45
+        Me.LabelX14.Text = "Codigo:"
         '
         'tbObs
         '
@@ -813,33 +843,6 @@ Partial Class F0_Prestamo
         Me.grPrestamo.Visible = False
         Me.grPrestamo.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'LabelX14
-        '
-        Me.LabelX14.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX14.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX14.Location = New System.Drawing.Point(11, 3)
-        Me.LabelX14.Name = "LabelX14"
-        Me.LabelX14.Size = New System.Drawing.Size(110, 23)
-        Me.LabelX14.TabIndex = 45
-        Me.LabelX14.Text = "Codigo:"
-        '
-        'tbcod
-        '
-        '
-        '
-        '
-        Me.tbcod.Border.Class = "TextBoxBorder"
-        Me.tbcod.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbcod.Location = New System.Drawing.Point(128, 6)
-        Me.tbcod.Name = "tbcod"
-        Me.tbcod.PreventEnterBeep = True
-        Me.tbcod.Size = New System.Drawing.Size(100, 21)
-        Me.tbcod.TabIndex = 46
-        '
         'F0_Prestamo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -916,7 +919,7 @@ Partial Class F0_Prestamo
     Friend WithEvents tbCodProv As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents CachedKardexClienteRes1 As CachedKardexClienteRes
     Friend WithEvents tbObs As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
     Friend WithEvents tbcod As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
 End Class
