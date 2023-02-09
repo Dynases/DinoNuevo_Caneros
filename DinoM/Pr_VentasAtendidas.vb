@@ -263,8 +263,8 @@ Public Class Pr_VentasAtendidas
             If e.KeyData = Keys.Control + Keys.Enter Then
 
                 Dim dt As DataTable
-                'dt = L_fnListarClientes()
-                dt = L_fnListarClientesVenta()
+                dt = L_fnListarClientes()
+
 
                 Dim listEstCeldas As New List(Of Modelo.Celda)
                 listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))

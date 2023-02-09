@@ -5355,12 +5355,14 @@ salirIf:
     End Function
 
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
-        If swTipoVenta.Value = True Then
-            contabilizarContado()
-        Else
-            contabilizar()
-            L_fnGrabarTxCobrar(tbCodigo.Text)
-        End If
+        P_fnGenerarFactura(tbCodigo.Text)
+
+        'If swTipoVenta.Value = True Then
+        '    contabilizarContado()
+        'Else
+        '    contabilizar()
+        '    L_fnGrabarTxCobrar(tbCodigo.Text)
+        'End If
         'Dim a As Double = CDbl(Convert.ToDouble(tbTotalDo.Text) + tbMdesc.Value)
         ''Dim b As Double = CDbl(IIf(IsDBNull(tbIce.Value), 0, tbIce.Value)) 'Ya esta calculado el 55% del ICE
         'Dim b As Double = CDbl(0)

@@ -29,6 +29,10 @@ Partial Class F1_IngresosEgresos
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
+        Me.tbCodAsig = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbAsigDesc = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
         Me.tbfecha = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.btnVentCobros = New DevComponents.DotNetBar.ButtonX()
@@ -164,14 +168,12 @@ Partial Class F1_IngresosEgresos
         'btnSalir
         '
         '
-        'btnGrabar
-        '
-        '
         'btnModificar
         '
         '
         'btnNuevo
         '
+        Me.btnNuevo.Enabled = False
         '
         'PanelToolBar2
         '
@@ -308,6 +310,10 @@ Partial Class F1_IngresosEgresos
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.LabelX12)
+        Me.Panel3.Controls.Add(Me.tbCodAsig)
+        Me.Panel3.Controls.Add(Me.tbAsigDesc)
+        Me.Panel3.Controls.Add(Me.LabelX11)
         Me.Panel3.Controls.Add(Me.LabelX10)
         Me.Panel3.Controls.Add(Me.tbfecha)
         Me.Panel3.Controls.Add(Me.btnVentCobros)
@@ -341,6 +347,70 @@ Partial Class F1_IngresosEgresos
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(1310, 191)
         Me.Panel3.TabIndex = 227
+        '
+        'LabelX12
+        '
+        Me.LabelX12.AutoSize = True
+        Me.LabelX12.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX12.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX12.Location = New System.Drawing.Point(1067, 5)
+        Me.LabelX12.Name = "LabelX12"
+        Me.LabelX12.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX12.Size = New System.Drawing.Size(50, 16)
+        Me.LabelX12.TabIndex = 398
+        Me.LabelX12.Text = "Código:"
+        '
+        'tbCodAsig
+        '
+        '
+        '
+        '
+        Me.tbCodAsig.Border.Class = "TextBoxBorder"
+        Me.tbCodAsig.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodAsig.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodAsig.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodAsig.Location = New System.Drawing.Point(1183, 0)
+        Me.tbCodAsig.Name = "tbCodAsig"
+        Me.tbCodAsig.PreventEnterBeep = True
+        Me.tbCodAsig.Size = New System.Drawing.Size(83, 21)
+        Me.tbCodAsig.TabIndex = 397
+        Me.tbCodAsig.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'tbAsigDesc
+        '
+        '
+        '
+        '
+        Me.tbAsigDesc.Border.Class = "TextBoxBorder"
+        Me.tbAsigDesc.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAsigDesc.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbAsigDesc.Location = New System.Drawing.Point(1068, 52)
+        Me.tbAsigDesc.Multiline = True
+        Me.tbAsigDesc.Name = "tbAsigDesc"
+        Me.tbAsigDesc.PreventEnterBeep = True
+        Me.tbAsigDesc.Size = New System.Drawing.Size(230, 60)
+        Me.tbAsigDesc.TabIndex = 395
+        '
+        'LabelX11
+        '
+        Me.LabelX11.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX11.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX11.Location = New System.Drawing.Point(1068, 20)
+        Me.LabelX11.Name = "LabelX11"
+        Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX11.Size = New System.Drawing.Size(90, 23)
+        Me.LabelX11.TabIndex = 396
+        Me.LabelX11.Text = "Observación:"
         '
         'LabelX10
         '
@@ -501,7 +571,7 @@ Partial Class F1_IngresosEgresos
         '
         Me.lbNroCaja.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lbNroCaja.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.lbNroCaja.Location = New System.Drawing.Point(1202, 40)
+        Me.lbNroCaja.Location = New System.Drawing.Point(1206, 139)
         Me.lbNroCaja.Name = "lbNroCaja"
         Me.lbNroCaja.Size = New System.Drawing.Size(60, 17)
         Me.lbNroCaja.TabIndex = 384
@@ -519,7 +589,7 @@ Partial Class F1_IngresosEgresos
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX6.Location = New System.Drawing.Point(1134, 43)
+        Me.LabelX6.Location = New System.Drawing.Point(1138, 142)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX6.Size = New System.Drawing.Size(65, 16)
@@ -582,9 +652,9 @@ Partial Class F1_IngresosEgresos
         Me.tbMonto.BackgroundStyle.Class = "DateTimeInputBackground"
         Me.tbMonto.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbMonto.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.tbMonto.Enabled = False
         Me.tbMonto.Font = New System.Drawing.Font("Arial Black", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMonto.Increment = 1.0R
+        Me.tbMonto.IsInputReadOnly = True
         Me.tbMonto.Location = New System.Drawing.Point(588, 86)
         Me.tbMonto.Name = "tbMonto"
         Me.tbMonto.Size = New System.Drawing.Size(132, 29)
@@ -859,4 +929,8 @@ Partial Class F1_IngresosEgresos
     Friend WithEvents btnVentCobros As DevComponents.DotNetBar.ButtonX
     Friend WithEvents tbfecha As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbAsigDesc As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX12 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbCodAsig As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

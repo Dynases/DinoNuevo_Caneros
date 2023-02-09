@@ -253,8 +253,8 @@ Partial Class F_listaVentasCobrar
         Me.ClientSize = New System.Drawing.Size(922, 564)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Name = "F_listaVentasCobrar"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "F_listaVentasCobrar"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Normal
         Me.Controls.SetChildIndex(Me.SuperTabPrincipal, 0)
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabPrincipal.ResumeLayout(False)

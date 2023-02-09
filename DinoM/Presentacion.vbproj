@@ -72,29 +72,21 @@
     <Reference Include="AxInterop.AcroPDFLib">
       <HintPath>C:\librerias\PDF\AxInterop.AcroPDFLib.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\librerias\Crystal\CrystalDecisions.CrystalReports.Design.dll</HintPath>
-    </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\librerias\Crystal\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <HintPath>..\..\..\librerias\Crystal\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\librerias\Crystal\CrystalDecisions.ReportSource.dll</HintPath>
+      <HintPath>..\..\..\librerias\Crystal\CrystalDecisions.ReportSource.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\librerias\Crystal\CrystalDecisions.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\librerias\Crystal\CrystalDecisions.Web.dll</HintPath>
+      <HintPath>..\..\..\librerias\Crystal\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\librerias\Crystal\CrystalDecisions.Windows.Forms.dll</HintPath>
+      <HintPath>..\..\..\librerias\Crystal\CrystalDecisions.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar.Design, Version=12.5.0.2, Culture=neutral, PublicKeyToken=2c9ff1fddc42653c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -116,13 +108,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Google Drive\Librerias\DotNet\DevComponents.DotNetBar.Schedule.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.5.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Google Drive\Librerias\DotNet\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
+      <HintPath>..\..\..\librerias\DotNet\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\librerias\DotNet\DevComponents.DotNetBar2.dll</HintPath>
+      <HintPath>..\..\..\librerias\DotNet\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.Instrumentation, Version=12.5.0.2, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -181,7 +173,7 @@
       <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
-      <HintPath>C:\librerias\RestSharp.dll</HintPath>
+      <HintPath>..\..\..\librerias\Json\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -414,6 +406,12 @@
       <DependentUpon>F1_Almacen.vb</DependentUpon>
     </Compile>
     <Compile Include="F1_Almacen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F1_AsignacionCuentas.Designer.vb">
+      <DependentUpon>F1_AsignacionCuentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F1_AsignacionCuentas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F1_Bancos.Designer.vb">
@@ -814,20 +812,20 @@
     <Compile Include="Reporte\R_EstadoCuentasClientesTodos.vb">
       <DependentUpon>R_EstadoCuentasClientesTodos.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_EstadoCuentasClientes.vb">
       <DependentUpon>R_EstadoCuentasClientes.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_EstadoCuentasCompraTodos.vb">
       <DependentUpon>R_EstadoCuentasCompraTodos.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_EstadoCuentasCompra.vb">
       <AutoGen>True</AutoGen>
@@ -844,8 +842,8 @@
     <Compile Include="Reporte\R_FacturaMediaCartaCombustible.vb">
       <DependentUpon>R_FacturaMediaCartaCombustible.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_FacturaMediaCarta.vb">
       <AutoGen>True</AutoGen>
@@ -880,8 +878,8 @@
     <Compile Include="Reporte\R_NotaPrestamo_Carta%28shoping%29.vb">
       <DependentUpon>R_NotaPrestamo_Carta%28shoping%29.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_NotaVenta_Carta%28shoping%29.vb">
       <AutoGen>True</AutoGen>
@@ -892,8 +890,8 @@
     <Compile Include="Reporte\R_NotaVenta_Carta_Diesel.vb">
       <DependentUpon>R_NotaVenta_Carta_Diesel.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_NotaVenta_MediaCarta.vb">
       <AutoGen>True</AutoGen>
@@ -946,8 +944,8 @@
     <Compile Include="Reporte\R_Proforma2.vb">
       <DependentUpon>R_Proforma2.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_Proforma_010.vb">
       <AutoGen>True</AutoGen>
@@ -964,14 +962,14 @@
     <Compile Include="Reporte\R_ReporteCobranzasCarta.vb">
       <DependentUpon>R_ReporteCobranzasCarta.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_ReportePagosCobranzasCarta.vb">
       <DependentUpon>R_ReportePagosCobranzasCarta.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_SaldosPorLinea.vb">
       <AutoGen>True</AutoGen>
@@ -982,14 +980,14 @@
     <Compile Include="Reporte\R_GraficaVendedorVentasAlmacen.vb">
       <DependentUpon>R_GraficaVendedorVentasAlmacen.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_GraficaVendedorVentasRendimiento.vb">
       <DependentUpon>R_GraficaVendedorVentasRendimiento.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_GraficaVendedorVentas.vb">
       <AutoGen>True</AutoGen>
@@ -1036,26 +1034,26 @@
     <Compile Include="Reporte\R_KardexInventarioGeneralResumenPorLotes.vb">
       <DependentUpon>R_KardexInventarioGeneralResumenPorLotes.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_KardexInventarioGeneralResumen.vb">
       <DependentUpon>R_KardexInventarioGeneralResumen.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_KardexInventarioProductoAgrupadoSinLote.vb">
       <DependentUpon>R_KardexInventarioProductoAgrupadoSinLote.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_KardexInventarioProductoSinLote.vb">
       <DependentUpon>R_KardexInventarioProductoSinLote.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_KardexInventarioProductoAgrupado.vb">
       <DependentUpon>R_KardexInventarioProductoAgrupado.rpt</DependentUpon>
@@ -1096,14 +1094,14 @@
     <Compile Include="Reporte\R_Proforma.vb">
       <DependentUpon>R_Proforma.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_NotaDeVentaSinLote.vb">
       <DependentUpon>R_NotaDeVentaSinLote.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_NotaDeVenta.vb">
       <AutoGen>True</AutoGen>
@@ -1114,8 +1112,8 @@
     <Compile Include="Reporte\R_ReportePagosCobranzas.vb">
       <DependentUpon>R_ReportePagosCobranzas.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_ReporteCobranzas.vb">
       <AutoGen>True</AutoGen>
@@ -1126,20 +1124,20 @@
     <Compile Include="Reporte\R_StockActualLote.vb">
       <DependentUpon>R_StockActualLote.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_StockDiferencia.vb">
       <DependentUpon>R_StockDiferencia.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_StockActualUtilidad.vb">
       <DependentUpon>R_StockActualUtilidad.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_StockActual.vb">
       <AutoGen>True</AutoGen>
@@ -1156,56 +1154,56 @@
     <Compile Include="Reporte\R_VentasAtendidasAlmacenVendedorRS.vb">
       <DependentUpon>R_VentasAtendidasAlmacenVendedorRS.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasAtendidasVendedorAlmacenRS.vb">
       <DependentUpon>R_VentasAtendidasVendedorAlmacenRS.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasCajeraProveedorProdSinUsuario.vb">
       <DependentUpon>R_VentasCajeraProveedorProdSinUsuario.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasCajeraProveedorSinUsuario.vb">
       <DependentUpon>R_VentasCajeraProveedorSinUsuario.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasCajeraProveedorProd.vb">
       <DependentUpon>R_VentasCajeraProveedorProd.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasCajeraProveedor.vb">
       <DependentUpon>R_VentasCajeraProveedor.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasCostosVendedorAlmacen.vb">
       <DependentUpon>R_VentasCostosVendedorAlmacen.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasCostosAlmacenVendedor.vb">
       <DependentUpon>R_VentasCostosAlmacenVendedor.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasAtendidasVendedorAlmacen.vb">
       <DependentUpon>R_VentasAtendidasVendedorAlmacen.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasAtendidasAlmacenVendedor.vb">
       <AutoGen>True</AutoGen>
@@ -1216,8 +1214,8 @@
     <Compile Include="Reporte\R_VentasProductosAgrupado.vb">
       <DependentUpon>R_VentasProductosAgrupado.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasProductos.vb">
       <AutoGen>True</AutoGen>
@@ -1400,6 +1398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Almacen.resx">
       <DependentUpon>F1_Almacen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F1_AsignacionCuentas.resx">
+      <DependentUpon>F1_AsignacionCuentas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Bancos.resx">
       <DependentUpon>F1_Bancos.vb</DependentUpon>

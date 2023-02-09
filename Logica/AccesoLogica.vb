@@ -7225,7 +7225,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     End Function
     Public Shared Function L_prIngresoEgresoGrabar(ByRef _ienumi As String, _ieFecha As String, _ieTipo As String,
                                            _ieDescripcion As String, _ieConcepto As String, _ieMonto As Decimal,
-                                           _ieObs As String, _NroCaja As Integer, tbIdCaja As String) As Boolean
+                                           _ieObs As String, _NroCaja As Integer, tbIdCaja As String, _ieidasig As Integer) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -7241,6 +7241,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ieEstado", 1))
         _listParam.Add(New Datos.DParametro("@Nrocaja", _NroCaja))
         _listParam.Add(New Datos.DParametro("@idCaja", tbIdCaja))
+        _listParam.Add(New Datos.DParametro("@ieidasig", _ieidasig))
         _listParam.Add(New Datos.DParametro("@ieuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
 
@@ -7445,5 +7446,120 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 #End Region
+#Region "asginacion de cuentas"
+    Public Shared Function L_prAsignacionBorrar(_tcnumi As String, ByRef _mensaje As String) As Boolean
 
+        Dim _resultado As Boolean
+
+        If L_fnbValidarEliminacion(_tcnumi, "TC001a", "tcnumi", _mensaje) = True Then
+            Dim _Tabla As DataTable
+
+            Dim _listPalam As New List(Of Datos.DParametro)
+
+            _listPalam.Add(New Datos.DParametro("@tipo", -1))
+            _listPalam.Add(New Datos.DParametro("@tcnumi", _tcnumi))
+            _listPalam.Add(New Datos.DParametro("@tcuact", L_Usuario))
+            _Tabla = D_ProcedimientoConParam("sp_Mam_TC001a", _listPalam)
+
+            If _Tabla.Rows.Count > 0 Then
+                _tcnumi = _Tabla.Rows(0).Item(0)
+                _resultado = True
+            Else
+                _resultado = False
+            End If
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnGrabarAsignacion(ByRef _tcnumi As String, _tccuen As Integer, _tcnumcheq As String, _tcbanco As String, _tcnumoper As String, _tcobservacion As String, _tcorden As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '   @canumi ,@caalm,@cafdoc ,@caty4prov  ,@catven,
+        '@cafvcr,@camon ,@caest  ,@caobs ,@cadesc ,@newFecha,@newHora,@cauact
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@tcnumi", _tcnumi))
+        _listParam.Add(New Datos.DParametro("@tccuen", _tccuen))
+        _listParam.Add(New Datos.DParametro("@tcnumcheq", _tcnumcheq))
+        _listParam.Add(New Datos.DParametro("@tcbanco", _tcbanco))
+        _listParam.Add(New Datos.DParametro("@tcnumoper", _tcnumoper))
+        _listParam.Add(New Datos.DParametro("@tcobservacion", _tcobservacion))
+        _listParam.Add(New Datos.DParametro("@tcuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@tcorden", _tcorden))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001a", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_prAsignacionModificar(ByRef _tcnumi As String, _tccuen As Integer, _tcnumcheq As String, _tcbanco As String, _tcnumoper As String, _tcobservacion As String) As Boolean
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        't.canumi , t.canombre, t.cacuenta, t.caobs, t.cafact, t.cahact, t.cauact 
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@tcnumi", _tcnumi))
+        _listParam.Add(New Datos.DParametro("@tccuen", _tccuen))
+        _listParam.Add(New Datos.DParametro("@tcnumcheq", _tcnumcheq))
+        _listParam.Add(New Datos.DParametro("@tcbanco", _tcbanco))
+        _listParam.Add(New Datos.DParametro("@tcnumoper", _tcnumoper))
+        _listParam.Add(New Datos.DParametro("@tcobservacion", _tcobservacion))
+        _listParam.Add(New Datos.DParametro("@tcuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001a", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _tcnumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_fnGeneralAsigCuenta() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@tcuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001a", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnListarActivoDisponible() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@tcuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001a", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnListarCuentaContable(cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@categoria ", cod))
+        _listParam.Add(New Datos.DParametro("@tcuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001a", _listParam)
+
+        Return _Tabla
+    End Function
+#End Region
 End Class

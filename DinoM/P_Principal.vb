@@ -1315,6 +1315,11 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
+    Private Sub btAsignaCuentas_Click(sender As Object, e As EventArgs) Handles btAsignaCuentas.Click
+        Dim frm As New F1_AsignacionCuentas
+        frm.Show()
+    End Sub
+
 
 
     'Private Sub btnCredPagoCliente_Click(sender As Object, e As EventArgs) Handles btnCredPagoCliente.Click
