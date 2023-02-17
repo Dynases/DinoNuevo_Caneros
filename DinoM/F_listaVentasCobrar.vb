@@ -125,12 +125,22 @@ Public Class F_listaVentasCobrar
 
     Private Sub JGrM_Buscador_DoubleClick_1(sender As Object, e As EventArgs) Handles JGrM_Buscador.DoubleClick
 
+        Dim frm As New F1_AsignacionCuentas()
         If JGrM_Buscador.Row >= 0 Then
             _PMostrarRegistro(JGrM_Buscador.Row)
 
         End If
+
         Me.Close()
+        frm.tbCodIng2.Text = Codigo
+        'frm.ShowDialog()
+
+        'frm.Hide()
+
+
     End Sub
+
+
 
     Private Sub _PMostrarRegistro(_N As Integer)
         Dim dt As DataTable = CType(JGrM_Buscador.DataSource, DataTable)

@@ -20,12 +20,13 @@ Public Class F1_IngresosEgresos
 #End Region
 #Region "METODOS PRIVADOS"
 
+
     Private Sub _prIniciarTodo()
 
         Me.Text = "I N G R E S O S / E G R E S O S"
         _prCargarComboLibreria(cbConcepto, 9, 1)
         _PMIniciarTodo()
-        _prAsignarPermisos()
+        '_prAsignarPermisos()
         _prCargarLengthTextBox()
 
         GroupPanelBuscador.Style.BackColor = Color.FromArgb(13, 71, 161)
@@ -38,12 +39,15 @@ Public Class F1_IngresosEgresos
         JGrM_Buscador.AlternatingColors = True
         btnModificar.Enabled = True
         btnEliminar.Enabled = True
+        tbCodAsig.ReadOnly = True
+        tbAsigDesc.ReadOnly = True
+
     End Sub
 
     Public Sub _prCargarLengthTextBox()
         tbDescripcion.MaxLength = 200
         cbConcepto.MaxLength = 40
-        tbObservacion.MaxLength = 300
+
     End Sub
 
 
@@ -143,6 +147,7 @@ Public Class F1_IngresosEgresos
         dpFecha.Value = Now.Date
         tbDescripcion.Text = ""
         'cbConcepto.SelectedIndex = 0
+        cbConcepto.Text = ""
         tbMonto.Value = 0
         tbObservacion.Text = ""
 
@@ -154,6 +159,9 @@ Public Class F1_IngresosEgresos
         tbdescCanero.Text = ""
         tbInstitucion.Text = ""
         tbfecha.Text = ""
+
+        tbCodAsig.Text = ""
+        tbAsigDesc.Text = ""
     End Sub
     Public Overrides Sub _PMOLimpiarErrores()
         MEP.Clear()
@@ -167,9 +175,14 @@ Public Class F1_IngresosEgresos
     Public Overrides Function _PMOValidarCampos() As Boolean
         Dim _ok As Boolean = True
         MEP.Clear()
+        If cbConcepto.Text = "" Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            MEP.SetError(cbConcepto, "Selecione un concepto !".ToUpper)
+            _ok = False
+        End If
 
         If tbDescripcion.Text = String.Empty Then
-            tbDescripcion.BackColor = Color.Red
+            tbDescripcion.BackColor = Color.White
             MEP.SetError(tbDescripcion, "ingrese Dato en el campo Descripcion !".ToUpper)
             _ok = False
         Else
@@ -209,6 +222,8 @@ Public Class F1_IngresosEgresos
         listEstCeldas.Add(New Modelo.Celda("iehact", False))
         listEstCeldas.Add(New Modelo.Celda("ieuact", False))
         listEstCeldas.Add(New Modelo.Celda("NroCaja", True, "Nro. Caja", 100))
+        listEstCeldas.Add(New Modelo.Celda("ieidasig", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("tcobservacion", True, "Obs Asignacion", 100))
 
         Return listEstCeldas
 
@@ -220,6 +235,7 @@ Public Class F1_IngresosEgresos
 
 
     Public Overrides Sub _PMOMostrarRegistro(_N As Integer)
+
         JGrM_Buscador.Row = _MPos
 
         't.canumi , t.canombre, t.cacuenta, t.caobs, t.cafact, t.cahact, t.cauact 
@@ -242,6 +258,10 @@ Public Class F1_IngresosEgresos
             tbdescCanero.Text = .GetValue("yddesc").ToString
             tbInstitucion.Text = .GetValue("nomInst").ToString
             tbfecha.Text = .GetValue("tafdoc").ToString
+            tbCodAsig.Text = .GetValue("ieidasig").ToString
+            tbAsigDesc.Text = .GetValue("tcobservacion").ToString
+
+
 
             'diseño de la grilla para el Total
             .TotalRow = InheritableBoolean.True
@@ -258,7 +278,7 @@ Public Class F1_IngresosEgresos
     Public Overrides Function _PMOGrabarRegistro() As Boolean
 
         Dim tipo As Integer = IIf(swTipo.Value = True, 1, 0)
-        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, tbIdCaja.Text)
+        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, tbIdCaja.Text, tbCodAsig.Text)
         If res Then
             Modificado = False
             _PMOLimpiar()
@@ -288,8 +308,8 @@ Public Class F1_IngresosEgresos
 
 
     Public Overrides Sub _PMOEliminarRegistro()
-        If tbIdCaja.Text = 0 Then
-            Dim info As New TaskDialogInfo("¿esta seguro de eliminar el registro?".ToUpper, eTaskDialogIcon.Delete, "advertencia".ToUpper, "mensaje principal".ToUpper, eTaskDialogButton.Yes Or eTaskDialogButton.Cancel, eTaskDialogBackgroundColor.Blue)
+        'If tbIdCaja.Text = 0 Then
+        Dim info As New TaskDialogInfo("¿esta seguro de eliminar el registro?".ToUpper, eTaskDialogIcon.Delete, "advertencia".ToUpper, "mensaje principal".ToUpper, eTaskDialogButton.Yes Or eTaskDialogButton.Cancel, eTaskDialogBackgroundColor.Blue)
             Dim result As eTaskDialogResult = TaskDialog.Show(info)
             If result = eTaskDialogResult.Yes Then
                 Dim mensajeError As String = ""
@@ -301,9 +321,9 @@ Public Class F1_IngresosEgresos
                     ToastNotification.Show(Me, mensajeError, My.Resources.WARNING, 8000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             End If
-        Else
-            ToastNotification.Show(Me, "No puede Eliminar un Ingreso/Egreso, ya se hizo cierre de caja, por favor primero elimine cierre de caja".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        End If
+        'Else
+        'ToastNotification.Show(Me, "No puede Eliminar un Ingreso/Egreso, ya se hizo cierre de caja, por favor primero elimine cierre de caja".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        'End If
     End Sub
 
 
@@ -373,8 +393,12 @@ Public Class F1_IngresosEgresos
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnVentCobros.Click
         Dim frm As New F_listaVentasCobrar
+        Dim frm2 As New F1_AsignacionCuentas
+
 
         frm.ShowDialog()
+        frm2.ShowDialog()
+
         tbIdCaja.Text = frm.Codigo
         tbfecha.Text = frm.Fecha
         tbMonto.Text = frm.Total
@@ -383,11 +407,16 @@ Public Class F1_IngresosEgresos
         tbcodInst.Text = frm.Codinstitucion
         tbInstitucion.Text = frm.Institucion
         tbDescripcion.Text = "PAGO POR VTA DE INSUMOS S/O " + frm.Codigo
+        'tbAsigDesc.Text = frm2.tbObservacion.Text
+        tbAsigDesc.Text = frm2.Observacion
+        tbCodAsig.Text = frm2.CodAsig
+        btnVentCobros.Enabled = False
     End Sub
 
     Private Sub swTipo_ValueChanged(sender As Object, e As EventArgs) Handles swTipo.ValueChanged
         If swTipo.Value = True Then
             btnVentCobros.Enabled = True
+
         Else
             btnVentCobros.Enabled = False
             tbIdCaja.Text = ""
@@ -398,6 +427,9 @@ Public Class F1_IngresosEgresos
             tbcodInst.Text = ""
             tbInstitucion.Text = ""
             tbDescripcion.Text = ""
+            tbCodAsig.Text = ""
+            tbAsigDesc.Text = ""
+
         End If
     End Sub
 
