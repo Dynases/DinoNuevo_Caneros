@@ -18,7 +18,17 @@ Public Class Pr_ProductoRetiradoxCañero
         CheckTodosCan.Visible = False
     End Sub
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
-        _dt = L_prReporteRetiroCaneroUno(tbCod.Text, tbCodCan.Text, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+        If CheckUna.Checked = True And CheckTodosCan.Checked = True Then
+            _dt = L_prReporteRetiroCaneroUno(tbCod.Text, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+        End If
+        If CheckUna.Checked = True And CheckUnaCan.Checked = True Then
+            _dt = L_prReporteRetiroCaneroUno(tbCod.Text, tbCodCan.Text, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+        End If
+        If CheckTodos.Checked = True Then
+            _dt = L_prReporteRetiroCaneroUno(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+
+        End If
+        'If CheckTodos.Checked = True And CheckTodosCan.Checked = True Then
     End Sub
 
     Private Sub _prCargarReporte()
@@ -34,10 +44,10 @@ Public Class Pr_ProductoRetiradoxCañero
             Dim CodCan As String = tbCodCan.Text
             Dim Canero As String = tbNomCan.Text
             Dim almacen As String = gs_userSucNom
-            objrep.SetParameterValue("CodCan", CodCan)
-            objrep.SetParameterValue("CodIns", CodIns)
-            objrep.SetParameterValue("Canero", Canero)
-            objrep.SetParameterValue("Institucion", Institucion)
+            'objrep.SetParameterValue("CodCan", CodCan)
+            'objrep.SetParameterValue("CodIns", CodIns)
+            'objrep.SetParameterValue("Canero", Canero)
+            'objrep.SetParameterValue("Institucion", Institucion)
             objrep.SetParameterValue("almacen", almacen)
             objrep.SetParameterValue("fechaI", fechaI)
             objrep.SetParameterValue("fechaF", fechaF)

@@ -1,4 +1,4 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class F0_Prestamo
     Inherits Modelo.ModeloF0
     'Inherits System.Windows.Forms.Form
@@ -917,7 +917,6 @@ Partial Class F0_Prestamo
     Friend WithEvents tbProv As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbCodProv As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbObs As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
     Friend WithEvents tbcod As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
     Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
