@@ -41,9 +41,10 @@ Public Class F0_Prestamo
 
         _prCargarPrestamo()
         Limpiar()
-        grPrestamo.Row = 0
-        _MostrarRegistro()
-
+        If grPrestamo.RowCount > 0 Then
+            grPrestamo.Row = 0
+            _MostrarRegistro()
+        End If
         LblPaginacion.Text = CStr(grPrestamo.Row + 1) + "/" + CStr(grPrestamo.RowCount)
 
     End Sub
@@ -111,19 +112,19 @@ Public Class F0_Prestamo
         tbcod.Text = ""
         tbfecha.Value = Date.Now
         codMon.Text = ""
-        tbMoneda.Text = ""
-        cbTipoCambio.Text = ""
+        tbMoneda.SelectedIndex = 0
+        cbTipoCambio.Value = 0
         codIns.Text = ""
         tbInst.Text = ""
         codCan.Text = ""
         tbCanero.Text = ""
         codFin.Text = ""
-        tbFinan.Text = ""
+        tbFinan.SelectedIndex = 0
         codPres.Text = ""
-        tbPrest.Text = ""
+        tbPrest.SelectedIndex = 0
         tbCodProv.Text = ""
         tbProv.Text = ""
-        cbDocumento.Text = ""
+        cbDocumento.SelectedIndex = 0
         tbCite.Text = ""
         tbTotal.Text = ""
         tbInteres.Text = ""
@@ -137,7 +138,11 @@ Public Class F0_Prestamo
             tbfecha.Text = .GetValue("tbfec").ToString
             codMon.Text = .GetValue("tbmon").ToString
             tbMoneda.Value = .GetValue("tbmon")
-            cbTipoCambio.Value = .GetValue("tbtcam")
+            If .GetValue("tbtcam") <> 0 Then
+                cbTipoCambio.Value = .GetValue("tbtcam")
+            Else
+                cbTipoCambio.Text = ""
+            End If
             codIns.Text = .GetValue("codInst").ToString
             tbInst.Text = .GetValue("nomInst").ToString
             codCan.Text = .GetValue("ydcod").ToString
@@ -306,7 +311,10 @@ Public Class F0_Prestamo
     Private Sub _prCargarComboDocumento(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
         dt = L_fnGeneralDocumento()
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE DOCUMENTO"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -326,7 +334,10 @@ Public Class F0_Prestamo
     Private Sub _prCargarComboTipoCambio(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
         dt = L_fnGeneralTipoCambio()
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE TIPO DE CAMBIO"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -346,7 +357,10 @@ Public Class F0_Prestamo
     Private Sub _prCargarComboFinanciador(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
         dt = L_fnGeneralFinanciadores()
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE FINANCIADOR"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -367,7 +381,10 @@ Public Class F0_Prestamo
     Private Sub _prCargarComboMoneda(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
         dt = L_fnGeneralMoneda()
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE MONEDA"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -390,7 +407,10 @@ Public Class F0_Prestamo
         codFin.Text = Finan
         Dim dt As New DataTable
         dt = L_fnGeneralTipoPrestamo(Finan)
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE TIPO DE PRESTAMO"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -639,6 +659,26 @@ Public Class F0_Prestamo
         If tbInteres.Text = "" Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Por Favor Ingrese un Aporte Anual".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
+        End If
+        If tbMoneda.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese una Moneda".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
+        End If
+        If cbDocumento.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Documento".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
+        End If
+        If tbFinan.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Financiador".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
+        End If
+        If tbPrest.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Tipo de Prestamo".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             Return True
         End If
         Return False
