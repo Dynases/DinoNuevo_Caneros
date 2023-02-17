@@ -164,14 +164,12 @@ Partial Class F1_IngresosEgresos
         'btnSalir
         '
         '
-        'btnGrabar
-        '
-        '
         'btnModificar
         '
         '
         'btnNuevo
         '
+        Me.btnNuevo.Enabled = False
         '
         'PanelToolBar2
         '
@@ -585,6 +583,7 @@ Partial Class F1_IngresosEgresos
         Me.tbMonto.Enabled = False
         Me.tbMonto.Font = New System.Drawing.Font("Arial Black", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMonto.Increment = 1.0R
+        Me.tbMonto.IsInputReadOnly = True
         Me.tbMonto.Location = New System.Drawing.Point(588, 86)
         Me.tbMonto.Name = "tbMonto"
         Me.tbMonto.Size = New System.Drawing.Size(132, 29)

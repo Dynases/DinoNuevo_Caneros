@@ -1,7 +1,8 @@
-﻿Imports DevComponents.DotNetBar
+﻿Imports System.Drawing.Printing
+Imports DevComponents.DotNetBar
 Imports DevComponents.DotNetBar.Controls
 Imports Logica.AccesoLogica
-
+Imports UTILITIES
 Public Class F0_Prestamo
 
 #Region "Variables Globales"
@@ -20,20 +21,9 @@ Public Class F0_Prestamo
 #End Region
 
     Public Sub iniciarcomponentes()
-        'tbInst.ReadOnly = True
-        'codIns.ReadOnly = True
-        'tbfecha.Value = Date.Now
-        'codCan.ReadOnly = True
-        'tbCanero.ReadOnly = True
-        'codFin.ReadOnly = True
-        'codPres.ReadOnly = True
-        'codMon.ReadOnly = True
-        'tbCodProv.ReadOnly = True
-        'tbProv.ReadOnly = True
+
         tbcod.Enabled = False
-        'btnGrabar.Enabled = False
-        'tbFinan.ReadOnly = True
-        'tbPrest.ReadOnly = True
+
         _prCargarComboFinanciador(tbFinan)
         _prCargarComboMoneda(tbMoneda)
         _prCargarComboDocumento(cbDocumento)
@@ -435,8 +425,8 @@ Public Class F0_Prestamo
                 _MostrarRegistro()
             End If
         Else
-                '  Public _modulo As SideNavItem
-                Me.Close()
+            '  Public _modulo As SideNavItem
+            Me.Close()
         End If
     End Sub
 
@@ -633,10 +623,32 @@ Public Class F0_Prestamo
     End Sub
 
     Public Function validarCampos() As Boolean
+        If tbMoneda.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Tipo de Moneda".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
+        End If
+        If tbMoneda.Value = 1 Then
+            If cbTipoCambio.Value = 0 Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Ingrese un Tipo de Cambio".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Return True
+            End If
+        End If
         If tbCanero.Text = "" Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Por Favor Seleccione un Cañero".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
+            Return True
+        End If
+        If tbFinan.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Financiador".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
+        End If
+        If tbPrest.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Tipo de Prestamo".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             Return True
         End If
         If tbFinan.Value = 100 Then
@@ -645,6 +657,11 @@ Public Class F0_Prestamo
                 ToastNotification.Show(Me, "Por Favor Ingrese un Proveedor".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 Return True
             End If
+        End If
+        If cbDocumento.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Documento".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
         End If
         If tbCite.Text = "" Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -659,26 +676,6 @@ Public Class F0_Prestamo
         If tbInteres.Text = "" Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Por Favor Ingrese un Aporte Anual".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-            Return True
-        End If
-        If tbMoneda.Value = 0 Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "Por Favor Ingrese una Moneda".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-            Return True
-        End If
-        If cbDocumento.Value = 0 Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "Por Favor Ingrese un Documento".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-            Return True
-        End If
-        If tbFinan.Value = 0 Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "Por Favor Ingrese un Financiador".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-            Return True
-        End If
-        If tbPrest.Value = 0 Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "Por Favor Ingrese un Tipo de Prestamo".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             Return True
         End If
         Return False
@@ -746,6 +743,113 @@ Public Class F0_Prestamo
             grPrestamo.Row = grPrestamo.Row - 1
             _MostrarRegistro()
             LblPaginacion.Text = CStr(grPrestamo.Row + 1) + "/" + CStr(grPrestamo.RowCount)
+        End If
+    End Sub
+
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+        _prImiprimirNotaPrestamo(tbcod.Text)
+    End Sub
+
+    Public Sub _prImiprimirNotaPrestamo(numi As String)
+        Dim ef = New Efecto
+
+
+        ef.tipo = 2
+        ef.Context = "MENSAJE PRINCIPAL".ToUpper
+        ef.Header = "¿desea imprimir la nota de prestamo?".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            P_GenerarReporte(numi)
+        End If
+    End Sub
+    Private Sub P_GenerarReporte(numi As String)
+        Dim dt As DataTable = L_NotaDePrestamo(numi)
+
+        Dim total As Decimal = Convert.ToDecimal(tbTotal.Text)
+        Dim totald As Double = (total / 6.96)
+        Dim fechaven As String = dt.Rows(0).Item("tbfec")
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+
+        Dim _Hora As String = Now.Hour.ToString + ":" + Now.Minute.ToString
+        Dim _Ds2 = L_Reporte_Factura_Cia("2")
+
+        Dim _Ds3 = L_ObtenerRutaImpresora("2") ' Datos de Impresion de Facturación
+        If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
+            P_Global.Visualizador = New Visualizador 'Comentar
+        End If
+        Dim _FechaAct As String
+        Dim _FechaPar As String
+        Dim _Fecha() As String
+        Dim _Meses() As String = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}
+        _FechaAct = fechaven
+        _Fecha = Split(_FechaAct, "-")
+
+        Dim objrep As Object = Nothing
+        Dim empresaId = ObtenerEmpresaHabilitada()
+        Dim empresaHabilitada As DataTable = ObtenerEmpresaTipoReporte(empresaId, Convert.ToInt32(ENReporte.NOTAVENTA))
+        For Each fila As DataRow In empresaHabilitada.Rows
+            objrep = New R_NotaPrestamo_Cartashoping
+            SetParametrosNotaVenta(dt, total, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep)
+        Next
+    End Sub
+
+    Private Sub SetParametrosNotaVenta(dt As DataTable, total As Decimal, _Hora As String, _Ds2 As DataSet, _Ds3 As DataSet, tipoReporte As String, objrep As Object)
+
+        Select Case tipoReporte
+            Case ENReporteTipo.NOTAVENTA_Carta
+                objrep.SetDataSource(dt)
+
+
+                objrep.SetParameterValue("Logo", gb_UbiLogo)
+                objrep.SetParameterValue("NotaAdicional1", gb_NotaAdicional)
+
+                objrep.SetParameterValue("Total", total)
+                objrep.SetParameterValue("fechaImpresion", DateTime.Now())
+
+            Case ENReporteTipo.NOTAVENTA_Ticket
+                objrep.SetDataSource(dt)
+                objrep.SetParameterValue("ECasaMatriz", _Ds2.Tables(0).Rows(0).Item("scsuc").ToString)
+                objrep.SetParameterValue("ECiudadPais", _Ds2.Tables(0).Rows(0).Item("scpai").ToString)
+                objrep.SetParameterValue("EDuenho", _Ds2.Tables(0).Rows(0).Item("scnom").ToString) '?
+                objrep.SetParameterValue("Direccionpr", _Ds2.Tables(0).Rows(0).Item("scdir").ToString)
+                objrep.SetParameterValue("Hora", _Hora)
+                objrep.SetParameterValue("ENombre", _Ds2.Tables(0).Rows(0).Item("scneg").ToString) '?
+
+        End Select
+        If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.ShowDialog() 'Comentar
+            P_Global.Visualizador.BringToFront() 'Comentar
+        Else
+            Dim pd As New PrintDocument()
+            pd.PrinterSettings.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+
+            If (Not pd.PrinterSettings.IsValid) Then
+                ToastNotification.Show(Me, "La Impresora ".ToUpper + _Ds3.Tables(0).Rows(0).Item("cbrut").ToString + Chr(13) + "No Existe".ToUpper,
+                                       My.Resources.WARNING, 5 * 1000,
+                                       eToastGlowColor.Blue, eToastPosition.BottomRight)
+            Else
+                objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+
+                Dim c As Integer
+                Dim doctoprint As New System.Drawing.Printing.PrintDocument()
+                doctoprint.PrinterSettings.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+                Dim rawKind As Integer
+                For c = 0 To doctoprint.PrinterSettings.PaperSizes.Count - 1
+                    If doctoprint.PrinterSettings.PaperSizes(c).PaperName = "factura" Then
+                        rawKind = CInt(doctoprint.PrinterSettings.PaperSizes(c).GetType().GetField("kind", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic).GetValue(doctoprint.PrinterSettings.PaperSizes(c)))
+                        Exit For
+                    End If
+                Next
+                objrep.PrintOptions.PaperSize = CType(rawKind, CrystalDecisions.Shared.PaperSize)
+
+                objrep.PrintToPrinter(1, True, 0, 0)
+
+            End If
         End If
     End Sub
 End Class

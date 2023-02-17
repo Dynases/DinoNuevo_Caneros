@@ -1711,8 +1711,8 @@ Public Class F0_Venta2
             Dim factura = gb_FacturaEmite
             _prInsertarMontoNuevo(tabla)
             ''Verifica si existe estock para los productos
-            If _prExisteStockParaProducto() Then
-                Dim Succes As String = Emisor(tokenSifac)
+            ' If _prExisteStockParaProducto() Then
+            Dim Succes As String = Emisor(tokenSifac)
                 If Succes = 2 Or Succes = 8 Or Succes = 5 Then
                     Dim dtDetalle As DataTable = rearmarDetalle()
                     'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
@@ -1767,7 +1767,7 @@ Public Class F0_Venta2
                     MessageBox.Show(mensajeRespuesta)
                 End If
 
-            End If
+           ' End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
@@ -5355,12 +5355,14 @@ salirIf:
     End Function
 
     Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
-        If swTipoVenta.Value = True Then
-            contabilizarContado()
-        Else
-            contabilizar()
-            L_fnGrabarTxCobrar(tbCodigo.Text)
-        End If
+        P_fnGenerarFactura(tbCodigo.Text)
+
+        'If swTipoVenta.Value = True Then
+        '    contabilizarContado()
+        'Else
+        '    contabilizar()
+        '    L_fnGrabarTxCobrar(tbCodigo.Text)
+        'End If
         'Dim a As Double = CDbl(Convert.ToDouble(tbTotalDo.Text) + tbMdesc.Value)
         ''Dim b As Double = CDbl(IIf(IsDBNull(tbIce.Value), 0, tbIce.Value)) 'Ya esta calculado el 55% del ICE
         'Dim b As Double = CDbl(0)

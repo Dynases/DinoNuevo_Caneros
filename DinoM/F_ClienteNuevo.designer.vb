@@ -30,6 +30,7 @@ Partial Class F_ClienteNuevo
         Me.Tb_Placa = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ReflectionLabel1 = New DevComponents.DotNetBar.Controls.ReflectionLabel()
         Me.MEP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MHighlighterFocus = New DevComponents.DotNetBar.Validator.Highlighter()
@@ -37,14 +38,13 @@ Partial Class F_ClienteNuevo
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.btnsalir = New DevComponents.DotNetBar.ButtonX()
         Me.btnguardar = New DevComponents.DotNetBar.ButtonX()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Tb_Propietario = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.tbPesoTara = New DevComponents.Editors.DoubleInput()
         Me.Tb_Color = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Panel1.SuspendLayout()
-        CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbPesoTara, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -131,6 +131,17 @@ Partial Class F_ClienteNuevo
         Me.Panel1.Size = New System.Drawing.Size(450, 63)
         Me.Panel1.TabIndex = 157
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.PictureBox1.Image = Global.DinoM.My.Resources.Resources.man
+        Me.PictureBox1.Location = New System.Drawing.Point(386, 5)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Padding = New System.Windows.Forms.Padding(0, 8, 0, 0)
+        Me.PictureBox1.Size = New System.Drawing.Size(64, 53)
+        Me.PictureBox1.TabIndex = 1
+        Me.PictureBox1.TabStop = False
+        '
         'ReflectionLabel1
         '
         '
@@ -213,17 +224,6 @@ Partial Class F_ClienteNuevo
         Me.btnguardar.Text = "AGREGAR"
         Me.btnguardar.TextColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PictureBox1.Image = Global.DinoM.My.Resources.Resources.man
-        Me.PictureBox1.Location = New System.Drawing.Point(386, 5)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Padding = New System.Windows.Forms.Padding(0, 8, 0, 0)
-        Me.PictureBox1.Size = New System.Drawing.Size(64, 53)
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
-        '
         'Tb_Propietario
         '
         '
@@ -305,8 +305,8 @@ Partial Class F_ClienteNuevo
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "CREAR NUEVO CLIENTE"
         Me.Panel1.ResumeLayout(False)
-        CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbPesoTara, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

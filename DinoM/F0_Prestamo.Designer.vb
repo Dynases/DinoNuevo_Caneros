@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class F0_Prestamo
     Inherits Modelo.ModeloF0
     'Inherits System.Windows.Forms.Form
@@ -172,6 +172,9 @@ Partial Class F0_Prestamo
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.Panel1, 0)
+        '
+        'btnImprimir
+        '
         '
         'btnUltimo
         '
@@ -917,4 +920,5 @@ Partial Class F0_Prestamo
     Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
     Friend WithEvents tbcod As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
 End Class

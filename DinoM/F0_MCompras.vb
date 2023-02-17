@@ -1156,7 +1156,7 @@ Public Class F0_MCompras
                 dt = L_fnDetalleCompra(numi)
 
                 For Each detalle In dt.Rows
-                    precio = Format((PrecioPonderado(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod")), Convert.ToDecimal(detalle("cbcmin"))) + obtenerCompras("0", numi)) / obtenerUnidadesRestantes(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod"))), "0.00000")
+                    precio = Format((PrecioPonderado(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod")), Convert.ToDecimal(detalle("cbcmin"))) + obtenerCompras(numi, Convert.ToInt32(detalle("cbty5prod")))) / obtenerUnidadesRestantes(cbSucursal.Value, Convert.ToInt32(detalle("cbty5prod"))), "0.00000")
                     ActualizarPrecioCostoPonderado(cbSucursal.Value, detalle("cbty5prod"), precio)
                 Next
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -1167,6 +1167,7 @@ Public Class F0_MCompras
                                           )
                 contabilizarComprasCredito(numi)
                 _prCargarCompra()
+                P_GenerarReporteCompra()
                 _Limpiar()
             Else
                 Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
@@ -1355,7 +1356,7 @@ Public Class F0_MCompras
             Dim dia As Integer = Microsoft.VisualBasic.DateAndTime.Day(fechacom)
             Dim anio As Integer = Year(fechacom)
             Dim mes1 As String = _Meses(mes - 1)
-            objrep.SetParameterValue("almacen", gs_userSucNom)
+            objrep.SetParameterValue("almacen", cbSucursal.Text)
             objrep.SetParameterValue("dia", dia)
             objrep.SetParameterValue("mes", mes1)
             objrep.SetParameterValue("anio", anio)
