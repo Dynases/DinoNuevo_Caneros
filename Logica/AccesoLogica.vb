@@ -370,7 +370,36 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Tabla = D_Datos_Tabla("* ", _NomTabla, "tipo= " + _TipoVenta + " order by orden")
         Return _Tabla
     End Function
+    Public Shared Function L_fnGrabarTO001prestamos(_tipo As Integer, ByRef _tanumi As Integer, Optional _obnumito1 As String = "", Optional _oblin As String = "",
+                                           Optional _obcuenta As String = "", Optional _obobs As String = "", Optional _obdebebs As Double = 0.00,
+                                           Optional _obhaberbs As Double = 0.00, Optional _obdebeus As Double = 0.00, Optional _obhaberus As Double = 0.00) As Integer
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", _tipo))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _listParam.Add(New Datos.DParametro("@obnumito1", _obnumito1))
+        _listParam.Add(New Datos.DParametro("@oblin", _oblin))
+        _listParam.Add(New Datos.DParametro("@obcuenta", _obcuenta))
+        _listParam.Add(New Datos.DParametro("@obobs", _obobs))
+        _listParam.Add(New Datos.DParametro("@obdebebs", _obdebebs))
+        _listParam.Add(New Datos.DParametro("@obhaberbs", _obhaberbs))
+        _listParam.Add(New Datos.DParametro("@obdebeus", _obdebeus))
+        _listParam.Add(New Datos.DParametro("@obhaberus", _obhaberus))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_HeaAsiCont", _listParam)
 
+
+        If _Tabla.Rows.Count > 0 Then
+            _tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _tanumi
+    End Function
     Public Shared Function PrecioPonderado(_NomTabla As Integer, _TipoVenta As Integer, _cantidad As Decimal) As Decimal
         Dim resultado As Decimal = 0.00000
         Dim _Tabla As DataTable

@@ -101,19 +101,19 @@ Public Class F0_Prestamo
         tbcod.Text = ""
         tbfecha.Value = Date.Now
         codMon.Text = ""
-        tbMoneda.Text = ""
-        cbTipoCambio.Text = ""
+        tbMoneda.SelectedIndex = 0
+        cbTipoCambio.Value = 0
         codIns.Text = ""
         tbInst.Text = ""
         codCan.Text = ""
         tbCanero.Text = ""
         codFin.Text = ""
-        tbFinan.Text = ""
+        tbFinan.SelectedIndex = 0
         codPres.Text = ""
-        tbPrest.Text = ""
+        tbPrest.SelectedIndex = 0
         tbCodProv.Text = ""
         tbProv.Text = ""
-        cbDocumento.Text = ""
+        cbDocumento.SelectedIndex = 0
         tbCite.Text = ""
         tbTotal.Text = ""
         tbInteres.Text = ""
@@ -296,7 +296,10 @@ Public Class F0_Prestamo
     Private Sub _prCargarComboDocumento(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
         dt = L_fnGeneralDocumento()
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE DOCUMENTO"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -316,7 +319,10 @@ Public Class F0_Prestamo
     Private Sub _prCargarComboTipoCambio(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
         dt = L_fnGeneralTipoCambio()
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE TIPO CAMBIO"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -336,7 +342,10 @@ Public Class F0_Prestamo
     Private Sub _prCargarComboFinanciador(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
         dt = L_fnGeneralFinanciadores()
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE FINANCIADOR"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -357,7 +366,10 @@ Public Class F0_Prestamo
     Private Sub _prCargarComboMoneda(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
         dt = L_fnGeneralMoneda()
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE MODENA"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -380,7 +392,10 @@ Public Class F0_Prestamo
         codFin.Text = Finan
         Dim dt As New DataTable
         dt = L_fnGeneralTipoPrestamo(Finan)
-
+        Dim fila = dt.NewRow()
+        fila(0) = 0
+        fila(1) = "SELECCIONE TIPO PRESTAMO"
+        dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
             .DropDownList.Columns.Clear()
@@ -422,6 +437,11 @@ Public Class F0_Prestamo
                                               _codDocumento, tbCite.Text, tbTotal.Text,
                                               CDbl(tbInteres.Text), tbObs.Text)
         If res Then
+            _prCargarPrestamo()
+            grPrestamo.Row = 0
+            _MostrarRegistro()
+            contabilizarPrestamo()
+            _prImiprimirNotaPrestamo(tbcod.Text)
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
             ToastNotification.Show(Me, "El Prestamo Fue Registrado Correctamente".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         Else
@@ -442,6 +462,7 @@ Public Class F0_Prestamo
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
             ToastNotification.Show(Me, "El Prestamo Fue Registrado Correctamente".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         Else
+            _prImiprimirNotaPrestamo(tbcod.Text)
             Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
             ToastNotification.Show(Me, "El Prestamo No Pudo Ser Registrado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         End If
@@ -603,10 +624,32 @@ Public Class F0_Prestamo
     End Sub
 
     Public Function validarCampos() As Boolean
+        If tbMoneda.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Tipo de Moneda".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
+        End If
+        If tbMoneda.Value = 1 Then
+            If cbTipoCambio.Value = 0 Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Ingrese un Tipo de Cambio".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Return True
+            End If
+        End If
         If tbCanero.Text = "" Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Por Favor Seleccione un Cañero".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
+            Return True
+        End If
+        If tbFinan.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Financiador".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
+        End If
+        If tbPrest.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Tipo de Prestamo".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             Return True
         End If
         If tbFinan.Value = 100 Then
@@ -615,6 +658,11 @@ Public Class F0_Prestamo
                 ToastNotification.Show(Me, "Por Favor Ingrese un Proveedor".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 Return True
             End If
+        End If
+        If cbDocumento.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Ingrese un Documento".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return True
         End If
         If tbCite.Text = "" Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -649,9 +697,7 @@ Public Class F0_Prestamo
         If tbcod.Text = "" Then
             _GuardarNuevo()
             _Inhabilitar()
-            _prCargarPrestamo()
-            grPrestamo.Row = 0
-            _MostrarRegistro()
+
         Else
             _Modificar()
             _Inhabilitar()
@@ -805,4 +851,82 @@ Public Class F0_Prestamo
             End If
         End If
     End Sub
+    Private Sub contabilizarPrestamo()
+        Dim codigoVenta = tbcod.Text
+        Dim codCanero = "P/Ord:. " + codigoVenta + " Prestamo " + tbTotal.Text + "  " + codCan.Text + "-" + tbCanero.Text.Trim   'obobs
+        Dim total = tbTotal.Text 'para obtener debe haber
+        Dim dt, dt1, dtDetalle As DataTable
+        Dim cuenta As String
+        Dim debebs, haberbs, debeus, haberus As Double
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
+        dtDetalle = ObtenerNumCuentaProveedor("Institucion", _CodProveedor)
+
+
+        Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
+        'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
+
+        For a As Integer = 6 To 7 Step 1
+            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+
+            'dtDetalle = L_fnDetalleVenta1(codigoVenta)
+
+
+            Dim oblin As Integer = 1
+            'Dim totalCosto As Double = 0.00
+            For Each row In dt.Rows
+                '    Select Case row("cuenta")
+
+                'If row("cuenta") = "-1" Then
+                '    For Each detalle In dtDetalle.Rows
+                '        cuenta = detalle("yfclot")
+                '        If row("dh") = 1 Then
+                '            debeus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
+                '            debebs = debeus * 6.96
+                '            haberus = 0.00
+                '            haberbs = 0.00
+                '            totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
+                '        Else
+                '            haberus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
+                '            haberbs = haberus * 6.96
+                '            debeus = 0.00
+                '            debebs = 0.00
+                '            totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
+                '        End If
+
+                '        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                '        oblin = oblin + 1
+                '    Next
+
+
+                '    If row("cuenta") = "-1" Then
+                '        Continue For
+                '    End If
+
+                'End If
+                If row("cuenta") = "-2" Then
+                    cuenta = dt1.Rows(0).Item(7)
+
+                Else
+                    cuenta = dtDetalle.Rows(0).Item(10) 'row("cuenta")
+                End If
+                If row("dh") = 1 Then
+                    debeus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
+                    debebs = debeus * 6.96
+                    haberus = 0.00
+                    haberbs = 0.00
+                Else
+
+                    haberus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
+                    haberbs = haberus * 6.96
+                    debeus = 0.00
+                    debebs = 0.00
+                End If
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                oblin = oblin + 1
+            Next
+        Next
+
+        'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+    End Sub
+
 End Class

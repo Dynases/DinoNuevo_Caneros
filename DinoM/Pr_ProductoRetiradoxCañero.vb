@@ -1,4 +1,5 @@
-﻿Imports Logica.AccesoLogica
+﻿Imports DevComponents.DotNetBar
+Imports Logica.AccesoLogica
 
 Public Class Pr_ProductoRetiradoxCañero
 
@@ -18,10 +19,35 @@ Public Class Pr_ProductoRetiradoxCañero
         CheckTodosCan.Visible = False
     End Sub
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
-        _dt = L_prReporteRetiroCaneroUno(tbCod.Text, tbCodCan.Text, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
-    End Sub
+        If CheckUna.Checked = True And CheckTodosCan.Checked = True Then
+            _dt = L_prReporteRetiroCaneroUno(tbCod.Text, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+        End If
+        If CheckUna.Checked = True And CheckUnaCan.Checked = True Then
+            _dt = L_prReporteRetiroCaneroUno(tbCod.Text, tbCodCan.Text, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+        End If
+        If CheckTodos.Checked = True Then
+            _dt = L_prReporteRetiroCaneroUno(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
 
+        End If
+        'If CheckTodos.Checked = True And CheckTodosCan.Checked = True Then
+    End Sub
+    Private Function Validar() As Boolean
+        If CheckUna.Checked = True And tbInsCan.Text = "" Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Seleccione una Institucion".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)
+            Return True
+        End If
+        If CheckUna.Checked = True And CheckUnaCan.Checked = True And tbNomCan.Text = "" Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Seleccione un Cañero".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)
+            Return True
+        End If
+        Return False
+    End Function
     Private Sub _prCargarReporte()
+        If Validar() Then
+            Exit Sub
+        End If
         Dim _dt As New DataTable
         _prInterpretarDatos(_dt)
         If (_dt.Rows.Count > 0) Then
@@ -34,16 +60,19 @@ Public Class Pr_ProductoRetiradoxCañero
             Dim CodCan As String = tbCodCan.Text
             Dim Canero As String = tbNomCan.Text
             Dim almacen As String = gs_userSucNom
-            objrep.SetParameterValue("CodCan", CodCan)
-            objrep.SetParameterValue("CodIns", CodIns)
-            objrep.SetParameterValue("Canero", Canero)
-            objrep.SetParameterValue("Institucion", Institucion)
+            'objrep.SetParameterValue("CodCan", CodCan)
+            'objrep.SetParameterValue("CodIns", CodIns)
+            'objrep.SetParameterValue("Canero", Canero)
+            'objrep.SetParameterValue("Institucion", Institucion)
             objrep.SetParameterValue("almacen", almacen)
             objrep.SetParameterValue("fechaI", fechaI)
             objrep.SetParameterValue("fechaF", fechaF)
             CrystalReportViewer1.ReportSource = objrep
             CrystalReportViewer1.Show()
             CrystalReportViewer1.BringToFront()
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "No existen datos para mostrar".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)
         End If
     End Sub
     Private Sub Pr_ProductoRetiradoxCañero_Load(sender As Object, e As EventArgs) Handles MyBase.Load
