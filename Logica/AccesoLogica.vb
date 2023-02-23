@@ -656,6 +656,12 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Where = "id = " + _Id
         _Err = D_Eliminar_Datos("Institucion", _Where)
     End Sub
+    Public Shared Sub L_Asiento_Borrar(_Id As String)
+        Dim _Where As String
+        Dim _Err As Boolean
+        _Where = "obnumito1 = " + _Id
+        _Err = D_Eliminar_Datos("BDDiconCaneros.dbo.TO0011", _Where)
+    End Sub
 
     Public Shared Sub L_Boletas_Borrar(_Id As String)
         Dim _Where As String
@@ -2755,6 +2761,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _where = "tanumi = " + _Numi
 
         _Err = D_Modificar_Datos("TV001", Sql, _where)
+    End Sub
+    Public Shared Sub L_Actualiza_Prestamo_Contabiliza(_Numi As String, _numiConta As String)
+        Dim _Err As Boolean
+        Dim Sql, _where As String
+        Sql = "tbcodcont = " + _numiConta
+        _where = "tbid = " + _Numi
+
+        _Err = D_Modificar_Datos("Prestamos", Sql, _where)
     End Sub
 
     Public Shared Function L_prReporteDiarioVentas(almacen As Integer, fechaI As String, fechaF As String) As DataTable

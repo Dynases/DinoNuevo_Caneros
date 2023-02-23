@@ -11,6 +11,7 @@ Public Class F0_Prestamo
     Dim _CodInstitucion As Integer = 0
     Dim _CodProveedor As Integer = 0
     Dim cod As Integer 'CODIGO DEL CAÑERO
+    Dim codCont As String 'CODIGO DE ASIENTO CONTABLE
     Dim _codDocumento As Integer = 0
     Dim _codTipoCambio As Integer = 0
     Public _nameButton As String
@@ -31,8 +32,12 @@ Public Class F0_Prestamo
 
         _prCargarPrestamo()
         Limpiar()
-        grPrestamo.Row = 0
-        _MostrarRegistro()
+        If grPrestamo.RowCount > 0 Then
+            grPrestamo.Row = 0
+            _MostrarRegistro()
+        End If
+
+
 
         LblPaginacion.Text = CStr(grPrestamo.Row + 1) + "/" + CStr(grPrestamo.RowCount)
 
@@ -130,7 +135,9 @@ Public Class F0_Prestamo
             cbTipoCambio.Value = .GetValue("tbtcam")
             codIns.Text = .GetValue("codInst").ToString
             tbInst.Text = .GetValue("nomInst").ToString
+            _CodInstitucion = .GetValue("tbins").ToString
             codCan.Text = .GetValue("ydcod").ToString
+            _CodProveedor = .GetValue("tbprov").ToString
             cod = .GetValue("tbcan").ToString
             tbCanero.Text = .GetValue("ydrazonsocial").ToString
             codFin.Text = .GetValue("tbfin").ToString
@@ -152,6 +159,7 @@ Public Class F0_Prestamo
             tbTotal.Text = .GetValue("tbcap").ToString
             tbInteres.Text = .GetValue("tbapor").ToString
             tbObs.Text = .GetValue("tbobs").ToString
+            codCont = .GetValue("tbcodCont").ToString
         End With
     End Sub
 
@@ -289,7 +297,11 @@ Public Class F0_Prestamo
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
-
+        With grPrestamo.RootTable.Columns("tbcodcont")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
 
     End Sub
 
@@ -460,11 +472,13 @@ Public Class F0_Prestamo
                                               CDbl(tbInteres.Text), tbObs.Text)
         If res Then
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-            ToastNotification.Show(Me, "El Prestamo Fue Registrado Correctamente".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ToastNotification.Show(Me, "El Prestamo No Pudo Ser Registrado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         Else
+            L_Asiento_Borrar(codCont)
+            contabilizarPrestamoDetalle()
             _prImiprimirNotaPrestamo(tbcod.Text)
             Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-            ToastNotification.Show(Me, "El Prestamo No Pudo Ser Registrado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ToastNotification.Show(Me, "El Prestamo Fue Registrado Correctamente".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         End If
 
     End Sub
@@ -926,7 +940,53 @@ Public Class F0_Prestamo
             Next
         Next
 
+        L_Actualiza_Prestamo_Contabiliza(codigoVenta, resTO001)
+    End Sub
+    Private Sub contabilizarPrestamoDetalle()
+        Dim codigoVenta = tbcod.Text
+        Dim codCanero = "P/Ord:. " + codigoVenta + " Prestamo " + tbTotal.Text + "  " + codCan.Text + "-" + tbCanero.Text.Trim   'obobs
+        Dim total = tbTotal.Text 'para obtener debe haber
+        Dim dt, dt1, dtDetalle As DataTable
+        Dim cuenta As String
+        Dim debebs, haberbs, debeus, haberus As Double
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
+        dtDetalle = ObtenerNumCuentaProveedor("", _CodProveedor)
+
+
+        ' Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
+        For a As Integer = 6 To 7 Step 1
+            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+
+            'dtDetalle = L_fnDetalleVenta1(codigoVenta)
+
+
+            Dim oblin As Integer = 1
+            'Dim totalCosto As Double = 0.00
+            For Each row In dt.Rows
+
+                If row("cuenta") = "-2" Then
+                    cuenta = dt1.Rows(0).Item(7)
+
+                Else
+                    cuenta = dtDetalle.Rows(0).Item(10) 'row("cuenta")
+                End If
+                If row("dh") = 1 Then
+                    debeus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
+                    debebs = debeus * 6.96
+                    haberus = 0.00
+                    haberbs = 0.00
+                Else
+
+                    haberus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
+                    haberbs = haberus * 6.96
+                    debeus = 0.00
+                    debebs = 0.00
+                End If
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                oblin = oblin + 1
+            Next
+        Next
+
         'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
-
 End Class
