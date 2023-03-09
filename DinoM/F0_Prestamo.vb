@@ -791,9 +791,9 @@ Public Class F0_Prestamo
         Dim _Ds2 = L_Reporte_Factura_Cia("2")
 
         Dim _Ds3 = L_ObtenerRutaImpresora("2") ' Datos de Impresion de Facturación
-        If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
-            P_Global.Visualizador = New Visualizador 'Comentar
-        End If
+        'If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
+        '    P_Global.Visualizador = New Visualizador 'Comentar
+        'End If
         Dim _FechaAct As String
         Dim _FechaPar As String
         Dim _Fecha() As String
@@ -833,7 +833,8 @@ Public Class F0_Prestamo
                 objrep.SetParameterValue("ENombre", _Ds2.Tables(0).Rows(0).Item("scneg").ToString) '?
 
         End Select
-        If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
+        If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then ') Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
+            P_Global.Visualizador = New Visualizador
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
             P_Global.Visualizador.ShowDialog() 'Comentar
             P_Global.Visualizador.BringToFront() 'Comentar

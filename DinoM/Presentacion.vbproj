@@ -11,12 +11,13 @@
     <AssemblyName>DinoM</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publicar\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -31,7 +32,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -176,8 +176,8 @@
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>C:\librerias\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -368,6 +368,12 @@
       <DependentUpon>F0_RegistroBoleta.vb</DependentUpon>
     </Compile>
     <Compile Include="F0_RegistroBoleta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F0_REGISTROSERVICIO.designer.vb">
+      <DependentUpon>F0_REGISTROSERVICIO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_REGISTROSERVICIO.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F0_Roles.Designer.vb">
@@ -637,6 +643,12 @@
       <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
     </Compile>
     <Compile Include="Pr_ReporteBoletaCaneroInstitucion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pr_ReportePrestamos.Designer.vb">
+      <DependentUpon>Pr_ReportePrestamos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_ReportePrestamos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pr_RetiroInstitucionalInsumos.Designer.vb">
@@ -1251,6 +1263,12 @@
     <Compile Include="R_KardexCreditoPagos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="R_Prestamos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_Prestamos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="R_ProductoRetiradoxCañero.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1274,6 +1292,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1381,6 +1400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_RegistroBoleta.resx">
       <DependentUpon>F0_RegistroBoleta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_REGISTROSERVICIO.resx">
+      <DependentUpon>F0_REGISTROSERVICIO.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Roles.resx">
       <DependentUpon>F0_Roles.vb</DependentUpon>
@@ -1509,6 +1531,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_ReporteBoletaCaneroInstitucion.resx">
       <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_ReportePrestamos.resx">
+      <DependentUpon>Pr_ReportePrestamos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_RetiroInstitucionalInsumos.resx">
       <DependentUpon>Pr_RetiroInstitucionalInsumos.vb</DependentUpon>
@@ -1898,6 +1923,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="R_KardexCreditoPagos.resx">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R_Prestamos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_Prestamos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="R_ProductoRetiradoxCañero.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

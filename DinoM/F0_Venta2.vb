@@ -1407,13 +1407,22 @@ Public Class F0_Venta2
         Dim TotalCosto As Double = 0
         Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            If gs_user = "SERVICIOS" Then
+                If (dt.Rows(i).Item("estado") >= 0) Then
+                    TotalDescuento = TotalDescuento + Format(Format((dt.Rows(i).Item("tbptot") * Convert.ToDecimal(cbCambioDolar.Text)), "0.00000"))
+                    TotalDescuento1 = TotalDescuento1 + Format(dt.Rows(i).Item("tbptot"), "0.00000")
+                    TotalCosto = TotalCosto + dt.Rows(i).Item("tbptot2")
+                End If
+            Else
+                If (dt.Rows(i).Item("estado") >= 0) Then
+                    TotalDescuento = TotalDescuento + Format(Format((dt.Rows(i).Item("tbpbas") * Convert.ToDecimal(cbCambioDolar.Text)), "0.00000") * dt.Rows(i).Item("tbcmin"), "0.00000")
+                    TotalDescuento1 = TotalDescuento1 + Format(dt.Rows(i).Item("tbpbas") * dt.Rows(i).Item("tbcmin"), "0.00000")
 
-            If (dt.Rows(i).Item("estado") >= 0) Then
-                TotalDescuento = TotalDescuento + Format(Format((dt.Rows(i).Item("tbpbas") * Convert.ToDecimal(cbCambioDolar.Text)), "0.00000") * dt.Rows(i).Item("tbcmin"), "0.00000")
-                TotalDescuento1 = TotalDescuento1 + Format(dt.Rows(i).Item("tbpbas") * dt.Rows(i).Item("tbcmin"), "0.00000")
-
-                TotalCosto = TotalCosto + dt.Rows(i).Item("tbptot2")
+                    TotalCosto = TotalCosto + dt.Rows(i).Item("tbptot2")
+                End If
             End If
+
+
         Next
 
 
@@ -1713,7 +1722,7 @@ Public Class F0_Venta2
             ''Verifica si existe estock para los productos
             ' If _prExisteStockParaProducto() Then
             Dim Succes As String = Emisor(tokenSifac)
-                If Succes = 2 Or Succes = 8 Or Succes = 5 Then
+            If Succes = 2 Or Succes = 8 Or Succes = 5 Then
                     Dim dtDetalle As DataTable = rearmarDetalle()
                     'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
                     '                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
@@ -1722,23 +1731,24 @@ Public Class F0_Venta2
                     '                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
                     '                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
                     If tbCodigo.Text <> String.Empty Then 'res Then
-                        'res = P_fnGrabarFacturarTFV001(numi)
-                        'Emite factura
+                    'res = P_fnGrabarFacturarTFV001(numi)
+                    'Emite factura
+                    If gs_user <> "SERVICIOS" Then
                         If swTipoVenta.Value = True Then
                             contabilizarContado()
                         Else
                             contabilizar()
                             L_fnGrabarTxCobrar(tbCodigo.Text)
                         End If
+                    End If
+                    If (gb_FacturaEmite) Then
+                        If tbNit.Text <> String.Empty Then
 
-                        If (gb_FacturaEmite) Then
-                            If tbNit.Text <> String.Empty Then
-
-                                P_fnGenerarFactura(tbCodigo.Text)
-
-                            End If
+                            P_fnGenerarFactura(tbCodigo.Text)
 
                         End If
+
+                    End If
                         '_Limpiar()
                         _prCargarVenta()
 
@@ -1990,7 +2000,7 @@ Public Class F0_Venta2
                         "",
                         Now.Date.ToString("yyyy/MM/dd"),
                         "''",
-                        cbSucursal.Value,
+                         IIf(gs_user = "SERVICIOS", 1, cbSucursal.Value),
                         numi,
                        _Hora, codigoRecepcion, estadoEmisionEdoc, fechaEmision1, cuf, cuis, cufd, codigoControl, linkCodigoQr)
 
@@ -2049,8 +2059,11 @@ Public Class F0_Venta2
         '_Fecha = Now.Date '.ToString("dd/MM/yyyy")
         _Fecha = tbFechaVenta.Value
         _Hora = Now.Hour.ToString("D2") + ":" + Now.Minute.ToString("D2")
-        _Ds1 = L_DosificacionCajas("1", gi_userSuc, _Fecha, gs_NroCaja)
-
+        If gs_user = "SERVICIOS" Then
+            _Ds1 = L_DosificacionCajas("1", 1, _Fecha, gs_NroCaja)
+        Else
+            _Ds1 = L_DosificacionCajas("1", gi_userSuc, _Fecha, gs_NroCaja)
+        End If
         _Ds = L_Reporte_Factura(numi, numi)
         _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString
         _NumFac = CInt(_Ds1.Tables(0).Rows(0).Item("sbnfac")) + 1
@@ -2322,7 +2335,11 @@ Public Class F0_Venta2
 
             _Ds = L_Reporte_Factura(numi, numi)
             _Fecha = _Ds.Tables(0).Rows(0).Item("fvafec").ToString
-            _Ds1 = L_DosificacionReImprimir("1", cbSucursal.Value, _Fecha, _Ds.Tables(0).Rows(0).Item("fvaautoriz").ToString)
+            If gs_user = "SERVICIOS" Then
+                _Ds1 = L_DosificacionReImprimir("1", 1, _Fecha, _Ds.Tables(0).Rows(0).Item("fvaautoriz").ToString)
+            Else
+                _Ds1 = L_DosificacionReImprimir("1", cbSucursal.Value, _Fecha, _Ds.Tables(0).Rows(0).Item("fvaautoriz").ToString)
+            End If
             _Hora = _Ds.Tables(0).Rows(0).Item("fvahora").ToString
             _Autorizacion = _Ds.Tables(0).Rows(0).Item("fvcuf").ToString
             _NumFac = CInt(_Ds.Tables(0).Rows(0).Item("fvanfac").ToString)
@@ -2945,13 +2962,25 @@ Public Class F0_Venta2
             'Habilitar solo las columnas de Precio, %, Monto y Observación
             'If (e.Column.Index = grdetalle.RootTable.Columns("yfcbarra").Index Or 'e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index) 
             ''e.Column.Index = grdetalle.RootTable.Columns("tbdesc").Index
-            If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index Or
-                e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index) Then
+            If gs_user = "SERVICIOS" Then
+                If (e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index Or
+               e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index) Then
 
-                e.Cancel = False
+                    e.Cancel = False
+                Else
+                    e.Cancel = True
+                End If
             Else
-                e.Cancel = True
+                If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index Or
+                               e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index) Then
+
+                    e.Cancel = False
+                Else
+                    e.Cancel = True
+                End If
             End If
+
+
         Else
             e.Cancel = True
         End If
@@ -3836,18 +3865,21 @@ salirIf:
 
     End Sub
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
-
-        tokenSifac = ObtToken(1)
-        If tokenSifac = "400" Then
-            Me.Close()
-            MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
-
+        If Convert.ToDouble(tbTotalDo.Text) > 7180.0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "MONTO TOTAL EXCEDIDO PARA PODER REALIZAR LA VENTA (MONTO PERMITIDO HASTA 7180 $)".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         Else
+            tokenSifac = ObtToken(1)
+            If tokenSifac = "400" Then
+                Me.Close()
+                MessageBox.Show("No se pudo establecer conexión con EDOC, revise su conexion de internet por favor. Intente De Nuevo")
 
-            _prGuardar()
+            Else
 
+                _prGuardar()
+
+            End If
         End If
-
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
@@ -4564,23 +4596,28 @@ salirIf:
         End If
     End Sub
     Private Sub btnBitacora_Click(sender As Object, e As EventArgs) Handles btnBitacora.Click
-
-        If _ValidarCampos() = False Then
-            Exit Sub
-        End If
-
-        If (tbCodigo.Text = String.Empty) Then
-
-            _GuardarNuevoImprimirBoleta()
-
+        If Convert.ToDouble(tbTotalDo.Text) > 7180.0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "MONTO TOTAL EXCEDIDO PARA PODER REALIZAR LA VENTA (MONTO PERMITIDO HASTA 7180 $)".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         Else
-            If (tbCodigo.Text <> String.Empty) Then
+            If _ValidarCampos() = False Then
+                Exit Sub
+            End If
 
-                _prGuardarModificado()
-                ''    _prInhabiliitar() RODRIGO RLA
+            If (tbCodigo.Text = String.Empty) Then
 
+                _GuardarNuevoImprimirBoleta()
+
+            Else
+                If (tbCodigo.Text <> String.Empty) Then
+
+                    _prGuardarModificado()
+                    ''    _prInhabiliitar() RODRIGO RLA
+
+                End If
             End If
         End If
+
         'Dim dtb As DataTable
         'dtb = L_prBitacora(tbCodigo.Text)
         'If dtb.Rows.Count > 0 Then
@@ -4818,7 +4855,7 @@ salirIf:
 
 
 
-        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta)) 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
         'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
         For a As Integer = 3 To 4 Step 1
@@ -5065,10 +5102,17 @@ salirIf:
         Dim dsApi As DataSet
         Dim _Autorizacion
         Dim _Ds1 As New DataSet
-        _Ds1 = L_DosificacionCajas("1", gi_userSuc, _Fecha, gs_NroCaja)
-
+        If gs_user = "SERVICIOS" Then
+            _Ds1 = L_DosificacionCajas("1", 1, _Fecha, gs_NroCaja)
+        Else
+            _Ds1 = L_DosificacionCajas("1", gi_userSuc, _Fecha, gs_NroCaja)
+        End If
         _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString
-        dsApi = L_Dosificacion("1", cbSucursal.Value, _Fecha)
+        If gs_user = "SERVICIOS" Then
+            dsApi = L_Dosificacion("1", 1, _Fecha)
+        Else
+            dsApi = L_Dosificacion("1", cbSucursal.Value, _Fecha)
+        End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
         Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion)
         NumFactura = maxNFac + 1
@@ -5089,6 +5133,8 @@ salirIf:
             Emenvio.codigoSucursal = 0
         ElseIf cbSucursal.Value = 2 Then
             Emenvio.codigoSucursal = 2
+        ElseIf cbSucursal.Value = 5 Then
+            Emenvio.codigoSucursal = 0
         End If
 
 

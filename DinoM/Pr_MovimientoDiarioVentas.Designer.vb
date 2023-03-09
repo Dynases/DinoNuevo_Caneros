@@ -24,11 +24,17 @@ Partial Class Pr_MovimientoDiarioVentas
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_MovimientoDiarioVentas))
+        Dim tbAlmacen_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaF = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.tbAlmacen = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.CheckTodosAlmacen = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.CheckUnaALmacen = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.tbCodAlmacen = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -46,6 +52,7 @@ Partial Class Pr_MovimientoDiarioVentas
         Me.GroupBox2.SuspendLayout()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbAlmacen, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -196,6 +203,11 @@ Partial Class Pr_MovimientoDiarioVentas
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.tbAlmacen)
+        Me.GroupBox2.Controls.Add(Me.CheckTodosAlmacen)
+        Me.GroupBox2.Controls.Add(Me.CheckUnaALmacen)
+        Me.GroupBox2.Controls.Add(Me.tbCodAlmacen)
+        Me.GroupBox2.Controls.Add(Me.LabelX3)
         Me.GroupBox2.Controls.Add(Me.LabelX1)
         Me.GroupBox2.Controls.Add(Me.tbFechaF)
         Me.GroupBox2.Controls.Add(Me.LabelX4)
@@ -217,7 +229,7 @@ Partial Class Pr_MovimientoDiarioVentas
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(69, 49)
+        Me.LabelX1.Location = New System.Drawing.Point(72, 50)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX1.Size = New System.Drawing.Size(52, 23)
@@ -235,7 +247,7 @@ Partial Class Pr_MovimientoDiarioVentas
         Me.tbFechaF.ButtonDropDown.Visible = True
         Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaF.IsPopupCalendarOpen = False
-        Me.tbFechaF.Location = New System.Drawing.Point(145, 49)
+        Me.tbFechaF.Location = New System.Drawing.Point(148, 50)
         '
         '
         '
@@ -279,7 +291,7 @@ Partial Class Pr_MovimientoDiarioVentas
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(66, 17)
+        Me.LabelX4.Location = New System.Drawing.Point(69, 18)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX4.Size = New System.Drawing.Size(74, 23)
@@ -297,7 +309,7 @@ Partial Class Pr_MovimientoDiarioVentas
         Me.tbFechaI.ButtonDropDown.Visible = True
         Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaI.IsPopupCalendarOpen = False
-        Me.tbFechaI.Location = New System.Drawing.Point(145, 18)
+        Me.tbFechaI.Location = New System.Drawing.Point(148, 19)
         '
         '
         '
@@ -332,6 +344,83 @@ Partial Class Pr_MovimientoDiarioVentas
         Me.tbFechaI.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaI.TabIndex = 232
         '
+        'tbAlmacen
+        '
+        Me.tbAlmacen.BackColor = System.Drawing.Color.Gainsboro
+        tbAlmacen_DesignTimeLayout.LayoutString = resources.GetString("tbAlmacen_DesignTimeLayout.LayoutString")
+        Me.tbAlmacen.DesignTimeLayout = tbAlmacen_DesignTimeLayout
+        Me.tbAlmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbAlmacen.Location = New System.Drawing.Point(74, 99)
+        Me.tbAlmacen.Name = "tbAlmacen"
+        Me.tbAlmacen.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.tbAlmacen.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.tbAlmacen.SelectedIndex = -1
+        Me.tbAlmacen.SelectedItem = Nothing
+        Me.tbAlmacen.Size = New System.Drawing.Size(164, 22)
+        Me.tbAlmacen.TabIndex = 252
+        Me.tbAlmacen.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'CheckTodosAlmacen
+        '
+        '
+        '
+        '
+        Me.CheckTodosAlmacen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckTodosAlmacen.Location = New System.Drawing.Point(296, 101)
+        Me.CheckTodosAlmacen.Name = "CheckTodosAlmacen"
+        Me.CheckTodosAlmacen.Size = New System.Drawing.Size(55, 23)
+        Me.CheckTodosAlmacen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckTodosAlmacen.TabIndex = 251
+        Me.CheckTodosAlmacen.Text = "Todos"
+        Me.CheckTodosAlmacen.Visible = False
+        '
+        'CheckUnaALmacen
+        '
+        '
+        '
+        '
+        Me.CheckUnaALmacen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckUnaALmacen.Location = New System.Drawing.Point(246, 101)
+        Me.CheckUnaALmacen.Name = "CheckUnaALmacen"
+        Me.CheckUnaALmacen.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnaALmacen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckUnaALmacen.TabIndex = 248
+        Me.CheckUnaALmacen.Text = "Una"
+        Me.CheckUnaALmacen.Visible = False
+        '
+        'tbCodAlmacen
+        '
+        '
+        '
+        '
+        Me.tbCodAlmacen.Border.Class = "TextBoxBorder"
+        Me.tbCodAlmacen.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodAlmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodAlmacen.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodAlmacen.Location = New System.Drawing.Point(44, 99)
+        Me.tbCodAlmacen.Name = "tbCodAlmacen"
+        Me.tbCodAlmacen.PreventEnterBeep = True
+        Me.tbCodAlmacen.Size = New System.Drawing.Size(22, 22)
+        Me.tbCodAlmacen.TabIndex = 250
+        Me.tbCodAlmacen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.tbCodAlmacen.Visible = False
+        '
+        'LabelX3
+        '
+        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX3.Location = New System.Drawing.Point(9, 75)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(74, 23)
+        Me.LabelX3.TabIndex = 249
+        Me.LabelX3.Text = "Almacen:"
+        '
         'Pr_MovimientoDiarioVentas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -359,8 +448,10 @@ Partial Class Pr_MovimientoDiarioVentas
         Me.PanelIzq.ResumeLayout(False)
         CType(Me.MPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbAlmacen, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -370,4 +461,9 @@ Partial Class Pr_MovimientoDiarioVentas
     Friend WithEvents tbFechaF As DevComponents.Editors.DateTimeAdv.DateTimeInput
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbFechaI As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents tbAlmacen As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents CheckTodosAlmacen As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents CheckUnaALmacen As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents tbCodAlmacen As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
 End Class

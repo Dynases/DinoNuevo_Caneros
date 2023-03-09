@@ -10,6 +10,11 @@ Imports GMap.NET.WindowsForms.Markers
 Imports GMap.NET.WindowsForms
 Imports GMap.NET.WindowsForms.ToolTips
 Imports DevComponents.DotNetBar.Controls
+Imports Newtonsoft.Json
+Imports DinoM.AeconomicaResp
+Imports DinoM.UmedidaResp
+Imports DinoM.HomologResp
+Imports DinoM.ListarPServResp
 Public Class F1_Servicios
 
 
@@ -29,6 +34,12 @@ Public Class F1_Servicios
     Public _nameButton As String
     Public _modulo As SideNavItem
     Public _tab As SuperTabItem
+    'variables sifac
+    Public tokenSifac As String
+    Public CodActEco As String
+    Public CodProSINs As String
+    Public Ume As Integer
+    Public preciosifac As Integer
 #End Region
 #Region "Metodos Privados"
 
@@ -129,7 +140,7 @@ Public Class F1_Servicios
 
 
         'ByRef _abnumi As String, _aata2dep As Integer, _abdesc As String, _abdir As String, _abtelf As String, _ablat As Double, _ablong As Double, _abimg As String, _abest As Integer
-        Dim res As Boolean = L_fnGrabarServicio(tbCodigoOriginal.Text, tbNombre.Text, tbDescripcion.Text, IIf(swEstado.Value = True, 1, 0))
+        Dim res As Boolean = L_fnGrabarServicio(tbCodigoOriginal.Text, tbNombre.Text, tbDescripcion.Text, IIf(swEstado.Value = True, 1, 0), CbAeconomica.Value, CbUmedida.Value, CbProdServ.Value, CbUmedida.SelectedText)
 
 
         If res Then
@@ -310,8 +321,21 @@ Public Class F1_Servicios
 
 
     Private Sub F1_Clientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        _prIniciarTodo()
 
+        tokenSifac = F0_Venta2.ObtToken(3)
+        If tokenSifac = "400" Then
+            Me.Close()
+            MessageBox.Show("intente de nuevo")
+
+        Else
+            UnidadMedida(tokenSifac)
+            CbUmedida.SelectedIndex = -1
+            ActividadesEconomicas(tokenSifac)
+            CbAeconomica.SelectedIndex = -1
+            ListarProductoServicio(tokenSifac)
+            CbProdServ.SelectedIndex = -1
+            _prIniciarTodo()
+        End If
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         If btnGrabar.Enabled = True Then
@@ -323,5 +347,107 @@ Public Class F1_Servicios
             _modulo.Select()
             _tab.Close()
         End If
+    End Sub
+
+
+    Public Function UnidadMedida(tokenObtenido)
+
+        Dim api = New DBApi()
+
+        Dim url = "https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=15"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of List(Of Umedida))(response)
+
+
+        With CbUmedida
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("codigo").Width = 70
+            .DropDownList.Columns("codigo").Caption = "COD"
+            .DropDownList.Columns.Add("descripcion").Width = 250
+            .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
+            .ValueMember = "codigo"
+            .DisplayMember = "descripcion"
+            .DataSource = result
+            .Refresh()
+        End With
+        Return ""
+    End Function
+    Public Function ActividadesEconomicas(tokenObtenido)
+
+        Dim api = New DBApi()
+
+        Dim url = "https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoGeneral?nit=1028395023&catalogo=1"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of List(Of AeconomicaResp))(response)
+
+        With CbAeconomica
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("codigo").Width = 70
+            .DropDownList.Columns("codigo").Caption = "COD"
+            .DropDownList.Columns.Add("descripcion").Width = 500
+            .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
+            .ValueMember = "codigo"
+            .DisplayMember = "descripcion"
+            .DataSource = result
+            .Refresh()
+        End With
+
+    End Function
+
+    Public Function ListarProductoServicio(tokenObtenido As String, Optional ae As Integer = 5)
+
+        Dim api = New DBApi()
+
+        Dim url = "	https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultarCatalogoProductos?nit=1028395023"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of List(Of ProServ))(response)
+
+
+
+        With CbProdServ
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("codigoActividadEconomica").Width = 70
+            .DropDownList.Columns("codigoActividadEconomica").Caption = "COD"
+            .DropDownList.Columns.Add("codigoSin").Width = 70
+            .DropDownList.Columns("codigoSin").Caption = "COD. PROD"
+            .DropDownList.Columns.Add("descripcion").Width = 500
+            .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
+            .ValueMember = "codigoSin"
+            .DisplayMember = "descripcion"
+            .DataSource = result
+            .Refresh()
+        End With
+
+    End Function
+
+    Private Sub CbAeconomica_ValueChanged(sender As Object, e As EventArgs) Handles CbAeconomica.ValueChanged
+
     End Sub
 End Class

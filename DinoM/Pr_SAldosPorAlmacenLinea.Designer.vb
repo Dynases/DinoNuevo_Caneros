@@ -24,9 +24,21 @@ Partial Class Pr_SAldosPorAlmacenLinea
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_SAldosPorAlmacenLinea))
+        Dim cbCasas_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbGrupos_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbAlmacen_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.lbCtrlEnter = New DevComponents.DotNetBar.LabelX()
+        Me.tbProveedor = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.CheckTodoslinea = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.CheckUnProvedor = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.ChechTodosCasa = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.CheckUnaCasa = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
+        Me.cbCasas = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.CheckTodos = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.CheckMayorCero = New DevComponents.DotNetBar.Controls.CheckBoxX()
@@ -58,6 +70,9 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.PanelIzq.SuspendLayout()
         CType(Me.MPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        CType(Me.cbCasas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -99,6 +114,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         'PanelSuperior
         '
+        Me.PanelSuperior.Size = New System.Drawing.Size(400, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.Yellow
         Me.PanelSuperior.Style.BackColor2.Color = System.Drawing.Color.Khaki
@@ -107,6 +123,12 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.PanelSuperior.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.PanelSuperior.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.PanelSuperior.Style.GradientAngle = 90
+        Me.PanelSuperior.StyleMouseDown.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(181, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.PanelSuperior.StyleMouseDown.BorderColor.Color = System.Drawing.SystemColors.Highlight
+        Me.PanelSuperior.StyleMouseDown.ForeColor.Color = System.Drawing.Color.FromArgb(CType(CType(73, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(73, Byte), Integer))
+        Me.PanelSuperior.StyleMouseOver.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(193, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(238, Byte), Integer))
+        Me.PanelSuperior.StyleMouseOver.BorderColor.Color = System.Drawing.SystemColors.Highlight
+        Me.PanelSuperior.StyleMouseOver.ForeColor.Color = System.Drawing.SystemColors.ControlText
         '
         'PanelInferior
         '
@@ -154,8 +176,9 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         'PanelPrincipal
         '
+        Me.PanelPrincipal.Location = New System.Drawing.Point(400, 0)
         Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(967, 705)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(930, 705)
         '
         'MPanelUserAct
         '
@@ -165,12 +188,13 @@ Partial Class Pr_SAldosPorAlmacenLinea
         'MReportViewer
         '
         Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
-        Me.MReportViewer.Size = New System.Drawing.Size(967, 705)
+        Me.MReportViewer.Size = New System.Drawing.Size(930, 705)
+        Me.MReportViewer.ToolPanelWidth = 200
         '
         'MGPFiltros
         '
         Me.MGPFiltros.Controls.Add(Me.GroupBox2)
-        Me.MGPFiltros.Size = New System.Drawing.Size(363, 633)
+        Me.MGPFiltros.Size = New System.Drawing.Size(400, 633)
         '
         '
         '
@@ -202,13 +226,20 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         'PanelIzq
         '
-        Me.PanelIzq.Size = New System.Drawing.Size(363, 705)
+        Me.PanelIzq.Size = New System.Drawing.Size(400, 705)
         Me.PanelIzq.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelIzq.Controls.SetChildIndex(Me.MGPFiltros, 0)
         '
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.lbCtrlEnter)
+        Me.GroupBox2.Controls.Add(Me.tbProveedor)
+        Me.GroupBox2.Controls.Add(Me.Panel5)
+        Me.GroupBox2.Controls.Add(Me.LabelX5)
+        Me.GroupBox2.Controls.Add(Me.Panel4)
+        Me.GroupBox2.Controls.Add(Me.LabelX4)
+        Me.GroupBox2.Controls.Add(Me.cbCasas)
         Me.GroupBox2.Controls.Add(Me.Panel3)
         Me.GroupBox2.Controls.Add(Me.Panel1)
         Me.GroupBox2.Controls.Add(Me.Panel2)
@@ -221,16 +252,183 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.GroupBox2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(357, 610)
+        Me.GroupBox2.Size = New System.Drawing.Size(394, 610)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos"
+        '
+        'lbCtrlEnter
+        '
+        Me.lbCtrlEnter.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbCtrlEnter.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbCtrlEnter.Font = New System.Drawing.Font("Georgia", 7.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbCtrlEnter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.lbCtrlEnter.Location = New System.Drawing.Point(228, 82)
+        Me.lbCtrlEnter.Name = "lbCtrlEnter"
+        Me.lbCtrlEnter.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbCtrlEnter.Size = New System.Drawing.Size(60, 10)
+        Me.lbCtrlEnter.TabIndex = 353
+        Me.lbCtrlEnter.Text = "Ctrl+Enter"
+        '
+        'tbProveedor
+        '
+        '
+        '
+        '
+        Me.tbProveedor.Border.Class = "TextBoxBorder"
+        Me.tbProveedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbProveedor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbProveedor.Location = New System.Drawing.Point(70, 90)
+        Me.tbProveedor.MaxLength = 15
+        Me.tbProveedor.Name = "tbProveedor"
+        Me.tbProveedor.PreventEnterBeep = True
+        Me.tbProveedor.Size = New System.Drawing.Size(218, 21)
+        Me.tbProveedor.TabIndex = 264
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.CheckTodoslinea)
+        Me.Panel5.Controls.Add(Me.CheckUnProvedor)
+        Me.Panel5.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel5.Location = New System.Drawing.Point(290, 129)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(105, 25)
+        Me.Panel5.TabIndex = 262
+        '
+        'CheckTodoslinea
+        '
+        '
+        '
+        '
+        Me.CheckTodoslinea.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckTodoslinea.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.CheckTodoslinea.Checked = True
+        Me.CheckTodoslinea.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckTodoslinea.CheckValue = "Y"
+        Me.CheckTodoslinea.Location = New System.Drawing.Point(47, 1)
+        Me.CheckTodoslinea.Name = "CheckTodoslinea"
+        Me.CheckTodoslinea.Size = New System.Drawing.Size(55, 23)
+        Me.CheckTodoslinea.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckTodoslinea.TabIndex = 252
+        Me.CheckTodoslinea.Text = "Todos"
+        '
+        'CheckUnProvedor
+        '
+        '
+        '
+        '
+        Me.CheckUnProvedor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckUnProvedor.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.CheckUnProvedor.Location = New System.Drawing.Point(1, 1)
+        Me.CheckUnProvedor.Name = "CheckUnProvedor"
+        Me.CheckUnProvedor.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnProvedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckUnProvedor.TabIndex = 251
+        Me.CheckUnProvedor.Text = "Una"
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(0, 92)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(72, 16)
+        Me.LabelX5.TabIndex = 261
+        Me.LabelX5.Text = "Proveedor:"
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.ChechTodosCasa)
+        Me.Panel4.Controls.Add(Me.CheckUnaCasa)
+        Me.Panel4.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel4.Location = New System.Drawing.Point(289, 177)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(105, 25)
+        Me.Panel4.TabIndex = 257
+        '
+        'ChechTodosCasa
+        '
+        '
+        '
+        '
+        Me.ChechTodosCasa.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.ChechTodosCasa.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.ChechTodosCasa.Checked = True
+        Me.ChechTodosCasa.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChechTodosCasa.CheckValue = "Y"
+        Me.ChechTodosCasa.Location = New System.Drawing.Point(48, 1)
+        Me.ChechTodosCasa.Name = "ChechTodosCasa"
+        Me.ChechTodosCasa.Size = New System.Drawing.Size(55, 23)
+        Me.ChechTodosCasa.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ChechTodosCasa.TabIndex = 252
+        Me.ChechTodosCasa.Text = "Todos"
+        '
+        'CheckUnaCasa
+        '
+        '
+        '
+        '
+        Me.CheckUnaCasa.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckUnaCasa.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.CheckUnaCasa.Location = New System.Drawing.Point(1, 1)
+        Me.CheckUnaCasa.Name = "CheckUnaCasa"
+        Me.CheckUnaCasa.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnaCasa.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckUnaCasa.TabIndex = 251
+        Me.CheckUnaCasa.Text = "Una"
+        '
+        'LabelX4
+        '
+        Me.LabelX4.AutoSize = True
+        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX4.Location = New System.Drawing.Point(0, 177)
+        Me.LabelX4.Name = "LabelX4"
+        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX4.Size = New System.Drawing.Size(36, 16)
+        Me.LabelX4.TabIndex = 260
+        Me.LabelX4.Text = "Casa:"
+        '
+        'cbCasas
+        '
+        Me.cbCasas.BackColor = System.Drawing.Color.White
+        cbCasas_DesignTimeLayout.LayoutString = resources.GetString("cbCasas_DesignTimeLayout.LayoutString")
+        Me.cbCasas.DesignTimeLayout = cbCasas_DesignTimeLayout
+        Me.cbCasas.DisabledBackColor = System.Drawing.Color.White
+        Me.cbCasas.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCasas.Location = New System.Drawing.Point(70, 177)
+        Me.cbCasas.Name = "cbCasas"
+        Me.cbCasas.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbCasas.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbCasas.SelectedIndex = -1
+        Me.cbCasas.SelectedItem = Nothing
+        Me.cbCasas.Size = New System.Drawing.Size(218, 22)
+        Me.cbCasas.TabIndex = 259
+        Me.cbCasas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'Panel3
         '
         Me.Panel3.Controls.Add(Me.CheckTodos)
         Me.Panel3.Controls.Add(Me.CheckMayorCero)
-        Me.Panel3.Location = New System.Drawing.Point(110, 174)
+        Me.Panel3.Location = New System.Drawing.Point(110, 237)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(200, 50)
         Me.Panel3.TabIndex = 258
@@ -270,10 +468,11 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         Me.Panel1.Controls.Add(Me.CheckTodosAlmacen)
         Me.Panel1.Controls.Add(Me.checkUnaAlmacen)
-        Me.Panel1.Location = New System.Drawing.Point(232, 36)
+        Me.Panel1.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel1.Location = New System.Drawing.Point(289, 42)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(120, 35)
+        Me.Panel1.Size = New System.Drawing.Size(105, 25)
         Me.Panel1.TabIndex = 255
         '
         'CheckTodosAlmacen
@@ -286,7 +485,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.CheckTodosAlmacen.Checked = True
         Me.CheckTodosAlmacen.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckTodosAlmacen.CheckValue = "Y"
-        Me.CheckTodosAlmacen.Location = New System.Drawing.Point(62, 7)
+        Me.CheckTodosAlmacen.Location = New System.Drawing.Point(49, 1)
         Me.CheckTodosAlmacen.Name = "CheckTodosAlmacen"
         Me.CheckTodosAlmacen.Size = New System.Drawing.Size(55, 23)
         Me.CheckTodosAlmacen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -300,7 +499,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         Me.checkUnaAlmacen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.checkUnaAlmacen.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
-        Me.checkUnaAlmacen.Location = New System.Drawing.Point(12, 7)
+        Me.checkUnaAlmacen.Location = New System.Drawing.Point(3, 1)
         Me.checkUnaAlmacen.Name = "checkUnaAlmacen"
         Me.checkUnaAlmacen.Size = New System.Drawing.Size(44, 23)
         Me.checkUnaAlmacen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -311,10 +510,11 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         Me.Panel2.Controls.Add(Me.checkTodosGrupos)
         Me.Panel2.Controls.Add(Me.checkUnaGrupo)
-        Me.Panel2.Location = New System.Drawing.Point(236, 110)
+        Me.Panel2.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel2.Location = New System.Drawing.Point(289, 86)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(119, 35)
+        Me.Panel2.Size = New System.Drawing.Size(105, 25)
         Me.Panel2.TabIndex = 256
         '
         'checkTodosGrupos
@@ -327,7 +527,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.checkTodosGrupos.Checked = True
         Me.checkTodosGrupos.CheckState = System.Windows.Forms.CheckState.Checked
         Me.checkTodosGrupos.CheckValue = "Y"
-        Me.checkTodosGrupos.Location = New System.Drawing.Point(60, 7)
+        Me.checkTodosGrupos.Location = New System.Drawing.Point(47, 1)
         Me.checkTodosGrupos.Name = "checkTodosGrupos"
         Me.checkTodosGrupos.Size = New System.Drawing.Size(55, 23)
         Me.checkTodosGrupos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -341,7 +541,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         Me.checkUnaGrupo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.checkUnaGrupo.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
-        Me.checkUnaGrupo.Location = New System.Drawing.Point(10, 7)
+        Me.checkUnaGrupo.Location = New System.Drawing.Point(1, 1)
         Me.checkUnaGrupo.Name = "checkUnaGrupo"
         Me.checkUnaGrupo.Size = New System.Drawing.Size(44, 23)
         Me.checkUnaGrupo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -358,7 +558,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(11, 187)
+        Me.LabelX2.Location = New System.Drawing.Point(0, 250)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX2.Size = New System.Drawing.Size(41, 16)
@@ -375,7 +575,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(10, 119)
+        Me.LabelX1.Location = New System.Drawing.Point(0, 129)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX1.Size = New System.Drawing.Size(42, 16)
@@ -389,13 +589,13 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.cbGrupos.DesignTimeLayout = cbGrupos_DesignTimeLayout
         Me.cbGrupos.DisabledBackColor = System.Drawing.Color.White
         Me.cbGrupos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbGrupos.Location = New System.Drawing.Point(63, 117)
+        Me.cbGrupos.Location = New System.Drawing.Point(70, 129)
         Me.cbGrupos.Name = "cbGrupos"
         Me.cbGrupos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbGrupos.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.cbGrupos.SelectedIndex = -1
         Me.cbGrupos.SelectedItem = Nothing
-        Me.cbGrupos.Size = New System.Drawing.Size(164, 22)
+        Me.cbGrupos.Size = New System.Drawing.Size(218, 22)
         Me.cbGrupos.TabIndex = 249
         Me.cbGrupos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -406,13 +606,13 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.cbAlmacen.DesignTimeLayout = cbAlmacen_DesignTimeLayout
         Me.cbAlmacen.DisabledBackColor = System.Drawing.Color.White
         Me.cbAlmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbAlmacen.Location = New System.Drawing.Point(64, 45)
+        Me.cbAlmacen.Location = New System.Drawing.Point(70, 45)
         Me.cbAlmacen.Name = "cbAlmacen"
         Me.cbAlmacen.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbAlmacen.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.cbAlmacen.SelectedIndex = -1
         Me.cbAlmacen.SelectedItem = Nothing
-        Me.cbAlmacen.Size = New System.Drawing.Size(164, 22)
+        Me.cbAlmacen.Size = New System.Drawing.Size(218, 22)
         Me.cbAlmacen.TabIndex = 247
         Me.cbAlmacen.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -426,7 +626,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(6, 47)
+        Me.LabelX3.Location = New System.Drawing.Point(0, 47)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX3.Size = New System.Drawing.Size(61, 16)
@@ -452,9 +652,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Pr_SAldosPorAlmacenLinea"
-        Me.Opacity = 0.05R
         Me.Text = "SALDOS DE PRODUCTOS"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
         Me.Controls.SetChildIndex(Me.SuperTabPrincipal, 0)
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabPrincipal.ResumeLayout(False)
@@ -473,6 +671,9 @@ Partial Class Pr_SAldosPorAlmacenLinea
         CType(Me.MPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
+        CType(Me.cbCasas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
@@ -498,4 +699,15 @@ Partial Class Pr_SAldosPorAlmacenLinea
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
     Friend WithEvents ButtonItem1 As DevComponents.DotNetBar.ButtonItem
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents ChechTodosCasa As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents CheckUnaCasa As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbCasas As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents CheckTodoslinea As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents CheckUnProvedor As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbProveedor As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents lbCtrlEnter As DevComponents.DotNetBar.LabelX
 End Class

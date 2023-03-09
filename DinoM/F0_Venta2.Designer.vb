@@ -515,7 +515,7 @@ Partial Class F0_Venta2
         Me.lbNroCaja.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.lbNroCaja.Location = New System.Drawing.Point(1073, 66)
         Me.lbNroCaja.Name = "lbNroCaja"
-        Me.lbNroCaja.Size = New System.Drawing.Size(60, 17)
+        Me.lbNroCaja.Size = New System.Drawing.Size(100, 17)
         Me.lbNroCaja.TabIndex = 386
         Me.lbNroCaja.Text = "Label1"
         Me.lbNroCaja.TextAlign = System.Drawing.ContentAlignment.MiddleLeft

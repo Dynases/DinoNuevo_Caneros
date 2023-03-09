@@ -7,19 +7,36 @@ Public Class Pr_RetiroInstitucionalInsumos
         tbCod.ReadOnly = True
 
         CheckTodos.CheckValue = True
+
         tbFechaI.Value = Date.Now
         tbFechaF.Value = Date.Now
-    End Sub
+        _prCargarComboLibreriaSucursal(tbAlmacen)
 
+    End Sub
+    Private Sub _prCargarComboLibreriaSucursal(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnListarSucursales()
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("aanumi").Width = 60
+            .DropDownList.Columns("aanumi").Caption = "COD"
+            .DropDownList.Columns.Add("aabdes").Width = 500
+            .DropDownList.Columns("aabdes").Caption = "SUCURSAL"
+            .ValueMember = "aanumi"
+            .DisplayMember = "aabdes"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
         Dim cbSucursal As String
         cbSucursal = gi_userSuc
 
         If (CheckUna.Checked) Then
-            _dt = L_prRetiroInstitucionalUno(tbCod.Text, cbSucursal, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+            _dt = L_prRetiroInstitucionalUno(tbCod.Text, tbAlmacen.Value, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
         End If
         If (CheckTodos.Checked) Then
-            _dt = L_prRetiroInstitucionalTodos(cbSucursal, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+            _dt = L_prRetiroInstitucionalTodos(tbAlmacen.Value, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
         End If
 
     End Sub
@@ -46,7 +63,7 @@ Public Class Pr_RetiroInstitucionalInsumos
                     Dim institucion As String = tbInsCan.Text
                     objrep.SetParameterValue("cod", codcanero)
                     objrep.SetParameterValue("institucion", institucion)
-                    objrep.SetParameterValue("almacen", sucursal)
+                    objrep.SetParameterValue("almacen", tbAlmacen.Text)
                     objrep.SetParameterValue("fechaI", fechaI)
                     objrep.SetParameterValue("fechaF", fechaF)
                     MReportViewer.ReportSource = objrep
@@ -58,7 +75,7 @@ Public Class Pr_RetiroInstitucionalInsumos
                     Dim fechaI As String = tbFechaI.Value.ToString("dd/MM/yyyy")
                     Dim fechaF As String = tbFechaF.Value.ToString("dd/MM/yyyy")
                     Dim sucursal As String = gs_userSucNom
-                    objrep.SetParameterValue("sucursal", sucursal)
+                    objrep.SetParameterValue("sucursal", tbAlmacen.Text)
                     objrep.SetParameterValue("fechaI", fechaI)
                     objrep.SetParameterValue("fechaF", fechaF)
                     MReportViewer.ReportSource = objrep
@@ -84,7 +101,18 @@ Public Class Pr_RetiroInstitucionalInsumos
         iniciarcomponentes()
     End Sub
 
-    Private Sub CheckTodos_CheckedChanged(sender As Object, e As EventArgs) Handles CheckTodos.CheckedChanged
+
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
+    End Sub
+
+    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
+        _prCargarReporte()
+    End Sub
+
+
+    Private Sub CheckTodos_CheckedChanged_1(sender As Object, e As EventArgs) Handles CheckTodos.CheckedChanged
         If CheckTodos.Checked = True Then
             If CheckUna.Checked = True Then
                 CheckUna.Checked = False
@@ -96,7 +124,7 @@ Public Class Pr_RetiroInstitucionalInsumos
         End If
     End Sub
 
-    Private Sub CheckUna_CheckedChanged(sender As Object, e As EventArgs) Handles CheckUna.CheckedChanged
+    Private Sub CheckUna_CheckedChanged_1(sender As Object, e As EventArgs) Handles CheckUna.CheckedChanged
         If CheckUna.Checked = True Then
             If CheckTodos.Checked = True Then
                 CheckTodos.Checked = False
@@ -104,7 +132,7 @@ Public Class Pr_RetiroInstitucionalInsumos
         End If
     End Sub
 
-    Private Sub tbInsCan_KeyDown(sender As Object, e As KeyEventArgs) Handles tbInsCan.KeyDown
+    Private Sub tbInsCan_KeyDown_1(sender As Object, e As KeyEventArgs) Handles tbInsCan.KeyDown
         If (CheckUna.Checked) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
                 Dim dt As DataTable
@@ -148,19 +176,6 @@ Public Class Pr_RetiroInstitucionalInsumos
         End If
     End Sub
 
-    Private Sub CrystalReportViewer1_Load(sender As Object, e As EventArgs)
 
-    End Sub
 
-    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-        Me.Close()
-    End Sub
-
-    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
-        _prCargarReporte()
-    End Sub
-
-    Private Sub MReportViewer_Load(sender As Object, e As EventArgs) Handles MReportViewer.Load
-
-    End Sub
 End Class

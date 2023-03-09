@@ -17,16 +17,32 @@ Public Class Pr_ProductoRetiradoxCañero
         tbNomCan.Visible = False
         CheckUnaCan.Visible = False
         CheckTodosCan.Visible = False
+        _prCargarComboLibreriaSucursal(tbAlmacen)
+    End Sub
+    Private Sub _prCargarComboLibreriaSucursal(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnListarSucursales()
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("aanumi").Width = 60
+            .DropDownList.Columns("aanumi").Caption = "COD"
+            .DropDownList.Columns.Add("aabdes").Width = 500
+            .DropDownList.Columns("aabdes").Caption = "SUCURSAL"
+            .ValueMember = "aanumi"
+            .DisplayMember = "aabdes"
+            .DataSource = dt
+            .Refresh()
+        End With
     End Sub
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
         If CheckUna.Checked = True And CheckTodosCan.Checked = True Then
-            _dt = L_prReporteRetiroCaneroUno(tbCod.Text, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+            _dt = L_prReporteRetiroCaneroUno(tbCod.Text, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
         End If
         If CheckUna.Checked = True And CheckUnaCan.Checked = True Then
-            _dt = L_prReporteRetiroCaneroUno(tbCod.Text, tbCodCan.Text, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+            _dt = L_prReporteRetiroCaneroUno(tbCod.Text, tbCodCan.Text, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
         End If
         If CheckTodos.Checked = True Then
-            _dt = L_prReporteRetiroCaneroUno(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+            _dt = L_prReporteRetiroCaneroUno(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
 
         End If
         'If CheckTodos.Checked = True And CheckTodosCan.Checked = True Then
@@ -64,7 +80,7 @@ Public Class Pr_ProductoRetiradoxCañero
             'objrep.SetParameterValue("CodIns", CodIns)
             'objrep.SetParameterValue("Canero", Canero)
             'objrep.SetParameterValue("Institucion", Institucion)
-            objrep.SetParameterValue("almacen", almacen)
+            objrep.SetParameterValue("almacen", tbAlmacen.Text)
             objrep.SetParameterValue("fechaI", fechaI)
             objrep.SetParameterValue("fechaF", fechaF)
             CrystalReportViewer1.ReportSource = objrep
@@ -223,5 +239,9 @@ Public Class Pr_ProductoRetiradoxCañero
 
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
         _prCargarReporte()
+    End Sub
+
+    Private Sub tbNomCan_TextChanged(sender As Object, e As EventArgs) Handles tbNomCan.TextChanged
+
     End Sub
 End Class

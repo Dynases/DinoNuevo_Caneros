@@ -18,7 +18,7 @@ Imports System
 Imports System.ComponentModel
 
 
-Public Class KardexClienteRes
+Public Class R_Prestamos
     Inherits ReportClass
     
     Public Sub New()
@@ -27,7 +27,7 @@ Public Class KardexClienteRes
     
     Public Overrides Property ResourceName() As String
         Get
-            Return "KardexClienteRes.rpt"
+            Return "R_Prestamos.rpt"
         End Get
         Set
             'Do nothing
@@ -45,7 +45,7 @@ Public Class KardexClienteRes
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "DinoM.KardexClienteRes.rpt"
+            Return "DinoM.R_Prestamos.rpt"
         End Get
         Set
             'Do nothing
@@ -110,7 +110,7 @@ Public Class KardexClienteRes
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_FechaDel() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_fechaI() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(0)
         End Get
@@ -118,7 +118,7 @@ Public Class KardexClienteRes
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_FechaAl() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_fechaF() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(1)
         End Get
@@ -126,7 +126,7 @@ Public Class KardexClienteRes
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_Empresa() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_Institucion() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(2)
         End Get
@@ -134,7 +134,7 @@ Public Class KardexClienteRes
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_Empresa1() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_Canero() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(3)
         End Get
@@ -142,7 +142,7 @@ Public Class KardexClienteRes
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_Empresa2() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_CodIns() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(4)
         End Get
@@ -150,15 +150,23 @@ Public Class KardexClienteRes
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_Empresa3() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_CodCan() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(5)
+        End Get
+    End Property
+    
+    <Browsable(false),  _
+     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+    Public ReadOnly Property Parameter_almacen() As CrystalDecisions.[Shared].IParameterField
+        Get
+            Return Me.DataDefinition.ParameterFields(6)
         End Get
     End Property
 End Class
 
 <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-Public Class CachedKardexClienteRes
+Public Class CachedR_Prestamos
     Inherits Component
     Implements ICachedReport
     
@@ -200,7 +208,7 @@ Public Class CachedKardexClienteRes
     End Property
     
     Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-        Dim rpt As KardexClienteRes = New KardexClienteRes()
+        Dim rpt As R_Prestamos = New R_Prestamos()
         rpt.Site = Me.Site
         Return rpt
     End Function

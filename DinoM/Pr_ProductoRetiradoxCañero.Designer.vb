@@ -22,6 +22,8 @@ Partial Class Pr_ProductoRetiradoxCañero
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim tbAlmacen_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_ProductoRetiradoxCañero))
         Me.PanelEx1 = New DevComponents.DotNetBar.PanelEx()
         Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
@@ -42,11 +44,17 @@ Partial Class Pr_ProductoRetiradoxCañero
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.CrystalReportViewer1 = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
+        Me.tbAlmacen = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.CheckTodosAlmacen = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.CheckUnaALmacen = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.tbCodAlmacen = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.PanelEx1.SuspendLayout()
         Me.GroupPanel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbAlmacen, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelEx1
@@ -149,6 +157,11 @@ Partial Class Pr_ProductoRetiradoxCañero
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.tbAlmacen)
+        Me.GroupBox2.Controls.Add(Me.CheckTodosAlmacen)
+        Me.GroupBox2.Controls.Add(Me.CheckUnaALmacen)
+        Me.GroupBox2.Controls.Add(Me.tbCodAlmacen)
+        Me.GroupBox2.Controls.Add(Me.LabelX5)
         Me.GroupBox2.Controls.Add(Me.tbNomCan)
         Me.GroupBox2.Controls.Add(Me.CheckTodosCan)
         Me.GroupBox2.Controls.Add(Me.CheckUnaCan)
@@ -451,6 +464,83 @@ Partial Class Pr_ProductoRetiradoxCañero
         Me.CrystalReportViewer1.TabIndex = 14
         Me.CrystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         '
+        'tbAlmacen
+        '
+        Me.tbAlmacen.BackColor = System.Drawing.Color.Gainsboro
+        tbAlmacen_DesignTimeLayout.LayoutString = resources.GetString("tbAlmacen_DesignTimeLayout.LayoutString")
+        Me.tbAlmacen.DesignTimeLayout = tbAlmacen_DesignTimeLayout
+        Me.tbAlmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbAlmacen.Location = New System.Drawing.Point(69, 225)
+        Me.tbAlmacen.Name = "tbAlmacen"
+        Me.tbAlmacen.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.tbAlmacen.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.tbAlmacen.SelectedIndex = -1
+        Me.tbAlmacen.SelectedItem = Nothing
+        Me.tbAlmacen.Size = New System.Drawing.Size(164, 22)
+        Me.tbAlmacen.TabIndex = 262
+        Me.tbAlmacen.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'CheckTodosAlmacen
+        '
+        '
+        '
+        '
+        Me.CheckTodosAlmacen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckTodosAlmacen.Location = New System.Drawing.Point(291, 227)
+        Me.CheckTodosAlmacen.Name = "CheckTodosAlmacen"
+        Me.CheckTodosAlmacen.Size = New System.Drawing.Size(55, 23)
+        Me.CheckTodosAlmacen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckTodosAlmacen.TabIndex = 261
+        Me.CheckTodosAlmacen.Text = "Todos"
+        Me.CheckTodosAlmacen.Visible = False
+        '
+        'CheckUnaALmacen
+        '
+        '
+        '
+        '
+        Me.CheckUnaALmacen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckUnaALmacen.Location = New System.Drawing.Point(241, 227)
+        Me.CheckUnaALmacen.Name = "CheckUnaALmacen"
+        Me.CheckUnaALmacen.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnaALmacen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckUnaALmacen.TabIndex = 258
+        Me.CheckUnaALmacen.Text = "Una"
+        Me.CheckUnaALmacen.Visible = False
+        '
+        'tbCodAlmacen
+        '
+        '
+        '
+        '
+        Me.tbCodAlmacen.Border.Class = "TextBoxBorder"
+        Me.tbCodAlmacen.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodAlmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodAlmacen.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodAlmacen.Location = New System.Drawing.Point(39, 225)
+        Me.tbCodAlmacen.Name = "tbCodAlmacen"
+        Me.tbCodAlmacen.PreventEnterBeep = True
+        Me.tbCodAlmacen.Size = New System.Drawing.Size(22, 22)
+        Me.tbCodAlmacen.TabIndex = 260
+        Me.tbCodAlmacen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.tbCodAlmacen.Visible = False
+        '
+        'LabelX5
+        '
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(4, 201)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(74, 23)
+        Me.LabelX5.TabIndex = 259
+        Me.LabelX5.Text = "Almacen:"
+        '
         'Pr_ProductoRetiradoxCañero
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -466,8 +556,10 @@ Partial Class Pr_ProductoRetiradoxCañero
         Me.PanelEx1.ResumeLayout(False)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbAlmacen, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -492,4 +584,9 @@ Partial Class Pr_ProductoRetiradoxCañero
     Friend WithEvents CheckUnaCan As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents tbCodCan As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbAlmacen As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents CheckTodosAlmacen As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents CheckUnaALmacen As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents tbCodAlmacen As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
 End Class

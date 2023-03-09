@@ -434,7 +434,10 @@ Public Class F0_MCompras
             .Width = 90
             .Visible = False
         End With
-
+        With grdetalle.RootTable.Columns("CODIGO")
+            .Width = 90
+            .Visible = True
+        End With
         With grdetalle.RootTable.Columns("yfdetprod")
             .Caption = "ARTÍCULO"
             .Width = 180
@@ -909,7 +912,7 @@ Public Class F0_MCompras
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", "", 0, 0, 0, "",
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, "", 0, 0, "", "", 0, 0, 0, "",
                                                         0, "20500101", CDate("2050/01/01"), 0, 0, 0, "", Now.Date, "", "", 0, Bin.GetBuffer, 0, 0)
     End Sub
 
@@ -1581,6 +1584,7 @@ salirIf:
                 Dim existe As Boolean = _fnExisteProducto(grProductos.GetValue("yfnumi"))
                 If ((pos >= 0) And (Not existe)) Then
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbty5prod") = grProductos.GetValue("yfnumi")
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("CODIGO") = grProductos.GetValue("yfcprod")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("producto") = grProductos.GetValue("yfcdprod1")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfdetprod") = grProductos.GetValue("yfdetprod")
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cbumin") = grProductos.GetValue("yfumin")
@@ -2149,7 +2153,7 @@ salirIf:
         Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value, 3, "", codCanero) 'numi cabecera to001
         'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
-        For a As Integer = 5 To 6 Step 1
+        For a As Integer = 5 To 5 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
             'Dim grdetalle1 As GridEX  _prCargarDetalleVenta(-1)
             dtDetalle = L_fnDetalleCompra1(codigoVenta)

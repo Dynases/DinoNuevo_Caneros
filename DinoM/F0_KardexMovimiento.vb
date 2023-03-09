@@ -18,6 +18,8 @@ Public Class F0_KardexMovimiento
     Dim Dt2KardexTotal As DataTable
     Dim _DuracionSms As Integer = 5
     Dim Lote As Boolean = False
+    Dim _CodProducUcg As String = ""
+    Dim _YfdProd As String = ""
 #End Region
 #Region "Variables Globales"
     Public _nameButton As String
@@ -155,7 +157,11 @@ Public Class F0_KardexMovimiento
                 P_ArmarGrillaDatos()
                 tbCodigo.Text = Row.Cells("yfnumi").Value
                 tbproducto.Text = Row.Cells("producto").Value
+                _CodProducUcg = Row.Cells("yfcprod").Value
+                _YfdProd = Row.Cells("yfdetprod").Value
                 tbsaldo.Text = Row.Cells("stock").Value
+                tbCodPRODUCTO.Text = Row.Cells("yfcprod").Value
+                TBnOMBREaRTICULO.Text = Row.Cells("yfdetprod").Value
                 tbFechaI.Focus()
                 tblote.Clear()
                 tbFechaVenc.Clear()
@@ -549,7 +555,8 @@ Public Class F0_KardexMovimiento
             objrep.SetParameterValue("FechaFin", tbFechaF.Value.ToString("yyyy/MM/dd"))
             objrep.SetParameterValue("Saldo", tbsaldo.Text)
             objrep.SetParameterValue("producto", tbproducto.Text)
-            objrep.SetParameterValue("codProducto", tbCodigo.Text)
+            objrep.SetParameterValue("nombreProducto", _YfdProd)
+            objrep.SetParameterValue("codProducto", _CodProducUcg)
             objrep.SetParameterValue("deposito", cbAlmacen.Text)
             'MReportViewer.ReportSource = objrep
             'MReportViewer.Show()
@@ -565,8 +572,9 @@ Public Class F0_KardexMovimiento
             objrep.SetParameterValue("FechaIni", tbFechaI.Value.ToString("yyyy/MM/dd"))
             objrep.SetParameterValue("FechaFin", tbFechaF.Value.ToString("yyyy/MM/dd"))
             objrep.SetParameterValue("Saldo", tbsaldo.Text)
+            objrep.SetParameterValue("nombreProducto", _YfdProd)
             objrep.SetParameterValue("producto", tbproducto.Text)
-            objrep.SetParameterValue("codProducto", tbCodigo.Text)
+            objrep.SetParameterValue("codProducto", _CodProducUcg)
             objrep.SetParameterValue("deposito", cbAlmacen.Text)
             'MReportViewer.ReportSource = objrep
 

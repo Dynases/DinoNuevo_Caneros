@@ -135,7 +135,6 @@ Public Class P_Principal
         listaTabs.Add(MetroTilePanel10)
         listaTabs.Add(MetroTilePanel11)
 
-
         Dim idRolUsu As String = gi_userRol
 
         Dim dtModulos As DataTable = L_prLibreriaDetalleGeneral(gi_LibSistema, gi_LibSISModulo)
@@ -1168,20 +1167,8 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
-    Private Sub btServicios_Click(sender As Object, e As EventArgs) Handles btServicios.Click
-        SideNav1.IsMenuExpanded = False
-        Ventana.Select()
-        Dim frm As New F1_Servicios
-        frm._nameButton = btServicios.Name
-        frm._modulo = FP_Configuracion
-        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-        frm._tab = tab3
-        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-        tab3.AttachedControl.Controls.Add(panel)
-        frm.Show()
-        tab3.Text = frm.Text
-        tab3.Icon = frm.Icon
+    Private Sub btServicios_Click(sender As Object, e As EventArgs)
+
     End Sub
 
     Private Sub btVentaServicios_Click(sender As Object, e As EventArgs) Handles btVentaServicios.Click
@@ -1319,6 +1306,37 @@ Public Class P_Principal
         Dim frm As New F1_AsignacionCuentas
         frm.Show()
     End Sub
+
+    Private Sub tbReportePrestamos_Click(sender As Object, e As EventArgs) Handles tbReportePrestamos.Click
+        Dim frm As New Pr_ReportePrestamos
+        frm.Show()
+    End Sub
+
+    Private Sub btservicios_Click_1(sender As Object, e As EventArgs)
+        SideNav1.IsMenuExpanded = False
+        Ventana.Select()
+        Dim frm As New F1_Servicios
+
+        Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
+        frm._tab = tab3
+        Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
+        superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
+        tab3.AttachedControl.Controls.Add(panel)
+        frm.Show()
+        tab3.Text = frm.Text
+        tab3.Icon = frm.Icon
+    End Sub
+
+    Private Sub btFacturarServicios_Click(sender As Object, e As EventArgs)
+        SideNav1.IsMenuExpanded = False
+        Ventana.Select()
+        Dim frm As New F0_REGISTROSERVICIO
+
+        frm.Show()
+
+    End Sub
+
+
 
 
 

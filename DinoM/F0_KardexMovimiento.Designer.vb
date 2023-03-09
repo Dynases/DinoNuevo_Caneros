@@ -51,6 +51,8 @@ Partial Class F0_KardexMovimiento
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.tbCodPRODUCTO = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.TBnOMBREaRTICULO = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -274,6 +276,8 @@ Partial Class F0_KardexMovimiento
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.TBnOMBREaRTICULO)
+        Me.Panel2.Controls.Add(Me.tbCodPRODUCTO)
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Controls.Add(Me.tbFechaVenc)
         Me.Panel2.Controls.Add(Me.tblote)
@@ -320,7 +324,7 @@ Partial Class F0_KardexMovimiento
         Me.tbFechaVenc.DisabledBackColor = System.Drawing.Color.White
         Me.tbFechaVenc.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaVenc.ForeColor = System.Drawing.Color.Black
-        Me.tbFechaVenc.Location = New System.Drawing.Point(748, 16)
+        Me.tbFechaVenc.Location = New System.Drawing.Point(758, 106)
         Me.tbFechaVenc.Name = "tbFechaVenc"
         Me.tbFechaVenc.PreventEnterBeep = True
         Me.tbFechaVenc.Size = New System.Drawing.Size(109, 21)
@@ -338,7 +342,7 @@ Partial Class F0_KardexMovimiento
         Me.tblote.DisabledBackColor = System.Drawing.Color.White
         Me.tblote.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tblote.ForeColor = System.Drawing.Color.Black
-        Me.tblote.Location = New System.Drawing.Point(627, 16)
+        Me.tblote.Location = New System.Drawing.Point(637, 106)
         Me.tblote.Name = "tblote"
         Me.tblote.PreventEnterBeep = True
         Me.tblote.Size = New System.Drawing.Size(109, 21)
@@ -355,7 +359,7 @@ Partial Class F0_KardexMovimiento
         Me.lblote.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lblote.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblote.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lblote.Location = New System.Drawing.Point(570, 16)
+        Me.lblote.Location = New System.Drawing.Point(580, 106)
         Me.lblote.Name = "lblote"
         Me.lblote.SingleLineColor = System.Drawing.SystemColors.Control
         Me.lblote.Size = New System.Drawing.Size(34, 16)
@@ -618,7 +622,7 @@ Partial Class F0_KardexMovimiento
         Me.tbproducto.DisabledBackColor = System.Drawing.Color.White
         Me.tbproducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbproducto.ForeColor = System.Drawing.Color.Black
-        Me.tbproducto.Location = New System.Drawing.Point(196, 14)
+        Me.tbproducto.Location = New System.Drawing.Point(507, 14)
         Me.tbproducto.Name = "tbproducto"
         Me.tbproducto.PreventEnterBeep = True
         Me.tbproducto.Size = New System.Drawing.Size(316, 21)
@@ -746,6 +750,40 @@ Partial Class F0_KardexMovimiento
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 500
         '
+        'tbCodPRODUCTO
+        '
+        Me.tbCodPRODUCTO.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbCodPRODUCTO.Border.Class = "TextBoxBorder"
+        Me.tbCodPRODUCTO.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodPRODUCTO.DisabledBackColor = System.Drawing.Color.White
+        Me.tbCodPRODUCTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodPRODUCTO.ForeColor = System.Drawing.Color.Black
+        Me.tbCodPRODUCTO.Location = New System.Drawing.Point(195, 14)
+        Me.tbCodPRODUCTO.Name = "tbCodPRODUCTO"
+        Me.tbCodPRODUCTO.PreventEnterBeep = True
+        Me.tbCodPRODUCTO.Size = New System.Drawing.Size(100, 21)
+        Me.tbCodPRODUCTO.TabIndex = 245
+        '
+        'TBnOMBREaRTICULO
+        '
+        Me.TBnOMBREaRTICULO.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.TBnOMBREaRTICULO.Border.Class = "TextBoxBorder"
+        Me.TBnOMBREaRTICULO.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TBnOMBREaRTICULO.DisabledBackColor = System.Drawing.Color.White
+        Me.TBnOMBREaRTICULO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TBnOMBREaRTICULO.ForeColor = System.Drawing.Color.Black
+        Me.TBnOMBREaRTICULO.Location = New System.Drawing.Point(301, 14)
+        Me.TBnOMBREaRTICULO.Name = "TBnOMBREaRTICULO"
+        Me.TBnOMBREaRTICULO.PreventEnterBeep = True
+        Me.TBnOMBREaRTICULO.Size = New System.Drawing.Size(200, 21)
+        Me.TBnOMBREaRTICULO.TabIndex = 246
+        '
         'F0_KardexMovimiento
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -812,4 +850,6 @@ Partial Class F0_KardexMovimiento
     Friend WithEvents tbFechaVenc As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents Timer1 As Timer
     Friend WithEvents Label1 As Label
+    Friend WithEvents TBnOMBREaRTICULO As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbCodPRODUCTO As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

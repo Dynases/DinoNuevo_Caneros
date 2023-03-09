@@ -3,7 +3,7 @@ Imports DevComponents.DotNetBar
 Imports System.Data.OleDb
 Public Class Pr_SAldosPorAlmacenLinea
     Dim _Inter As Integer = 0
-
+    Dim _CodProveedor As Integer = 0
 
     Public _nameButton As String
     Public _tab As SuperTabItem
@@ -70,25 +70,28 @@ Public Class Pr_SAldosPorAlmacenLinea
 
     End Sub
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
-        If (CheckTodosAlmacen.Checked And checkTodosGrupos.Checked And CheckMayorCero.Checked) Then
+        If (CheckTodosAlmacen.Checked And checkTodosGrupos.Checked And CheckTodoslinea.Checked And ChechTodosCasa.Checked And CheckMayorCero.Checked) Then
 
             _dt = L_fnTodosAlmacenTodosLineasMayorCero()
 
 
         End If
-        If (CheckTodosAlmacen.Checked And checkTodosGrupos.Checked And CheckTodos.Checked) Then
+        If (CheckTodosAlmacen.Checked And checkTodosGrupos.Checked And CheckTodoslinea.Checked And ChechTodosCasa.Checked And CheckTodos.Checked) Then
 
             _dt = L_fnTodosAlmacenTodosLineas()
 
-
         End If
-        If (checkUnaAlmacen.Checked And checkTodosGrupos.Checked And CheckTodos.Checked) Then
+
+
+        If (checkUnaAlmacen.Checked And checkTodosGrupos.Checked And CheckTodoslinea.Checked And ChechTodosCasa.Checked And CheckTodos.Checked) Then
             _dt = L_fnUnaAlmacenTodosLineas(cbAlmacen.Value)
         End If
         'un almacen todos mayor a 0
         If (checkUnaAlmacen.Checked And checkTodosGrupos.Checked And CheckMayorCero.Checked) Then
             _dt = L_fnUnaAlmacenTodosLineasMayorCero(cbAlmacen.Value)
         End If
+
+
         If (checkUnaGrupo.Checked And CheckTodosAlmacen.Checked) Then
             _dt = L_fnTodosAlmacenUnaLineas(cbGrupos.Value)
 
@@ -261,11 +264,23 @@ Public Class Pr_SAldosPorAlmacenLinea
     Sub _prhabilitarAlmacen()
         cbAlmacen.Enabled = True
     End Sub
-
+    Sub _prInhabilitarCasas()
+        cbCasas.Enabled = False
+    End Sub
+    Sub _prhabilitarCasas()
+        cbCasas.Enabled = True
+    End Sub
     Sub _prInhabilitarGrupos()
-        cbGrupos.Enabled = False
+        tbProveedor.Enabled = False
     End Sub
     Sub _prhabilitarGrupos()
+        tbProveedor.Enabled = True
+    End Sub
+
+    Sub _prInhabilitarProveedor()
+        cbGrupos.Enabled = False
+    End Sub
+    Sub _prhabilitarProveedor()
         cbGrupos.Enabled = True
     End Sub
     Private Sub CheckTodosVendedor_CheckValueChanged(sender As Object, e As EventArgs) Handles CheckTodosAlmacen.CheckValueChanged
@@ -301,4 +316,105 @@ Public Class Pr_SAldosPorAlmacenLinea
             Timer1.Enabled = False
         End If
     End Sub
+
+    Private Sub cbGrupos_TextChanged(sender As Object, e As EventArgs) Handles cbGrupos.TextChanged
+
+        Dim dt As New DataTable
+        dt = L_prLibreriaClienteCategoria(1, cbGrupos.Value)
+        With cbCasas
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("cat_tipo").Width = 50
+            .DropDownList.Columns("cat_tipo").Caption = "Tipo"
+            .DropDownList.Columns.Add("cat_linea").Width = 50
+            .DropDownList.Columns("cat_linea").Caption = "Linea"
+            .DropDownList.Columns.Add("catcod").Width = 50
+            .DropDownList.Columns("catcod").Caption = "COD"
+            .DropDownList.Columns.Add("cat_desc").Width = 200
+            .DropDownList.Columns("cat_desc").Caption = "DESCRIPCION"
+            .DropDownList.Columns.Add("cactaucg").Width = 100
+            .DropDownList.Columns("cactaucg").Caption = "Cuenta"
+            .ValueMember = "catcod"
+            .DisplayMember = "cat_desc"
+            .DataSource = dt
+            .Refresh()
+        End With
+
+    End Sub
+
+    Private Sub ChechTodosCasa_CheckValueChanged(sender As Object, e As EventArgs) Handles ChechTodosCasa.CheckValueChanged
+        If (ChechTodosCasa.Checked) Then
+            _prInhabilitarCasas()
+        Else
+            _prhabilitarCasas()
+        End If
+    End Sub
+
+    Private Sub CheckTodosProveedor_CheckValueChanged(sender As Object, e As EventArgs) Handles CheckTodoslinea.CheckValueChanged
+        If (CheckTodoslinea.Checked) Then
+            _prInhabilitarProveedor()
+        Else
+            _prhabilitarProveedor()
+        End If
+    End Sub
+
+    Private Sub tbProveedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbProveedor.KeyDown
+        Try
+
+            If e.KeyData = Keys.Control + Keys.Enter Then
+
+                Dim dt As DataTable
+
+                dt = L_fnListarProveedores()
+                '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
+                ',a.ydtelf1 ,a.ydfnac 
+                If dt.Rows.Count = 0 Then
+                    Throw New Exception("Lista de proveedores vacia")
+                End If
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "COD ORIG.", 90))
+                listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD PROV.", 90))
+                listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
+                listEstCeldas.Add(New Modelo.Celda("yddctnum", False, "N. Documento".ToUpper, 150))
+                listEstCeldas.Add(New Modelo.Celda("yddirec", False, "DIRECCION", 220))
+                listEstCeldas.Add(New Modelo.Celda("ydtelf1", False, "Telefono".ToUpper, 200))
+                listEstCeldas.Add(New Modelo.Celda("ydfnac", False, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dt
+                ef.SeleclCol = 2
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 50
+                ef.ancho = 350
+                ef.Context = "Seleccione Proveedor".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                    _CodProveedor = Row.Cells("ydnumi").Value
+                    tbProveedor.Text = Row.Cells("yddesc").Value
+                    ''tbCodProv.Text = (Row.Cells("ydnumi").Value + " ' - '" + Row.Cells("ydcod").Value).ToString
+                    'tbCodProv.Text = Row.Cells("ydnumi").Text + "-" + Row.Cells("ydcod").Text
+                    'tbNitProv.Text = Row.Cells("yddctnum").Value
+                    'tbObservacion.Focus()
+                End If
+            End If
+
+        Catch ex As Exception
+            MostrarMensajeError(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub MostrarMensajeError(mensaje As String)
+        ToastNotification.Show(Me,
+                               mensaje.ToUpper,
+                               My.Resources.WARNING,
+                               5000,
+                               eToastGlowColor.Red,
+                               eToastPosition.TopCenter)
+
+    End Sub
+
+
 End Class

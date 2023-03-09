@@ -33,6 +33,7 @@ Public Class F1_Proveedor
     Public _modulo As SideNavItem
     Public _Tipo As Integer
     Dim NumiVendedor As Integer
+    Dim NumProveedor As Integer
 #End Region
 #Region "Metodos Privados"
 
@@ -403,10 +404,10 @@ Public Class F1_Proveedor
 
         Dim nameImage As String = JGrM_Buscador.GetValue("ydimg")
         If (Modificado = False) Then
-            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, "", tbNombre.Text, NumiVendedor, cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, 1, IIf(swEstado.Value = True, 1, 0), _latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), "", _Tipo, "", 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImage, 1)
+            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, "", tbNombre.Text, NumiVendedor, cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, NumProveedor, 1, IIf(swEstado.Value = True, 1, 0), _latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), "", _Tipo, "", 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImage, 1)
 
         Else
-            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, "", tbNombre.Text, NumiVendedor, cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, tbTelf2.Text, 1, IIf(swEstado.Value = True, 1, 0), _latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), "", _Tipo, "", 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImg, 1)
+            res = L_fnModificarClientes(tbCodigoOriginal.Text, tbCodCliente.Text, "", tbNombre.Text, NumiVendedor, cbZona.Value, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, NumProveedor, 1, IIf(swEstado.Value = True, 1, 0), _latitud, _longitud, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"), "", _Tipo, "", 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"), tbUltVenta.Value.ToString("yyyy/MM/dd"), nameImg, 1)
 
 
 
@@ -586,6 +587,7 @@ Public Class F1_Proveedor
             tbDireccion.Text = .GetValue("yddirec").ToString
             tbTelf1.Text = .GetValue("ydtelf1").ToString
             tbTelf2.Text = .GetValue("ydtelf2").ToString
+            NumProveedor = .GetValue("idCuenta").ToString
             swEstado.Value = .GetValue("ydest")
             _latitud = .GetValue("ydlat")
             _longitud = .GetValue("ydlongi")
@@ -777,6 +779,5 @@ Public Class F1_Proveedor
             Timer1.Enabled = False
         End If
     End Sub
-
 
 End Class
