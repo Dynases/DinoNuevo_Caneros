@@ -1722,15 +1722,15 @@ Public Class F0_Venta2
             ''Verifica si existe estock para los productos
             ' If _prExisteStockParaProducto() Then
             Dim Succes As String = Emisor(tokenSifac)
-            If Succes = 2 Or Succes = 8 Or Succes = 5 Then
-                    Dim dtDetalle As DataTable = rearmarDetalle()
-                    'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-                    '                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-                    '                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-                    '                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-                    '                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                    '                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
-                    If tbCodigo.Text <> String.Empty Then 'res Then
+            If Succes = 1 Or Succes = 2 Or Succes = 8 Or Succes = 5 Then
+                Dim dtDetalle As DataTable = rearmarDetalle()
+                'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
+                '                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
+                '                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
+                '                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
+                '                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+                '                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
+                If tbCodigo.Text <> String.Empty Then 'res Then
                     'res = P_fnGrabarFacturarTFV001(numi)
                     'Emite factura
                     If gs_user <> "SERVICIOS" Then
@@ -1749,15 +1749,15 @@ Public Class F0_Venta2
                         End If
 
                     End If
-                        '_Limpiar()
-                        _prCargarVenta()
+                    '_Limpiar()
+                    _prCargarVenta()
 
 
-                        _prSalir()
+                    _prSalir()
 
 
-                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                        ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+                    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                    ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
                                                   img, 2000,
                                                   eToastGlowColor.Green,
                                                   eToastPosition.TopCenter
@@ -1765,16 +1765,16 @@ Public Class F0_Venta2
 
 
 
-                        Table_Producto = Nothing
-
-                    Else
-                        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                        ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-
-                    End If
+                    Table_Producto = Nothing
 
                 Else
-                    MessageBox.Show(mensajeRespuesta)
+                    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                    ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                End If
+
+            Else
+                MessageBox.Show(mensajeRespuesta)
                 End If
 
            ' End If

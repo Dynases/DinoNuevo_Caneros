@@ -25,6 +25,7 @@ Public Class F1_IngresosEgresos
 
         Me.Text = "I N G R E S O S / E G R E S O S"
         _prCargarComboLibreria(cbConcepto, 9, 1)
+        _prCargarComboActivo(cbActivo)
         _PMIniciarTodo()
         '_prAsignarPermisos()
         _prCargarLengthTextBox()
@@ -39,11 +40,28 @@ Public Class F1_IngresosEgresos
         JGrM_Buscador.AlternatingColors = True
         btnModificar.Enabled = True
         btnEliminar.Enabled = True
-        tbCodAsig.ReadOnly = True
-        tbAsigDesc.ReadOnly = True
+
 
     End Sub
 
+    Private Sub _prCargarComboActivo(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnListarActivoDisponible()
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("canumi").Width = 60
+            .DropDownList.Columns("canumi").Caption = "COD"
+            .DropDownList.Columns.Add("cadesc").Width = 500
+            .DropDownList.Columns("cadesc").Caption = "ACTIVOS DISPONIBLES"
+            .ValueMember = "canumi"
+            .DisplayMember = "cadesc"
+            .DataSource = dt
+            .Refresh()
+        End With
+        If (CType(cbActivo.DataSource, DataTable).Rows.Count > 0) Then
+            cbActivo.SelectedIndex = 0
+        End If
+    End Sub
     Public Sub _prCargarLengthTextBox()
         tbDescripcion.MaxLength = 200
         cbConcepto.MaxLength = 40
@@ -106,6 +124,9 @@ Public Class F1_IngresosEgresos
 
     Public Overrides Sub _PMOHabilitar()
         swTipo.IsReadOnly = False
+        SwEfectivo.IsReadOnly = False
+        SwMoneda.IsReadOnly = False
+        SwParticular.IsReadOnly = False
         dpFecha.Enabled = True
         tbDescripcion.ReadOnly = False
         cbConcepto.ReadOnly = False
@@ -121,6 +142,9 @@ Public Class F1_IngresosEgresos
         tbcodigo.ReadOnly = True
         tbIdCaja.ReadOnly = True
         swTipo.IsReadOnly = True
+        SwEfectivo.IsReadOnly = True
+        SwMoneda.IsReadOnly = True
+        SwParticular.IsReadOnly = True
         dpFecha.Enabled = False
         tbDescripcion.ReadOnly = True
         cbConcepto.ReadOnly = True
@@ -160,8 +184,6 @@ Public Class F1_IngresosEgresos
         tbInstitucion.Text = ""
         tbfecha.Text = ""
 
-        tbCodAsig.Text = ""
-        tbAsigDesc.Text = ""
     End Sub
     Public Overrides Sub _PMOLimpiarErrores()
         MEP.Clear()
@@ -258,8 +280,7 @@ Public Class F1_IngresosEgresos
             tbdescCanero.Text = .GetValue("yddesc").ToString
             tbInstitucion.Text = .GetValue("nomInst").ToString
             tbfecha.Text = .GetValue("tafdoc").ToString
-            tbCodAsig.Text = .GetValue("ieidasig").ToString
-            tbAsigDesc.Text = .GetValue("tcobservacion").ToString
+
 
 
 
@@ -278,7 +299,7 @@ Public Class F1_IngresosEgresos
     Public Overrides Function _PMOGrabarRegistro() As Boolean
 
         Dim tipo As Integer = IIf(swTipo.Value = True, 1, 0)
-        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, tbIdCaja.Text, tbCodAsig.Text)
+        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, IIf(tbIdCaja.Text = "", 0, tbIdCaja.Text), "")
         If res Then
             Modificado = False
             _PMOLimpiar()
@@ -393,11 +414,11 @@ Public Class F1_IngresosEgresos
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnVentCobros.Click
         Dim frm As New F_listaVentasCobrar
-        Dim frm2 As New F1_AsignacionCuentas
+        'Dim frm2 As New F1_AsignacionCuentas
 
 
         frm.ShowDialog()
-        frm2.ShowDialog()
+        'frm2.ShowDialog()
 
         tbIdCaja.Text = frm.Codigo
         tbfecha.Text = frm.Fecha
@@ -408,8 +429,8 @@ Public Class F1_IngresosEgresos
         tbInstitucion.Text = frm.Institucion
         tbDescripcion.Text = "PAGO POR VTA DE INSUMOS S/O " + frm.Codigo
         'tbAsigDesc.Text = frm2.tbObservacion.Text
-        tbAsigDesc.Text = frm2.Observacion
-        tbCodAsig.Text = frm2.CodAsig
+        'tbAsigDesc.Text = frm2.Observacion
+        'tbCodAsig.Text = frm2.CodAsig
         btnVentCobros.Enabled = False
     End Sub
 
@@ -427,8 +448,7 @@ Public Class F1_IngresosEgresos
             tbcodInst.Text = ""
             tbInstitucion.Text = ""
             tbDescripcion.Text = ""
-            tbCodAsig.Text = ""
-            tbAsigDesc.Text = ""
+
 
         End If
     End Sub
@@ -465,11 +485,35 @@ Public Class F1_IngresosEgresos
         End If
     End Sub
 
+    Private Sub cbActivo_ValueChanged(sender As Object, e As EventArgs) Handles cbActivo.ValueChanged
+        _prCargarComboCuentasContables(cbCuenta)
+    End Sub
+    Private Sub _prCargarComboCuentasContables(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim Finan As Integer = cbActivo.Value
+        codActivo.Text = Finan
+        Dim dt As New DataTable
+        dt = L_fnListarCuentaContable(Finan)
 
+        'a.ylcod1 ,a.yldes1 
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("canumi").Width = 70
+            .DropDownList.Columns("canumi").Caption = "COD"
+            .DropDownList.Columns.Add("cadesc").Width = mCombo.Width - 70
+            .DropDownList.Columns("cadesc").Caption = "DESCRIPCION"
+            .ValueMember = "canumi"
+            .DisplayMember = "cadesc"
+            .DataSource = dt
+            .Refresh()
+        End With
+        If (CType(cbCuenta.DataSource, DataTable).Rows.Count > 0) Then
+            cbCuenta.SelectedIndex = 0
+        End If
+    End Sub
 
-
-
-
-
+    Private Sub cbCuenta_ValueChanged(sender As Object, e As EventArgs) Handles cbCuenta.ValueChanged
+        Dim Pres As String = cbCuenta.Value
+        codCuenta.Text = Pres
+    End Sub
 #End Region
 End Class

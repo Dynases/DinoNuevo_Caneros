@@ -368,8 +368,6 @@ Public Class F1_AsignacionCuentas
             _PMOMostrarRegistro(JGrM_Buscador.Row)
 
         End If
-        frm.tbAsigDesc.Text = JGrM_Buscador.GetValue("tcobservacion").ToString
-        frm.tbCodAsig.Text = CodAsig
 
 
         Me.Close()

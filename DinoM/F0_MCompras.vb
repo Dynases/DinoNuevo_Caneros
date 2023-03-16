@@ -517,7 +517,7 @@ Public Class F0_MCompras
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .FormatString = "0.00"
+            .FormatString = "0.00000"
             .Caption = "Sub Total".ToUpper
         End With
         With grdetalle.RootTable.Columns("cbobs")
@@ -1858,6 +1858,7 @@ salirIf:
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
+        contabilizarComprasCredito(tbCodigo.Text)
         Dim res As Boolean = L_fnVerificarSiSeContabilizo(tbCodigo.Text)
         If res Then
             Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
@@ -2145,7 +2146,7 @@ salirIf:
         Dim total = tbtotal.Text 'para obtener debe haber
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
-        Dim debebs, haberbs, debeus, haberus As Double
+        Dim debebs, haberbs, debeus, haberus, debeusNuev As Double
         dt1 = ObtenerNumCuentaProveedor("TY004", _CodProveedor) 'obcuenta=ncuenta obtener cuenta de institucion
 
 
@@ -2173,8 +2174,12 @@ salirIf:
                     For Each detalle In dtDetalle.Rows
                         cuenta = detalle("yfclot")
                         If row("dh") = 1 Then
-                            debeus = (Convert.ToDouble(detalle("cbptot")) * Convert.ToDouble(row("porcentaje"))) / 100
-                            debebs = debeus * 6.96
+                            'If row("porcentaje") = 87 Then
+                            '    debeus = Format(total - debeus, "0.00")
+                            'End If
+                            debeus = Format((Format(detalle("cbptot"), "0.00000") * 0.13), "0.00000")
+                            debeus = Format((Convert.ToDouble(detalle("cbptot")) - debeus), "0.00")
+                            debebs = Format(debeus * 6.96, "0.00")
                             haberus = 0.00
                             haberbs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("cbptot"))
@@ -2203,13 +2208,16 @@ salirIf:
                     cuenta = row("cuenta")
                 End If
                 If row("dh") = 1 Then
-                    debeus = (IIf(row("tipo") = 5, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
-                    debebs = debeus * 6.96
+
+                    debeus = Format((IIf(row("tipo") = 5, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, "0.00")
+                    debeusNuev = debeus
+
+                    debebs = Format(debeus * 6.96, "0.00")
                     haberus = 0.00
                     haberbs = 0.00
                 Else
-                    haberus = (IIf(row("tipo") = 5, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
-                    haberbs = haberus * 6.96
+                    haberus = Format((IIf(row("tipo") = 5, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, "0.00")
+                    haberbs = Format(haberus * 6.96, "0.00")
                     debeus = 0.00
                     debebs = 0.00
                 End If
