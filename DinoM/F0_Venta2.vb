@@ -1721,7 +1721,7 @@ Public Class F0_Venta2
             _prInsertarMontoNuevo(tabla)
             ''Verifica si existe estock para los productos
             ' If _prExisteStockParaProducto() Then
-            Dim Succes As String = Emisor(tokenSifac)
+            Dim Succes As String = 2 'Emisor(tokenSifac) comentado para evitar mandar factura electronica
             If Succes = 1 Or Succes = 2 Or Succes = 8 Or Succes = 5 Then
                 Dim dtDetalle As DataTable = rearmarDetalle()
                 'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
