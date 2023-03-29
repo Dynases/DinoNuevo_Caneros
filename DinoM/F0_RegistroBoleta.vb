@@ -1957,6 +1957,7 @@ Public Class F0_RegistroBoleta
                 listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
                 listEstCeldas.Add(New Modelo.Celda("ydtipdocelec", False, "Nit/CI", 50))
                 listEstCeldas.Add(New Modelo.Celda("ydcorreo", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcompleCi", False, "Nit/CI", 50))
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt

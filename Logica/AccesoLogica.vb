@@ -508,6 +508,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     End Function
 
 
+
     Public Shared Function L_BuscarCodInst(_Numi As String) As Boolean
         Dim _Tabla As DataTable
         Dim _Err As Boolean
@@ -4763,6 +4764,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function L_fnGeneralGrupoCanero() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
+
+        Return _Tabla
+    End Function
+
 
     Public Shared Function L_fnDetalleMovimiento(_ibid As String) As DataTable
         Dim _Tabla As DataTable
@@ -4772,7 +4785,19 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tipo", 4))
         _listParam.Add(New Datos.DParametro("@ibid", _ibid))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
-        _Tabla = D_ProcedimientoConParam("sp_Mam_TI002", _listParam)
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Tg001", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnDetalleGrupoEconomico(_ibid As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@id", _ibid))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Tg001", _listParam)
 
         Return _Tabla
     End Function
@@ -7317,7 +7342,9 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     End Function
     Public Shared Function L_prIngresoEgresoGrabar(ByRef _ienumi As String, _ieFecha As String, _ieTipo As String,
                                            _ieDescripcion As String, _ieConcepto As String, _ieMonto As Decimal,
-                                           _ieObs As String, Optional _NroCaja As Integer = 0, Optional tbIdCaja As String = "", Optional _ieidasig As Integer = 0) As Boolean
+                                           _ieObs As String, Optional _NroCaja As Integer = 0, Optional tbIdCaja As String = "", Optional _ieidasig As Integer = 0,
+                                                   Optional idCanero As String = "", Optional tbdescCanero As String = "", Optional idInstitucion As String = "", Optional tbInstitucion As String = "", Optional tbRecibi As String = "", Optional tbentregue As String = "", Optional idActDis As String = "",
+                                          Optional idCuenCont As String = "", Optional tbNroOpera As String = "", Optional tbNroCheque As String = "", Optional tbBanco As String = "", Optional SwParticular As String = "", Optional cbTipPago As String = "", Optional SwMoneda As String = "") As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -7334,7 +7361,24 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@Nrocaja", _NroCaja))
         _listParam.Add(New Datos.DParametro("@idCaja", tbIdCaja))
         _listParam.Add(New Datos.DParametro("@ieidasig", _ieidasig))
+
+        _listParam.Add(New Datos.DParametro("@idCanero", idCanero))
+        _listParam.Add(New Datos.DParametro("@tbdescCanero", tbdescCanero))
+        _listParam.Add(New Datos.DParametro("@idInstitucion", idInstitucion))
+        _listParam.Add(New Datos.DParametro("@tbInstitucion", tbInstitucion))
+        _listParam.Add(New Datos.DParametro("@tbRecibi", tbRecibi))
+        _listParam.Add(New Datos.DParametro("@tbentregue", tbentregue))
+        _listParam.Add(New Datos.DParametro("@idActDis", idActDis))
+        _listParam.Add(New Datos.DParametro("@idCuenCont", idCuenCont))
+        _listParam.Add(New Datos.DParametro("@tbNroOpera", tbNroOpera))
+        _listParam.Add(New Datos.DParametro("@tbNroCheque", tbNroCheque))
+        _listParam.Add(New Datos.DParametro("@tbBanco", tbBanco))
+        _listParam.Add(New Datos.DParametro("@SwParticular", SwParticular))
+        _listParam.Add(New Datos.DParametro("@cbTipPago", cbTipPago))
+        _listParam.Add(New Datos.DParametro("@SwMoneda", SwMoneda))
+
         _listParam.Add(New Datos.DParametro("@ieuact", L_Usuario))
+
         _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
@@ -7376,7 +7420,9 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
     Public Shared Function L_prIngresoEgresoModificar(ByRef _ienumi As String, _ieFecha As String, _ieTipo As String,
                                            _ieDescripcion As String, _ieConcepto As String, _ieMonto As Decimal,
-                                           _ieObs As String) As Boolean
+                                           _ieObs As String,
+                                                   Optional idCanero As String = "", Optional tbdescCanero As String = "", Optional idInstitucion As String = "", Optional tbInstitucion As String = "", Optional tbRecibi As String = "", Optional tbentregue As String = "", Optional idActDis As String = "",
+                                          Optional idCuenCont As String = "", Optional tbNroOpera As String = "", Optional tbNroCheque As String = "", Optional tbBanco As String = "", Optional SwParticular As String = "", Optional cbTipPago As String = "", Optional SwMoneda As String = "") As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -7391,6 +7437,21 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@ieObs", _ieObs))
         _listParam.Add(New Datos.DParametro("@ieEstado", 2))
         _listParam.Add(New Datos.DParametro("@ieuact", L_Usuario))
+
+        _listParam.Add(New Datos.DParametro("@idCanero", idCanero))
+        _listParam.Add(New Datos.DParametro("@tbdescCanero", tbdescCanero))
+        _listParam.Add(New Datos.DParametro("@idInstitucion", idInstitucion))
+        _listParam.Add(New Datos.DParametro("@tbInstitucion", tbInstitucion))
+        _listParam.Add(New Datos.DParametro("@tbRecibi", tbRecibi))
+        _listParam.Add(New Datos.DParametro("@tbentregue", tbentregue))
+        _listParam.Add(New Datos.DParametro("@idActDis", idActDis))
+        _listParam.Add(New Datos.DParametro("@idCuenCont", idCuenCont))
+        _listParam.Add(New Datos.DParametro("@tbNroOpera", tbNroOpera))
+        _listParam.Add(New Datos.DParametro("@tbNroCheque", tbNroCheque))
+        _listParam.Add(New Datos.DParametro("@tbBanco", tbBanco))
+        _listParam.Add(New Datos.DParametro("@SwParticular", SwParticular))
+        _listParam.Add(New Datos.DParametro("@cbTipPago", cbTipPago))
+        _listParam.Add(New Datos.DParametro("@SwMoneda", SwMoneda))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
 
         If _Tabla.Rows.Count > 0 Then

@@ -1721,7 +1721,7 @@ Public Class F0_Venta2
             _prInsertarMontoNuevo(tabla)
             ''Verifica si existe estock para los productos
             ' If _prExisteStockParaProducto() Then
-            Dim Succes As String = 2 'Emisor(tokenSifac) comentado para evitar mandar factura electronica
+            Dim Succes As String = 2 'Emisor(tokenSifac) 'comentado para evitar mandar factura electronica
             If Succes = 1 Or Succes = 2 Or Succes = 8 Or Succes = 5 Then
                 Dim dtDetalle As DataTable = rearmarDetalle()
                 'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
@@ -5114,7 +5114,7 @@ salirIf:
             dsApi = L_Dosificacion("1", cbSucursal.Value, _Fecha)
         End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
-        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion)
+        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion + " and " + "fvaalm= " + Convert.ToString(cbSucursal.Value))
         NumFactura = maxNFac + 1
 
         Emenvio.nitEmisor = 1028395023

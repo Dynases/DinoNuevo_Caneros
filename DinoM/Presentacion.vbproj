@@ -11,7 +11,7 @@
     <AssemblyName>DinoM</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -177,7 +177,7 @@
       <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -266,6 +266,12 @@
       <DependentUpon>F0_Compra.vb</DependentUpon>
     </Compile>
     <Compile Include="F0_Compra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F0_GrupoCanero.designer.vb">
+      <DependentUpon>F0_GrupoCanero.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_GrupoCanero.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F0_Instituciones.designer.vb">
@@ -374,6 +380,12 @@
       <DependentUpon>F0_REGISTROSERVICIO.vb</DependentUpon>
     </Compile>
     <Compile Include="F0_REGISTROSERVICIO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F0_Retencion.designer.vb">
+      <DependentUpon>F0_Retencion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_Retencion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F0_Roles.Designer.vb">
@@ -1350,6 +1362,9 @@
     <EmbeddedResource Include="F0_Compra.resx">
       <DependentUpon>F0_Compra.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F0_GrupoCanero.resx">
+      <DependentUpon>F0_GrupoCanero.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F0_Instituciones.resx">
       <DependentUpon>F0_Instituciones.vb</DependentUpon>
     </EmbeddedResource>
@@ -1403,6 +1418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_REGISTROSERVICIO.resx">
       <DependentUpon>F0_REGISTROSERVICIO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_Retencion.resx">
+      <DependentUpon>F0_Retencion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Roles.resx">
       <DependentUpon>F0_Roles.vb</DependentUpon>

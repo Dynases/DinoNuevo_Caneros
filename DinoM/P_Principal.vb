@@ -1336,6 +1336,24 @@ Public Class P_Principal
 
     End Sub
 
+    Private Sub btRetenciones_Click(sender As Object, e As EventArgs) Handles btRetenciones.Click
+        SideNav1.IsMenuExpanded = False
+        Ventana.Select()
+        Dim frm As New F0_Retenciones
+        frm._nameButton = btRetenciones.Name
+        frm.Show()
+    End Sub
+
+    Private Sub btGruposEconomicos_Click(sender As Object, e As EventArgs) Handles btGruposEconomicos.Click
+        SideNav1.IsMenuExpanded = False
+        Ventana.Select()
+        Dim frm As New F0_GrupoCanero
+        frm._nameButton = btGruposEconomicos.Name
+        frm.Show()
+    End Sub
+
+
+
 
 
 

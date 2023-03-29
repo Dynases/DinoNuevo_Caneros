@@ -724,7 +724,7 @@ Partial Class F0_Venta2
         '
         Me.QrFactura.ErrorCorrectLevel = Gma.QrCodeNet.Encoding.ErrorCorrectionLevel.M
         Me.QrFactura.Image = CType(resources.GetObject("QrFactura.Image"), System.Drawing.Image)
-        Me.QrFactura.Location = New System.Drawing.Point(1188, 3)
+        Me.QrFactura.Location = New System.Drawing.Point(1299, 10)
         Me.QrFactura.Margin = New System.Windows.Forms.Padding(2)
         Me.QrFactura.Name = "QrFactura"
         Me.QrFactura.QuietZoneModule = Gma.QrCodeNet.Encoding.Windows.Render.QuietZoneModules.Two
@@ -757,7 +757,7 @@ Partial Class F0_Venta2
         cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
         Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
         Me.cbSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.Location = New System.Drawing.Point(1112, 36)
+        Me.cbSucursal.Location = New System.Drawing.Point(1152, 41)
         Me.cbSucursal.Name = "cbSucursal"
         Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -765,7 +765,6 @@ Partial Class F0_Venta2
         Me.cbSucursal.SelectedItem = Nothing
         Me.cbSucursal.Size = New System.Drawing.Size(140, 22)
         Me.cbSucursal.TabIndex = 270
-        Me.cbSucursal.Visible = False
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'tbFechaVenta
@@ -2381,10 +2380,6 @@ Partial Class F0_Venta2
     Friend WithEvents grdetalle As Janus.Windows.GridEX.GridEX
     Friend WithEvents GroupPanel2 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents GroupCobranza As DevComponents.DotNetBar.Controls.GroupPanel
-    Friend WithEvents txtCambio As DevComponents.Editors.DoubleInput
-    Friend WithEvents txtMontoPagado As DevComponents.Editors.DoubleInput
-    Friend WithEvents lbCambio As DevComponents.DotNetBar.LabelX
-    Friend WithEvents lbMontoPagado As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbIce As DevComponents.Editors.DoubleInput
     Friend WithEvents lbIce As DevComponents.DotNetBar.LabelX
@@ -2428,32 +2423,17 @@ Partial Class F0_Venta2
     Friend WithEvents TbNombre2 As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents QrFactura As Gma.QrCodeNet.Encoding.Windows.Forms.QrCodeImgControl
     Friend WithEvents PrintDialog1 As PrintDialog
-    Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbMontoDolar As DevComponents.Editors.DoubleInput
-    Friend WithEvents tbMontoBs As DevComponents.Editors.DoubleInput
-    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents tbMontoTarej As DevComponents.Editors.DoubleInput
-    Friend WithEvents chbTarjeta As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swTipoVenta As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents lbCredito As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbFechaVenc As DevComponents.Editors.DateTimeAdv.DateTimeInput
     Friend WithEvents btgrupo1 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents cbCambioDolar As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents LabelX12 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents LabelX18 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbTotalBs As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX22 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbTotalDo As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX20 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX19 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents txtMontoPagado1 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents txtCambio1 As DevComponents.DotNetBar.LabelX
     Protected WithEvents btnDuplicar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents LabelX21 As DevComponents.DotNetBar.LabelX
     Friend WithEvents txtEstado As DevComponents.DotNetBar.Controls.TextBoxX
@@ -2471,9 +2451,28 @@ Partial Class F0_Venta2
     Friend WithEvents SwDescuentoProveedor As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelAlmacen As Label
     Friend WithEvents LabelX23 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents CbMetodoPago As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents tbComplemento As DevComponents.DotNetBar.Controls.TextBoxX
-    Friend WithEvents LabelX25 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents cbleyendas As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents ButtonX4 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cbleyendas As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX25 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents CbMetodoPago As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents tbMontoTarej As DevComponents.Editors.DoubleInput
+    Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents chbTarjeta As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents tbMontoBs As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbMontoDolar As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents txtMontoPagado1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX18 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX12 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents txtCambio As DevComponents.Editors.DoubleInput
+    Friend WithEvents txtMontoPagado As DevComponents.Editors.DoubleInput
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents txtCambio1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents lbMontoPagado As DevComponents.DotNetBar.LabelX
+    Friend WithEvents lbCambio As DevComponents.DotNetBar.LabelX
 End Class

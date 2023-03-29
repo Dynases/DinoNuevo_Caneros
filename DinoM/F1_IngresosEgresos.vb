@@ -17,6 +17,7 @@ Public Class F1_IngresosEgresos
     Dim nameImg As String = "Default.jpg"
     Dim Socio As Boolean = False
     Dim NumiCuentaContable As Integer = 0
+    Dim nuevo As Integer = 0
 #End Region
 #Region "METODOS PRIVADOS"
 
@@ -25,6 +26,7 @@ Public Class F1_IngresosEgresos
 
         Me.Text = "I N G R E S O S / E G R E S O S"
         _prCargarComboLibreria(cbConcepto, 9, 1)
+        _prCargarComboLibreria(cbTipPago, 1, 11)
         _prCargarComboActivo(cbActivo)
         _PMIniciarTodo()
         '_prAsignarPermisos()
@@ -124,34 +126,39 @@ Public Class F1_IngresosEgresos
 
     Public Overrides Sub _PMOHabilitar()
         swTipo.IsReadOnly = False
-        SwEfectivo.IsReadOnly = False
+
         SwMoneda.IsReadOnly = False
         SwParticular.IsReadOnly = False
         dpFecha.Enabled = True
         tbDescripcion.ReadOnly = False
+        tbdescCanero.ReadOnly = False
         cbConcepto.ReadOnly = False
+        cbTipPago.ReadOnly = False
         tbMonto.IsInputReadOnly = False
         tbObservacion.ReadOnly = False
-        If swTipo.Value = True Then
-            btnVentCobros.Enabled = True
-        End If
+        SwParticular.Value = True
+        'If swTipo.Value = True Then
+        '    btnVentCobros.Enabled = True
+        'End If
 
 
     End Sub
     Public Overrides Sub _PMOInhabilitar()
+        nuevo = 0
         tbcodigo.ReadOnly = True
         tbIdCaja.ReadOnly = True
         swTipo.IsReadOnly = True
-        SwEfectivo.IsReadOnly = True
+
         SwMoneda.IsReadOnly = True
         SwParticular.IsReadOnly = True
         dpFecha.Enabled = False
         tbDescripcion.ReadOnly = True
         cbConcepto.ReadOnly = True
+        cbTipPago.ReadOnly = True
         tbMonto.IsInputReadOnly = True
         tbObservacion.ReadOnly = True
         btnVentCobros.Enabled = False
-
+        tbdescCanero.ReadOnly = True
     End Sub
     Public Overrides Sub _PMOHabilitarFocus()
         With MHighlighterFocus
@@ -178,12 +185,23 @@ Public Class F1_IngresosEgresos
         tbDescripcion.Focus()
         lbNroCaja.Text = ""
 
+        tbRecibi.Text = ""
+        tbentregue.Text = ""
+        tbBanco.Text = ""
+        tbNroCheque.Text = ""
+        tbNroOpera.Text = ""
+
         tbcodCanero.Text = ""
         tbcodInst.Text = ""
         tbdescCanero.Text = ""
         tbInstitucion.Text = ""
         tbfecha.Text = ""
-
+        SwParticular.Value = True
+        If SwParticular.Value = True Then
+            tbcodInst.Text = "888"
+            tbInstitucion.Text = "PARTICULARES (NO CAÑEROS)"
+            tbdescCanero.ReadOnly = False
+        End If
     End Sub
     Public Overrides Sub _PMOLimpiarErrores()
         MEP.Clear()
@@ -203,6 +221,44 @@ Public Class F1_IngresosEgresos
             _ok = False
         End If
 
+        If cbTipPago.Value = 3 Then
+            If tbNroCheque.Text = String.Empty Then
+                tbNroCheque.BackColor = Color.White
+                MEP.SetError(tbNroCheque, "ingrese Dato en el campo Numero de Cheque !".ToUpper)
+                _ok = False
+            Else
+                tbNroCheque.BackColor = Color.White
+                MEP.SetError(tbNroCheque, "")
+            End If
+            If tbBanco.Text = String.Empty Then
+                tbBanco.BackColor = Color.White
+                MEP.SetError(tbBanco, "ingrese Dato en el campo Banco !".ToUpper)
+                _ok = False
+            Else
+                tbBanco.BackColor = Color.White
+                MEP.SetError(tbBanco, "")
+            End If
+        End If
+
+        If cbTipPago.Value = 2 Then
+            If tbNroOpera.Text = String.Empty Then
+                tbNroOpera.BackColor = Color.White
+                MEP.SetError(tbNroOpera, "ingrese Dato en el campo Numero de Operación !".ToUpper)
+                _ok = False
+            Else
+                tbNroOpera.BackColor = Color.White
+                MEP.SetError(tbNroOpera, "")
+            End If
+            If tbBanco.Text = String.Empty Then
+                tbBanco.BackColor = Color.White
+                MEP.SetError(tbBanco, "ingrese Dato en el campo Banco !".ToUpper)
+                _ok = False
+            Else
+                tbBanco.BackColor = Color.White
+                MEP.SetError(tbBanco, "")
+            End If
+        End If
+
         If tbDescripcion.Text = String.Empty Then
             tbDescripcion.BackColor = Color.White
             MEP.SetError(tbDescripcion, "ingrese Dato en el campo Descripcion !".ToUpper)
@@ -211,6 +267,25 @@ Public Class F1_IngresosEgresos
             tbDescripcion.BackColor = Color.White
             MEP.SetError(tbDescripcion, "")
         End If
+
+        If tbRecibi.Text = String.Empty Then
+            tbRecibi.BackColor = Color.White
+            MEP.SetError(tbRecibi, "ingrese Dato en el campo Recibi !".ToUpper)
+            _ok = False
+        Else
+            tbRecibi.BackColor = Color.White
+            MEP.SetError(tbRecibi, "")
+        End If
+
+        If tbentregue.Text = String.Empty Then
+            tbentregue.BackColor = Color.White
+            MEP.SetError(tbentregue, "ingrese Dato en el campo Entrgue !".ToUpper)
+            _ok = False
+        Else
+            tbentregue.BackColor = Color.White
+            MEP.SetError(tbentregue, "")
+        End If
+
         If (tbMonto.Value <= 0) Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             MEP.SetError(tbMonto, "Por Favor introduzca monto !".ToUpper)
@@ -243,10 +318,27 @@ Public Class F1_IngresosEgresos
         listEstCeldas.Add(New Modelo.Celda("iefact", False))
         listEstCeldas.Add(New Modelo.Celda("iehact", False))
         listEstCeldas.Add(New Modelo.Celda("ieuact", False))
+        listEstCeldas.Add(New Modelo.Celda("tafdoc", False))
+        listEstCeldas.Add(New Modelo.Celda("ieIdAsig", False))
+        ''listEstCeldas.Add(New Modelo.Celda("ObsAsignacion", False))
+        listEstCeldas.Add(New Modelo.Celda("codCanero", False))
+        listEstCeldas.Add(New Modelo.Celda("codIns", False))
         listEstCeldas.Add(New Modelo.Celda("NroCaja", True, "Nro. Caja", 100))
-        listEstCeldas.Add(New Modelo.Celda("ieidasig", False, "Id Asig", 100))
-        listEstCeldas.Add(New Modelo.Celda("tcobservacion", True, "Obs Asignacion", 100))
-
+        listEstCeldas.Add(New Modelo.Celda("tcobservacion", False, "Obs Asignacion", 100))
+        listEstCeldas.Add(New Modelo.Celda("codCan", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("nombreCliente", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("codIsnt", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("nombreInst", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("recibi", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("entregue", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("activoDisponible", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("cuentaContable", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("nOperacion", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("nCheque", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("banco", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("swCliente", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("swPago", False))
+        listEstCeldas.Add(New Modelo.Celda("swMoneda", False, "Id Asig", 100))
         Return listEstCeldas
 
     End Function
@@ -277,10 +369,23 @@ Public Class F1_IngresosEgresos
             lbUsuario.Text = .GetValue("ieuact").ToString
             tbcodCanero.Text = .GetValue("codCan").ToString
             tbcodInst.Text = .GetValue("codIsnt").ToString
-            tbdescCanero.Text = .GetValue("yddesc").ToString
-            tbInstitucion.Text = .GetValue("nomInst").ToString
+            tbdescCanero.Text = .GetValue("nombreCliente").ToString
+            tbInstitucion.Text = .GetValue("nombreInst").ToString
             tbfecha.Text = .GetValue("tafdoc").ToString
 
+
+            tbRecibi.Text = .GetValue("recibi").ToString
+            tbentregue.Text = .GetValue("entregue").ToString
+            idActDis.Text = .GetValue("activoDisponible").ToString
+            idCuenCont.Text = .GetValue("cuentaContable").ToString
+            tbNroOpera.Text = .GetValue("nOperacion").ToString
+            tbNroCheque.Text = .GetValue("nCheque").ToString
+            tbBanco.Text = .GetValue("banco").ToString
+            SwParticular.Value = .GetValue("swCliente").ToString
+            cbTipPago.Value = .GetValue("swPago")
+            SwMoneda.Value = .GetValue("swMoneda").ToString
+            idCanero.Text = .GetValue("codCanero").ToString
+            idInstitucion.Text = .GetValue("codIns").ToString
 
 
 
@@ -299,20 +404,24 @@ Public Class F1_IngresosEgresos
     Public Overrides Function _PMOGrabarRegistro() As Boolean
 
         Dim tipo As Integer = IIf(swTipo.Value = True, 1, 0)
-        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, IIf(tbIdCaja.Text = "", 0, tbIdCaja.Text), "")
+        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, IIf(tbIdCaja.Text = "", 0, tbIdCaja.Text), "155",
+                                                     idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago.Value, SwMoneda.Value)
         If res Then
+            imprimir(tbcodigo.Text)
+
             Modificado = False
             _PMOLimpiar()
+
             ToastNotification.Show(Me, "Codigo de Ingreso/Egreso".ToUpper + tbcodigo.Text + " Grabado con éxito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
         End If
-        Return res
+        Return True
 
     End Function
     Public Overrides Function _PMOModificarRegistro() As Boolean
         Dim res As Boolean
         Dim tipo As Integer = IIf(swTipo.Value = True, 1, 0)
         If (Modificado = False) Then
-            res = L_prIngresoEgresoModificar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text)
+            res = L_prIngresoEgresoModificar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago.Value, SwMoneda.Value)
 
         Else
             res = L_prIngresoEgresoModificar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text)
@@ -354,8 +463,10 @@ Public Class F1_IngresosEgresos
         _prIniciarTodo()
 
     End Sub
+
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         tbDescripcion.Focus()
+        nuevo = 1
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         If btnGrabar.Enabled = True Then
@@ -395,17 +506,17 @@ Public Class F1_IngresosEgresos
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        If tbIdCaja.Text > 0 Then
-            ToastNotification.Show(Me, "No puede Modificar un Ingreso/Egreso, ya se hizo cierre de caja, por favor primero elimine cierre de caja".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            btnNuevo.Enabled = True
-            btnModificar.Enabled = True
-            btnGrabar.Enabled = False
-            btnEliminar.Enabled = True
-            _PMInhabilitar()
-            '_PMFiltrar()
-            'Exit Sub
-        End If
-
+        'If tbIdCaja.Text > 0 Then
+        '    ToastNotification.Show(Me, "No puede Modificar un Ingreso/Egreso, ya se hizo cierre de caja, por favor primero elimine cierre de caja".ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '    btnNuevo.Enabled = True
+        '    btnModificar.Enabled = True
+        '    btnGrabar.Enabled = False
+        '    btnEliminar.Enabled = True
+        '    _PMInhabilitar()
+        '    '_PMFiltrar()
+        '    'Exit Sub
+        'End If
+        _PMOHabilitar()
     End Sub
 
     Private Sub TextBoxX3_TextChanged(sender As Object, e As EventArgs) Handles tbcodCanero.TextChanged
@@ -436,7 +547,7 @@ Public Class F1_IngresosEgresos
 
     Private Sub swTipo_ValueChanged(sender As Object, e As EventArgs) Handles swTipo.ValueChanged
         If swTipo.Value = True Then
-            btnVentCobros.Enabled = True
+
 
         Else
             btnVentCobros.Enabled = False
@@ -452,11 +563,11 @@ Public Class F1_IngresosEgresos
 
         End If
     End Sub
+    Private Sub imprimir(cod As String)
 
-    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         Dim dt As DataTable
         If swTipo.Value = True Then
-            dt = L_recibo(tbcodigo.Text)
+            dt = L_recibo(cod)
 
 
             'Literal 
@@ -483,6 +594,11 @@ Public Class F1_IngresosEgresos
         Else
 
         End If
+
+
+    End Sub
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+        imprimir(tbcodigo.Text)
     End Sub
 
     Private Sub cbActivo_ValueChanged(sender As Object, e As EventArgs) Handles cbActivo.ValueChanged
@@ -515,5 +631,125 @@ Public Class F1_IngresosEgresos
         Dim Pres As String = cbCuenta.Value
         codCuenta.Text = Pres
     End Sub
+
+    Private Sub SwParticular_ValueChanged(sender As Object, e As EventArgs) Handles SwParticular.ValueChanged
+        If SwParticular.Value = True And btnGrabar.Enabled = True Then
+
+            idInstitucion.Text = "73"
+            tbcodInst.Text = "888"
+            tbInstitucion.Text = "PARTICULARES (NO CAÑEROS)"
+            tbdescCanero.ReadOnly = False
+            btnVentCobros.Enabled = False
+            CheckBox1.Checked = False
+            tbdescCanero.Text = ""
+            tbcodCanero.Text = ""
+        Else
+            If btnGrabar.Enabled = True Then
+                tbcodInst.Text = ""
+                tbInstitucion.Text = ""
+                tbdescCanero.Text = ""
+                tbcodCanero.Text = ""
+
+                tbdescCanero.ReadOnly = True
+
+            End If
+
+        End If
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If CheckBox1.Checked = True Then
+            If swTipo.Value = True Then
+                If SwParticular.Value = False Then
+                    If btnGrabar.Enabled = True Then
+                        btnVentCobros.Enabled = True
+                        tbcodCanero.Text = ""
+                        tbdescCanero.Text = ""
+                        tbcodInst.Text = ""
+                        tbInstitucion.Text = ""
+                    End If
+                End If
+                End If
+        Else
+            btnVentCobros.Enabled = False
+        End If
+
+    End Sub
+
+    Private Sub tbdescCanero_KeyDown(sender As Object, e As KeyEventArgs) Handles tbdescCanero.KeyDown
+        If e.KeyData = Keys.Control + Keys.Enter Then
+            If CheckBox1.Checked = False And SwParticular.Value = False Then
+                Dim dt As DataTable
+                'dt = L_fnListarClientes()
+                dt = L_fnListarClientesVenta()
+
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD. CLI", 100))
+                listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", True, "RAZÓN SOCIAL", 180))
+                listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
+                listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
+                listEstCeldas.Add(New Modelo.Celda("yddirec", True, "DIRECCIÓN", 220))
+                listEstCeldas.Add(New Modelo.Celda("ydtelf1", True, "Teléfono".ToUpper, 200))
+                listEstCeldas.Add(New Modelo.Celda("ydfnac", True, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
+                listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("vendedor,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("yddias", False, "CRED", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Nombre Factura", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydtipdocelec", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcorreo", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcompleCi", False, "Nit/CI", 50))
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dt
+                ef.SeleclCol = 2
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 50
+                ef.ancho = 200
+                ef.Context = "Seleccione Cliente".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                    tbcodCanero.Text = Row.Cells("ydcod").Value
+                    idCanero.Text = Row.Cells("ydnumi").Value
+                    tbdescCanero.Text = Row.Cells("ydrazonsocial").Value
+                    '_dias = Row.Cells("yddias").Value
+                    'tbNit.Text = Row.Cells("ydnit").Value
+                    'TbNombre1.Text = Row.Cells("ydnomfac").Value
+                    'tipoDocumento = Row.Cells("ydtipdocelec").Value
+                    'correo = Row.Cells("ydcorreo").Value
+                    'tbComplemento.Text = Row.Cells("ydcompleCi").Value
+                    Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
+
+                    Dim dt1 As DataTable
+                        dt1 = L_fnListarCaneroInstitucion(Row.Cells("ydnumi").Value)
+                    Dim row1 As DataRow = dt1.Rows(dt1.Rows.Count - 1)
+                    tbInstitucion.Text = row1("institucion")
+                    idInstitucion.Text = row1("id")
+                    tbcodInst.Text = row1("codInst")
+
+                    If (numiVendedor > 0) Then
+                        ''tbVendedor.Text = Row.Cells("vendedor").Value
+                        ' _CodEmpleado = Row.Cells("ydnumivend").Value
+
+                        ' grdetalle.Select()
+                        'Table_Producto = Nothing
+                    Else
+                        'tbVendedor.Clear()
+                        '_CodEmpleado = 0
+                        'tbVendedor.Focus()
+                        'Table_Producto = Nothing
+
+                    End If
+                End If
+            End If
+
+        End If
+    End Sub
+
+
 #End Region
 End Class

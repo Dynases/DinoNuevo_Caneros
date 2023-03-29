@@ -1858,7 +1858,7 @@ salirIf:
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        contabilizarComprasCredito(tbCodigo.Text)
+        'contabilizarComprasCredito(tbCodigo.Text)
         Dim res As Boolean = L_fnVerificarSiSeContabilizo(tbCodigo.Text)
         If res Then
             Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)

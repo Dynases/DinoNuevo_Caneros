@@ -248,7 +248,7 @@ Partial Class F1_Productos
         'btnSalir
         '
         '
-        'btnGrabar
+        'btnModificar
         '
         '
         'PanelToolBar2
