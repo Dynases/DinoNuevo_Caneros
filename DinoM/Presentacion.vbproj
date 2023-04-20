@@ -268,6 +268,18 @@
     <Compile Include="F0_Compra.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F0_Dias_Zafra.designer.vb">
+      <DependentUpon>F0_Dias_Zafra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_Dias_Zafra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F0_FactorR.designer.vb">
+      <DependentUpon>F0_FactorR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_FactorR.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F0_GrupoCanero.designer.vb">
       <DependentUpon>F0_GrupoCanero.vb</DependentUpon>
     </Compile>
@@ -675,6 +687,12 @@
     <Compile Include="Pr_ReporteBoletaCaneroInstitucion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pr_ReporteModuloCanero.designer.vb">
+      <DependentUpon>Pr_ReporteModuloCanero.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_ReporteModuloCanero.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pr_ReportePrestamos.Designer.vb">
       <DependentUpon>Pr_ReportePrestamos.vb</DependentUpon>
     </Compile>
@@ -999,10 +1017,28 @@
       <DependentUpon>R_Proforma_010.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reporte\R_Q5.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_Q5.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reporte\R_reciboIngreso.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_reciboIngreso.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_Rep330.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_Rep330.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_Rep370.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_Rep370.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_ReporteCobranzasCarta.vb">
@@ -1380,6 +1416,12 @@
     <EmbeddedResource Include="F0_Compra.resx">
       <DependentUpon>F0_Compra.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F0_Dias_Zafra.resx">
+      <DependentUpon>F0_Dias_Zafra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_FactorR.resx">
+      <DependentUpon>F0_FactorR.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F0_GrupoCanero.resx">
       <DependentUpon>F0_GrupoCanero.vb</DependentUpon>
     </EmbeddedResource>
@@ -1576,6 +1618,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_ReporteBoletaCaneroInstitucion.resx">
       <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_ReporteModuloCanero.resx">
+      <DependentUpon>Pr_ReporteModuloCanero.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_ReportePrestamos.resx">
       <DependentUpon>Pr_ReportePrestamos.vb</DependentUpon>
@@ -1775,9 +1820,21 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_Proforma_010.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_Q5.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_Q5.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_reciboIngreso.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_reciboIngreso.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_Rep330.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_Rep330.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_Rep370.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_Rep370.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_ReporteCobranzasCarta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

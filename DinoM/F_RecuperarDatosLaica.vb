@@ -8,7 +8,7 @@ Public Class F_RecuperarDatosLaica
 
     Public InventarioImport As New DataTable
     Private Sub F_RecuperarDatosLaica_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        tbFecha.Value = Now.Date
+
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -24,202 +24,226 @@ Public Class F_RecuperarDatosLaica
 
     Private Sub MP_ImportarExcel()
         Try
-            Dim folder As String = ""
-            Dim doc As String = "Sheet1"
-            Dim openfile1 As OpenFileDialog = New OpenFileDialog()
+            If tbFecha.Text <> "" Then
+                Dim folder As String = ""
+                Dim doc As String = "Sheet1"
+                Dim openfile1 As OpenFileDialog = New OpenFileDialog()
 
-            If openfile1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-                folder = openfile1.FileName
-            End If
-
-            If True Then
-                Dim pathconn As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & folder & ";Extended Properties='Excel 12.0 Xml;HDR=Yes'"
-                'Dim pathconn As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & folder & ";"
-                'Dim pathconn As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & folder & ";Extended Properties=""Excel 8.0;HDR=YES;"""
-
-                Dim con As OleDbConnection = New OleDbConnection(pathconn)
-
-                Dim MyDataAdapter As OleDbDataAdapter = New OleDbDataAdapter("Select * from [" & doc & "$A:I]", con)
-                con.Open()
-
-                MyDataAdapter.Fill(InventarioImport)
-                Dim InvProductos As DataTable = InventarioImport.Copy
-                If VerificarAnalisis(tbFecha.Value) Then
-
-                    If _PEliminarRegistro(tbFecha.Value) Then
-                        Dim grabar As Boolean = L_fnGrabarAnalisis("", InvProductos)
-                        If (grabar) Then
-                            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                            ToastNotification.Show(Me, "analisis Grabado con Exito.".ToUpper,
-                                              img, 2000,
-                                              eToastGlowColor.Green,
-                                              eToastPosition.TopCenter
-                                              )
-                            grprecio.DataSource = InvProductos
-                            grprecio.RetrieveStructure()
-                            With grprecio.RootTable.Columns("ID Ticket")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio.RootTable.Columns("Fecha")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio.RootTable.Columns("Peso Torta")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio.RootTable.Columns("% Fibra Caña")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio.RootTable.Columns("% Brix")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio.RootTable.Columns("%POL Unificada")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio.RootTable.Columns("% Pureza Unificada")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio.RootTable.Columns("% Materia Extraña")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio.RootTable.Columns("Cantidad de Paquete")
-
-                                .Width = 85
-                                .Visible = True
-                            End With
-                            With grprecio
-                                .GroupByBoxVisible = False
-                                '.FilterRowFormatStyle.BackColor = Color.Blue
-                                .DefaultFilterRowComparison = FilterConditionOperator.Contains
-                                '.FilterMode = FilterMode.Automatic
-                                .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
-                                .FilterMode = FilterMode.Automatic
-                                'Diseño de la tabla
-                                .VisualStyle = VisualStyle.Office2007
-                                .SelectionMode = SelectionMode.SingleSelection
-                                .AlternatingColors = True
-                            End With
-
-                        Else
-                            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                            ToastNotification.Show(Me, "analisis no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                        End If
-                    End If
-                Else
-                    For k = 0 To InventarioImport.Rows.Count - 1
-                        If VerificarAnalisis(InventarioImport.Rows(k).Item(1)) Then
-                            If _PEliminarRegistro(InventarioImport.Rows(k).Item(1)) Then
-                                Dim grabar As Boolean = L_fnGrabarAnalisis("", InvProductos)
-                                If (grabar) Then
-                                    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                                    ToastNotification.Show(Me, "analisis Grabado con Exito.".ToUpper,
-                                                      img, 2000,
-                                                      eToastGlowColor.Green,
-                                                      eToastPosition.TopCenter
-                                                      )
-                                    grprecio.DataSource = InvProductos
-                                    grprecio.RetrieveStructure()
-                                    With grprecio.RootTable.Columns("ID Ticket")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio.RootTable.Columns("Fecha")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio.RootTable.Columns("Peso Torta")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio.RootTable.Columns("% Fibra Caña")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio.RootTable.Columns("% Brix")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio.RootTable.Columns("%POL Unificada")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio.RootTable.Columns("% Pureza Unificada")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio.RootTable.Columns("% Materia Extraña")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio.RootTable.Columns("Cantidad de Paquete")
-
-                                        .Width = 85
-                                        .Visible = True
-                                    End With
-                                    With grprecio
-                                        .GroupByBoxVisible = False
-                                        '.FilterRowFormatStyle.BackColor = Color.Blue
-                                        .DefaultFilterRowComparison = FilterConditionOperator.Contains
-                                        '.FilterMode = FilterMode.Automatic
-                                        .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
-                                        .FilterMode = FilterMode.Automatic
-                                        'Diseño de la tabla
-                                        .VisualStyle = VisualStyle.Office2007
-                                        .SelectionMode = SelectionMode.SingleSelection
-                                        .AlternatingColors = True
-                                    End With
-                                    Exit For
-                                Else
-                                    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                                    ToastNotification.Show(Me, "analisis no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                                    Exit For
-                                End If
-                            End If
-                            Exit For
-                        Else
-                            Exit For
-                        End If
-
-                    Next
+                If openfile1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+                    folder = openfile1.FileName
                 End If
 
+                If True Then
+                    Dim pathconn As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & folder & ";Extended Properties='Excel 12.0 Xml;HDR=Yes'"
+                    'Dim pathconn As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & folder & ";"
+                    'Dim pathconn As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & folder & ";Extended Properties=""Excel 8.0;HDR=YES;"""
+
+                    Dim con As OleDbConnection = New OleDbConnection(pathconn)
+
+                    Dim MyDataAdapter As OleDbDataAdapter = New OleDbDataAdapter("Select * from [" & doc & "$A:I]", con)
+                    con.Open()
+
+                    MyDataAdapter.Fill(InventarioImport)
+                    Dim InvProductos As DataTable = InventarioImport.Copy
+                    'For Each item As DataRow In InvProductos.Rows
+                    '    If VerificarNumBoleta(CStr(item(("ID Ticket")))) = False Then
+                    '        MessageBox.Show("no se encontro " + CStr(item(("ID Ticket"))))
+                    '        Exit Sub
+                    '    End If
+                    'Next
+
+                    If VerificarAnalisis(tbFecha.Value) Then
+
+                        If _PEliminarRegistro(tbFecha.Value) Then
+                            For Each item As DataRow In InvProductos.Rows
+                                If VerificarNumBoleta(CStr(item(("ID Ticket")))) = True Then
+                                    MessageBox.Show("existe este numero de boleta =  " + CStr(item(("ID Ticket"))) + " no se puede ingresar boletas duplicadas")
+                                    Exit Sub
+                                End If
+                                If VerificarNumBoletaEnRegistroBoletas(Convert.ToInt32(item(("ID Ticket")))) = False Then
+                                    MessageBox.Show("No existe este numero de boleta =  " + CStr(item(("ID Ticket"))) + " en el registro de Boletas")
+                                    Exit Sub
+                                End If
+                            Next
+                            Dim grabar As Boolean = L_fnGrabarAnalisis(tbFecha.Value, InvProductos)
+                            If (grabar) Then
+                                For Each item As DataRow In InvProductos.Rows
+                                    canaLimpia(CStr(item(("ID Ticket"))))
+                                Next
+                                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                                ToastNotification.Show(Me, "analisis Grabado con Exito.".ToUpper,
+                                                  img, 2000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter
+                                                  )
+
+                                grprecio.DataSource = InvProductos
+                                grprecio.RetrieveStructure()
+                                With grprecio.RootTable.Columns("ID Ticket")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("Fecha")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("Peso Torta")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("% Fibra Caña")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("% Brix")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("%POL Unificada")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("% Pureza Unificada")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("% Materia Extraña")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("Cantidad de Paquete")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio
+                                    .GroupByBoxVisible = False
+                                    '.FilterRowFormatStyle.BackColor = Color.Blue
+                                    .DefaultFilterRowComparison = FilterConditionOperator.Contains
+                                    '.FilterMode = FilterMode.Automatic
+                                    .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+                                    .FilterMode = FilterMode.Automatic
+                                    'Diseño de la tabla
+                                    .VisualStyle = VisualStyle.Office2007
+                                    .SelectionMode = SelectionMode.SingleSelection
+                                    .AlternatingColors = True
+                                End With
+
+                            Else
+                                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                                ToastNotification.Show(Me, "analisis no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                            End If
+                        End If
+                    Else
+                        For Each item As DataRow In InvProductos.Rows
+                            If VerificarNumBoleta(CStr(item(("ID Ticket")))) = True Then
+                                MessageBox.Show("existe este numero de boleta =  " + CStr(item(("ID Ticket"))) + " no se puede ingresar boletas duplicadas")
+                                Exit Sub
+                            End If
+                            If VerificarNumBoletaEnRegistroBoletas(Convert.ToInt32(item(("ID Ticket")))) = False Then
+                                MessageBox.Show("No existe este numero de boleta =  " + CStr(item(("ID Ticket"))) + " en el registro de Boletas")
+                                Exit Sub
+                            End If
+                        Next
+                        For k = 0 To InventarioImport.Rows.Count - 1
+                            'If VerificarAnalisis(InventarioImport.Rows(k).Item(1)) Then
+                            '    If _PEliminarRegistro(InventarioImport.Rows(k).Item(1)) Then
+                            Dim grabar As Boolean = L_fnGrabarAnalisis(tbFecha.Value, InvProductos)
+                            If (grabar) Then
+                                        For Each item As DataRow In InvProductos.Rows
+                                            canaLimpia(CStr(item(("ID Ticket"))))
+                                        Next
+                                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                                ToastNotification.Show(Me, "analisis Grabado con Exito.".ToUpper,
+                                                  img, 2000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter
+                                                  )
+                                grprecio.DataSource = InvProductos
+                                grprecio.RetrieveStructure()
+                                With grprecio.RootTable.Columns("ID Ticket")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("Fecha")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("Peso Torta")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("% Fibra Caña")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("% Brix")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("%POL Unificada")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("% Pureza Unificada")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("% Materia Extraña")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio.RootTable.Columns("Cantidad de Paquete")
+
+                                    .Width = 85
+                                    .Visible = True
+                                End With
+                                With grprecio
+                                    .GroupByBoxVisible = False
+                                    '.FilterRowFormatStyle.BackColor = Color.Blue
+                                    .DefaultFilterRowComparison = FilterConditionOperator.Contains
+                                    '.FilterMode = FilterMode.Automatic
+                                    .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+                                    .FilterMode = FilterMode.Automatic
+                                    'Diseño de la tabla
+                                    .VisualStyle = VisualStyle.Office2007
+                                    .SelectionMode = SelectionMode.SingleSelection
+                                    .AlternatingColors = True
+                                End With
+                                Exit For
+
+                            End If
+                            Exit For
 
 
+                            '    End If
+                            'End If
+                        Next
+                    End If
+                    con.Close()
+                    Dim aux = InventarioImport.Rows.Count
+                    Dim aux1 = InventarioImport.Columns.Count
 
-
-                con.Close()
-
-                Dim aux = InventarioImport.Rows.Count
-                Dim aux1 = InventarioImport.Columns.Count
-
-
-
-
-
-            End If
+                End If
+            Else
+                MostrarMensajeError("Debe seleccionar un fecha")
+                End If
 
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -241,6 +265,7 @@ Public Class F_RecuperarDatosLaica
             Dim t As String = fecha
 
             L_Boletas_Borrar(fecha)
+            L_Fponderado_Borrar(fecha)
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
 
             ToastNotification.Show(Me, "Código de Institución ".ToUpper + t + " eliminado con Exito.".ToUpper,

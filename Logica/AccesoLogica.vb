@@ -497,6 +497,24 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Ds
     End Function
 #End Region
+    Public Shared Function L_factorR(_Modo As Integer, Optional _Cadena As String = "") As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
+
+        _Tabla = D_Datos_TablaTara("id,fecha,ingreso,pcfab,pci,obtenido,ponderado,aplicado,ingAcumulado,relRacum,kgRelrdia,calculoPonderado,tafact,tahact,tauact", "factorRponderado")
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
+
+    Public Shared Function L_diasZafra(_Modo As Integer, Optional _Cadena As String = "") As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
+
+        _Tabla = D_Datos_TablaTara("id,convert(date,fechaInicio) as fechaInicio,fechaFinal,gestion", "diasZafra")
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
+
 #Region "INSTITUCION"
     Public Shared Function L_Institucion(_Modo As Integer, Optional _Cadena As String = "") As DataSet
         Dim _Tabla As DataTable
@@ -506,7 +524,37 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
+    Public Shared Function L_pruebaFactor(_Modo As Integer, Optional _Cadena As String = "") As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
 
+        _Tabla = D_Datos_TablaTara("*", "datosparapruebaponderado")
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
+    Public Shared Function L_pruebaFactor_Grabar(_CodInst As Date, _nomInst As Integer, _telf As Decimal, _direc As Decimal) As Boolean
+        Dim _Error As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+
+        _listParam.Add(New Datos.DParametro("@fechaRegistroBoleta", _CodInst))
+        _listParam.Add(New Datos.DParametro("@ingreso", _nomInst))
+        _listParam.Add(New Datos.DParametro("@pcfab", _direc))
+        _listParam.Add(New Datos.DParametro("@pciGeneral", _telf))
+
+
+        _Tabla = D_ProcedimientoConParam("factorPonderado", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            '_numi = _Tabla.Rows(0).Item(0)
+            _Error = False
+        Else
+            _Error = True
+        End If
+        Return Not _Error
+    End Function
 
 
     Public Shared Function L_BuscarCodInst(_Numi As String) As Boolean
@@ -614,6 +662,53 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return Not _Error
     End Function
+    Public Shared Function L_FactorR_Grabar(_pesoTara As Decimal, _fecha As String) As Boolean
+        Dim _Error As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@pcfab", _pesoTara))
+
+
+
+        _listParam.Add(New Datos.DParametro("@fechaRegistroBoleta", _fecha))
+        '_listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("factorPonderado", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            '_numi = _Tabla.Rows(0).Item(0)
+            _Error = False
+        Else
+            _Error = True
+        End If
+        Return Not _Error
+    End Function
+
+    Public Shared Function L_DiasZafra_Grabar(_fechaInicio As String, _fechaFinal As String) As Boolean
+        Dim _Error As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 21))
+
+
+        _listParam.Add(New Datos.DParametro("@fechaI", _fechaInicio))
+        _listParam.Add(New Datos.DParametro("@fechaF", _fechaFinal))
+        '_listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            '_numi = _Tabla.Rows(0).Item(0)
+            _Error = False
+        Else
+            _Error = True
+        End If
+        Return Not _Error
+    End Function
     Public Shared Function L_Institucion_Modificar(_numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
         Dim _Err As Boolean
         Dim Sql, _where As String
@@ -667,8 +762,15 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     Public Shared Sub L_Boletas_Borrar(_Id As String)
         Dim _Where As String
         Dim _Err As Boolean
-        _Where = "fecha = " + "'" + _Id + "'"
+        _Where = "fechaRelacionBol = " + "'" + _Id + "'"
         _Err = D_Eliminar_Datos("analisis", _Where)
+    End Sub
+
+    Public Shared Sub L_Fponderado_Borrar(_Id As String)
+        Dim _Where As String
+        Dim _Err As Boolean
+        _Where = "fecha = " + "'" + _Id + "'"
+        _Err = D_Eliminar_Datos("factorRponderado", _Where)
     End Sub
 
     Public Shared Sub L_Taras_Borrar(_Id As String)
@@ -1611,6 +1713,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         _listParam.Add(New Datos.DParametro("@tipo", 8))
         _listParam.Add(New Datos.DParametro("@analisis", "", _precio))
+        _listParam.Add(New Datos.DParametro("@fechaRegistroBoleta", "", _ygnumi))
         _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
@@ -1766,7 +1869,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         If _Tabla.Rows.Count > 0 Then
             _placa = _Tabla.Rows(0).Item(1)
             _PesoTara = _Tabla.Rows(0).Item(2)
-            _propietario = _Tabla.Rows(0).Item(4)
+            _propietario = _Tabla.Rows(0).Item(5)
         End If
     End Sub
     Public Shared Function L_fnObtenerTara(_RazonSocial As String) As DataTable
@@ -1862,12 +1965,49 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function L_prReporteQcincoTodos(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 23))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prReporteRep330todInst(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 26))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prReporteRep370todInst(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 27))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prReporteRetiroCaneroUno(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
         _listParam.Add(New Datos.DParametro("@cliente", CodCan))
         _listParam.Add(New Datos.DParametro("@vendedor", CodIns))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
@@ -1877,7 +2017,6 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
-
     Public Shared Function L_prReporteRetiroCaneroUno1(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -2357,7 +2496,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     End Function
 
     Public Shared Function L_fnGrabarBoleta(ByRef _nroBoleta As String, _fchBol As String, _codCan As String, _codInst As String, _cupo As String, _hora As String,
-                                            detalle As DataTable) As Boolean
+                                            detalle As DataTable, _controlTotal As String, _estado As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -2371,6 +2510,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@cupo", _cupo))
         _listParam.Add(New Datos.DParametro("@hora", _hora))
         _listParam.Add(New Datos.DParametro("@detBol", "", detalle))
+        _listParam.Add(New Datos.DParametro("@controlTotal", _controlTotal))
+        _listParam.Add(New Datos.DParametro("@estado", _estado))
         _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
 
@@ -2550,7 +2691,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _resultado
     End Function
     Public Shared Function L_fnModificarBoleta(ByRef _nroBoleta As String, _fchBol As String, _codCan As String, _codInst As String, _cupo As String, _hora As String,
-                                            detalle As DataTable) As Boolean
+                                            detalle As DataTable, controlTotal As String, _estado As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -2562,6 +2703,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@cupo", _cupo))
         _listParam.Add(New Datos.DParametro("@hora", _hora))
         _listParam.Add(New Datos.DParametro("@detBol", "", detalle))
+        _listParam.Add(New Datos.DParametro("@controlTotal", controlTotal))
+        _listParam.Add(New Datos.DParametro("@estado", _estado))
         _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
 
@@ -2679,7 +2822,57 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     Public Shared Function VerificarAnalisis(_fecha As String) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_TablaInst("*", "analisis", "fecha= " + "'" + _fecha + "'")
+        _Tabla = D_Datos_TablaInst("*", "analisis", "fechaRelacionBol= " + "'" + _fecha + "'")
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+
+    End Function
+
+    Public Shared Function VerificarFechaFactorPonderado(_fecha As String) As Boolean
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst("*", "factorRponderado", "fecha= " + "'" + _fecha + "'")
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+
+    End Function
+    Public Shared Function VerificarInicioZafra(_fecha As String) As Boolean
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst("*", "diasZafra", "gestion= " + "YEAR('" + _fecha + "')")
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+
+    End Function
+    Public Shared Function VerificarNumBoleta(_fecha As String) As Boolean
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst("*", "analisis", "nroBoleta= " + "'" + _fecha + "'")
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+
+    End Function
+
+    Public Shared Function VerificarNumBoletaEnRegistroBoletas(_fecha As Integer) As Boolean
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst1("*", "heaBol", "nroBoleta= " + Convert.ToString(Convert.ToInt32(_fecha)))
         If _Tabla.Rows.Count > 0 Then
             _resultado = True
         Else
@@ -2706,6 +2899,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _resultado
     End Function
+
+    Public Shared Function canaLimpia(nroBoleta As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _listParam.Add(New Datos.DParametro("@nroBoleta", nroBoleta))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnListarClientesVenta() As DataTable
         Dim _Tabla As DataTable
 
@@ -2715,6 +2919,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
 
     Public Shared Function L_fnListarClientesVentas(numi As Integer) As DataTable
         Dim _Tabla As DataTable
@@ -4807,7 +5012,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tipo", 4))
         _listParam.Add(New Datos.DParametro("@ibid", _ibid))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
-        _Tabla = D_ProcedimientoConParam("sp_Mam_Tg001", _listParam)
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TI002", _listParam)
 
         Return _Tabla
     End Function
