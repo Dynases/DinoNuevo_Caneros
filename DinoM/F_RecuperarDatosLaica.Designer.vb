@@ -41,7 +41,7 @@ Partial Class F_RecuperarDatosLaica
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
-        Me.PanelSuperior.Size = New System.Drawing.Size(553, 58)
+        Me.PanelSuperior.Size = New System.Drawing.Size(543, 58)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
         Me.PanelSuperior.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
@@ -59,7 +59,7 @@ Partial Class F_RecuperarDatosLaica
         Me.btnAgregar.Image = Global.DinoM.My.Resources.Resources.plus
         Me.btnAgregar.ImageFixedSize = New System.Drawing.Size(35, 30)
         Me.btnAgregar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnAgregar.Location = New System.Drawing.Point(112, 202)
+        Me.btnAgregar.Location = New System.Drawing.Point(172, 148)
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(8)
         Me.btnAgregar.Size = New System.Drawing.Size(196, 58)
@@ -74,7 +74,7 @@ Partial Class F_RecuperarDatosLaica
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX1.Location = New System.Drawing.Point(126, 178)
+        Me.LabelX1.Location = New System.Drawing.Point(186, 124)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.Size = New System.Drawing.Size(169, 19)
@@ -88,7 +88,7 @@ Partial Class F_RecuperarDatosLaica
         '
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX2.Location = New System.Drawing.Point(9, 63)
+        Me.LabelX2.Location = New System.Drawing.Point(53, 63)
         Me.LabelX2.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.Size = New System.Drawing.Size(433, 29)
@@ -102,7 +102,7 @@ Partial Class F_RecuperarDatosLaica
         '
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX4.Location = New System.Drawing.Point(80, 124)
+        Me.LabelX4.Location = New System.Drawing.Point(153, 97)
         Me.LabelX4.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.Size = New System.Drawing.Size(93, 19)
@@ -120,7 +120,7 @@ Partial Class F_RecuperarDatosLaica
         Me.tbFecha.ButtonDropDown.Visible = True
         Me.tbFecha.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFecha.IsPopupCalendarOpen = False
-        Me.tbFecha.Location = New System.Drawing.Point(190, 124)
+        Me.tbFecha.Location = New System.Drawing.Point(267, 97)
         '
         '
         '
@@ -163,7 +163,7 @@ Partial Class F_RecuperarDatosLaica
         Me.grprecio.Name = "grprecio"
         Me.grprecio.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grprecio.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grprecio.Size = New System.Drawing.Size(533, 158)
+        Me.grprecio.Size = New System.Drawing.Size(523, 169)
         Me.grprecio.TabIndex = 254
         Me.grprecio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -171,7 +171,7 @@ Partial Class F_RecuperarDatosLaica
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(553, 436)
+        Me.ClientSize = New System.Drawing.Size(543, 447)
         Me.Controls.Add(Me.grprecio)
         Me.Controls.Add(Me.tbFecha)
         Me.Controls.Add(Me.LabelX4)

@@ -1352,6 +1352,30 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
+    Private Sub bt_moduloCañero_Click(sender As Object, e As EventArgs) Handles bt_moduloCañero.Click
+        SideNav1.IsMenuExpanded = False
+        Ventana.Select()
+        Dim frm As New Pr_ReporteModuloCanero
+        'frm._nameButton = btGruposEconomicos.Name
+        frm.Show()
+    End Sub
+
+    Private Sub bt_factorPonderado_Click(sender As Object, e As EventArgs) Handles bt_factorPonderado.Click
+        SideNav1.IsMenuExpanded = False
+        Ventana.Select()
+        Dim frm As New F0_FactorR
+        frm._nameButton = bt_factorPonderado.Name
+        frm.Show()
+    End Sub
+
+    Private Sub MetroTileItem13_Click_2(sender As Object, e As EventArgs) Handles bt_diasZafra.Click
+        SideNav1.IsMenuExpanded = False
+        Ventana.Select()
+        Dim frm As New F0_Dias_Zafra
+        frm._nameButton = bt_factorPonderado.Name
+        frm.Show()
+    End Sub
+
 
 
 

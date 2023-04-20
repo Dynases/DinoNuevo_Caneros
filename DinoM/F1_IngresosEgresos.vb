@@ -574,12 +574,18 @@ Public Class F1_IngresosEgresos
             Dim _Autorizacion, _Nit, _Fechainv, _Total, _Key, _Cod_Control, _Hora,
             _Literal, _TotalDecimal, _TotalDecimal2 As String
             Dim _TotalLi As Decimal
+            Dim monedaLiteral As String
             _TotalLi = Format(tbMonto.Value, "0.00")
             _TotalDecimal = _TotalLi - Math.Truncate(_TotalLi)
             _TotalDecimal2 = CDbl(_TotalDecimal) * 100
 
             'Dim li As String = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_Total) - CDbl(_TotalDecimal)) + " con " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 Bolivianos"
-            _Literal = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_TotalLi) - CDbl(_TotalDecimal)) + "  " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 DOLARES AMERICANOS"
+            If SwMoneda.Value = True Then
+                monedaLiteral = "/100 DOLARES AMERICANOS"
+            Else
+                monedaLiteral = "/100 BOLIVIANOS"
+            End If
+            _Literal = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_TotalLi) - CDbl(_TotalDecimal)) + "  " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + monedaLiteral
             P_Global.Visualizador = New Visualizador
             Dim objrep As New R_reciboIngreso
 
