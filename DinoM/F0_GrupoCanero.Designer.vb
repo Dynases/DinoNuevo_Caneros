@@ -23,12 +23,18 @@ Partial Class F0_GrupoCanero
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_GrupoCanero))
         Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.grdetalle = New Janus.Windows.GridEX.GridEX()
         Me.GPanelCanero = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.grCanero = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbCodInst = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.tbCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbCodCanero = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbFecha = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.tbObservacion = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
@@ -41,11 +47,6 @@ Partial Class F0_GrupoCanero
         Me.GroupPanel4 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.grmovimiento = New Janus.Windows.GridEX.GridEX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.tbCodCanero = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbCodInst = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -80,6 +81,7 @@ Partial Class F0_GrupoCanero
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.PanelSuperior.Style.BackgroundImage = CType(resources.GetObject("PanelSuperior.Style.BackgroundImage"), System.Drawing.Image)
         Me.PanelSuperior.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
         Me.PanelSuperior.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.PanelSuperior.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
@@ -88,6 +90,7 @@ Partial Class F0_GrupoCanero
         Me.PanelSuperior.StyleMouseDown.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.PanelSuperior.StyleMouseOver.BackgroundImage = CType(resources.GetObject("PanelSuperior.StyleMouseOver.BackgroundImage"), System.Drawing.Image)
         '
         'PanelInferior
         '
@@ -96,6 +99,7 @@ Partial Class F0_GrupoCanero
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Transparent
         Me.PanelInferior.Style.BackColor2.Color = System.Drawing.Color.Transparent
+        Me.PanelInferior.Style.BackgroundImage = CType(resources.GetObject("PanelInferior.Style.BackgroundImage"), System.Drawing.Image)
         Me.PanelInferior.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
         Me.PanelInferior.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.PanelInferior.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
@@ -408,6 +412,95 @@ Partial Class F0_GrupoCanero
         Me.Panel2.Size = New System.Drawing.Size(1145, 127)
         Me.Panel2.TabIndex = 0
         '
+        'tbVendedor
+        '
+        Me.tbVendedor.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbVendedor.Border.Class = "TextBoxBorder"
+        Me.tbVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbVendedor.DisabledBackColor = System.Drawing.Color.White
+        Me.tbVendedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbVendedor.ForeColor = System.Drawing.Color.Black
+        Me.tbVendedor.Location = New System.Drawing.Point(225, 96)
+        Me.tbVendedor.Name = "tbVendedor"
+        Me.tbVendedor.PreventEnterBeep = True
+        Me.tbVendedor.ReadOnly = True
+        Me.tbVendedor.Size = New System.Drawing.Size(370, 22)
+        Me.tbVendedor.TabIndex = 236
+        '
+        'tbCodInst
+        '
+        Me.tbCodInst.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbCodInst.Border.Class = "TextBoxBorder"
+        Me.tbCodInst.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodInst.DisabledBackColor = System.Drawing.Color.White
+        Me.tbCodInst.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodInst.ForeColor = System.Drawing.Color.Black
+        Me.tbCodInst.Location = New System.Drawing.Point(139, 96)
+        Me.tbCodInst.Name = "tbCodInst"
+        Me.tbCodInst.PreventEnterBeep = True
+        Me.tbCodInst.ReadOnly = True
+        Me.tbCodInst.Size = New System.Drawing.Size(80, 22)
+        Me.tbCodInst.TabIndex = 235
+        '
+        'LabelX5
+        '
+        Me.LabelX5.AutoSize = True
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(22, 98)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(75, 16)
+        Me.LabelX5.TabIndex = 234
+        Me.LabelX5.Text = "Institución:"
+        '
+        'tbCliente
+        '
+        Me.tbCliente.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbCliente.Border.Class = "TextBoxBorder"
+        Me.tbCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCliente.DisabledBackColor = System.Drawing.Color.White
+        Me.tbCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCliente.ForeColor = System.Drawing.Color.Black
+        Me.tbCliente.Location = New System.Drawing.Point(225, 71)
+        Me.tbCliente.Name = "tbCliente"
+        Me.tbCliente.PreventEnterBeep = True
+        Me.tbCliente.ReadOnly = True
+        Me.tbCliente.Size = New System.Drawing.Size(370, 22)
+        Me.tbCliente.TabIndex = 233
+        '
+        'tbCodCanero
+        '
+        Me.tbCodCanero.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbCodCanero.Border.Class = "TextBoxBorder"
+        Me.tbCodCanero.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodCanero.DisabledBackColor = System.Drawing.Color.White
+        Me.tbCodCanero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodCanero.ForeColor = System.Drawing.Color.Black
+        Me.tbCodCanero.Location = New System.Drawing.Point(139, 71)
+        Me.tbCodCanero.Name = "tbCodCanero"
+        Me.tbCodCanero.PreventEnterBeep = True
+        Me.tbCodCanero.ReadOnly = True
+        Me.tbCodCanero.Size = New System.Drawing.Size(80, 22)
+        Me.tbCodCanero.TabIndex = 232
+        '
         'tbFecha
         '
         '
@@ -646,91 +739,6 @@ Partial Class F0_GrupoCanero
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 500
-        '
-        'tbCodCanero
-        '
-        Me.tbCodCanero.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.tbCodCanero.Border.Class = "TextBoxBorder"
-        Me.tbCodCanero.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCodCanero.DisabledBackColor = System.Drawing.Color.White
-        Me.tbCodCanero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodCanero.ForeColor = System.Drawing.Color.Black
-        Me.tbCodCanero.Location = New System.Drawing.Point(139, 71)
-        Me.tbCodCanero.Name = "tbCodCanero"
-        Me.tbCodCanero.PreventEnterBeep = True
-        Me.tbCodCanero.Size = New System.Drawing.Size(80, 22)
-        Me.tbCodCanero.TabIndex = 232
-        '
-        'tbCliente
-        '
-        Me.tbCliente.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.tbCliente.Border.Class = "TextBoxBorder"
-        Me.tbCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCliente.DisabledBackColor = System.Drawing.Color.White
-        Me.tbCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCliente.ForeColor = System.Drawing.Color.Black
-        Me.tbCliente.Location = New System.Drawing.Point(225, 71)
-        Me.tbCliente.Name = "tbCliente"
-        Me.tbCliente.PreventEnterBeep = True
-        Me.tbCliente.Size = New System.Drawing.Size(370, 22)
-        Me.tbCliente.TabIndex = 233
-        '
-        'tbVendedor
-        '
-        Me.tbVendedor.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.tbVendedor.Border.Class = "TextBoxBorder"
-        Me.tbVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbVendedor.DisabledBackColor = System.Drawing.Color.White
-        Me.tbVendedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbVendedor.ForeColor = System.Drawing.Color.Black
-        Me.tbVendedor.Location = New System.Drawing.Point(225, 96)
-        Me.tbVendedor.Name = "tbVendedor"
-        Me.tbVendedor.PreventEnterBeep = True
-        Me.tbVendedor.Size = New System.Drawing.Size(370, 22)
-        Me.tbVendedor.TabIndex = 236
-        '
-        'tbCodInst
-        '
-        Me.tbCodInst.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.tbCodInst.Border.Class = "TextBoxBorder"
-        Me.tbCodInst.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCodInst.DisabledBackColor = System.Drawing.Color.White
-        Me.tbCodInst.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodInst.ForeColor = System.Drawing.Color.Black
-        Me.tbCodInst.Location = New System.Drawing.Point(139, 96)
-        Me.tbCodInst.Name = "tbCodInst"
-        Me.tbCodInst.PreventEnterBeep = True
-        Me.tbCodInst.Size = New System.Drawing.Size(80, 22)
-        Me.tbCodInst.TabIndex = 235
-        '
-        'LabelX5
-        '
-        Me.LabelX5.AutoSize = True
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(22, 98)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(75, 16)
-        Me.LabelX5.TabIndex = 234
-        Me.LabelX5.Text = "Institución:"
         '
         'F0_GrupoCanero
         '

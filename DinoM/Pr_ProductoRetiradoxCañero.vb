@@ -1,4 +1,4 @@
-﻿Imports DevComponents.DotNetBar
+Imports DevComponents.DotNetBar
 Imports Logica.AccesoLogica
 
 Public Class Pr_ProductoRetiradoxCañero

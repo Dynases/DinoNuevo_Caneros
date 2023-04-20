@@ -1352,6 +1352,16 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
+    Private Sub btRLiquidaciones_Click(sender As Object, e As EventArgs) Handles btRLiquidaciones.Click
+        Dim frm As New F1_Liquidaciones
+        frm.Show()
+    End Sub
+
+    Private Sub btnTotalCana_Click(sender As Object, e As EventArgs) Handles btnTotalCana.Click
+        Dim frm As New F1_TotalCana
+        frm.Show()
+    End Sub
+
 
 
 

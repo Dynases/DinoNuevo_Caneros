@@ -117,6 +117,10 @@ Public Class F0_GrupoCanero
         tbCodigo.Clear()
         tbObservacion.Clear()
         tbFecha.Value = Now.Date
+        tbCodCanero.Clear()
+        tbCodInst.Clear()
+        tbCliente.Clear()
+        tbVendedor.Clear()
         _prCargarDetalleGrupo(-1)
 
 
@@ -144,7 +148,7 @@ Public Class F0_GrupoCanero
         '      a.ibid ,a.ibfdoc ,a.ibconcep ,b.cpdesc as concepto,a.ibobs ,a.ibest ,a.ibalm ,a.ibiddc 
         ',a.ibfact ,a.ibhact ,a.ibuact,ibdepdest
         With grmovimiento
-            tbCodigo.Text = .GetValue("id")
+            tbCodigo.Text = .GetValue("codGrupo")
             tbFecha.Value = .GetValue("fecha")
             tbObservacion.Text = .GetValue("observacion")
             tbCodCanero.Text = .GetValue("ydcod")
@@ -346,7 +350,7 @@ Public Class F0_GrupoCanero
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(0, 1, "", Bin.GetBuffer, 0)
+        CType(grdetalle.DataSource, DataTable).Rows.Add(0, 0, "", Bin.GetBuffer, 0)
     End Sub
     Public Function _fnSiguienteNumi()
         Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)
@@ -373,14 +377,14 @@ Public Class F0_GrupoCanero
         grCanero.Col = 1
     End Sub
     Private Sub _DesHabilitarProductos()
-        If (GPanelCanero.Visible = True) Then
-            GPanelCanero.Visible = False
-            PanelInferior.Visible = True
-            grdetalle.Select()
-            grdetalle.Col = 4
-            grdetalle.Row = grdetalle.RowCount - 1
-        End If
-        FilaSelectLote = Nothing
+        'If (GPanelCanero.Visible = True) Then
+        '    GPanelCanero.Visible = False
+        '    PanelInferior.Visible = True
+        '    grdetalle.Select()
+        '    grdetalle.Col = 4
+        '    grdetalle.Row = grdetalle.RowCount - 1
+        'End If
+        'FilaSelectLote = Nothing
     End Sub
     Public Sub _fnObtenerFilaDetalle(ByRef pos As Integer, numi As Integer)
         For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -406,7 +410,7 @@ Public Class F0_GrupoCanero
     End Function
     Public Sub _prEliminarFila()
         If (grdetalle.Row >= 0) Then
-            If (grdetalle.RowCount >= 2) Then
+            If (grdetalle.RowCount >= 1) Then
                 Dim estado As Integer = grdetalle.GetValue("estado")
                 Dim pos As Integer = -1
                 Dim lin As Integer = grdetalle.GetValue("ydcod")
@@ -438,15 +442,15 @@ Public Class F0_GrupoCanero
             Return False
 
         End If
-        If (grdetalle.RowCount = 1) Then
-            If (CType(grdetalle.DataSource, DataTable).Rows(0).Item("iccprod") = 0) Then
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                grdetalle.Focus()
+        'If (grdetalle.RowCount = 1) Then
+        '    If (CType(grdetalle.DataSource, DataTable).Rows(0).Item("iccprod") = 0) Then
+        '        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+        '        ToastNotification.Show(Me, "Por Favor Inserte un Detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+        '        grdetalle.Focus()
 
-                Return False
-            End If
-        End If
+        '        Return False
+        '    End If
+        'End If
         Return True
     End Function
 
@@ -483,8 +487,9 @@ Public Class F0_GrupoCanero
         '    Return
 
         'End If
-        Dim numi As String = ""
-        Dim res As Boolean = True 'L_prMovimientoChoferGrabar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, 0, 0, CType(grdetalle.DataSource, DataTable))
+
+
+        Dim res As Boolean = L_fnAgregarGrupo(tbCodigo.Text, _CodCliente, tbFecha.Value.ToString("dd/MM/yyyy"), tbObservacion.Text, CType(grdetalle.DataSource, DataTable)) 'L_prMovimientoChoferGrabar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, 0, 0, CType(grdetalle.DataSource, DataTable))
         If res Then
 
             _prCargarVenta()
@@ -504,7 +509,8 @@ Public Class F0_GrupoCanero
 
     End Sub
     Private Sub _prGuardarModificado()
-        Dim res As Boolean = True 'L_prMovimientoModificar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, CType(grdetalle.DataSource, DataTable))
+        _CodCliente = grmovimiento.GetValue("ydnumi")
+        Dim res As Boolean = L_prGrupoModificar(tbCodigo.Text, _CodCliente, tbFecha.Value.ToString("dd/MM/yyyy"), tbObservacion.Text, CType(grdetalle.DataSource, DataTable))
         If res Then
 
             _prCargarVenta()
@@ -534,21 +540,20 @@ Public Class F0_GrupoCanero
             End If
         Else
 
-            _modulo.Select()
+            ' _modulo.Select()
             Me.Close()
 
         End If
     End Sub
     Public Sub _prCargarIconELiminar()
-        'If (cbConcepto.Value <> 3) Then
-        '    For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
-        '        Dim Bin As New MemoryStream
-        '        Dim img As New Bitmap(My.Resources.delete, 28, 28)
-        '        img.Save(Bin, Imaging.ImageFormat.Png)
-        '        CType(grdetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
-        '        grdetalle.RootTable.Columns("img").Visible = True
-        '    Next
-        'End If
+
+        For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim Bin As New MemoryStream
+            Dim img As New Bitmap(My.Resources.delete, 28, 28)
+            img.Save(Bin, Imaging.ImageFormat.Png)
+            CType(grdetalle.DataSource, DataTable).Rows(i).Item("img") = Bin.GetBuffer
+            grdetalle.RootTable.Columns("img").Visible = True
+        Next
     End Sub
     Public Sub _PrimerRegistro()
         Dim _MPos As Integer
@@ -567,6 +572,7 @@ Public Class F0_GrupoCanero
 
             Dim existe As Boolean = _fnExisteProducto(grCanero.GetValue("ydcod"))
             If ((pos >= 0) And (Not existe)) Then
+                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("ydnumi") = grCanero.GetValue("ydnumi")
                 CType(grdetalle.DataSource, DataTable).Rows(pos).Item("ydcod") = grCanero.GetValue("ydcod")
                 CType(grdetalle.DataSource, DataTable).Rows(pos).Item("ydrazonsocial") = grCanero.GetValue("ydrazonsocial")
 
@@ -583,7 +589,7 @@ Public Class F0_GrupoCanero
             Else
                 If (existe) Then
                     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                    ToastNotification.Show(Me, "El producto ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    ToastNotification.Show(Me, "El cañero ya existe en el detalle".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                     grCanero.RemoveFilters()
                     grCanero.Focus()
                     grCanero.MoveTo(grCanero.FilterRow)
@@ -692,31 +698,31 @@ Public Class F0_GrupoCanero
             Return
         End If
 
-        If (e.KeyData = Keys.Enter) Then
-            Dim f, c As Integer
-            c = grdetalle.Col
-            f = grdetalle.Row
+        'If (e.KeyData = Keys.Enter) Then
+        '    Dim f, c As Integer
+        '    c = grdetalle.Col
+        '    f = grdetalle.Row
 
-            If (grdetalle.Col = grdetalle.RootTable.Columns("ydcod").Index) Then
-                If (grdetalle.GetValue("producto") <> String.Empty) Then
-                    _prAddDetalleVenta()
-                    _HabilitarProductos()
-                Else
-                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                End If
+        '    If (grdetalle.Col = grdetalle.RootTable.Columns("ydcod").Index) Then
+        '        If (grdetalle.GetValue("producto") <> String.Empty) Then
+        '            _prAddDetalleVenta()
+        '            _HabilitarProductos()
+        '        Else
+        '            ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '        End If
 
-            End If
-            If (grdetalle.Col = grdetalle.RootTable.Columns("ydcod").Index) Then
-                If (grdetalle.GetValue("producto") <> String.Empty) Then
-                    _prAddDetalleVenta()
-                    _HabilitarProductos()
-                Else
-                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                End If
+        '    End If
+        '    If (grdetalle.Col = grdetalle.RootTable.Columns("ydcod").Index) Then
+        '        If (grdetalle.GetValue("producto") <> String.Empty) Then
+        '            _prAddDetalleVenta()
+        '            _HabilitarProductos()
+        '        Else
+        '            ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+        '        End If
 
-            End If
+        '    End If
 salirIf:
-        End If
+        'End If
 
         If (e.KeyData = Keys.Control + Keys.Enter And grdetalle.Row >= 0 And
             grdetalle.Col = grdetalle.RootTable.Columns("ydcod").Index) Then
@@ -850,7 +856,7 @@ salirIf:
             Return
         End If
 
-        If (grdetalle.RowCount >= 2) Then
+        If (grdetalle.RowCount >= 1) Then
             If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
                 _prEliminarFila()
             End If
@@ -876,7 +882,8 @@ salirIf:
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        If (grmovimiento.RowCount > 0) Then
+        If (grdetalle.RowCount > 0) Then
+
             _prhabilitar()
             btnNuevo.Enabled = False
             btnModificar.Enabled = False
@@ -900,11 +907,11 @@ salirIf:
         bandera = ef.band
         If (bandera = True) Then
             Dim mensajeError As String = ""
-            Dim res As Boolean = L_prMovimientoEliminar(tbCodigo.Text)
-            If res Then
+            L_prGrupoEliminar(tbCodigo.Text)
+            'If res Then
 
 
-                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
 
                 ToastNotification.Show(Me, "Código de Movimiento ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper,
                                           img, 2000,
@@ -913,10 +920,10 @@ salirIf:
 
                 _prFiltrar()
 
-            Else
-                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-            End If
+            'Else
+            '    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+            '    ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            'End If
         End If
     End Sub
 
@@ -1079,28 +1086,35 @@ salirIf:
                 If (bandera = True) Then
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
                     '_codCaneroUcg = Row.Cells("ydcod").Value
-                    _CodCliente = Row.Cells("ydnumi").Value
-                    tbCliente.Text = Row.Cells("ydrazonsocial").Value
-                    tbCodCanero.Text = Row.Cells("ydcod").Value
-                    '_dias = Row.Cells("yddias").Value
-                    'tbNit.Text = Row.Cells("ydnit").Value
-                    'TbNombre1.Text = Row.Cells("ydnomfac").Value
-                    'tipoDocumento = Row.Cells("ydtipdocelec").Value
-                    'correo = Row.Cells("ydcorreo").Value
-                    'tbComplemento.Text = Row.Cells("ydcompleCi").Value
-                    Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
-                    If (numiVendedor > 0) Then
-                        ' tbVendedor.Text = Row.Cells("vendedor").Value
-                        _CodEmpleado = Row.Cells("ydnumivend").Value
+                    If verificarcanero(Row.Cells("ydnumi").Value) Then
+                        _CodCliente = Row.Cells("ydnumi").Value
+                        tbCliente.Text = Row.Cells("ydrazonsocial").Value
+                        tbCodCanero.Text = Row.Cells("ydcod").Value
 
-                        grdetalle.Select()
-                        Table_producto = Nothing
+                        '_dias = Row.Cells("yddias").Value
+                        'tbNit.Text = Row.Cells("ydnit").Value
+                        'TbNombre1.Text = Row.Cells("ydnomfac").Value
+                        'tipoDocumento = Row.Cells("ydtipdocelec").Value
+                        'correo = Row.Cells("ydcorreo").Value
+                        'tbComplemento.Text = Row.Cells("ydcompleCi").Value
+                        Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
+                        If (numiVendedor > 0) Then
+                            ' tbVendedor.Text = Row.Cells("vendedor").Value
+                            _CodEmpleado = Row.Cells("ydnumivend").Value
+
+                            grdetalle.Select()
+                            Table_producto = Nothing
+                        Else
+                            tbVendedor.Clear()
+                            _CodEmpleado = 0
+                            tbVendedor.Focus()
+                            Table_producto = Nothing
+
+                        End If
+
                     Else
-                        tbVendedor.Clear()
-                        _CodEmpleado = 0
-                        tbVendedor.Focus()
-                        Table_producto = Nothing
-
+                        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                        ToastNotification.Show(Me, "El cañero ya se encuentra asignado a un grupo economico".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.TopCenter)
                     End If
                 End If
             End If

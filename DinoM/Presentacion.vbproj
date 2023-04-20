@@ -170,8 +170,8 @@
     <Reference Include="Janus.Windows.UI.v3">
       <HintPath>C:\librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\librerias\ZKTeco-dll64\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
@@ -466,6 +466,12 @@
     <Compile Include="F1_ExcelVenta.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F1_Liquidaciones.Designer.vb">
+      <DependentUpon>F1_Liquidaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F1_Liquidaciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F1_Productos.designer.vb">
       <DependentUpon>F1_Productos.vb</DependentUpon>
     </Compile>
@@ -488,6 +494,12 @@
       <DependentUpon>F1_MapaCLientes.vb</DependentUpon>
     </Compile>
     <Compile Include="F1_MapaCLientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F1_TotalCana.Designer.vb">
+      <DependentUpon>F1_TotalCana.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F1_TotalCana.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F1_Vendedor.Designer.vb">
@@ -637,6 +649,12 @@
       <DependentUpon>Pr_EstadoCuentasProveedores.vb</DependentUpon>
     </Compile>
     <Compile Include="Pr_EstadoCuentasProveedores.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pr_Liquidacion.Designer.vb">
+      <DependentUpon>Pr_Liquidacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_Liquidacion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pr_MovimientoDiarioVentas.Designer.vb">
@@ -1461,6 +1479,9 @@
     <EmbeddedResource Include="F1_ExcelVenta.resx">
       <DependentUpon>F1_ExcelVenta.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F1_Liquidaciones.resx">
+      <DependentUpon>F1_Liquidaciones.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F1_Productos.resx">
       <DependentUpon>F1_Productos.vb</DependentUpon>
     </EmbeddedResource>
@@ -1472,6 +1493,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_MapaCLientes.resx">
       <DependentUpon>F1_MapaCLientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F1_TotalCana.resx">
+      <DependentUpon>F1_TotalCana.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Vendedor.resx">
       <DependentUpon>F1_Vendedor.vb</DependentUpon>
@@ -1540,6 +1564,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_EstadoCuentasProveedores.resx">
       <DependentUpon>Pr_EstadoCuentasProveedores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_Liquidacion.resx">
+      <DependentUpon>Pr_Liquidacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_MovimientoDiarioVentas.resx">
       <DependentUpon>Pr_MovimientoDiarioVentas.vb</DependentUpon>

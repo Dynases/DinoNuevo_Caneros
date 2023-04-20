@@ -5400,7 +5400,7 @@ salirIf:
         Return ""
     End Function
 
-    Private Sub ButtonX4_Click(sender As Object, e As EventArgs) Handles ButtonX4.Click
+    Private Sub ButtonX4_Click(sender As Object, e As EventArgs)
         P_fnGenerarFactura(tbCodigo.Text)
 
         'If swTipoVenta.Value = True Then

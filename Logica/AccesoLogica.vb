@@ -1922,6 +1922,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_fnListarCanerosxInst2(Cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 14))
+        _listParam.Add(New Datos.DParametro("@ydcod", Cod))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY004", _listParam)
+
+        Return _Tabla
+    End Function
 #End Region
 #Region "TV001 Ventas"
     Public Shared Function L_fnGeneralVenta(almacen As Integer) As DataTable
@@ -2778,6 +2789,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tipo", 7))
         _listParam.Add(New Datos.DParametro("@cliente", codCliente))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function cargarGrupoCanero(cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@id", cod))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
 
         Return _Tabla
     End Function
@@ -7569,7 +7591,118 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     End Function
 
 
+    Public Shared Function L_fnAgregarGrupo(cod As String, cabeza As Integer, fecha As String, obs As String, detalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
 
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@codGrupo", cabeza))
+        '_listParam.Add(New Datos.DParametro("@tipo", cabeza))
+        _listParam.Add(New Datos.DParametro("@fecha", fecha))
+        _listParam.Add(New Datos.DParametro("@observacion", obs))
+        _listParam.Add(New Datos.DParametro("@TG0011", "", detalle))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Public Shared Function L_prGrupoEliminar(cod As String) As Boolean
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@codGrupo", cod))
+
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Public Shared Function L_prGrupoModificar(cod As String, cabeza As Integer, fecha As String, obs As String, detalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@codGrupo", cabeza))
+        _listParam.Add(New Datos.DParametro("@id", cod))
+        _listParam.Add(New Datos.DParametro("@fecha", fecha))
+        _listParam.Add(New Datos.DParametro("@observacion", obs))
+        _listParam.Add(New Datos.DParametro("@TG0011", "", detalle))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Public Shared Function verificarcanero(cod As Integer) As Boolean
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@id", cod))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
+        If _Tabla.Rows(0).Item("id") = 1 Then
+            Return False
+        Else
+            Return True
+        End If
+
+    End Function
+
+    Public Shared Function cargarDeudasporCanero(cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@id", cod))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
+
+        Return _Tabla
+
+
+    End Function
+
+    Public Shared Function cargarDeudasporGrupo(dt As DataTable) As DataTable
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@cañeros", "", dt))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
+
+        Return _Tabla
+
+
+    End Function
 
 #End Region
 
@@ -7725,4 +7858,155 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 #End Region
+
+#Region "Retencion"
+
+    Public Shared Function L_fnGrabarRetencion(fecci As String, quincena As Integer, gestion As Integer, inst As Integer, canero As Integer, factor As Decimal, cupo As Decimal,
+                                           totalIng As Double, porcentaje As Double,
+                                           totalIngQuin As Double, RetBs As Double,
+                                           RetSus As Double, TComb As Double, RComb As Double, TInsu As Double, RInsu As Double,
+                                           TRest As Double, RRest As Double, TCont As Double, RCont As Double, TSho As Double, RSho As Double,
+                                           TOtSu As Double, ROtSu As Double, TConv As Double, RConv As Double, TotalD As Double, TotalR As Double,
+                                           alm As Integer, usuario As Integer, CheckGrupo As Integer, detalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@trfecci", fecci))
+        _listParam.Add(New Datos.DParametro("@trquin", quincena))
+        _listParam.Add(New Datos.DParametro("@trges", gestion))
+        _listParam.Add(New Datos.DParametro("@trins", inst))
+        _listParam.Add(New Datos.DParametro("@trcan", canero))
+        _listParam.Add(New Datos.DParametro("@trfac", factor))
+        _listParam.Add(New Datos.DParametro("@trcupo", cupo))
+        _listParam.Add(New Datos.DParametro("@trTIng", totalIng))
+        _listParam.Add(New Datos.DParametro("@trpor", porcentaje))
+        _listParam.Add(New Datos.DParametro("@trIngQuin", totalIngQuin))
+        _listParam.Add(New Datos.DParametro("@trRetBs", RetBs))
+        _listParam.Add(New Datos.DParametro("@trRetSus", RetSus))
+        _listParam.Add(New Datos.DParametro("@trTComb", TComb))
+        _listParam.Add(New Datos.DParametro("@trRComb", RComb))
+        _listParam.Add(New Datos.DParametro("@trTInsu", TInsu))
+        _listParam.Add(New Datos.DParametro("@trRInsu", RInsu))
+        _listParam.Add(New Datos.DParametro("@trTRest", TRest))
+        _listParam.Add(New Datos.DParametro("@trRRest", RRest))
+        _listParam.Add(New Datos.DParametro("@trTCont", TCont))
+        _listParam.Add(New Datos.DParametro("@trRCont", RCont))
+        _listParam.Add(New Datos.DParametro("@trTSho", TSho))
+        _listParam.Add(New Datos.DParametro("@trRSho", RSho))
+        _listParam.Add(New Datos.DParametro("@trTOtSu", TOtSu))
+        _listParam.Add(New Datos.DParametro("@trROtSu", ROtSu))
+        _listParam.Add(New Datos.DParametro("@trTConv", TConv))
+        _listParam.Add(New Datos.DParametro("@trRConv", RConv))
+        _listParam.Add(New Datos.DParametro("@trTotalD", TotalD))
+        _listParam.Add(New Datos.DParametro("@trTotalR", TotalR))
+        _listParam.Add(New Datos.DParametro("@tralm", alm))
+        _listParam.Add(New Datos.DParametro("@trvend", usuario))
+        _listParam.Add(New Datos.DParametro("@trTCan", CheckGrupo))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@TR0011", "", detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnGeneralRetencion() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnDetalleRetencion(_numi As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@trid", _numi))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+#End Region
+
+#Region "Caña Comprometida"
+    Public Shared Function L_fnRegistrarCañaComprometida(codCan As Integer, codIns As Integer, fecha As String, gestion As Integer, total As Double) As Boolean
+        Dim _Tabla As DataTable
+        Dim res As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@trcan", codCan))
+        _listParam.Add(New Datos.DParametro("@trins", codIns))
+        _listParam.Add(New Datos.DParametro("@trfec", fecha))
+        _listParam.Add(New Datos.DParametro("@trTCan", gestion))
+        _listParam.Add(New Datos.DParametro("@trcupo", total))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            res = True
+        Else
+            res = False
+        End If
+        Return res
+    End Function
+
+    Public Shared Function L_fnCargarCañaComprometida() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnCargarLiquidacion(codCan As Integer, fecha As String) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@trcan", codCan))
+        _listParam.Add(New Datos.DParametro("@trfec", fecha))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnCargarCupo(codCan As Integer, gestion As String, quincena As Integer) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@trcan", codCan))
+        _listParam.Add(New Datos.DParametro("@trges", gestion))
+        _listParam.Add(New Datos.DParametro("@trid", quincena))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+#End Region
+
 End Class
