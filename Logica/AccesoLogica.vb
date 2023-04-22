@@ -2002,6 +2002,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_prReporteRep930(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 28))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prReporteRetiroCaneroUno(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
         Dim _Tabla As DataTable
 
