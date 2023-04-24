@@ -130,6 +130,9 @@ Partial Class F1_Liquidaciones
         Me.BubbleBarUsuario.MouseOverTabColors.BorderColor = System.Drawing.SystemColors.Highlight
         Me.BubbleBarUsuario.SelectedTabColors.BorderColor = System.Drawing.Color.Black
         '
+        'btnSalir
+        '
+        '
         'btnEliminar
         '
         Me.btnEliminar.Visible = False

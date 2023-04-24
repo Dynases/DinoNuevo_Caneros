@@ -66,6 +66,8 @@ Public Class F0_Retenciones
         P_prCargarParametro()
         _prValidadFactura()
         _prCargarNameLabel()
+        _prCargarComboGestion(cbGestion)
+        _prCargarQuincena(cbQuincena)
         'COnfiguracion previa para Pantalla de facturacion o Nota de venta
         If gb_FacturaEmite Then
             btnModificar.Visible = True
@@ -123,6 +125,35 @@ Public Class F0_Retenciones
             .Refresh()
         End With
     End Sub
+
+    Private Sub _prCargarComboGestion(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnListarGestiones()
+        With mCombo
+            .DropDownList.Columns.Clear()
+
+            .DropDownList.Columns.Add("gestion").Width = 60
+            .DropDownList.Columns("gestion").Caption = "GESTION"
+            .ValueMember = "gestion"
+            .DisplayMember = "gestion"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
+    Private Sub _prCargarQuincena(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnListarQuincena()
+        With mCombo
+            .DropDownList.Columns.Clear()
+
+            .DropDownList.Columns.Add("quincena").Width = 100
+            .DropDownList.Columns("quincena").Caption = "QUINCENA"
+            .ValueMember = "quincena"
+            .DisplayMember = "quincena"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
     Private Sub _prAsignarPermisos()
 
         Dim dtRolUsu As DataTable = L_prRolDetalleGeneral(gi_userRol, _nameButton)
@@ -144,8 +175,8 @@ Public Class F0_Retenciones
     End Sub
     Private Sub _prInhabiliitar()
 
-        TextBoxX1.ReadOnly = True
-        TextBoxX2.ReadOnly = True
+        cbQuincena.ReadOnly = True
+        cbGestion.ReadOnly = True
         TextBoxX3.ReadOnly = True
 
         tbFechaVenta.Enabled = False
@@ -158,6 +189,8 @@ Public Class F0_Retenciones
         btnBitacora.Enabled = False
         btnGrabar.Enabled = False
         btnNuevo.Enabled = True
+
+
         'btnEliminar.Enabled = True
 
         '------------REVISAR ESTADO
@@ -187,8 +220,8 @@ Public Class F0_Retenciones
     End Sub
     Private Sub _prhabilitar()
 
-        TextBoxX1.ReadOnly = False
-        TextBoxX2.ReadOnly = False
+        cbQuincena.ReadOnly = False
+        cbGestion.ReadOnly = False
         TextBoxX3.ReadOnly = False
 
         tbFechaVenta.Enabled = True
@@ -203,7 +236,7 @@ Public Class F0_Retenciones
         btnNuevo.Enabled = False
         'grVentas.Enabled = False
         'tbCodigo.ReadOnly = False
-
+        CheckGrupo.Checked = False
         'tbFechaVenta.IsInputReadOnly = False
         'tbFechaVenta.Enabled = True
 
@@ -240,8 +273,8 @@ Public Class F0_Retenciones
     End Sub
     Private Sub _Limpiar()
 
-        TextBoxX1.Clear()
-        TextBoxX2.Clear()
+        cbQuincena.Clear()
+        cbGestion.Clear()
         TextBoxX3.Clear()
 
         tbFechaVenta.Enabled = False
@@ -251,6 +284,19 @@ Public Class F0_Retenciones
         tbcodInst.Clear()
         tbInstitucion.Clear()
         idInstitucion.Clear()
+
+        Dim dt As DataTable = cargarDeudasporCanero(-1)
+        dt.Clear()
+        grdetalle.DataSource = dt
+        dt = cargarGrupoCanero(-1)
+        dt.Clear()
+        grGrupoEco.DataSource = dt
+        dt = L_fnListarCanerosxInst2(-1)
+        dt.Clear()
+        grCanero.DataSource = dt
+
+
+
 
 
         TextBoxX4.Clear()
@@ -307,8 +353,8 @@ Public Class F0_Retenciones
     Public Sub _prMostrarRegistro(_N As Integer)
 
         With grVentas
-            TextBoxX1.Text = .GetValue("trquin").ToString
-            TextBoxX2.Text = .GetValue("trges").ToString
+            cbQuincena.Text = .GetValue("trquin").ToString
+            cbGestion.Text = .GetValue("trges").ToString
             TextBoxX3.Text = .GetValue("trfac").ToString
             TextBoxX4.Text = .GetValue("trcupo").ToString
             TextBoxX5.Text = .GetValue("trTIng").ToString
@@ -437,13 +483,15 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Capital"
+            .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("aporte")
-            .Width = 50
+            .Width = 110
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Aporte"
+            .AggregateFunction = AggregateFunction.Sum
         End With
 
         With grdetalle.RootTable.Columns("deuda")
@@ -452,6 +500,7 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Deuda"
+            .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("cobrar")
             .Width = 100
@@ -459,6 +508,7 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Cobrar"
+            .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("saldo")
             .Width = 100
@@ -466,13 +516,22 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Saldo"
+            .AggregateFunction = AggregateFunction.Sum
 
         End With
 
         With grdetalle
+            '.DefaultFilterRowComparison = FilterConditionOperator.Contains
+            '.FilterMode = FilterMode.Automatic
+            '.FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
+
+            .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
     End Sub
 
@@ -562,6 +621,7 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Capital"
+            .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("aporte")
             .Width = 50
@@ -569,6 +629,7 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Aporte"
+            .AggregateFunction = AggregateFunction.Sum
         End With
 
         With grdetalle.RootTable.Columns("deuda")
@@ -577,6 +638,7 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Deuda"
+            .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("cobrar")
             .Width = 100
@@ -584,6 +646,7 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Cobrar"
+            .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("saldo")
             .Width = 100
@@ -591,6 +654,7 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Saldo"
+            .AggregateFunction = AggregateFunction.Sum
 
         End With
 
@@ -626,7 +690,7 @@ Public Class F0_Retenciones
 
         With grGrupoEco.RootTable.Columns("ydrazonsocial")
             .Caption = "Cañero".ToUpper
-            .Width = 100
+            .Width = 200
             .Visible = True
         End With
 
@@ -1177,14 +1241,34 @@ Public Class F0_Retenciones
     Public Function _ValidarCampos() As Boolean
         Try
 
-            If (_CodCliente <= 0) Then
+            If (_CodInstitucion <= 0) Then
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "Por Favor Seleccione una Institucion con Ctrl+Enter".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 tbInstitucion.Focus()
                 Return False
 
             End If
+            If (_CodCliente <= 0) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Seleccione un Cañero".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
+                Return False
+
+            End If
+            If (TextBoxX3.Text = String.Empty) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Ingrese un factor".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                TextBoxX3.Focus()
+                Return False
+
+            End If
+
+            If (grdetalle.GetTotal(grdetalle.RootTable.Columns("cobrar"), AggregateFunction.Sum) <= 0) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Ingrese un monto a cobrar".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                Return False
+
+            End If
             Return True
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -1356,7 +1440,7 @@ Public Class F0_Retenciones
 
             If 5 = 5 Then
                 'Dim dtDetalle As DataTable = rearmarDetalle()
-                Dim res As Boolean = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(TextBoxX1.Text), CDbl(TextBoxX2.Text), CInt(idInstitucion.Text), _CodCliente,
+                Dim res As Boolean = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(cbQuincena.Value), CDbl(cbGestion.Value), CInt(idInstitucion.Text), _CodCliente,
                                                          CDbl(TextBoxX3.Text), CDbl(TextBoxX4.Text), CDbl(TextBoxX5.Text), CDbl(TextBoxX6.Text), CDbl(TextBoxX7.Text), CDbl(TextBoxX8.Text),
                                                          CDbl(TextBoxX9.Text), TComb, RComb, TInsu, RInsu, TRest, RRest, TCont, RCont, TSho, RSho, TOtSu, ROtSu, TConv, RConv, CDbl(tbTotalD.Text),
                                                          CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable))
@@ -1783,7 +1867,7 @@ Public Class F0_Retenciones
         LabelAlmacen.Text = gi_userSuc
         LabelAlmacen.Text = gs_userSucNom
 
-        btnNuevo.Enabled = True
+        btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
         btnGrabar.Enabled = True
@@ -1835,6 +1919,7 @@ Public Class F0_Retenciones
                     tbcodInst.Text = Row.Cells("CodInst").Value
                     tbInstitucion.Text = Row.Cells("nomInst").Value
                     idInstitucion.Text = Row.Cells("id").Value
+                    _CodInstitucion = Row.Cells("id").Value
                     _prCargarListaCanerosxInstitucion(idInstitucion.Text)
                 End If
 
@@ -1876,7 +1961,7 @@ Public Class F0_Retenciones
         With grCanero
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
             .FilterMode = FilterMode.Automatic
-            '.FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2003
@@ -2058,127 +2143,27 @@ Public Class F0_Retenciones
             End If
 
 
-            If (e.KeyData = Keys.Enter) Then
-                Dim f, c As Integer
-                c = grdetalle.Col
-                f = grdetalle.Row
-
-                If (grdetalle.Col = grdetalle.RootTable.Columns("tbcmin").Index) Then
-                    If (grdetalle.GetValue("producto") <> String.Empty) Then
-                        _prAddDetalleVenta()
-                        _HabilitarProductos()
-                    Else
-                        ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    End If
-
-                End If
-                If (grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
-                    If (grdetalle.GetValue("producto") <> String.Empty) Then
-                        _prAddDetalleVenta()
-                        _HabilitarProductos()
-                    Else
-                        ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    End If
-
-                End If
-                If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
-                    If (grdetalle.GetValue("yfcbarra").ToString().Trim() <> String.Empty) Then
-                        cargarProductos()
-                        If (grdetalle.Row = grdetalle.RowCount - 1) Then
-                            Dim codigoBarrasCompleto = grdetalle.GetValue("yfcbarra").ToString
-                            Dim primerDigito As String = Mid(codigoBarrasCompleto, 1, 1)
-                            If primerDigito = "2" Then
-                                Dim codigoBarrasProducto As Integer
-                                Dim totalEntero, totalDecimal, total2, total As Decimal
-                                codigoBarrasProducto = Mid(codigoBarrasCompleto, 1, 6)
-                                'CUANDO EL COD BARRA TENGA 6 DIGITOS  EJEM: 200001
-                                If (existeProducto(codigoBarrasProducto)) Then
-
-                                    totalEntero = Mid(codigoBarrasCompleto, 7, 4)
-                                    totalDecimal = Mid(codigoBarrasCompleto, 11, 2)
-                                    total2 = CDbl(totalEntero).ToString() + "." + CDbl(totalDecimal).ToString()
-                                    total = CDbl(total2)
-                                    If (Not verificarExistenciaUnica(codigoBarrasProducto)) Then
-                                        ponerProducto2(codigoBarrasProducto, total, -1)
-                                        _prAddDetalleVenta()
-                                    Else
-                                        ponerProducto2(codigoBarrasProducto, total, grdetalle.RowCount - 1)
-                                        _prAddDetalleVenta()
-                                    End If
-
-                                Else
-                                    ''CUANDO EL CODIGO DE BARRAS TENGA 7 DIGITOS EJEM: 2000001
-                                    codigoBarrasProducto = Mid(codigoBarrasCompleto, 1, 7)
-                                    If (existeProducto(codigoBarrasProducto)) Then
-                                        totalEntero = Mid(codigoBarrasCompleto, 8, 3)
-                                        totalDecimal = Mid(codigoBarrasCompleto, 11, 2)
-                                        total2 = CDbl(totalEntero).ToString() + "." + CDbl(totalDecimal).ToString()
-                                        total = CDbl(total2)
-                                        If (Not verificarExistenciaUnica(codigoBarrasProducto)) Then
-                                            ponerProducto2(codigoBarrasProducto, total, -1)
-                                            _prAddDetalleVenta()
-                                        Else
-                                            ponerProducto2(codigoBarrasProducto, total, grdetalle.RowCount - 1)
-                                            _prAddDetalleVenta()
-                                        End If
-                                    Else
-                                        grdetalle.DataChanged = False
-                                        ToastNotification.Show(Me, "El código de barra del producto no existe", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                                    End If
-                                End If
-                            Else
-
-                                If (existeProducto(grdetalle.GetValue("yfcbarra").ToString)) Then
-                                    If (Not verificarExistenciaUnica(grdetalle.GetValue("yfcbarra").ToString)) Then
-                                        Dim resultado As Boolean = False
-                                        ponerProducto(grdetalle.GetValue("yfcbarra").ToString, resultado)
-                                        If resultado Then
-                                            _prAddDetalleVenta()
-                                        End If
-                                    Else
-                                        'If (grdetalle.GetValue("producto").ToString <> String.Empty) Then
-                                        sumarCantidad(grdetalle.GetValue("yfcbarra").ToString)
-                                        'Else
-                                        '    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                                        '    ToastNotification.Show(Me, "El Producto: NO CUENTA CON STOCK DISPONIBLE", img, 5000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                                        '    FilaSelectLote = Nothing
-                                        'End If
-                                    End If
-                                Else
-                                    grdetalle.DataChanged = False
-                                    ToastNotification.Show(Me, "El código de barra del producto no existe", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                                End If
-                            End If
-                        Else
-                            grdetalle.DataChanged = False
-                            grdetalle.Row = grdetalle.RowCount - 1
-                            grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index
-                            ToastNotification.Show(Me, "El cursor debe situarse en la ultima fila", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                        End If
-                    Else
-                        ToastNotification.Show(Me, "El código de barra no puede quedar vacio", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                    End If
-                End If
 
 
-                'opcion para cargar la grilla con el codigo de barra
-                'If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
 
-                '    If (grdetalle.GetValue("yfcbarra") <> String.Empty) Then
-                '        _buscarRegistro(grdetalle.GetValue("yfcbarra"))
+            'opcion para cargar la grilla con el codigo de barra
+            'If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
+
+            '    If (grdetalle.GetValue("yfcbarra") <> String.Empty) Then
+            '        _buscarRegistro(grdetalle.GetValue("yfcbarra"))
 
 
-                '        '_prAddDetalleVenta()
-                '        '_HabilitarProductos()
-                '        ' MsgBox("hola de la grilla" + grdetalle.GetValue("yfcbarra") + t.Container.ToString)
-                '        'ojo
-                '    Else
-                '        ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-                '    End If
+            '        '_prAddDetalleVenta()
+            '        '_HabilitarProductos()
+            '        ' MsgBox("hola de la grilla" + grdetalle.GetValue("yfcbarra") + t.Container.ToString)
+            '        'ojo
+            '    Else
+            '        ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+            '    End If
 
-                'End If
+            'End If
 salirIf:
-            End If
+
 
             'If (e.KeyData = Keys.Control + Keys.Enter And grdetalle.Row >= 0 And
             '    grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
@@ -2796,7 +2781,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub TextBoxX2_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX2.TextChanged
+    Private Sub TextBoxX2_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -2814,15 +2799,35 @@ salirIf:
     End Sub
 
     Private Sub TextBoxX3_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX3.TextChanged
-        If TextBoxX7.Text <> "" Then
-            TextBoxX8.Text = CDbl(TextBoxX7.Text) * CDbl(TextBoxX3.Text)
-            TextBoxX9.Text = CDbl(TextBoxX7.Text) * CDbl(TextBoxX3.Text) * 6.96
+        If btnGrabar.Enabled = True Then
+            If TextBoxX7.Text <> "" Then
+                TextBoxX8.Text = CDbl(TextBoxX7.Text) * IIf(TextBoxX3.Text = "", 0, CDbl(TextBoxX3.Text))
+                TextBoxX9.Text = CDbl(TextBoxX7.Text) * IIf(TextBoxX3.Text = "", 0, CDbl(TextBoxX3.Text)) * 6.96
+            End If
         End If
     End Sub
 
     Private Sub TextBoxX5_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX5.TextChanged
         If TextBoxX4.Text <> "" Then
             TextBoxX6.Text = CDbl(TextBoxX5.Text) * 100 / CDbl(TextBoxX4.Text)
+        End If
+    End Sub
+
+    Private Sub CheckGrupo_CheckedChanged(sender As Object, e As EventArgs) Handles CheckGrupo.CheckedChanged
+        _prCargarDetalleVenta(_CodCliente)
+    End Sub
+
+    Private Sub cbQuincena_ValueChanged(sender As Object, e As EventArgs) Handles cbQuincena.ValueChanged
+        If cbGestion.Text <> String.Empty Then
+            Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
+            tbFechaVenta.Value = dt.Rows(0).Item("fecha")
+        End If
+    End Sub
+
+    Private Sub cbGestion_ValueChanged(sender As Object, e As EventArgs) Handles cbGestion.ValueChanged
+        If cbQuincena.Text <> String.Empty Then
+            Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
+            tbFechaVenta.Value = dt.Rows(0).Item("fecha")
         End If
     End Sub
 
@@ -3255,7 +3260,7 @@ salirIf:
     End Sub
 
     Private Sub CargarTotalQuincena(gestion As String, codCan As Integer)
-        Dim dt As DataTable = L_fnCargarCupo(codCan, gestion, CInt(TextBoxX1.Text))
+        Dim dt As DataTable = L_fnCargarCupo(codCan, gestion, CInt(cbQuincena.Value))
         TextBoxX4.Text = dt.Rows(0).Item("cupo")
         TextBoxX5.Text = dt.Rows(0).Item("ingresado")
         TextBoxX7.Text = dt.Rows(0).Item("quincena")
@@ -3263,15 +3268,21 @@ salirIf:
     End Sub
     Private Sub grCanero_KeyDown(sender As Object, e As KeyEventArgs) Handles grCanero.KeyDown
         If grCanero.RowCount > 0 Then
-            If e.KeyData = Keys.Enter Then
-                _CodCliente = grCanero.GetValue("ydnumi")
-                _prCargarGrupoEco(_CodCliente)
+            If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
+                If e.KeyData = Keys.Enter Then
+                    _CodCliente = grCanero.GetValue("ydnumi")
+                    _prCargarGrupoEco(_CodCliente)
 
-                _prCargarDetalleVenta(_CodCliente)
+                    _prCargarDetalleVenta(_CodCliente)
+                    CargarTotalQuincena(cbGestion.Value, _CodCliente)
+                    ActualizarTotales()
+
+                End If
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Seleccione una Gestion y una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
             End If
-            CargarTotalQuincena(TextBoxX2.Text, _CodCliente)
-            ActualizarTotales()
         End If
     End Sub
 

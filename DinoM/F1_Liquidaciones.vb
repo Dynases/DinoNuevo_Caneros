@@ -79,6 +79,30 @@ Public Class F1_Liquidaciones
             .Width = 90
             .Visible = False
         End With
+        With JGrM_Buscador.RootTable.Columns("ydcod")
+            .Width = 50
+            .Visible = True
+            .Caption = "Cod. Can."
+        End With
+        With JGrM_Buscador.RootTable.Columns("ydrazonsocial")
+            .Width = 180
+            .Visible = True
+            .Caption = "Cañero"
+        End With
+        With JGrM_Buscador.RootTable.Columns("id")
+            .Width = 90
+            .Visible = False
+        End With
+        With JGrM_Buscador.RootTable.Columns("codInst")
+            .Width = 50
+            .Visible = True
+            .Caption = "Cod. Inst."
+        End With
+        With JGrM_Buscador.RootTable.Columns("nomInst")
+            .Width = 180
+            .Visible = True
+            .Caption = "Institucion"
+        End With
 
         With JGrM_Buscador.RootTable.Columns("doc")
             .Width = 90
@@ -90,33 +114,33 @@ Public Class F1_Liquidaciones
             .Caption = "Tipo de Deuda"
         End With
         With JGrM_Buscador.RootTable.Columns("comb")
-            .Width = 150
+            .Width = 120
             .Visible = True
             .Caption = "Combustible"
             .FormatString = "0.00"
         End With
 
         With JGrM_Buscador.RootTable.Columns("insumos")
-            .Width = 150
+            .Width = 120
             .Visible = True
             .Caption = "Insumos"
             .FormatString = "0.00"
         End With
 
         With JGrM_Buscador.RootTable.Columns("Rest")
-            .Width = 150
+            .Width = 120
             .Visible = True
             .Caption = "Restructuracion"
             .FormatString = "0.00"
         End With
         With JGrM_Buscador.RootTable.Columns("otros")
-            .Width = 150
+            .Width = 120
             .Visible = True
             .Caption = "Otros Prestamos"
             .FormatString = "0.00"
         End With
         With JGrM_Buscador.RootTable.Columns("convenio")
-            .Width = 150
+            .Width = 120
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = True
             .Caption = "P. Convenio"
@@ -137,6 +161,10 @@ Public Class F1_Liquidaciones
 
     Private Sub F1_Liquidaciones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tbFecha.Value = Date.Now
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
     End Sub
 
     Private Sub tbCanero_TextChanged(sender As Object, e As EventArgs) Handles tbCanero.TextChanged

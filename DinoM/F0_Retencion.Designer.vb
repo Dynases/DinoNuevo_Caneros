@@ -25,14 +25,16 @@ Partial Class F0_Retenciones
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_Retenciones))
+        Dim cbGestion_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbQuincena_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.cbGestion = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.cbQuincena = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.CheckGrupo = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.TextBoxX3 = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
-        Me.TextBoxX2 = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.TextBoxX1 = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.idInstitucion = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbcodInst = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelAlmacen = New System.Windows.Forms.Label()
@@ -128,6 +130,8 @@ Partial Class F0_Retenciones
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel2.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.cbGestion, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupCobranza.SuspendLayout()
         Me.gpDetalleVenta.SuspendLayout()
@@ -373,12 +377,12 @@ Partial Class F0_Retenciones
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.cbGestion)
+        Me.Panel2.Controls.Add(Me.cbQuincena)
         Me.Panel2.Controls.Add(Me.CheckGrupo)
         Me.Panel2.Controls.Add(Me.TextBoxX3)
         Me.Panel2.Controls.Add(Me.LabelX2)
-        Me.Panel2.Controls.Add(Me.TextBoxX2)
         Me.Panel2.Controls.Add(Me.LabelX1)
-        Me.Panel2.Controls.Add(Me.TextBoxX1)
         Me.Panel2.Controls.Add(Me.idInstitucion)
         Me.Panel2.Controls.Add(Me.tbcodInst)
         Me.Panel2.Controls.Add(Me.LabelAlmacen)
@@ -400,6 +404,28 @@ Partial Class F0_Retenciones
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1315, 57)
         Me.Panel2.TabIndex = 0
+        '
+        'cbGestion
+        '
+        cbGestion_DesignTimeLayout.LayoutString = resources.GetString("cbGestion_DesignTimeLayout.LayoutString")
+        Me.cbGestion.DesignTimeLayout = cbGestion_DesignTimeLayout
+        Me.cbGestion.Location = New System.Drawing.Point(233, 29)
+        Me.cbGestion.Name = "cbGestion"
+        Me.cbGestion.SelectedIndex = -1
+        Me.cbGestion.SelectedItem = Nothing
+        Me.cbGestion.Size = New System.Drawing.Size(100, 22)
+        Me.cbGestion.TabIndex = 397
+        '
+        'cbQuincena
+        '
+        cbQuincena_DesignTimeLayout.LayoutString = resources.GetString("cbQuincena_DesignTimeLayout.LayoutString")
+        Me.cbQuincena.DesignTimeLayout = cbQuincena_DesignTimeLayout
+        Me.cbQuincena.Location = New System.Drawing.Point(66, 29)
+        Me.cbQuincena.Name = "cbQuincena"
+        Me.cbQuincena.SelectedIndex = -1
+        Me.cbQuincena.SelectedItem = Nothing
+        Me.cbQuincena.Size = New System.Drawing.Size(100, 22)
+        Me.cbQuincena.TabIndex = 396
         '
         'CheckGrupo
         '
@@ -448,22 +474,6 @@ Partial Class F0_Retenciones
         Me.LabelX2.TabIndex = 393
         Me.LabelX2.Text = "Factor:"
         '
-        'TextBoxX2
-        '
-        Me.TextBoxX2.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.TextBoxX2.Border.Class = "TextBoxBorder"
-        Me.TextBoxX2.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.TextBoxX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBoxX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.TextBoxX2.Location = New System.Drawing.Point(238, 32)
-        Me.TextBoxX2.Name = "TextBoxX2"
-        Me.TextBoxX2.PreventEnterBeep = True
-        Me.TextBoxX2.Size = New System.Drawing.Size(80, 21)
-        Me.TextBoxX2.TabIndex = 392
-        '
         'LabelX1
         '
         Me.LabelX1.AutoSize = True
@@ -480,22 +490,6 @@ Partial Class F0_Retenciones
         Me.LabelX1.Size = New System.Drawing.Size(55, 16)
         Me.LabelX1.TabIndex = 391
         Me.LabelX1.Text = "Gestión:"
-        '
-        'TextBoxX1
-        '
-        Me.TextBoxX1.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.TextBoxX1.Border.Class = "TextBoxBorder"
-        Me.TextBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.TextBoxX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBoxX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.TextBoxX1.Location = New System.Drawing.Point(69, 32)
-        Me.TextBoxX1.Name = "TextBoxX1"
-        Me.TextBoxX1.PreventEnterBeep = True
-        Me.TextBoxX1.Size = New System.Drawing.Size(80, 21)
-        Me.TextBoxX1.TabIndex = 390
         '
         'idInstitucion
         '
@@ -1923,6 +1917,8 @@ Partial Class F0_Retenciones
         Me.GroupPanel2.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.cbGestion, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaVenta, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupCobranza.ResumeLayout(False)
         Me.gpDetalleVenta.ResumeLayout(False)
@@ -1991,9 +1987,7 @@ Partial Class F0_Retenciones
     Friend WithEvents GridEX1 As Janus.Windows.GridEX.GridEX
     Friend WithEvents TextBoxX3 As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents TextBoxX2 As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents TextBoxX1 As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents CheckGrupo As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents TextBoxX9 As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX
@@ -2032,4 +2026,6 @@ Partial Class F0_Retenciones
     Friend WithEvents tbTotalD As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbTotalR As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbTComb As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents cbGestion As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents cbQuincena As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

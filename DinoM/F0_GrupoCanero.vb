@@ -349,7 +349,7 @@ Public Class F0_GrupoCanero
         'End If
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
-        img.Save(Bin, Imaging.ImageFormat.Png)
+        'img.Save(Bin, Imaging.ImageFormat.Png)
         CType(grdetalle.DataSource, DataTable).Rows.Add(0, 0, "", Bin.GetBuffer, 0)
     End Sub
     Public Function _fnSiguienteNumi()
@@ -858,7 +858,10 @@ salirIf:
 
         If (grdetalle.RowCount >= 1) Then
             If (grdetalle.CurrentColumn.Index = grdetalle.RootTable.Columns("img").Index) Then
-                _prEliminarFila()
+                If grdetalle.GetValue("ydnumi") = 0 And grdetalle.GetValue("ydcod") = 0 And grdetalle.GetValue("ydrazonsocial") = "" Then
+                Else
+                    _prEliminarFila()
+                End If
             End If
         End If
 
@@ -889,9 +892,20 @@ salirIf:
             btnModificar.Enabled = False
             btnEliminar.Enabled = False
             btnGrabar.Enabled = True
-
+            _prAddDetalleVenta()
             PanelInferior.Enabled = False
             _prCargarIconELiminar()
+        Else
+            _prhabilitar()
+            btnNuevo.Enabled = False
+            btnModificar.Enabled = False
+            btnEliminar.Enabled = False
+            btnGrabar.Enabled = True
+            _prAddDetalleVenta()
+            PanelInferior.Enabled = False
+            _prCargarIconELiminar()
+            _prAddDetalleVenta()
+
         End If
     End Sub
 
