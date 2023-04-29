@@ -1384,6 +1384,11 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
+    Private Sub btCuentasxCobrar_Click(sender As Object, e As EventArgs) Handles btCuentasxCobrar.Click
+        Dim frm As New Pr_Liquidacion
+        frm.Show()
+    End Sub
+
 
 
 

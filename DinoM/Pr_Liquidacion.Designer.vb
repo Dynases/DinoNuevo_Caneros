@@ -24,6 +24,7 @@ Partial Class Pr_Liquidacion
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_Liquidacion))
+        Dim cbQuincena_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.tbNomCan = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.CheckTodosCan = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.CheckUnaCan = New DevComponents.DotNetBar.Controls.CheckBoxX()
@@ -36,6 +37,8 @@ Partial Class Pr_Liquidacion
         Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.cbQuincena = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -51,6 +54,7 @@ Partial Class Pr_Liquidacion
         Me.PanelIzq.SuspendLayout()
         CType(Me.MPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -136,6 +140,12 @@ Partial Class Pr_Liquidacion
         Me.BubbleBarUsuario.MouseOverTabColors.BorderColor = System.Drawing.SystemColors.Highlight
         Me.BubbleBarUsuario.SelectedTabColors.BorderColor = System.Drawing.Color.Black
         '
+        'btnSalir
+        '
+        '
+        'btnGenerar
+        '
+        '
         'PanelPrincipal
         '
         Me.PanelPrincipal.Size = New System.Drawing.Size(405, 414)
@@ -151,6 +161,8 @@ Partial Class Pr_Liquidacion
         '
         'MGPFiltros
         '
+        Me.MGPFiltros.Controls.Add(Me.LabelX1)
+        Me.MGPFiltros.Controls.Add(Me.cbQuincena)
         Me.MGPFiltros.Controls.Add(Me.tbNomCan)
         Me.MGPFiltros.Controls.Add(Me.CheckTodosCan)
         Me.MGPFiltros.Controls.Add(Me.CheckUnaCan)
@@ -403,6 +415,33 @@ Partial Class Pr_Liquidacion
         Me.tbFechaI.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaI.TabIndex = 251
         '
+        'cbQuincena
+        '
+        cbQuincena_DesignTimeLayout.LayoutString = resources.GetString("cbQuincena_DesignTimeLayout.LayoutString")
+        Me.cbQuincena.DesignTimeLayout = cbQuincena_DesignTimeLayout
+        Me.cbQuincena.Location = New System.Drawing.Point(3, 226)
+        Me.cbQuincena.Name = "cbQuincena"
+        Me.cbQuincena.SelectedIndex = -1
+        Me.cbQuincena.SelectedItem = Nothing
+        Me.cbQuincena.Size = New System.Drawing.Size(200, 22)
+        Me.cbQuincena.TabIndex = 397
+        '
+        'LabelX1
+        '
+        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX1.Location = New System.Drawing.Point(4, 197)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(133, 23)
+        Me.LabelX1.TabIndex = 398
+        Me.LabelX1.Text = "Tipo de Préstamo:"
+        '
         'Pr_Liquidacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -410,7 +449,9 @@ Partial Class Pr_Liquidacion
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Name = "Pr_Liquidacion"
+        Me.Opacity = 0.99R
         Me.Text = "Pr_Liquidacion"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Controls.SetChildIndex(Me.SuperTabPrincipal, 0)
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabPrincipal.ResumeLayout(False)
@@ -425,9 +466,11 @@ Partial Class Pr_Liquidacion
         Me.MPanelUserAct.ResumeLayout(False)
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MGPFiltros.ResumeLayout(False)
+        Me.MGPFiltros.PerformLayout()
         Me.PanelIzq.ResumeLayout(False)
         CType(Me.MPicture, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -444,4 +487,6 @@ Partial Class Pr_Liquidacion
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbFechaI As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbQuincena As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

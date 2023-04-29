@@ -1013,11 +1013,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTInsu.Border.Class = "TextBoxBorder"
         Me.tbTInsu.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTInsu.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTInsu.Location = New System.Drawing.Point(29, 114)
         Me.tbTInsu.Name = "tbTInsu"
         Me.tbTInsu.PreventEnterBeep = True
         Me.tbTInsu.ReadOnly = True
-        Me.tbTInsu.Size = New System.Drawing.Size(100, 22)
+        Me.tbTInsu.Size = New System.Drawing.Size(100, 21)
         Me.tbTInsu.TabIndex = 375
         '
         'tbTRest
@@ -1027,11 +1028,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTRest.Border.Class = "TextBoxBorder"
         Me.tbTRest.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTRest.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTRest.Location = New System.Drawing.Point(29, 174)
         Me.tbTRest.Name = "tbTRest"
         Me.tbTRest.PreventEnterBeep = True
         Me.tbTRest.ReadOnly = True
-        Me.tbTRest.Size = New System.Drawing.Size(100, 22)
+        Me.tbTRest.Size = New System.Drawing.Size(100, 21)
         Me.tbTRest.TabIndex = 374
         '
         'tbTCont
@@ -1041,11 +1043,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTCont.Border.Class = "TextBoxBorder"
         Me.tbTCont.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTCont.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTCont.Location = New System.Drawing.Point(29, 235)
         Me.tbTCont.Name = "tbTCont"
         Me.tbTCont.PreventEnterBeep = True
         Me.tbTCont.ReadOnly = True
-        Me.tbTCont.Size = New System.Drawing.Size(100, 22)
+        Me.tbTCont.Size = New System.Drawing.Size(100, 21)
         Me.tbTCont.TabIndex = 373
         '
         'tbTSho
@@ -1055,11 +1058,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTSho.Border.Class = "TextBoxBorder"
         Me.tbTSho.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTSho.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTSho.Location = New System.Drawing.Point(29, 299)
         Me.tbTSho.Name = "tbTSho"
         Me.tbTSho.PreventEnterBeep = True
         Me.tbTSho.ReadOnly = True
-        Me.tbTSho.Size = New System.Drawing.Size(100, 22)
+        Me.tbTSho.Size = New System.Drawing.Size(100, 21)
         Me.tbTSho.TabIndex = 372
         '
         'tbTOtSu
@@ -1069,11 +1073,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTOtSu.Border.Class = "TextBoxBorder"
         Me.tbTOtSu.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTOtSu.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTOtSu.Location = New System.Drawing.Point(29, 358)
         Me.tbTOtSu.Name = "tbTOtSu"
         Me.tbTOtSu.PreventEnterBeep = True
         Me.tbTOtSu.ReadOnly = True
-        Me.tbTOtSu.Size = New System.Drawing.Size(100, 22)
+        Me.tbTOtSu.Size = New System.Drawing.Size(100, 21)
         Me.tbTOtSu.TabIndex = 371
         '
         'tbRComb
@@ -1083,11 +1088,12 @@ Partial Class F0_Retenciones
         '
         Me.tbRComb.Border.Class = "TextBoxBorder"
         Me.tbRComb.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRComb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbRComb.Location = New System.Drawing.Point(291, 62)
         Me.tbRComb.Name = "tbRComb"
         Me.tbRComb.PreventEnterBeep = True
         Me.tbRComb.ReadOnly = True
-        Me.tbRComb.Size = New System.Drawing.Size(100, 22)
+        Me.tbRComb.Size = New System.Drawing.Size(100, 21)
         Me.tbRComb.TabIndex = 370
         '
         'tbRInsu
@@ -1097,11 +1103,12 @@ Partial Class F0_Retenciones
         '
         Me.tbRInsu.Border.Class = "TextBoxBorder"
         Me.tbRInsu.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRInsu.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbRInsu.Location = New System.Drawing.Point(291, 114)
         Me.tbRInsu.Name = "tbRInsu"
         Me.tbRInsu.PreventEnterBeep = True
         Me.tbRInsu.ReadOnly = True
-        Me.tbRInsu.Size = New System.Drawing.Size(100, 22)
+        Me.tbRInsu.Size = New System.Drawing.Size(100, 21)
         Me.tbRInsu.TabIndex = 369
         '
         'tbRRest
@@ -1111,11 +1118,12 @@ Partial Class F0_Retenciones
         '
         Me.tbRRest.Border.Class = "TextBoxBorder"
         Me.tbRRest.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRRest.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbRRest.Location = New System.Drawing.Point(291, 174)
         Me.tbRRest.Name = "tbRRest"
         Me.tbRRest.PreventEnterBeep = True
         Me.tbRRest.ReadOnly = True
-        Me.tbRRest.Size = New System.Drawing.Size(100, 22)
+        Me.tbRRest.Size = New System.Drawing.Size(100, 21)
         Me.tbRRest.TabIndex = 368
         '
         'tbRCont
@@ -1125,11 +1133,12 @@ Partial Class F0_Retenciones
         '
         Me.tbRCont.Border.Class = "TextBoxBorder"
         Me.tbRCont.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRCont.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbRCont.Location = New System.Drawing.Point(291, 235)
         Me.tbRCont.Name = "tbRCont"
         Me.tbRCont.PreventEnterBeep = True
         Me.tbRCont.ReadOnly = True
-        Me.tbRCont.Size = New System.Drawing.Size(100, 22)
+        Me.tbRCont.Size = New System.Drawing.Size(100, 21)
         Me.tbRCont.TabIndex = 367
         '
         'tbRSho
@@ -1139,11 +1148,12 @@ Partial Class F0_Retenciones
         '
         Me.tbRSho.Border.Class = "TextBoxBorder"
         Me.tbRSho.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRSho.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbRSho.Location = New System.Drawing.Point(291, 299)
         Me.tbRSho.Name = "tbRSho"
         Me.tbRSho.PreventEnterBeep = True
         Me.tbRSho.ReadOnly = True
-        Me.tbRSho.Size = New System.Drawing.Size(100, 22)
+        Me.tbRSho.Size = New System.Drawing.Size(100, 21)
         Me.tbRSho.TabIndex = 366
         '
         'tbROtSu
@@ -1153,11 +1163,12 @@ Partial Class F0_Retenciones
         '
         Me.tbROtSu.Border.Class = "TextBoxBorder"
         Me.tbROtSu.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbROtSu.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbROtSu.Location = New System.Drawing.Point(291, 358)
         Me.tbROtSu.Name = "tbROtSu"
         Me.tbROtSu.PreventEnterBeep = True
         Me.tbROtSu.ReadOnly = True
-        Me.tbROtSu.Size = New System.Drawing.Size(100, 22)
+        Me.tbROtSu.Size = New System.Drawing.Size(100, 21)
         Me.tbROtSu.TabIndex = 365
         '
         'tbTConv
@@ -1167,11 +1178,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTConv.Border.Class = "TextBoxBorder"
         Me.tbTConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTConv.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTConv.Location = New System.Drawing.Point(29, 413)
         Me.tbTConv.Name = "tbTConv"
         Me.tbTConv.PreventEnterBeep = True
         Me.tbTConv.ReadOnly = True
-        Me.tbTConv.Size = New System.Drawing.Size(100, 22)
+        Me.tbTConv.Size = New System.Drawing.Size(100, 21)
         Me.tbTConv.TabIndex = 364
         '
         'tbRConv
@@ -1181,11 +1193,12 @@ Partial Class F0_Retenciones
         '
         Me.tbRConv.Border.Class = "TextBoxBorder"
         Me.tbRConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRConv.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbRConv.Location = New System.Drawing.Point(291, 413)
         Me.tbRConv.Name = "tbRConv"
         Me.tbRConv.PreventEnterBeep = True
         Me.tbRConv.ReadOnly = True
-        Me.tbRConv.Size = New System.Drawing.Size(100, 22)
+        Me.tbRConv.Size = New System.Drawing.Size(100, 21)
         Me.tbRConv.TabIndex = 363
         '
         'tbTotalD
@@ -1195,11 +1208,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTotalD.Border.Class = "TextBoxBorder"
         Me.tbTotalD.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTotalD.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTotalD.Location = New System.Drawing.Point(29, 478)
         Me.tbTotalD.Name = "tbTotalD"
         Me.tbTotalD.PreventEnterBeep = True
         Me.tbTotalD.ReadOnly = True
-        Me.tbTotalD.Size = New System.Drawing.Size(100, 22)
+        Me.tbTotalD.Size = New System.Drawing.Size(100, 21)
         Me.tbTotalD.TabIndex = 362
         '
         'tbTotalR
@@ -1209,11 +1223,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTotalR.Border.Class = "TextBoxBorder"
         Me.tbTotalR.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTotalR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTotalR.Location = New System.Drawing.Point(291, 479)
         Me.tbTotalR.Name = "tbTotalR"
         Me.tbTotalR.PreventEnterBeep = True
         Me.tbTotalR.ReadOnly = True
-        Me.tbTotalR.Size = New System.Drawing.Size(100, 22)
+        Me.tbTotalR.Size = New System.Drawing.Size(100, 21)
         Me.tbTotalR.TabIndex = 360
         '
         'tbTComb
@@ -1223,11 +1238,12 @@ Partial Class F0_Retenciones
         '
         Me.tbTComb.Border.Class = "TextBoxBorder"
         Me.tbTComb.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTComb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbTComb.Location = New System.Drawing.Point(29, 59)
         Me.tbTComb.Name = "tbTComb"
         Me.tbTComb.PreventEnterBeep = True
         Me.tbTComb.ReadOnly = True
-        Me.tbTComb.Size = New System.Drawing.Size(100, 22)
+        Me.tbTComb.Size = New System.Drawing.Size(100, 21)
         Me.tbTComb.TabIndex = 358
         '
         'LabelX20

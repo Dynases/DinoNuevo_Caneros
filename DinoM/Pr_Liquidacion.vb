@@ -1,6 +1,29 @@
 ﻿Imports Logica.AccesoLogica
+Imports DevComponents.DotNetBar.Controls
+Imports DevComponents.DotNetBar
+
 
 Public Class Pr_Liquidacion
+
+    Dim _CodCliente As Integer = 0
+    Dim _CodInstitucion As Integer = 0
+
+    Private Sub _prCargarQuincena(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = TraerTipoPrestamos()
+        dt.Rows.Add(0, "Todos")
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("yccod3").Width = 60
+            .DropDownList.Columns("yccod3").Caption = "CODIGO"
+            .DropDownList.Columns.Add("ycdes3").Width = 100
+            .DropDownList.Columns("ycdes3").Caption = "PRESTAMO"
+            .ValueMember = "yccod3"
+            .DisplayMember = "ycdes3"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
     Private Sub tbInsCan_KeyDown(sender As Object, e As KeyEventArgs) Handles tbInsCan.KeyDown
         If (CheckUna.Checked) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
@@ -36,6 +59,7 @@ Public Class Pr_Liquidacion
                         tbInsCan.Focus()
                         Return
                     End If
+                    _CodInstitucion = Row.Cells("id").Value
                     tbCod.Text = Row.Cells("CodInst").Value
                     tbInsCan.Text = Row.Cells("nomInst").Value
                     'btnGenerar.Focus()
@@ -93,6 +117,7 @@ Public Class Pr_Liquidacion
                         tbNomCan.Focus()
                         Return
                     End If
+                    _CodCliente = Row.Cells("ydnumi").Value
                     tbCodCan.Text = Row.Cells("ydcod").Value
                     tbNomCan.Text = Row.Cells("ydrazonsocial").Value
                     'btnGenerar.Focus()
@@ -137,5 +162,38 @@ Public Class Pr_Liquidacion
                 tbNomCan.Text = ""
             End If
         End If
+    End Sub
+    Private Function interpretarDatos() As DataTable
+        Dim dt As DataTable = CargarCCPagosSaldos(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("yyyy/MM/dd"))
+
+        Return dt
+    End Function
+    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
+        Dim dt As DataTable = interpretarDatos()
+        If dt.Rows.Count > 0 Then
+            Dim objrep As New R_CCPagosSaldos
+            objrep.SetDataSource(dt)
+
+            objrep.SetParameterValue("prestamo", cbQuincena.Text)
+            objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+            MReportViewer.ReportSource = objrep
+            MReportViewer.Show()
+            MReportViewer.BringToFront()
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "NO HAY DATOS PARA MOSTRAR".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)
+        End If
+    End Sub
+
+    Private Sub SuperTabControlPanelRegistro_Click(sender As Object, e As EventArgs) Handles SuperTabControlPanelRegistro.Click
+
+    End Sub
+
+    Private Sub Pr_Liquidacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        _prCargarQuincena(cbQuincena)
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
     End Sub
 End Class

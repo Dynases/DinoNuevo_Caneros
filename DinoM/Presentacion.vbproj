@@ -1329,6 +1329,12 @@
       <DependentUpon>RetiroInsumosUno.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="R_CCPagosSaldos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_CCPagosSaldos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="R_KardexCreditoPagos.Designer.vb">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>
     </Compile>
@@ -2032,6 +2038,10 @@
     <EmbeddedResource Include="RetiroInsumosUno.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RetiroInsumosUno.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R_CCPagosSaldos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_CCPagosSaldos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="R_KardexCreditoPagos.resx">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>

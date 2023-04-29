@@ -8,6 +8,34 @@ Public Class F1_Liquidaciones
 
     Dim _CodCliente, _CodInstitucion As Integer
 
+    Private Sub _prCargarComboGestion(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnListarGestiones()
+        With mCombo
+            .DropDownList.Columns.Clear()
+
+            .DropDownList.Columns.Add("gestion").Width = 60
+            .DropDownList.Columns("gestion").Caption = "GESTION"
+            .ValueMember = "gestion"
+            .DisplayMember = "gestion"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
+    Private Sub _prCargarQuincena(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnListarQuincena()
+        With mCombo
+            .DropDownList.Columns.Clear()
+
+            .DropDownList.Columns.Add("quincena").Width = 100
+            .DropDownList.Columns("quincena").Caption = "QUINCENA"
+            .ValueMember = "quincena"
+            .DisplayMember = "quincena"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
     Private Sub tbCanero_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCanero.KeyDown
         If e.KeyData = Keys.Control + Keys.Enter Then
             Dim dt As DataTable
@@ -55,8 +83,14 @@ Public Class F1_Liquidaciones
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Dim dt As DataTable = L_fnCargarLiquidacion(IIf(tbCod.Text = "", -1, _CodCliente), tbFecha.Value.ToString("dd-MM-yyyy"))
-        _prCargarVenta1(dt)
+        Dim dt As DataTable
+        If SwitchButton1.Value = False Then
+            dt = L_fnCargarLiquidacion(IIf(tbCod.Text = "", -1, _CodCliente), tbFecha.Value.ToString("dd-MM-yyyy"))
+            _prCargarVenta1(dt)
+        Else
+            dt = L_fnCargarLiquidacionGuardar(cbQuincena.Value, cbGestion.Value)
+            _prCargarVenta1(dt)
+        End If
     End Sub
 
     Private Sub _prCargarVenta1(dt As DataTable)
@@ -160,11 +194,96 @@ Public Class F1_Liquidaciones
     End Sub
 
     Private Sub F1_Liquidaciones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         tbFecha.Value = Date.Now
+        _prCargarComboGestion(cbGestion)
+        _prCargarQuincena(cbQuincena)
+        btnGrabar.Enabled = False
+        ButtonX1.Enabled = False
+
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
+    End Sub
+
+    Private Sub SwitchButton1_ValueChanged(sender As Object, e As EventArgs) Handles SwitchButton1.ValueChanged
+        If SwitchButton1.Value = False Then
+            cbQuincena.Enabled = False
+            cbGestion.Enabled = False
+            btnGrabar.Enabled = False
+            ButtonX1.Enabled = False
+            tbCanero.Enabled = True
+            tbInstitucion.Enabled = True
+            tbFecha.Enabled = True
+        Else
+            cbQuincena.Enabled = True
+            cbGestion.Enabled = True
+            btnGrabar.Enabled = True
+            ButtonX1.Enabled = False
+            tbCanero.Enabled = False
+            tbInstitucion.Enabled = False
+            tbFecha.Enabled = False
+        End If
+    End Sub
+    Private Function ValidarCampos() As Boolean
+        If cbQuincena.Text = "" Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Seleccione una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            cbGestion.Focus()
+            Return False
+        End If
+        If cbGestion.Text = "" Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Seleccione una Gestion".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            cbGestion.Focus()
+            Return False
+        End If
+        If JGrM_Buscador.RowCount = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "NO HAY DATOS PARA GUARDAR".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Sub GuardarNuevo()
+        L_fnAutorizarRetencion(CType(JGrM_Buscador.DataSource, DataTable))
+        Dim img As Bitmap = New Bitmap(My.Resources.check_mark, 50, 50)
+        ToastNotification.Show(Me, "Guardado con exito".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.TopCenter)
+
+        ButtonX1.PerformClick()
+
+        tbCanero.Clear()
+        tbInstitucion.Clear()
+        tbFecha.Value = Date.Now
+    End Sub
+    Public Overrides Function _PMOGetTablaBuscador() As DataTable
+        Dim dtBuscador As DataTable
+        If SwitchButton1.Value = False Then
+            dtBuscador = L_fnCargarLiquidacion(IIf(tbCod.Text = "", -1, _CodCliente), tbFecha.Value.ToString("dd-MM-yyyy"))
+        Else
+            dtBuscador = L_fnCargarLiquidacionGuardar(cbQuincena.Value, cbGestion.Value)
+        End If
+        Return dtBuscador
+    End Function
+    Public Overrides Function _PMOGrabarRegistro() As Boolean
+        Dim res As Boolean
+
+        Return res
+    End Function
+    Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
+
+    End Sub
+    Private Sub Guardar()
+        If ValidarCampos() = False Then
+            Exit Sub
+        Else
+            GuardarNuevo()
+        End If
+    End Sub
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        Guardar()
     End Sub
 
     Private Sub tbCanero_TextChanged(sender As Object, e As EventArgs) Handles tbCanero.TextChanged

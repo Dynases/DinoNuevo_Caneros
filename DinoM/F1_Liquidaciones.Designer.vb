@@ -24,6 +24,8 @@ Partial Class F1_Liquidaciones
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F1_Liquidaciones))
+        Dim cbGestion_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbQuincena_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.tbInstitucion = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbCanero = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbCodIns = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -33,6 +35,14 @@ Partial Class F1_Liquidaciones
         Me.tbFecha = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
+        Me.cbGestion = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.cbQuincena = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.SwitchButton1 = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -50,6 +60,10 @@ Partial Class F1_Liquidaciones
         Me.MPanelUserAct.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFecha, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupPanel1.SuspendLayout()
+        Me.GroupPanel2.SuspendLayout()
+        CType(Me.cbGestion, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -130,7 +144,22 @@ Partial Class F1_Liquidaciones
         Me.BubbleBarUsuario.MouseOverTabColors.BorderColor = System.Drawing.SystemColors.Highlight
         Me.BubbleBarUsuario.SelectedTabColors.BorderColor = System.Drawing.Color.Black
         '
+        'PanelToolBar1
+        '
+        Me.PanelToolBar1.Controls.Add(Me.ButtonX2)
+        Me.PanelToolBar1.Size = New System.Drawing.Size(453, 72)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnNuevo, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnModificar, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnEliminar, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnGrabar, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnSalir, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.ButtonX2, 0)
+        '
         'btnSalir
+        '
+        Me.btnSalir.Dock = System.Windows.Forms.DockStyle.Left
+        '
+        'btnGrabar
         '
         '
         'btnEliminar
@@ -151,26 +180,16 @@ Partial Class F1_Liquidaciones
         '
         'MPanelSup
         '
+        Me.MPanelSup.Controls.Add(Me.SwitchButton1)
+        Me.MPanelSup.Controls.Add(Me.GroupPanel2)
+        Me.MPanelSup.Controls.Add(Me.GroupPanel1)
         Me.MPanelSup.Controls.Add(Me.ButtonX1)
-        Me.MPanelSup.Controls.Add(Me.tbFecha)
-        Me.MPanelSup.Controls.Add(Me.LabelX3)
-        Me.MPanelSup.Controls.Add(Me.tbInstitucion)
-        Me.MPanelSup.Controls.Add(Me.tbCanero)
-        Me.MPanelSup.Controls.Add(Me.tbCodIns)
-        Me.MPanelSup.Controls.Add(Me.tbCod)
-        Me.MPanelSup.Controls.Add(Me.LabelX2)
-        Me.MPanelSup.Controls.Add(Me.LabelX1)
         Me.MPanelSup.Size = New System.Drawing.Size(768, 114)
-        Me.MPanelSup.Controls.SetChildIndex(Me.PanelUsuario, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.LabelX1, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.LabelX2, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.tbCod, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.tbCodIns, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.tbCanero, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.tbInstitucion, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.LabelX3, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.tbFecha, 0)
         Me.MPanelSup.Controls.SetChildIndex(Me.ButtonX1, 0)
+        Me.MPanelSup.Controls.SetChildIndex(Me.GroupPanel1, 0)
+        Me.MPanelSup.Controls.SetChildIndex(Me.GroupPanel2, 0)
+        Me.MPanelSup.Controls.SetChildIndex(Me.PanelUsuario, 0)
+        Me.MPanelSup.Controls.SetChildIndex(Me.SwitchButton1, 0)
         '
         'PanelPrincipal
         '
@@ -230,7 +249,7 @@ Partial Class F1_Liquidaciones
         '
         Me.tbInstitucion.Border.Class = "TextBoxBorder"
         Me.tbInstitucion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbInstitucion.Location = New System.Drawing.Point(71, 86)
+        Me.tbInstitucion.Location = New System.Drawing.Point(135, 28)
         Me.tbInstitucion.Name = "tbInstitucion"
         Me.tbInstitucion.PreventEnterBeep = True
         Me.tbInstitucion.ReadOnly = True
@@ -244,7 +263,7 @@ Partial Class F1_Liquidaciones
         '
         Me.tbCanero.Border.Class = "TextBoxBorder"
         Me.tbCanero.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCanero.Location = New System.Drawing.Point(71, 35)
+        Me.tbCanero.Location = New System.Drawing.Point(131, 3)
         Me.tbCanero.Name = "tbCanero"
         Me.tbCanero.PreventEnterBeep = True
         Me.tbCanero.ReadOnly = True
@@ -258,7 +277,7 @@ Partial Class F1_Liquidaciones
         '
         Me.tbCodIns.Border.Class = "TextBoxBorder"
         Me.tbCodIns.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCodIns.Location = New System.Drawing.Point(20, 86)
+        Me.tbCodIns.Location = New System.Drawing.Point(84, 28)
         Me.tbCodIns.Name = "tbCodIns"
         Me.tbCodIns.PreventEnterBeep = True
         Me.tbCodIns.ReadOnly = True
@@ -272,7 +291,7 @@ Partial Class F1_Liquidaciones
         '
         Me.tbCod.Border.Class = "TextBoxBorder"
         Me.tbCod.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCod.Location = New System.Drawing.Point(20, 35)
+        Me.tbCod.Location = New System.Drawing.Point(84, 3)
         Me.tbCod.Name = "tbCod"
         Me.tbCod.PreventEnterBeep = True
         Me.tbCod.ReadOnly = True
@@ -287,11 +306,12 @@ Partial Class F1_Liquidaciones
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(12, 61)
+        Me.LabelX2.Location = New System.Drawing.Point(3, 28)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.Size = New System.Drawing.Size(75, 23)
         Me.LabelX2.TabIndex = 33
         Me.LabelX2.Text = "Institución:"
+        Me.LabelX2.TextAlignment = System.Drawing.StringAlignment.Far
         '
         'LabelX1
         '
@@ -301,11 +321,13 @@ Partial Class F1_Liquidaciones
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(12, 6)
+        Me.LabelX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Right
+        Me.LabelX1.Location = New System.Drawing.Point(3, 3)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.Size = New System.Drawing.Size(75, 23)
         Me.LabelX1.TabIndex = 32
         Me.LabelX1.Text = "Cañero:"
+        Me.LabelX1.TextAlignment = System.Drawing.StringAlignment.Far
         '
         'tbFecha
         '
@@ -317,7 +339,7 @@ Partial Class F1_Liquidaciones
         Me.tbFecha.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.tbFecha.ButtonDropDown.Visible = True
         Me.tbFecha.IsPopupCalendarOpen = False
-        Me.tbFecha.Location = New System.Drawing.Point(410, 35)
+        Me.tbFecha.Location = New System.Drawing.Point(84, 54)
         '
         '
         '
@@ -360,23 +382,198 @@ Partial Class F1_Liquidaciones
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(359, 32)
+        Me.LabelX3.Location = New System.Drawing.Point(3, 51)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.Size = New System.Drawing.Size(75, 23)
         Me.LabelX3.TabIndex = 38
         Me.LabelX3.Text = "Fecha:"
+        Me.LabelX3.TextAlignment = System.Drawing.StringAlignment.Far
         '
         'ButtonX1
         '
         Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.ButtonX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.ButtonX1.Location = New System.Drawing.Point(410, 86)
+        Me.ButtonX1.Location = New System.Drawing.Point(54, 83)
         Me.ButtonX1.Name = "ButtonX1"
         Me.ButtonX1.Size = New System.Drawing.Size(75, 23)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX1.TabIndex = 40
         Me.ButtonX1.Text = "CARGAR"
+        '
+        'GroupPanel1
+        '
+        Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
+        Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel1.Controls.Add(Me.LabelX1)
+        Me.GroupPanel1.Controls.Add(Me.tbCod)
+        Me.GroupPanel1.Controls.Add(Me.tbCanero)
+        Me.GroupPanel1.Controls.Add(Me.LabelX3)
+        Me.GroupPanel1.Controls.Add(Me.tbFecha)
+        Me.GroupPanel1.Controls.Add(Me.LabelX2)
+        Me.GroupPanel1.Controls.Add(Me.tbCodIns)
+        Me.GroupPanel1.Controls.Add(Me.tbInstitucion)
+        Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
+        Me.GroupPanel1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.GroupPanel1.Location = New System.Drawing.Point(368, 0)
+        Me.GroupPanel1.Name = "GroupPanel1"
+        Me.GroupPanel1.Size = New System.Drawing.Size(400, 114)
+        '
+        '
+        '
+        Me.GroupPanel1.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.GroupPanel1.Style.BackColorGradientAngle = 90
+        Me.GroupPanel1.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.GroupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderBottomWidth = 1
+        Me.GroupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
+        Me.GroupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderLeftWidth = 1
+        Me.GroupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderRightWidth = 1
+        Me.GroupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel1.Style.BorderTopWidth = 1
+        Me.GroupPanel1.Style.CornerDiameter = 4
+        Me.GroupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.GroupPanel1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.GroupPanel1.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
+        Me.GroupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GroupPanel1.TabIndex = 41
+        Me.GroupPanel1.Text = "CONSULTA"
+        '
+        'GroupPanel2
+        '
+        Me.GroupPanel2.CanvasColor = System.Drawing.SystemColors.Control
+        Me.GroupPanel2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel2.Controls.Add(Me.LabelX5)
+        Me.GroupPanel2.Controls.Add(Me.LabelX4)
+        Me.GroupPanel2.Controls.Add(Me.cbGestion)
+        Me.GroupPanel2.Controls.Add(Me.cbQuincena)
+        Me.GroupPanel2.DisabledBackColor = System.Drawing.Color.Empty
+        Me.GroupPanel2.Location = New System.Drawing.Point(168, 0)
+        Me.GroupPanel2.Name = "GroupPanel2"
+        Me.GroupPanel2.Size = New System.Drawing.Size(200, 114)
+        '
+        '
+        '
+        Me.GroupPanel2.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.GroupPanel2.Style.BackColorGradientAngle = 90
+        Me.GroupPanel2.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.GroupPanel2.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel2.Style.BorderBottomWidth = 1
+        Me.GroupPanel2.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
+        Me.GroupPanel2.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel2.Style.BorderLeftWidth = 1
+        Me.GroupPanel2.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel2.Style.BorderRightWidth = 1
+        Me.GroupPanel2.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel2.Style.BorderTopWidth = 1
+        Me.GroupPanel2.Style.CornerDiameter = 4
+        Me.GroupPanel2.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.GroupPanel2.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.GroupPanel2.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
+        Me.GroupPanel2.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupPanel2.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GroupPanel2.TabIndex = 42
+        Me.GroupPanel2.Text = "GUARDAR"
+        '
+        'LabelX5
+        '
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX5.Location = New System.Drawing.Point(-3, 48)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.Size = New System.Drawing.Size(75, 23)
+        Me.LabelX5.TabIndex = 3
+        Me.LabelX5.Text = "Gestion:"
+        Me.LabelX5.TextAlignment = System.Drawing.StringAlignment.Far
+        '
+        'LabelX4
+        '
+        '
+        '
+        '
+        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX4.Location = New System.Drawing.Point(-3, 10)
+        Me.LabelX4.Name = "LabelX4"
+        Me.LabelX4.Size = New System.Drawing.Size(75, 23)
+        Me.LabelX4.TabIndex = 2
+        Me.LabelX4.Text = "Quincena:"
+        Me.LabelX4.TextAlignment = System.Drawing.StringAlignment.Far
+        '
+        'cbGestion
+        '
+        cbGestion_DesignTimeLayout.LayoutString = resources.GetString("cbGestion_DesignTimeLayout.LayoutString")
+        Me.cbGestion.DesignTimeLayout = cbGestion_DesignTimeLayout
+        Me.cbGestion.Location = New System.Drawing.Point(78, 51)
+        Me.cbGestion.Name = "cbGestion"
+        Me.cbGestion.SelectedIndex = -1
+        Me.cbGestion.SelectedItem = Nothing
+        Me.cbGestion.Size = New System.Drawing.Size(100, 20)
+        Me.cbGestion.TabIndex = 1
+        '
+        'cbQuincena
+        '
+        cbQuincena_DesignTimeLayout.LayoutString = resources.GetString("cbQuincena_DesignTimeLayout.LayoutString")
+        Me.cbQuincena.DesignTimeLayout = cbQuincena_DesignTimeLayout
+        Me.cbQuincena.Location = New System.Drawing.Point(78, 11)
+        Me.cbQuincena.Name = "cbQuincena"
+        Me.cbQuincena.SelectedIndex = -1
+        Me.cbQuincena.SelectedItem = Nothing
+        Me.cbQuincena.Size = New System.Drawing.Size(100, 20)
+        Me.cbQuincena.TabIndex = 0
+        '
+        'SwitchButton1
+        '
+        '
+        '
+        '
+        Me.SwitchButton1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.SwitchButton1.Location = New System.Drawing.Point(38, 29)
+        Me.SwitchButton1.Name = "SwitchButton1"
+        Me.SwitchButton1.OffBackColor = System.Drawing.Color.Gold
+        Me.SwitchButton1.OffText = "CONSULTAR"
+        Me.SwitchButton1.OnBackColor = System.Drawing.Color.LimeGreen
+        Me.SwitchButton1.OnText = "GUARDAR"
+        Me.SwitchButton1.Size = New System.Drawing.Size(106, 22)
+        Me.SwitchButton1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.SwitchButton1.TabIndex = 43
+        '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ButtonX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.ButtonX2.Image = Global.DinoM.My.Resources.Resources.save
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.ButtonX2.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX2.Location = New System.Drawing.Point(376, 0)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(75, 72)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX2.TabIndex = 9
+        Me.ButtonX2.Text = "GRABAR"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
         '
         'F1_Liquidaciones
         '
@@ -408,6 +605,11 @@ Partial Class F1_Liquidaciones
         Me.MPanelUserAct.PerformLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFecha, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupPanel1.ResumeLayout(False)
+        Me.GroupPanel2.ResumeLayout(False)
+        Me.GroupPanel2.PerformLayout()
+        CType(Me.cbGestion, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -421,4 +623,12 @@ Partial Class F1_Liquidaciones
     Friend WithEvents tbFecha As DevComponents.Editors.DateTimeAdv.DateTimeInput
     Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
     Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents SwitchButton1 As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents GroupPanel2 As DevComponents.DotNetBar.Controls.GroupPanel
+    Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
+    Friend WithEvents cbGestion As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents cbQuincena As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents ButtonX2 As DevComponents.DotNetBar.ButtonX
 End Class
