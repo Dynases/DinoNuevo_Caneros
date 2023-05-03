@@ -484,6 +484,7 @@ Public Class F0_Retenciones
             .FormatString = "0.00"
             .Caption = "Capital"
             .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
         End With
         With grdetalle.RootTable.Columns("aporte")
             .Width = 110
@@ -492,6 +493,7 @@ Public Class F0_Retenciones
             .FormatString = "0.00"
             .Caption = "Aporte"
             .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
         End With
 
         With grdetalle.RootTable.Columns("deuda")
@@ -501,6 +503,7 @@ Public Class F0_Retenciones
             .FormatString = "0.00"
             .Caption = "Deuda"
             .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
         End With
         With grdetalle.RootTable.Columns("cobrar")
             .Width = 100
@@ -509,6 +512,7 @@ Public Class F0_Retenciones
             .FormatString = "0.00"
             .Caption = "Cobrar"
             .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
         End With
         With grdetalle.RootTable.Columns("saldo")
             .Width = 100
@@ -517,6 +521,7 @@ Public Class F0_Retenciones
             .FormatString = "0.00"
             .Caption = "Saldo"
             .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
 
         End With
 
@@ -532,6 +537,7 @@ Public Class F0_Retenciones
             .TotalRow = InheritableBoolean.True
             .TotalRowFormatStyle.BackColor = Color.Gold
             .TotalRowPosition = TotalRowPosition.BottomFixed
+
         End With
     End Sub
 
@@ -1437,15 +1443,30 @@ Public Class F0_Retenciones
 
             ''Verifica si existe estock para los productos
 
+            Dim ef = New Efecto
 
-            If 5 = 5 Then
+
+            ef.tipo = 2
+            ef.Context = "MENSAJE PRINCIPAL".ToUpper
+            ef.Header = "¿Desea realizar el registro como Retencion?".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            Dim res As Boolean
+            If (bandera = True) Then
                 'Dim dtDetalle As DataTable = rearmarDetalle()
-                Dim res As Boolean = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(cbQuincena.Value), CDbl(cbGestion.Value), CInt(idInstitucion.Text), _CodCliente,
-                                                         CDbl(TextBoxX3.Text), CDbl(TextBoxX4.Text), CDbl(TextBoxX5.Text), CDbl(TextBoxX6.Text), CDbl(TextBoxX7.Text), CDbl(TextBoxX8.Text),
-                                                         CDbl(TextBoxX9.Text), TComb, RComb, TInsu, RInsu, TRest, RRest, TCont, RCont, TSho, RSho, TOtSu, ROtSu, TConv, RConv, CDbl(tbTotalD.Text),
-                                                         CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable))
+                res = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(cbQuincena.Value), CDbl(cbGestion.Value), CInt(idInstitucion.Text), _CodCliente,
+                                                     CDbl(TextBoxX3.Text), CDbl(TextBoxX4.Text), CDbl(TextBoxX5.Text), CDbl(TextBoxX6.Text), CDbl(TextBoxX7.Text), CDbl(TextBoxX8.Text),
+                                                     CDbl(TextBoxX9.Text), TComb, RComb, TInsu, RInsu, TRest, RRest, TCont, RCont, TSho, RSho, TOtSu, ROtSu, TConv, RConv, CDbl(tbTotalD.Text),
+                                                     CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable), 1)
+            Else
+                res = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(cbQuincena.Value), CDbl(cbGestion.Value), CInt(idInstitucion.Text), _CodCliente,
+                                                     CDbl(TextBoxX3.Text), CDbl(TextBoxX4.Text), CDbl(TextBoxX5.Text), CDbl(TextBoxX6.Text), CDbl(TextBoxX7.Text), CDbl(TextBoxX8.Text),
+                                                     CDbl(TextBoxX9.Text), TComb, RComb, TInsu, RInsu, TRest, RRest, TCont, RCont, TSho, RSho, TOtSu, ROtSu, TConv, RConv, CDbl(tbTotalD.Text),
+                                                     CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable), 0)
 
-                If res Then
+            End If
+            If res Then
                     'res = P_fnGrabarFacturarTFV001(numi)
                     'Emite factura
 
@@ -1458,10 +1479,10 @@ Public Class F0_Retenciones
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                     ToastNotification.Show(Me, "Código de Retencion ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
-                                                      img, 2000,
-                                                      eToastGlowColor.Green,
-                                                      eToastPosition.TopCenter
-                                                      )
+                                                  img, 2000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter
+                                                  )
 
 
 
@@ -1469,13 +1490,12 @@ Public Class F0_Retenciones
 
                 Else
                     Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                        ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
-                    End If
-
-                Else
-                    ' MessageBox.Show(mensajeRespuesta)
                 End If
+
+
+
 
 
         Catch ex As Exception
@@ -2026,6 +2046,7 @@ Public Class F0_Retenciones
                e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index) Then
 
                     e.Cancel = False
+
                 Else
                     e.Cancel = True
                 End If
@@ -2033,6 +2054,8 @@ Public Class F0_Retenciones
                 If (e.Column.Index = grdetalle.RootTable.Columns("cobrar").Index) Then
 
                     e.Cancel = False
+                    ActualizarTotales()
+
                 Else
                     e.Cancel = True
                 End If
@@ -2422,72 +2445,73 @@ salirIf:
 
     End Sub
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellValueChanged
+        Try
+            'If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index) Then
+            If (Not IsNumeric(grdetalle.GetValue("cobrar")) Or grdetalle.GetValue("cobrar").ToString = String.Empty) Then
 
+                grdetalle.SetValue("cobrar", 0)
+                '            grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+                '            grdetalle.SetValue("tbporc", 0)
+                '            grdetalle.SetValue("tbdesc", 0)
+                '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbpbas"))
+
+
+            Else
+                If (grdetalle.GetValue("cobrar") > 0) And grdetalle.GetValue("cobrar") < grdetalle.GetValue("deuda") Then
+                    '                   '                Dim cant As Integer = grdetalle.GetValue("tbcmin")
+
+                    '                Dim stock As Double = grdetalle.GetValue("stock")
+                    '                If (cant > stock) And stock <> -9999 Then
+                    '                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
+                    '                    Dim pos As Integer = -1
+                    '                    _fnObtenerFilaDetalle(pos, lin)
+                    '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcmin") = 1
+                    '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
+                    '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = grdetalle.GetValue("tbpcos") * 1
+                    '                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    '                    ToastNotification.Show(Me, "La cantidad de la venta no debe ser mayor al del stock" & vbCrLf &
+                    '                    "Stock=" + Str(stock).ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    '                    grdetalle.SetValue("tbcmin", 1)
+                    '                    grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+                    '                    grdetalle.SetValue("tbptot2", grdetalle.GetValue("tbpcos") * 1)
+
+                    '                    _prCalcularPrecioTotal()
+                    '                Else
+                    '                    If (cant = stock) Then
+
+
+                    '                        'grdetalle.SelectedFormatStyle.ForeColor = Color.Blue
+                    '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle = New GridEXFormatStyle
+                    '                        'grdetalle.CurrentRow.Cells(e.Column).FormatStyle.BackColor = Color.Pink
+                    '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.BackColor = Color.DodgerBlue
+                    '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.ForeColor = Color.White
+                    '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.FontBold = TriState.True
+                    '                    End If
+                    '                End If
+
+                Else
+                    grdetalle.SetValue("cobrar", 0)
+
+                    '                grdetalle.SetValue("tbcmin", 1)
+                    '                grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+                    '                grdetalle.SetValue("tbporc", 0)
+                    '                grdetalle.SetValue("tbdesc", 0)
+                    '                grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbpbas"))
+
+                End If
+                '        End If
+            End If
+            ActualizarTotales()
+        Catch ex As Exception
+            MostrarMensajeError(ex.Message)
+        End Try
     End Sub
 
 
 
 
     Private Sub grdetalle_CellEdited_1(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellEdited
-        'Try
-        '    If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index) Then
-        '        If (Not IsNumeric(grdetalle.GetValue("tbcmin")) Or grdetalle.GetValue("tbcmin").ToString = String.Empty) Then
-
-        '            grdetalle.SetValue("tbcmin", 1)
-        '            grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-        '            grdetalle.SetValue("tbporc", 0)
-        '            grdetalle.SetValue("tbdesc", 0)
-        '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbpbas"))
-
-
-        '        Else
-        '            If (grdetalle.GetValue("tbcmin") > 0) Then
-
-        '                Dim cant As Integer = grdetalle.GetValue("tbcmin")
-
-        '                Dim stock As Double = grdetalle.GetValue("stock")
-        '                If (cant > stock) And stock <> -9999 Then
-        '                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
-        '                    Dim pos As Integer = -1
-        '                    _fnObtenerFilaDetalle(pos, lin)
-        '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcmin") = 1
-        '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
-        '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = grdetalle.GetValue("tbpcos") * 1
-        '                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-        '                    ToastNotification.Show(Me, "La cantidad de la venta no debe ser mayor al del stock" & vbCrLf &
-        '                    "Stock=" + Str(stock).ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-        '                    grdetalle.SetValue("tbcmin", 1)
-        '                    grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-        '                    grdetalle.SetValue("tbptot2", grdetalle.GetValue("tbpcos") * 1)
-
-        '                    _prCalcularPrecioTotal()
-        '                Else
-        '                    If (cant = stock) Then
-
-
-        '                        'grdetalle.SelectedFormatStyle.ForeColor = Color.Blue
-        '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle = New GridEXFormatStyle
-        '                        'grdetalle.CurrentRow.Cells(e.Column).FormatStyle.BackColor = Color.Pink
-        '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.BackColor = Color.DodgerBlue
-        '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.ForeColor = Color.White
-        '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.FontBold = TriState.True
-        '                    End If
-        '                End If
-
-        '            Else
-
-        '                grdetalle.SetValue("tbcmin", 1)
-        '                grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-        '                grdetalle.SetValue("tbporc", 0)
-        '                grdetalle.SetValue("tbdesc", 0)
-        '                grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbpbas"))
-
-        '            End If
-        '        End If
-        '    End If
-        'Catch ex As Exception
-        '    MostrarMensajeError(ex.Message)
-        'End Try
+        ActualizarTotales()
     End Sub
     Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grdetalle.MouseClick
         Try
@@ -2815,6 +2839,7 @@ salirIf:
 
     Private Sub CheckGrupo_CheckedChanged(sender As Object, e As EventArgs) Handles CheckGrupo.CheckedChanged
         _prCargarDetalleVenta(_CodCliente)
+        ActualizarTotales()
     End Sub
 
     Private Sub cbQuincena_ValueChanged(sender As Object, e As EventArgs) Handles cbQuincena.ValueChanged
@@ -3219,43 +3244,43 @@ salirIf:
     End Sub
     Private Sub ActualizarTotales()
         Dim dtIngEgre As DataTable = CType(grdetalle.DataSource, DataTable)
-        TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(capital)", "taalm  = 10013 or taalm=10014")), 0, dtIngEgre.Compute("Sum(capital)", "taalm  = 10013 or taalm=10014"))
-        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(capital)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011")), 0, dtIngEgre.Compute("Sum(capital)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011"))
-        TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(capital)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(capital)", "taalm  = 10005"))
-        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(capital)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(capital)", "taalm  = 10007"))
-        TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(capital)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(capital)", "taalm  = 1"))
-        TSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(capital)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(capital)", "taalm  = 10008 or taalm  = 2"))
-        TOtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(capital)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(capital)", "taalm  = 10009"))
+        TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10013 or taalm=10014")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10013 or taalm=10014"))
+        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011"))
+        TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005"))
+        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007"))
+        TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1"))
+        TSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 2"))
+        TOtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009"))
 
-        tbTConv.Text = TConv
-        tbTCont.Text = TCont
-        tbTRest.Text = TRest
-        tbTComb.Text = TComb
-        tbTInsu.Text = TInsu
-        tbTSho.Text = TSho
-        tbTOtSu.Text = TOtSu
-
-
-
-        RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(aporte)", "taalm  = 10013 or taalm=10014")), 0, dtIngEgre.Compute("Sum(aporte)", "taalm  = 10013 or taalm=10014"))
-        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(aporte)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011")), 0, dtIngEgre.Compute("Sum(aporte)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011"))
-        RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(aporte)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(aporte)", "taalm  = 10005"))
-        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(aporte)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(aporte)", "taalm  = 10007"))
-        RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(aporte)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(aporte)", "taalm  = 1"))
-        RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(aporte)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(aporte)", "taalm  = 10008 or taalm  = 2"))
-        ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(aporte)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(aporte)", "taalm  = 10009"))
-
-        tbRConv.Text = TConv
-        tbRCont.Text = RCont
-        tbRRest.Text = RRest
-        tbRComb.Text = RComb
-        tbRInsu.Text = RInsu
-        tbRSho.Text = RSho
-        tbROtSu.Text = ROtSu
+        tbTConv.Text = TConv.ToString("0.00")
+        tbTCont.Text = TCont.ToString("0.00")
+        tbTRest.Text = TRest.ToString("0.00")
+        tbTComb.Text = TComb.ToString("0.00")
+        tbTInsu.Text = TInsu.ToString("0.00")
+        tbTSho.Text = TSho.ToString("0.00")
+        tbTOtSu.Text = TOtSu.ToString("0.00")
 
 
-        tbTotalD.Text = TComb + TConv + TCont + TInsu + TSho + TRest + TOtSu
-        tbTotalR.Text = RComb + RConv + RCont + RInsu + RSho + RRest + ROtSu
+
+        RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10013 or taalm=10014")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10013 or taalm=10014"))
+        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011"))
+        RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005"))
+        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007"))
+        RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1"))
+        RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2"))
+        ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009"))
+
+        tbRConv.Text = TConv.ToString("0.00")
+        tbRCont.Text = RCont.ToString("0.00")
+        tbRRest.Text = RRest.ToString("0.00")
+        tbRComb.Text = RComb.ToString("0.00")
+        tbRInsu.Text = RInsu.ToString("0.00")
+        tbRSho.Text = RSho.ToString("0.00")
+        tbROtSu.Text = ROtSu.ToString("0.00")
+
+
+        tbTotalD.Text = (TComb + TConv + TCont + TInsu + TSho + TRest + TOtSu).ToString("0.00")
+        tbTotalR.Text = (RComb + RConv + RCont + RInsu + RSho + RRest + ROtSu).ToString("0.00")
 
     End Sub
 
@@ -3268,8 +3293,8 @@ salirIf:
     End Sub
     Private Sub grCanero_KeyDown(sender As Object, e As KeyEventArgs) Handles grCanero.KeyDown
         If grCanero.RowCount > 0 Then
-            If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
-                If e.KeyData = Keys.Enter Then
+            'If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
+            If e.KeyData = Keys.Enter Then
                     _CodCliente = grCanero.GetValue("ydnumi")
                     _prCargarGrupoEco(_CodCliente)
 
@@ -3278,11 +3303,11 @@ salirIf:
                     ActualizarTotales()
 
                 End If
-            Else
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                ToastNotification.Show(Me, "Por Favor Seleccione una Gestion y una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            'Else
+            '    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            '    ToastNotification.Show(Me, "Por Favor Seleccione una Gestion y una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
-            End If
+            'End If
         End If
     End Sub
 
