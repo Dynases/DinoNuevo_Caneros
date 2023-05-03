@@ -506,6 +506,15 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Ds
     End Function
 
+    Public Shared Function L_AnalisisLaica(_Modo As Integer, Optional _Cadena As String = "") As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
+
+        _Tabla = D_Datos_TablaTara("nroBoleta , fecha ,  fechaRelacionBol ,torta , fibra ,brix , pol ,pureza ,basura ,paquete", "analisis")
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
+
     Public Shared Function L_diasZafra(_Modo As Integer, Optional _Cadena As String = "") As DataSet
         Dim _Tabla As DataTable
         Dim _Ds As New DataSet
@@ -740,6 +749,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         "pesoTara = " + _pesoTara + " , " +
         "color = '" + _color + "' , " +
         "propietario = '" + _propietario + "'  "
+
+        _where = "cod = " + _Cod
+        _Err = D_Modificar_Datos("taras", Sql, _where)
+        Return _Err
+    End Function
+    Public Shared Function L_Taras_ModificarBoleta(_Cod As String, _pesoTara As String) As Boolean
+        Dim _Err As Boolean
+        Dim Sql, _where As String
+
+        Sql = "cod = '" + _Cod + "' , " +
+        "pesoTara = " + _pesoTara + "  "
 
         _where = "cod = " + _Cod
         _Err = D_Modificar_Datos("taras", Sql, _where)
@@ -2014,6 +2034,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_prReporteReSumenDiario(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 29))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prReporteRetiroCaneroUno(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -2943,6 +2975,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+
+    Public Shared Function L_fnListarClientesVentas1(numi As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 182))
+        _listParam.Add(New Datos.DParametro("@tanumi", numi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+
 
     Public Shared Function L_fnVerificarCierreCaja(numi As String, tipo As String) As Boolean
         Dim _resultado As Boolean

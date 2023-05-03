@@ -154,11 +154,13 @@ Public Class F0_FactorR
             .Width = 100
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
+
         With JGr_Buscador.RootTable.Columns("ingreso")
             .Visible = True
-            .Caption = "ingreso".ToUpper
+
             .Width = 100
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .Caption = "ingreso".ToUpper
             .FormatString = "0.00"
         End With
         With JGr_Buscador.RootTable.Columns("pcfab")

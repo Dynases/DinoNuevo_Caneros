@@ -58,6 +58,10 @@ Public Class Pr_ReporteModuloCanero
             _dt = L_prReporteRep930(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
 
         End If
+        If tbAlmacen.Value = 6 Then
+            _dt = L_prReporteReSumenDiario(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
+
+        End If
         'If CheckTodos.Checked = True And CheckTodosCan.Checked = True Then
     End Sub
     Private Function Validar() As Boolean
@@ -137,6 +141,24 @@ Public Class Pr_ReporteModuloCanero
                 CrystalReportViewer1.BringToFront()
             ElseIf tbAlmacen.Value = 5 Then
                 Dim objrep As New R_Rep930
+                objrep.SetDataSource(_dt)
+                Dim fechaI As String = tbFechaI.Value.ToString("dd/MM/yyyy")
+                Dim fechaF As String = tbFechaF.Value.ToString("dd/MM/yyyy")
+                Dim Institucion As String = tbInsCan.Text
+                Dim CodIns As String = tbCod.Text
+                Dim CodCan As String = tbCodCan.Text
+                Dim Canero As String = tbNomCan.Text
+                Dim almacen As String = gs_userSucNom
+
+                'objrep.SetParameterValue("almacen", tbAlmacen.Text)
+                objrep.SetParameterValue("fechaI", fechaI)
+                objrep.SetParameterValue("fechaF", fechaF)
+                'objrep.SetParameterValue("fechaImpresion", Date.Now)
+                CrystalReportViewer1.ReportSource = objrep
+                CrystalReportViewer1.Show()
+                CrystalReportViewer1.BringToFront()
+            ElseIf tbAlmacen.Value = 6 Then
+                Dim objrep As New R_ResumenDiario
                 objrep.SetDataSource(_dt)
                 Dim fechaI As String = tbFechaI.Value.ToString("dd/MM/yyyy")
                 Dim fechaF As String = tbFechaF.Value.ToString("dd/MM/yyyy")

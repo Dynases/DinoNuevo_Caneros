@@ -76,7 +76,7 @@ Partial Class F0_FactorR
         '
         Me.SuperTabControlPanelBuscador.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(2)
-        Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(1336, 741)
+        Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(721, 511)
         '
         'SupTabItemBusqueda
         '

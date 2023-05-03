@@ -228,14 +228,14 @@ Public Class F0_MantenimientoTaras
         MEP.Clear()
 
 
-        If Tb_Placa.Text.Trim = String.Empty Then
-            Tb_Placa.BackColor = Color.Red
-            MEP.SetError(Tb_Placa, "Ingrese número de placa!".ToUpper)
-            _Error = False
-        Else
-            Tb_Placa.BackColor = Color.White
-            MEP.SetError(Tb_Placa, String.Empty)
-        End If
+        'If Tb_Placa.Text.Trim = String.Empty Then
+        '    Tb_Placa.BackColor = Color.Red
+        '    MEP.SetError(Tb_Placa, "Ingrese número de placa!".ToUpper)
+        '    _Error = False
+        'Else
+        '    Tb_Placa.BackColor = Color.White
+        '    MEP.SetError(Tb_Placa, String.Empty)
+        'End If
 
         If tbPesoTara.Text.Trim = String.Empty Then
             tbPesoTara.BackColor = Color.Red

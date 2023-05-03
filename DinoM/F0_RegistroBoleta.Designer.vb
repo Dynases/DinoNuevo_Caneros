@@ -82,6 +82,7 @@ Partial Class F0_RegistroBoleta
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.lblhora1 = New DevComponents.DotNetBar.LabelX()
+        Me.tbTotalDo = New DevComponents.DotNetBar.LabelX()
         GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.PanelSuperior.SuspendLayout()
@@ -154,6 +155,7 @@ Partial Class F0_RegistroBoleta
         '
         'PanelInferior
         '
+        Me.PanelInferior.Controls.Add(Me.tbTotalDo)
         Me.PanelInferior.Location = New System.Drawing.Point(0, 532)
         Me.PanelInferior.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelInferior.Size = New System.Drawing.Size(1144, 39)
@@ -165,6 +167,9 @@ Partial Class F0_RegistroBoleta
         Me.PanelInferior.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.PanelInferior.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.PanelInferior.Style.GradientAngle = 90
+        Me.PanelInferior.Controls.SetChildIndex(Me.PanelNavegacion, 0)
+        Me.PanelInferior.Controls.SetChildIndex(Me.MPanelUserAct, 0)
+        Me.PanelInferior.Controls.SetChildIndex(Me.tbTotalDo, 0)
         '
         'BubbleBarUsuario
         '
@@ -211,6 +216,7 @@ Partial Class F0_RegistroBoleta
         '
         'btnNuevo
         '
+        Me.btnNuevo.TabIndex = 0
         '
         'PanelToolBar2
         '
@@ -343,7 +349,7 @@ Partial Class F0_RegistroBoleta
         '
         '
         GroupPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        GroupPanel2.TabIndex = 231
+        GroupPanel2.TabIndex = 0
         GroupPanel2.Text = "DATOS GENERALES"
         '
         'Panel2
@@ -387,7 +393,7 @@ Partial Class F0_RegistroBoleta
         Me.cbGrupoEstado.SelectedIndex = -1
         Me.cbGrupoEstado.SelectedItem = Nothing
         Me.cbGrupoEstado.Size = New System.Drawing.Size(110, 22)
-        Me.cbGrupoEstado.TabIndex = 379
+        Me.cbGrupoEstado.TabIndex = 0
         Me.cbGrupoEstado.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX11
@@ -421,7 +427,7 @@ Partial Class F0_RegistroBoleta
         Me.tbControlTotal.Location = New System.Drawing.Point(368, 7)
         Me.tbControlTotal.Name = "tbControlTotal"
         Me.tbControlTotal.Size = New System.Drawing.Size(200, 26)
-        Me.tbControlTotal.TabIndex = 377
+        Me.tbControlTotal.TabIndex = 9
         '
         'tbCodigo
         '
@@ -436,7 +442,7 @@ Partial Class F0_RegistroBoleta
         Me.tbCodigo.Location = New System.Drawing.Point(81, 6)
         Me.tbCodigo.Name = "tbCodigo"
         Me.tbCodigo.Size = New System.Drawing.Size(150, 26)
-        Me.tbCodigo.TabIndex = 376
+        Me.tbCodigo.TabIndex = 1
         '
         'LabelX8
         '
@@ -470,7 +476,7 @@ Partial Class F0_RegistroBoleta
         Me.cbgrupo1.SelectedIndex = -1
         Me.cbgrupo1.SelectedItem = Nothing
         Me.cbgrupo1.Size = New System.Drawing.Size(130, 22)
-        Me.cbgrupo1.TabIndex = 364
+        Me.cbgrupo1.TabIndex = 4
         Me.cbgrupo1.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX2
@@ -616,7 +622,7 @@ Partial Class F0_RegistroBoleta
         Me.tbNit.Name = "tbNit"
         Me.tbNit.PreventEnterBeep = True
         Me.tbNit.Size = New System.Drawing.Size(50, 21)
-        Me.tbNit.TabIndex = 1
+        Me.tbNit.TabIndex = 3
         '
         'LabelX10
         '
@@ -700,7 +706,7 @@ Partial Class F0_RegistroBoleta
         Me.lbIdVenta.Name = "lbIdVenta"
         Me.lbIdVenta.SingleLineColor = System.Drawing.SystemColors.Control
         Me.lbIdVenta.Size = New System.Drawing.Size(80, 16)
-        Me.lbIdVenta.TabIndex = 262
+        Me.lbIdVenta.TabIndex = 2
         Me.lbIdVenta.Text = "N De Boleta:"
         '
         'GroupPanel1
@@ -741,7 +747,7 @@ Partial Class F0_RegistroBoleta
         '
         '
         GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        GroupPanel1.TabIndex = 232
+        GroupPanel1.TabIndex = 5
         GroupPanel1.Text = "DETALLE"
         '
         'Panel3
@@ -765,7 +771,7 @@ Partial Class F0_RegistroBoleta
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(472, 121)
-        Me.Panel3.TabIndex = 0
+        Me.Panel3.TabIndex = 1000
         '
         'tbNumeroLinea
         '
@@ -781,7 +787,7 @@ Partial Class F0_RegistroBoleta
         Me.tbNumeroLinea.Name = "tbNumeroLinea"
         Me.tbNumeroLinea.PreventEnterBeep = True
         Me.tbNumeroLinea.Size = New System.Drawing.Size(80, 21)
-        Me.tbNumeroLinea.TabIndex = 376
+        Me.tbNumeroLinea.TabIndex = 0
         Me.tbNumeroLinea.Visible = False
         '
         'LabelX9
@@ -813,7 +819,7 @@ Partial Class F0_RegistroBoleta
         Me.tbPaquetes.Location = New System.Drawing.Point(92, 14)
         Me.tbPaquetes.Name = "tbPaquetes"
         Me.tbPaquetes.Size = New System.Drawing.Size(126, 21)
-        Me.tbPaquetes.TabIndex = 375
+        Me.tbPaquetes.TabIndex = 6
         '
         'tbPesoTara
         '
@@ -831,7 +837,7 @@ Partial Class F0_RegistroBoleta
         Me.tbPesoTara.MinValue = 0R
         Me.tbPesoTara.Name = "tbPesoTara"
         Me.tbPesoTara.Size = New System.Drawing.Size(100, 22)
-        Me.tbPesoTara.TabIndex = 374
+        Me.tbPesoTara.TabIndex = 1000
         Me.tbPesoTara.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'tbPesoBruto
@@ -850,7 +856,7 @@ Partial Class F0_RegistroBoleta
         Me.tbPesoBruto.MinValue = 0R
         Me.tbPesoBruto.Name = "tbPesoBruto"
         Me.tbPesoBruto.Size = New System.Drawing.Size(100, 22)
-        Me.tbPesoBruto.TabIndex = 373
+        Me.tbPesoBruto.TabIndex = 8000
         Me.tbPesoBruto.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'btnAgregar
@@ -866,7 +872,7 @@ Partial Class F0_RegistroBoleta
         Me.btnAgregar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(8)
         Me.btnAgregar.Size = New System.Drawing.Size(60, 50)
         Me.btnAgregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnAgregar.TabIndex = 371
+        Me.btnAgregar.TabIndex = 10
         Me.btnAgregar.Text = "Agregar"
         '
         'LabelX7
@@ -916,7 +922,7 @@ Partial Class F0_RegistroBoleta
         Me.cbgrupo3.SelectedIndex = -1
         Me.cbgrupo3.SelectedItem = Nothing
         Me.cbgrupo3.Size = New System.Drawing.Size(144, 22)
-        Me.cbgrupo3.TabIndex = 366
+        Me.cbgrupo3.TabIndex = 8
         Me.cbgrupo3.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX4
@@ -950,7 +956,7 @@ Partial Class F0_RegistroBoleta
         Me.cbgrupo2.SelectedIndex = -1
         Me.cbgrupo2.SelectedItem = Nothing
         Me.cbgrupo2.Size = New System.Drawing.Size(144, 22)
-        Me.cbgrupo2.TabIndex = 364
+        Me.cbgrupo2.TabIndex = 9
         Me.cbgrupo2.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX1
@@ -999,7 +1005,7 @@ Partial Class F0_RegistroBoleta
         Me.tbCodigoTara.Name = "tbCodigoTara"
         Me.tbCodigoTara.PreventEnterBeep = True
         Me.tbCodigoTara.Size = New System.Drawing.Size(80, 21)
-        Me.tbCodigoTara.TabIndex = 1
+        Me.tbCodigoTara.TabIndex = 7
         '
         'LabelX5
         '
@@ -1028,7 +1034,7 @@ Partial Class F0_RegistroBoleta
         Me.grdetalle1.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grdetalle1.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grdetalle1.Size = New System.Drawing.Size(1105, 287)
-        Me.grdetalle1.TabIndex = 3
+        Me.grdetalle1.TabIndex = 0
         Me.grdetalle1.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'SuperTabItem1
@@ -1183,7 +1189,7 @@ Partial Class F0_RegistroBoleta
         '
         '
         Me.gpDetalleVenta.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.gpDetalleVenta.TabIndex = 3
+        Me.gpDetalleVenta.TabIndex = 0
         Me.gpDetalleVenta.Text = "DETALLE DE LA BOLETA"
         '
         'Panel5
@@ -1262,6 +1268,23 @@ Partial Class F0_RegistroBoleta
         Me.lblhora1.Size = New System.Drawing.Size(109, 16)
         Me.lblhora1.TabIndex = 380
         Me.lblhora1.Text = "Total De Control:"
+        '
+        'tbTotalDo
+        '
+        Me.tbTotalDo.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbTotalDo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTotalDo.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbTotalDo.ForeColor = System.Drawing.Color.Red
+        Me.tbTotalDo.Location = New System.Drawing.Point(727, 5)
+        Me.tbTotalDo.Name = "tbTotalDo"
+        Me.tbTotalDo.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.tbTotalDo.Size = New System.Drawing.Size(200, 30)
+        Me.tbTotalDo.TabIndex = 359
+        Me.tbTotalDo.Text = "0.00"
+        Me.tbTotalDo.TextAlignment = System.Drawing.StringAlignment.Far
         '
         'F0_RegistroBoleta
         '
@@ -1373,4 +1396,5 @@ Partial Class F0_RegistroBoleta
     Friend WithEvents LabelX11 As DevComponents.DotNetBar.LabelX
     Friend WithEvents Timer2 As Timer
     Friend WithEvents lblhora1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbTotalDo As DevComponents.DotNetBar.LabelX
 End Class
