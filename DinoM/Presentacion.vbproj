@@ -1059,12 +1059,6 @@
       <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reporte\R_ResumenDiario.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>R_ResumenDiario.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reporte\R_SaldosPorLinea.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1487,7 +1481,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_RegistroBoleta.resx">
       <DependentUpon>F0_RegistroBoleta.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_REGISTROSERVICIO.resx">
       <DependentUpon>F0_REGISTROSERVICIO.vb</DependentUpon>
@@ -1860,10 +1853,6 @@
     <EmbeddedResource Include="Reporte\R_ReportePagosCobranzasCarta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_ReportePagosCobranzasCarta.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reporte\R_ResumenDiario.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>R_ResumenDiario.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_SaldosPorLinea.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

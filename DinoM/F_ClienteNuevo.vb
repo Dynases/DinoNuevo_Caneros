@@ -39,14 +39,14 @@ Public Class F_ClienteNuevo
         Dim _ok As Boolean = True
         MEP.Clear()
 
-        'If Tb_Placa.Text.Trim = String.Empty Then
-        '    Tb_Placa.BackColor = Color.Red
-        '    MEP.SetError(Tb_Placa, "Ingrese número de placa!".ToUpper)
-        '    _ok = False
-        'Else
-        '    Tb_Placa.BackColor = Color.White
-        '    MEP.SetError(Tb_Placa, String.Empty)
-        'End If
+        If Tb_Placa.Text.Trim = String.Empty Then
+            Tb_Placa.BackColor = Color.Red
+            MEP.SetError(Tb_Placa, "Ingrese número de placa!".ToUpper)
+            _ok = False
+        Else
+            Tb_Placa.BackColor = Color.White
+            MEP.SetError(Tb_Placa, String.Empty)
+        End If
 
         If tbPesoTara.Text.Trim = String.Empty Then
             tbPesoTara.BackColor = Color.Red

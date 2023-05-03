@@ -1380,7 +1380,7 @@ Public Class P_Principal
         SideNav1.IsMenuExpanded = False
         Ventana.Select()
         Dim frm As New F0_Dias_Zafra
-        frm._nameButton = bt_diasZafra.Name
+        frm._nameButton = bt_factorPonderado.Name
         frm.Show()
     End Sub
 
