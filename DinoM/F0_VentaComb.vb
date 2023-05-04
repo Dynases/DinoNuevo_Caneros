@@ -11,6 +11,7 @@ Public Class F0_VentaComb
     Dim _Inter As Integer = 0
 #Region "Variables Globales"
     Dim _CodCliente As Integer = 0
+    Dim _CodCaneroUcg As Integer = 0
     Dim _CodEmpleado As Integer = 0
     Dim _CodInstitucion As Integer = 0
     Dim OcultarFact As Integer = 0
@@ -45,7 +46,7 @@ Public Class F0_VentaComb
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         MSuperTabControl.SelectedTabIndex = 0
         'Me.WindowState = FormWindowState.Maximized
-        cbSucursal.Value = 3
+        cbSucursal.Value = 4
         _prValidarLote()
         _prCargarComboLibreriaSucursal(cbSucursal)
         _prCargarComboLibreria(cbCambioDolar, 7, 1)
@@ -240,14 +241,14 @@ Public Class F0_VentaComb
         ''  tbCliente.ReadOnly = False  por que solo podra seleccionar Cliente
         ''  tbVendedor.ReadOnly = False
         tbFechaVenc.IsInputReadOnly = False
-        SwSurtidor.Value = True
+        SwSurtidor.Value = False
         swTipoVenta.IsReadOnly = False
         swTipoVenta.Value = 0
         tbFechaVenta.IsInputReadOnly = False
         tbFechaVenta.Enabled = True
 
         swMoneda.IsReadOnly = False
-        SwSurtidor.IsReadOnly = False
+        SwSurtidor.IsReadOnly = True
         btnGrabar.Enabled = True
 
         tbNit.ReadOnly = False
@@ -352,7 +353,7 @@ Public Class F0_VentaComb
         tbRetSurtidor.Text = ""
         tbNitRetSurtidor.Text = ""
 
-        tbAutoriza.Text = ""
+        tbAutoriza.Text = 0
 
         With grdetalle.RootTable.Columns("img")
             .Width = 80
@@ -403,9 +404,10 @@ Public Class F0_VentaComb
             _CodCliente = .GetValue("taclpr")
             tbCliente.Text = .GetValue("cliente")
             swMoneda.Value = .GetValue("tamon")
+            _CodCaneroUcg = .GetValue("ydcod")
             tbFechaVenc.Value = .GetValue("tafvcr")
             swTipoVenta.Value = .GetValue("tatven")
-            SwConta.Value = IIf(.GetValue("taproforma") = 0, 1, 0)
+            'SwConta.Value = IIf(.GetValue("taproforma") = 0, 1, 0)
             If .GetValue("tctiposurtidor") = True Then
                 _prCargarComboLibreria(cbSurtidor, 1, 10)
             Else
@@ -783,6 +785,11 @@ Public Class F0_VentaComb
             .Visible = False
         End With
         With grVentas.RootTable.Columns("taclpr")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("ydcod")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
@@ -1823,7 +1830,7 @@ Public Class F0_VentaComb
                     Table_Producto = Nothing
                     _prSalir()
                     _prCargarVenta()
-                    contabilizar()
+                    ' contabilizar()
                 Else
                     Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
                     ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
@@ -1871,6 +1878,7 @@ Public Class F0_VentaComb
                 Table_Producto = Nothing
                 _prSalir()
                 _prCargarVenta()
+                contabilizarPrestamo()
             End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -2888,7 +2896,7 @@ Public Class F0_VentaComb
         btnGrabar.Enabled = True
         PanelNavegacion.Enabled = False
         tbCliente.Select()
-        cbSucursal.Value = 3
+        cbSucursal.Value = 4
         _Nuevo = True
         cbTipoSolicitud.Value = 1
         cbDespachador.Value = 1
@@ -3584,7 +3592,7 @@ Public Class F0_VentaComb
         _prCargarVenta()
     End Sub
 
-    Private Sub SwConta_ValueChanged(sender As Object, e As EventArgs) Handles SwConta.ValueChanged
+    Private Sub SwConta_ValueChanged(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -3658,7 +3666,64 @@ Public Class F0_VentaComb
         End If
     End Sub
 
+    Private Sub contabilizarPrestamo()
+        Dim dt, dt1, dtDetalle As DataTable
+        Dim codigoVenta = tbCodigo.Text
+        'dt1 = L_BuscarCodCanero(1)
 
+        Dim codCanero As String = "P/Ord:. " + tbCodigo.Text + " -Diesel " + Convert.ToString(Format(grdetalle.GetValue("tbcmin"), 0.00)) + " Lts. -" + _CodCaneroUcg.ToString + "-" + tbCliente.Text.Trim   'obobs
+        Dim total = tbTotalBs.Text 'para obtener debe haber
+
+        Dim cuenta As String
+        Dim debebs, haberbs, debeus, haberus As Double
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
+        'dtDetalle = ObtenerNumCuentaProveedor("Institucion", _CodProveedor)
+
+
+        Dim resTO001 = L_fnGrabarTO001prestamos(1, Convert.ToInt32(tbCodigo.Text), "false") 'numi cabecera to001
+        'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
+
+        For a As Integer = 6 To 7 Step 1
+            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+
+            'dtDetalle = L_fnDetalleVenta1(codigoVenta)
+
+
+            Dim oblin As Integer = 1
+            'Dim totalCosto As Double = 0.00
+            For Each row In dt.Rows
+
+                If row("cuenta") = "-2" Then
+                    cuenta = dt1.Rows(0).Item(7)
+
+                Else
+                    cuenta = 860 ' dtDetalle.Rows(0).Item(10) 'row("cuenta")
+                End If
+                If row("dh") = 1 Then
+                    debeus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
+                    debebs = debeus * 6.96
+                    haberus = 0.00
+                    haberbs = 0.00
+                Else
+
+                    haberus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
+                    haberbs = haberus * 6.96
+                    debeus = 0.00
+                    debebs = 0.00
+                End If
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                oblin = oblin + 1
+            Next
+        Next
+
+        L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+        ToastNotification.Show(Me, " Venta ".ToUpper + tbCodigo.Text + " Contabilizada con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter
+                                              )
+    End Sub
 
 
 

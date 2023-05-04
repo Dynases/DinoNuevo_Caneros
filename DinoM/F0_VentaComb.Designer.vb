@@ -40,6 +40,8 @@ Partial Class F0_VentaComb
         Me.grVentas = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.LabelX29 = New DevComponents.DotNetBar.LabelX()
+        Me.tbAutoriza = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.SwSurtidor = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.cbDespachador = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbSurtidor = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -141,9 +143,6 @@ Partial Class F0_VentaComb
         Me.GPanelProductos = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grProductos = New Janus.Windows.GridEX.GridEX()
-        Me.SwConta = New DevComponents.DotNetBar.Controls.SwitchButton()
-        Me.LabelX29 = New DevComponents.DotNetBar.LabelX()
-        Me.tbAutoriza = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -198,7 +197,6 @@ Partial Class F0_VentaComb
         '
         'PanelSuperior
         '
-        Me.PanelSuperior.Controls.Add(Me.SwConta)
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelSuperior.Size = New System.Drawing.Size(799, 72)
@@ -220,7 +218,6 @@ Partial Class F0_VentaComb
         Me.PanelSuperior.Controls.SetChildIndex(Me.MRlAccion, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PictureBox1, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.SwDescuentoProveedor, 0)
-        Me.PanelSuperior.Controls.SetChildIndex(Me.SwConta, 0)
         '
         'PanelInferior
         '
@@ -588,6 +585,36 @@ Partial Class F0_VentaComb
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(760, 270)
         Me.Panel2.TabIndex = 0
+        '
+        'LabelX29
+        '
+        '
+        '
+        '
+        Me.LabelX29.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX29.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX29.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX29.Location = New System.Drawing.Point(471, 239)
+        Me.LabelX29.Name = "LabelX29"
+        Me.LabelX29.Size = New System.Drawing.Size(95, 23)
+        Me.LabelX29.TabIndex = 416
+        Me.LabelX29.Text = "Nº AUTORIZ.:"
+        '
+        'tbAutoriza
+        '
+        Me.tbAutoriza.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbAutoriza.Border.Class = "TextBoxBorder"
+        Me.tbAutoriza.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAutoriza.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbAutoriza.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbAutoriza.Location = New System.Drawing.Point(567, 241)
+        Me.tbAutoriza.Name = "tbAutoriza"
+        Me.tbAutoriza.PreventEnterBeep = True
+        Me.tbAutoriza.Size = New System.Drawing.Size(120, 21)
+        Me.tbAutoriza.TabIndex = 415
         '
         'SwSurtidor
         '
@@ -2331,7 +2358,7 @@ Partial Class F0_VentaComb
         Me.gpDetalleVenta.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gpDetalleVenta.Location = New System.Drawing.Point(0, 293)
         Me.gpDetalleVenta.Name = "gpDetalleVenta"
-        Me.gpDetalleVenta.Size = New System.Drawing.Size(766, 80)
+        Me.gpDetalleVenta.Size = New System.Drawing.Size(766, 90)
         '
         '
         '
@@ -2372,7 +2399,7 @@ Partial Class F0_VentaComb
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(760, 57)
+        Me.Panel5.Size = New System.Drawing.Size(760, 67)
         Me.Panel5.TabIndex = 0
         '
         'grdetalle
@@ -2385,7 +2412,7 @@ Partial Class F0_VentaComb
         Me.grdetalle.Name = "grdetalle"
         Me.grdetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grdetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grdetalle.Size = New System.Drawing.Size(760, 57)
+        Me.grdetalle.Size = New System.Drawing.Size(760, 67)
         Me.grdetalle.TabIndex = 3
         Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -2456,56 +2483,6 @@ Partial Class F0_VentaComb
         Me.grProductos.Size = New System.Drawing.Size(849, 227)
         Me.grProductos.TabIndex = 0
         Me.grProductos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'SwConta
-        '
-        '
-        '
-        '
-        Me.SwConta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.SwConta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SwConta.IsReadOnly = True
-        Me.SwConta.Location = New System.Drawing.Point(489, 22)
-        Me.SwConta.Name = "SwConta"
-        Me.SwConta.OffBackColor = System.Drawing.Color.LawnGreen
-        Me.SwConta.OffText = "CONTABILIZADO"
-        Me.SwConta.OnBackColor = System.Drawing.Color.Gold
-        Me.SwConta.OnText = "SIN CONTABILIZAR"
-        Me.SwConta.Size = New System.Drawing.Size(170, 28)
-        Me.SwConta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.SwConta.TabIndex = 391
-        Me.SwConta.Value = True
-        Me.SwConta.ValueObject = "Y"
-        '
-        'LabelX29
-        '
-        '
-        '
-        '
-        Me.LabelX29.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX29.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX29.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX29.Location = New System.Drawing.Point(471, 239)
-        Me.LabelX29.Name = "LabelX29"
-        Me.LabelX29.Size = New System.Drawing.Size(95, 23)
-        Me.LabelX29.TabIndex = 416
-        Me.LabelX29.Text = "Nº AUTORIZ.:"
-        '
-        'tbAutoriza
-        '
-        Me.tbAutoriza.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.tbAutoriza.Border.Class = "TextBoxBorder"
-        Me.tbAutoriza.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbAutoriza.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbAutoriza.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbAutoriza.Location = New System.Drawing.Point(567, 241)
-        Me.tbAutoriza.Name = "tbAutoriza"
-        Me.tbAutoriza.PreventEnterBeep = True
-        Me.tbAutoriza.Size = New System.Drawing.Size(120, 21)
-        Me.tbAutoriza.TabIndex = 415
         '
         'F0_VentaComb
         '
@@ -2685,7 +2662,6 @@ Partial Class F0_VentaComb
     Friend WithEvents grProductos As Janus.Windows.GridEX.GridEX
     Friend WithEvents grdetalle As Janus.Windows.GridEX.GridEX
     Friend WithEvents cbDespachador As Janus.Windows.GridEX.EditControls.MultiColumnCombo
-    Friend WithEvents SwConta As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents SwSurtidor As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelX29 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbAutoriza As DevComponents.DotNetBar.Controls.TextBoxX
