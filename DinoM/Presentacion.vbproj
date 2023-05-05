@@ -699,6 +699,12 @@
     <Compile Include="Pr_ReportePrestamos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pr_ReporteResumenDiario.Designer.vb">
+      <DependentUpon>Pr_ReporteResumenDiario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_ReporteResumenDiario.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pr_RetiroInstitucionalInsumos.Designer.vb">
       <DependentUpon>Pr_RetiroInstitucionalInsumos.vb</DependentUpon>
     </Compile>
@@ -1057,6 +1063,12 @@
       <DependentUpon>R_ReportePagosCobranzasCarta.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_ResumenDiario.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_ResumenDiario.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_SaldosPorLinea.vb">
@@ -1637,6 +1649,9 @@
     <EmbeddedResource Include="Pr_ReportePrestamos.resx">
       <DependentUpon>Pr_ReportePrestamos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pr_ReporteResumenDiario.resx">
+      <DependentUpon>Pr_ReporteResumenDiario.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pr_RetiroInstitucionalInsumos.resx">
       <DependentUpon>Pr_RetiroInstitucionalInsumos.vb</DependentUpon>
     </EmbeddedResource>
@@ -1859,6 +1874,10 @@
     <EmbeddedResource Include="Reporte\R_ReportePagosCobranzasCarta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_ReportePagosCobranzasCarta.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_ResumenDiario.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_ResumenDiario.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_SaldosPorLinea.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -3405,10 +3405,10 @@ Public Class F0_VentaComb
                                               eToastPosition.TopCenter)
                         Exit Sub
                     End If
-                    ReimprimirFactura(tbCodigo.Text, True, True)
-                    _prImiprimirNotaVenta(tbCodigo.Text)
+                    'ReimprimirFactura(tbCodigo.Text, True, True)
+                    '_prImiprimirNotaVenta(tbCodigo.Text)
                 Else
-                    _prImiprimirNotaVenta(tbCodigo.Text)
+                    '_prImiprimirNotaVenta(tbCodigo.Text)
                 End If
             End If
         Catch ex As Exception

@@ -1376,56 +1376,26 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
-    Private Sub MetroTileItem13_Click_2(sender As Object, e As EventArgs) Handles bt_diasZafra.Click
-        SideNav1.IsMenuExpanded = False
-        Ventana.Select()
-        Dim frm As New F0_Dias_Zafra
-        frm._nameButton = bt_factorPonderado.Name
-        frm.Show()
-    End Sub
+
 
     Private Sub btCuentasxCobrar_Click(sender As Object, e As EventArgs) Handles btCuentasxCobrar.Click
         Dim frm As New Pr_Liquidacion
         frm.Show()
     End Sub
 
+    Private Sub reporteResumen_Click(sender As Object, e As EventArgs) Handles reporteResumen.Click
+        SideNav1.IsMenuExpanded = False
+        Ventana.Select()
+        Dim frm As New Pr_ReporteResumenDiario
+        'frm._nameButton = btGruposEconomicos.Name
+        frm.Show()
+    End Sub
 
+    Private Sub bt_diasZafra_Click(sender As Object, e As EventArgs) Handles bt_diasZafra.Click
 
-
-
-
-
-
-
-    'Private Sub btnCredPagoCliente_Click(sender As Object, e As EventArgs) Handles btnCredPagoCliente.Click
-    '    SideNav1.IsMenuExpanded = False
-    '    Ventana.Select()
-    '    Dim frm As New F0_Cobrar_Cliente
-    '    frm._nameButton = btInvMovimiento.Name
-    '    frm._modulo = FP_CREDITOS
-    '    Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-    '    frm._tab = tab3
-    '    Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-    '    superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-    '    tab3.AttachedControl.Controls.Add(panel)
-    '    frm.Show()
-    '    tab3.Text = frm.Text
-    '    tab3.Icon = frm.Icon
-    'End Sub
-
-    'Private Sub btnCredPagoClienteVendedor_Click(sender As Object, e As EventArgs) Handles btnCredPagoClienteVendedor.Click
-    '    SideNav1.IsMenuExpanded = False
-    '    Ventana.Select()
-    '    Dim frm As New F0_Cobrar_Vendedor
-    '    frm._nameButton = btInvMovimiento.Name
-    '    frm._modulo = FP_CREDITOS
-    '    Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
-    '    frm._tab = tab3
-    '    Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
-    '    superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
-    '    tab3.AttachedControl.Controls.Add(panel)
-    '    frm.Show()
-    '    tab3.Text = frm.Text
-    '    tab3.Icon = frm.Icon
-    'End Sub
+        Dim frm As New F0_Dias_Zafra
+        frm._nameButton = bt_diasZafra.Name
+        frm._modulo = FP_ModuloCanero
+        frm.Show()
+    End Sub
 End Class

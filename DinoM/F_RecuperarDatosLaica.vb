@@ -5,12 +5,102 @@ Imports System.Data.OleDb
 Imports Janus.Windows.GridEX
 
 Public Class F_RecuperarDatosLaica
-
+    Dim _Dsencabezado As DataSet
     Public InventarioImport As New DataTable
     Private Sub F_RecuperarDatosLaica_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        _PCargarBuscador()
     End Sub
+    Private Sub _PCargarBuscador()
+        _Dsencabezado = New DataSet
+        _Dsencabezado = L_AnalisisLaica(0)
 
+        grprecio.BoundMode = BoundMode.Bound
+        grprecio.DataSource = _Dsencabezado.Tables(0) ' _Dsencabezado.Tables(0) ' dt
+        grprecio.RetrieveStructure()
+
+        With grprecio.RootTable.Columns("nroBoleta")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "Nº boleta".ToUpper
+
+        End With
+        With grprecio.RootTable.Columns("Fecha")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "fecha bol".ToUpper
+
+        End With
+        With grprecio.RootTable.Columns("fechaRelacionBol")
+            '.Visible = False
+            .Caption = "FECHA ".ToUpper
+            .Width = 100
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With grprecio.RootTable.Columns("torta")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "Torta".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grprecio.RootTable.Columns("fibra")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "fibra".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grprecio.RootTable.Columns("brix")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "brix".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grprecio.RootTable.Columns("pol")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "pol".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grprecio.RootTable.Columns("pureza")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "pureza".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grprecio.RootTable.Columns("basura")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "basura".ToUpper
+            .FormatString = "0.00"
+        End With
+        With grprecio.RootTable.Columns("paquete")
+
+            .Width = 85
+            .Visible = True
+            .Caption = "paquete".ToUpper
+            .FormatString = "0"
+        End With
+
+
+
+        'Habilitar Filtradores
+        With grprecio
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+
+            'diseño de la grilla
+            grprecio.VisualStyle = VisualStyle.Office2007
+        End With
+    End Sub
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
         InventarioImport.Clear()
         Dim datePatt As String = "yyyy-MM-dd"
@@ -18,7 +108,7 @@ Public Class F_RecuperarDatosLaica
         Dim dtString As String = localDate.ToString(datePatt)
         'L_Boletas_Borrar(dtString)
         MP_ImportarExcel()
-        MP_PasarDatos()
+        'MP_PasarDatos()
     End Sub
 
 
@@ -77,65 +167,7 @@ Public Class F_RecuperarDatosLaica
                                                   eToastPosition.TopCenter
                                                   )
 
-                                grprecio.DataSource = InvProductos
-                                grprecio.RetrieveStructure()
-                                With grprecio.RootTable.Columns("ID Ticket")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("Fecha")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("Peso Torta")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("% Fibra Caña")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("% Brix")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("%POL Unificada")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("% Pureza Unificada")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("% Materia Extraña")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("Cantidad de Paquete")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio
-                                    .GroupByBoxVisible = False
-                                    '.FilterRowFormatStyle.BackColor = Color.Blue
-                                    .DefaultFilterRowComparison = FilterConditionOperator.Contains
-                                    '.FilterMode = FilterMode.Automatic
-                                    .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
-                                    .FilterMode = FilterMode.Automatic
-                                    'Diseño de la tabla
-                                    .VisualStyle = VisualStyle.Office2007
-                                    .SelectionMode = SelectionMode.SingleSelection
-                                    .AlternatingColors = True
-                                End With
+                                _PCargarBuscador()
 
                             Else
                                 Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
@@ -158,74 +190,16 @@ Public Class F_RecuperarDatosLaica
                             '    If _PEliminarRegistro(InventarioImport.Rows(k).Item(1)) Then
                             Dim grabar As Boolean = L_fnGrabarAnalisis(tbFecha.Value, InvProductos)
                             If (grabar) Then
-                                        For Each item As DataRow In InvProductos.Rows
-                                            canaLimpia(CStr(item(("ID Ticket"))))
-                                        Next
-                                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                                For Each item As DataRow In InvProductos.Rows
+                                    canaLimpia(CStr(item(("ID Ticket"))))
+                                Next
+                                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                                 ToastNotification.Show(Me, "analisis Grabado con Exito.".ToUpper,
                                                   img, 2000,
                                                   eToastGlowColor.Green,
                                                   eToastPosition.TopCenter
                                                   )
-                                grprecio.DataSource = InvProductos
-                                grprecio.RetrieveStructure()
-                                With grprecio.RootTable.Columns("ID Ticket")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("Fecha")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("Peso Torta")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("% Fibra Caña")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("% Brix")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("%POL Unificada")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("% Pureza Unificada")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("% Materia Extraña")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio.RootTable.Columns("Cantidad de Paquete")
-
-                                    .Width = 85
-                                    .Visible = True
-                                End With
-                                With grprecio
-                                    .GroupByBoxVisible = False
-                                    '.FilterRowFormatStyle.BackColor = Color.Blue
-                                    .DefaultFilterRowComparison = FilterConditionOperator.Contains
-                                    '.FilterMode = FilterMode.Automatic
-                                    .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
-                                    .FilterMode = FilterMode.Automatic
-                                    'Diseño de la tabla
-                                    .VisualStyle = VisualStyle.Office2007
-                                    .SelectionMode = SelectionMode.SingleSelection
-                                    .AlternatingColors = True
-                                End With
+                                _PCargarBuscador()
                                 Exit For
 
                             End If
@@ -243,12 +217,13 @@ Public Class F_RecuperarDatosLaica
                 End If
             Else
                 MostrarMensajeError("Debe seleccionar un fecha")
-                End If
+            End If
 
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
     End Sub
+
 
     Private Function _PEliminarRegistro(fecha As String) As Boolean
         Dim ef = New Efecto

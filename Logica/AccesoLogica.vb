@@ -765,7 +765,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Where = "fechaRelacionBol = " + "'" + _Id + "'"
         _Err = D_Eliminar_Datos("analisis", _Where)
     End Sub
+    Public Shared Function L_AnalisisLaica(_Modo As Integer, Optional _Cadena As String = "") As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
 
+        _Tabla = D_Datos_TablaTara("nroBoleta , fecha ,  fechaRelacionBol ,torta , fibra ,brix , pol ,pureza ,basura ,paquete", "analisis")
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
     Public Shared Sub L_Fponderado_Borrar(_Id As String)
         Dim _Where As String
         Dim _Err As Boolean
@@ -2040,6 +2047,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
         _Tabla = D_ProcedimientoConParam("Sp_Mam_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prReporteReSumenDiario(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 29))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
         Return _Tabla
     End Function
