@@ -1,8 +1,10 @@
 ﻿Imports DevComponents.DotNetBar
+Imports DevComponents.DotNetBar.Controls
 Imports Logica.AccesoLogica
 
 Public Class Pr_ReporteResumenDiario
-
+    Public _modulo As SideNavItem
+    Public _nameButton As String
     Public Sub iniciarcomponentes()
         tbInsCan.ReadOnly = True
         tbCod.ReadOnly = True

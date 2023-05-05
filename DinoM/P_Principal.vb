@@ -1357,10 +1357,11 @@ Public Class P_Principal
         frm.Show()
     End Sub
     Private Sub bt_moduloCañero_Click(sender As Object, e As EventArgs) Handles bt_moduloCañero.Click
-        SideNav1.IsMenuExpanded = False
-        Ventana.Select()
+
+
         Dim frm As New Pr_ReporteModuloCanero
-        'frm._nameButton = btGruposEconomicos.Name
+        frm._nameButton = bt_factorPonderado.Name
+        frm._modulo = FP_ModuloCanero
         frm.Show()
     End Sub
 
@@ -1369,10 +1370,10 @@ Public Class P_Principal
         frm.Show()
     End Sub
     Private Sub bt_factorPonderado_Click(sender As Object, e As EventArgs) Handles bt_factorPonderado.Click
-        SideNav1.IsMenuExpanded = False
-        Ventana.Select()
+
         Dim frm As New F0_FactorR
         frm._nameButton = bt_factorPonderado.Name
+        frm._modulo = FP_ModuloCanero
         frm.Show()
     End Sub
 
@@ -1384,10 +1385,10 @@ Public Class P_Principal
     End Sub
 
     Private Sub reporteResumen_Click(sender As Object, e As EventArgs) Handles reporteResumen.Click
-        SideNav1.IsMenuExpanded = False
-        Ventana.Select()
+
         Dim frm As New Pr_ReporteResumenDiario
-        'frm._nameButton = btGruposEconomicos.Name
+        frm._nameButton = reporteResumen.Name
+        frm._modulo = FP_ModuloCanero
         frm.Show()
     End Sub
 

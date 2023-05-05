@@ -2385,6 +2385,11 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\student_work_office_desk_work_space_computer_working_support_icon_191191.png" />
+    <None Include="Resources\worker_113306.png" />
+    <None Include="Resources\upload_file.png" />
+    <None Include="Resources\Truck_Yellow.png" />
+    <None Include="Resources\Truck.png" />
     <None Include="Resources\VENT_PAGOS.png" />
     <None Include="Resources\pie-chart1.png" />
     <None Include="Resources\pie-chart.png" />
@@ -2400,6 +2405,7 @@
     <Content Include="Resources\atras1.png" />
     <None Include="Resources\buscar.png" />
     <None Include="Resources\BUSQUEDA1.png" />
+    <None Include="Resources\calendar.png" />
     <Content Include="Resources\check-mark.png" />
     <None Include="Resources\cobro.png" />
     <None Include="Resources\creditopagos.png" />

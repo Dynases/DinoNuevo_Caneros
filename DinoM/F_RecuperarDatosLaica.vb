@@ -253,62 +253,7 @@ Public Class F_RecuperarDatosLaica
         End If
         Return _Resp
     End Function
-    Private Sub MP_PasarDatos()
-        'Try
-        '    Dim TablaProductos As DataTable = L_fnProductoGeneral(1)
-        '    Dim ProdFiltrado As DataTable
-        '    Dim Numi As String
-        '    Dim Tablaaux As DataTable = InventarioImport.Copy
 
-        '    ''Validación para comprobar que no existan dos o mas filas con el mismo codigo
-        '    For k = 0 To InventarioImport.Rows.Count - 1
-        '        Dim aux = Tablaaux.Select("Codigo=" + InventarioImport.Rows(k).Item("Codigo").ToString)
-        '        If aux.Length > 1 Then
-        '            ToastNotification.Show(Me, "No se puede realizar la importación porque el codigo:  ".ToUpper & InventarioImport.Rows(k).Item("Codigo").ToString & " existe  ".ToUpper & aux.Length.ToString & " veces en la lista".ToUpper,
-        '                                   My.Resources.WARNING, 5000, eToastGlowColor.Green, eToastPosition.BottomCenter)
-        '            Exit Sub
-        '        End If
-        '    Next
-
-
-        '    If InventarioImport.Rows.Count = TablaProductos.Rows.Count Then
-        '        ''Hago una copia para ir cambiando el codigo flex por el codigo del sistema
-        '        Dim InvProductos As DataTable = InventarioImport.Copy
-        '        For i = 0 To InventarioImport.Rows.Count - 1
-        '            ProdFiltrado = L_fnProductoPorCacod(InventarioImport.Rows(i).Item("Codigo").ToString)
-        '            If ProdFiltrado.Rows.Count > 0 Then
-        '                Numi = ProdFiltrado.Rows(0).Item("canumi").ToString
-        '                InvProductos.Rows(i).Item("Codigo") = Numi
-        '            Else
-        '                ToastNotification.Show(Me, "No se puede realizar la importación porque el código de producto: ".ToUpper & InventarioImport.Rows(i).Item("Codigo").ToString & " no pertenece a la lista de Productos de la base de datos".ToUpper,
-        '                                       My.Resources.WARNING, 5000, eToastGlowColor.Green, eToastPosition.BottomCenter)
-        '                Exit Sub
-        '            End If
-
-        '        Next
-        '        Dim importar As Boolean = L_fnImportarInventario(InvProductos)
-        '        If importar Then
-        '            ToastNotification.Show(Me, "IMPORTACIÓN DEL INVENTARIO EXITOSA!!! ",
-        '                          My.Resources.OK, 5000,
-        '                          eToastGlowColor.Green,
-        '                          eToastPosition.BottomCenter)
-        '        Else
-        '            ToastNotification.Show(Me, "FALLÓ LA IMPORTACIÓN DEL INVENTARIO!!!",
-        '                          My.Resources.WARNING, 4000,
-        '                          eToastGlowColor.Red,
-        '                          eToastPosition.BottomCenter)
-        '        End If
-        '    Else
-        '        ToastNotification.Show(Me, "No se puede realizar la importación porque la Lista del Inventario tiene que tener ".ToUpper & TablaProductos.Rows.Count & " registros".ToUpper,
-        '                               My.Resources.WARNING, 5000, eToastGlowColor.Green, eToastPosition.BottomCenter)
-        '        Exit Sub
-        '    End If
-
-
-        'Catch ex As Exception
-        '    MostrarMensajeError(ex.Message)
-        'End Try
-    End Sub
     Private Sub MostrarMensajeError(mensaje As String)
         ToastNotification.Show(Me, mensaje.ToUpper, My.Resources.WARNING, 5000, eToastGlowColor.Red, eToastPosition.TopCenter)
     End Sub
