@@ -190,7 +190,7 @@ Public Class F0_Retenciones
         btnGrabar.Enabled = False
         btnNuevo.Enabled = True
 
-
+        SwitchButton1.Enabled = False
         'btnEliminar.Enabled = True
 
         '------------REVISAR ESTADO
@@ -248,7 +248,7 @@ Public Class F0_Retenciones
         'End If
 
 
-
+        SwitchButton1.Enabled = True
         TbNombre2.ReadOnly = False
 
         'dtDescuentos = L_fnListarDescuentosTodos()
@@ -277,7 +277,6 @@ Public Class F0_Retenciones
         cbGestion.Clear()
         TextBoxX3.Clear()
 
-        tbFechaVenta.Enabled = False
 
         txtEstado.ReadOnly = True
 
@@ -285,7 +284,7 @@ Public Class F0_Retenciones
         tbInstitucion.Clear()
         idInstitucion.Clear()
 
-        Dim dt As DataTable = cargarDeudasporCanero(-1)
+        Dim dt As DataTable = cargarDeudasporCanero(-1, -1, -1)
         dt.Clear()
         grdetalle.DataSource = dt
         dt = cargarGrupoCanero(-1)
@@ -407,9 +406,15 @@ Public Class F0_Retenciones
     Private Sub _prCargarDetalleVenta(_numi As String)
         Dim dt As New DataTable
         If CheckGrupo.Checked = True Then
-            dt = cargarDeudasporGrupo(CType(grGrupoEco.DataSource, DataTable))
+            If SwitchButton1.Value = True Then
+                dt = cargarDeudasporGrupo(cbGestion.Value, cbQuincena.Value, CType(grGrupoEco.DataSource, DataTable))
+            End If
         Else
-            dt = cargarDeudasporCanero(_numi)
+            If SwitchButton1.Value = True Then
+                dt = cargarDeudasporCanero(_numi, cbGestion.Value, cbQuincena.Value)
+            Else
+                dt = cargaCobranzaporCanero(_numi, tbFechaVenta.Value.ToString("dd/MM/yyyy"))
+            End If
         End If
 
         grdetalle.DataSource = dt
@@ -1442,13 +1447,18 @@ Public Class F0_Retenciones
             'Dim factura = gb_FacturaEmite
 
             ''Verifica si existe estock para los productos
-
+            Dim tipo As String
+            If SwitchButton1.Value = False Then
+                tipo = "Cobranza"
+            Else
+                tipo = "Retencion"
+            End If
             Dim ef = New Efecto
 
 
             ef.tipo = 2
             ef.Context = "MENSAJE PRINCIPAL".ToUpper
-            ef.Header = "¿Desea realizar el registro como Retencion?".ToUpper
+            ef.Header = "¿Desea guardar el registro como una" + tipo + "?".ToUpper
             ef.ShowDialog()
             Dim bandera As Boolean = False
             bandera = ef.band
@@ -1458,13 +1468,9 @@ Public Class F0_Retenciones
                 res = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(cbQuincena.Value), CDbl(cbGestion.Value), CInt(idInstitucion.Text), _CodCliente,
                                                      CDbl(TextBoxX3.Text), CDbl(TextBoxX4.Text), CDbl(TextBoxX5.Text), CDbl(TextBoxX6.Text), CDbl(TextBoxX7.Text), CDbl(TextBoxX8.Text),
                                                      CDbl(TextBoxX9.Text), TComb, RComb, TInsu, RInsu, TRest, RRest, TCont, RCont, TSho, RSho, TOtSu, ROtSu, TConv, RConv, CDbl(tbTotalD.Text),
-                                                     CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable), 1)
+                                                     CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable), IIf(SwitchButton1.Value = False, 0, 1))
             Else
-                res = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(cbQuincena.Value), CDbl(cbGestion.Value), CInt(idInstitucion.Text), _CodCliente,
-                                                     CDbl(TextBoxX3.Text), CDbl(TextBoxX4.Text), CDbl(TextBoxX5.Text), CDbl(TextBoxX6.Text), CDbl(TextBoxX7.Text), CDbl(TextBoxX8.Text),
-                                                     CDbl(TextBoxX9.Text), TComb, RComb, TInsu, RInsu, TRest, RRest, TCont, RCont, TSho, RSho, TOtSu, ROtSu, TConv, RConv, CDbl(tbTotalD.Text),
-                                                     CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable), 0)
-
+                res = False
             End If
             If res Then
                     'res = P_fnGrabarFacturarTFV001(numi)
@@ -1478,7 +1484,7 @@ Public Class F0_Retenciones
 
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                    ToastNotification.Show(Me, "Código de Retencion ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+                ToastNotification.Show(Me, "Código de " + tipo.ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
                                                   img, 2000,
                                                   eToastGlowColor.Green,
                                                   eToastPosition.TopCenter
@@ -1486,13 +1492,13 @@ Public Class F0_Retenciones
 
 
 
-                    Table_Producto = Nothing
+                Table_Producto = Nothing
 
                 Else
                     Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                    ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                ToastNotification.Show(Me, "La " + tipo + " no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
-                End If
+            End If
 
 
 
@@ -1893,6 +1899,12 @@ Public Class F0_Retenciones
         btnGrabar.Enabled = True
         PanelNavegacion.Enabled = False
         tbInstitucion.Select()
+        SwitchButton1.Value = False
+        cbQuincena.Enabled = False
+        cbGestion.Enabled = False
+        tbFechaVenta.Enabled = True
+        TextBoxX3.Enabled = False
+        CheckGrupo.Enabled = False
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         _prSalir()
@@ -2457,7 +2469,7 @@ salirIf:
 
 
             Else
-                If (grdetalle.GetValue("cobrar") > 0) And grdetalle.GetValue("cobrar") < grdetalle.GetValue("deuda") Then
+                If (grdetalle.GetValue("cobrar") > 0) And grdetalle.GetValue("cobrar") < grdetalle.GetValue("saldo") Then
                     '                   '                Dim cant As Integer = grdetalle.GetValue("tbcmin")
 
                     '                Dim stock As Double = grdetalle.GetValue("stock")
@@ -2856,6 +2868,24 @@ salirIf:
         End If
     End Sub
 
+    Private Sub SwitchButton1_ValueChanged(sender As Object, e As EventArgs) Handles SwitchButton1.ValueChanged
+        If btnGrabar.Enabled = True Then
+            If SwitchButton1.Value = False Then
+                cbGestion.Enabled = False
+                cbQuincena.Enabled = False
+                tbFechaVenta.Enabled = True
+                TextBoxX3.Enabled = False
+            Else
+                cbQuincena.Enabled = True
+                cbGestion.Enabled = True
+                tbFechaVenta.Enabled = False
+                TextBoxX3.Enabled = True
+                CheckGrupo.Enabled = False
+            End If
+        End If
+        _Limpiar()
+    End Sub
+
     Private Sub GroupPanel1_Click(sender As Object, e As EventArgs) Handles GroupCobranza.Click
 
     End Sub
@@ -3245,7 +3275,7 @@ salirIf:
     Private Sub ActualizarTotales()
         Dim dtIngEgre As DataTable = CType(grdetalle.DataSource, DataTable)
         TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10013 or taalm=10014")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10013 or taalm=10014"))
-        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011"))
+        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011 or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016"))
         TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005"))
         TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007"))
         TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1"))
@@ -3263,14 +3293,14 @@ salirIf:
 
 
         RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10013 or taalm=10014")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10013 or taalm=10014"))
-        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011"))
+        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016"))
         RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005"))
         RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007"))
         RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1"))
         RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2"))
         ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009"))
 
-        tbRConv.Text = TConv.ToString("0.00")
+        tbRConv.Text = RConv.ToString("0.00")
         tbRCont.Text = RCont.ToString("0.00")
         tbRRest.Text = RRest.ToString("0.00")
         tbRComb.Text = RComb.ToString("0.00")
@@ -3293,21 +3323,39 @@ salirIf:
     End Sub
     Private Sub grCanero_KeyDown(sender As Object, e As KeyEventArgs) Handles grCanero.KeyDown
         If grCanero.RowCount > 0 Then
-            'If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
-            If e.KeyData = Keys.Enter Then
+            If SwitchButton1.Value = True Then
+                If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
+                    If e.KeyData = Keys.Enter Then
+
+                        CargarTotalQuincena(cbGestion.Value, _CodCliente)
+
+                        _CodCliente = grCanero.GetValue("ydnumi")
+                        _prCargarGrupoEco(_CodCliente)
+
+                        _prCargarDetalleVenta(_CodCliente)
+
+
+                        ActualizarTotales()
+
+                    End If
+                Else
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Por Favor Seleccione una Gestion y una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                End If
+            Else
+                If e.KeyData = Keys.Enter Then
+
                     _CodCliente = grCanero.GetValue("ydnumi")
                     _prCargarGrupoEco(_CodCliente)
 
                     _prCargarDetalleVenta(_CodCliente)
-                    CargarTotalQuincena(cbGestion.Value, _CodCliente)
+
+
                     ActualizarTotales()
 
                 End If
-            'Else
-            '    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            '    ToastNotification.Show(Me, "Por Favor Seleccione una Gestion y una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-
-            'End If
+            End If
         End If
     End Sub
 

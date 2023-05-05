@@ -112,6 +112,7 @@ Partial Class F0_Retenciones
         Me.PanelEncabezado = New System.Windows.Forms.Panel()
         Me.btnBitacora = New DevComponents.DotNetBar.ButtonX()
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.SwitchButton1 = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -377,6 +378,7 @@ Partial Class F0_Retenciones
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.SwitchButton1)
         Me.Panel2.Controls.Add(Me.cbGestion)
         Me.Panel2.Controls.Add(Me.cbQuincena)
         Me.Panel2.Controls.Add(Me.CheckGrupo)
@@ -559,7 +561,7 @@ Partial Class F0_Retenciones
         '
         Me.lbNroCaja.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lbNroCaja.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.lbNroCaja.Location = New System.Drawing.Point(1183, 8)
+        Me.lbNroCaja.Location = New System.Drawing.Point(1184, 25)
         Me.lbNroCaja.Name = "lbNroCaja"
         Me.lbNroCaja.Size = New System.Drawing.Size(100, 17)
         Me.lbNroCaja.TabIndex = 386
@@ -577,7 +579,7 @@ Partial Class F0_Retenciones
         Me.LabelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX24.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX24.Location = New System.Drawing.Point(1107, 10)
+        Me.LabelX24.Location = New System.Drawing.Point(1108, 27)
         Me.LabelX24.Name = "LabelX24"
         Me.LabelX24.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX24.Size = New System.Drawing.Size(68, 16)
@@ -1902,6 +1904,22 @@ Partial Class F0_Retenciones
         Me.SwDescuentoProveedor.ValueObject = "Y"
         Me.SwDescuentoProveedor.Visible = False
         '
+        'SwitchButton1
+        '
+        '
+        '
+        '
+        Me.SwitchButton1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.SwitchButton1.Location = New System.Drawing.Point(1172, 2)
+        Me.SwitchButton1.Name = "SwitchButton1"
+        Me.SwitchButton1.OffBackColor = System.Drawing.Color.LightGreen
+        Me.SwitchButton1.OffText = "COBRANZA"
+        Me.SwitchButton1.OnBackColor = System.Drawing.Color.Gold
+        Me.SwitchButton1.OnText = "RETENCION"
+        Me.SwitchButton1.Size = New System.Drawing.Size(125, 22)
+        Me.SwitchButton1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.SwitchButton1.TabIndex = 398
+        '
         'F0_Retenciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2044,4 +2062,5 @@ Partial Class F0_Retenciones
     Friend WithEvents tbTComb As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents cbGestion As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbQuincena As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents SwitchButton1 As DevComponents.DotNetBar.Controls.SwitchButton
 End Class

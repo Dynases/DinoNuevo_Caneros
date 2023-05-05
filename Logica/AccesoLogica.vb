@@ -7908,13 +7908,15 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
     End Function
 
-    Public Shared Function cargarDeudasporCanero(cod As Integer) As DataTable
+    Public Shared Function cargarDeudasporCanero(cod As Integer, quin As Integer, gest As Integer) As DataTable
         Dim _Tabla As DataTable
         'Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 7))
         _listParam.Add(New Datos.DParametro("@id", cod))
+        _listParam.Add(New Datos.DParametro("@codGrupo", quin))
+        _listParam.Add(New Datos.DParametro("@estado", gest))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
@@ -7923,14 +7925,30 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
 
     End Function
+    Public Shared Function cargaCobranzaporCanero(cod As Integer, fecha As String) As DataTable
+        Dim _Tabla As DataTable
+        'Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
 
-    Public Shared Function cargarDeudasporGrupo(dt As DataTable) As DataTable
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@id", cod))
+        _listParam.Add(New Datos.DParametro("@fecha", fecha))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function cargarDeudasporGrupo(quin As Integer, gest As Integer, dt As DataTable) As DataTable
         Dim _Tabla As DataTable
         'Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 8))
         _listParam.Add(New Datos.DParametro("@cañeros", "", dt))
+        _listParam.Add(New Datos.DParametro("@codGrupo", quin))
+        _listParam.Add(New Datos.DParametro("@estado", gest))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TG001", _listParam)
