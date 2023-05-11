@@ -294,8 +294,8 @@ Public Class F0_FactorR
             _Error = False
         End If
         If VerificarAnalisis(tbFecha.Value) = False Then
-                MessageBox.Show("No se puede grabar por que no existe boletas con esta fecha de registro " + tbFecha.Text)
-                _Error = False
+            MessageBox.Show("No se puede grabar por que no existe analisis con esta fecha de registro " + tbFecha.Text)
+            _Error = False
             Else
 
             End If

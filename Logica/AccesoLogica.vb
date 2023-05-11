@@ -662,7 +662,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return Not _Error
     End Function
-    Public Shared Function L_FactorR_Grabar(_pesoTara As Decimal, _fecha As String) As Boolean
+    Public Shared Function L_FactorR_Grabar(_pesoTara As String, _fecha As String) As Boolean
+
         Dim _Error As Boolean
 
         Dim _Tabla As DataTable
@@ -1867,7 +1868,28 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_Taras_ModificarBoleta(_Cod As String, _pesoTara As String) As Boolean
+        Dim _Err As Boolean
+        Dim Sql, _where As String
 
+        Sql = "cod = '" + _Cod + "' , " +
+        "pesoTara = " + _pesoTara + "  "
+
+        _where = "cod = " + _Cod
+        _Err = D_Modificar_Datos("taras", Sql, _where)
+        Return _Err
+    End Function
+
+    Public Shared Function L_fnListarClientesVentas1(numi As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 182))
+        _listParam.Add(New Datos.DParametro("@tanumi", numi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Sub L_Validar_CodigoTara(_Cod As String, ByRef _placa As String, ByRef _PesoTara As Decimal, ByRef _propietario As String)
         Dim _Tabla As DataTable
 
@@ -1876,7 +1898,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         If _Tabla.Rows.Count > 0 Then
             _placa = _Tabla.Rows(0).Item(1)
             _PesoTara = _Tabla.Rows(0).Item(2)
-            _propietario = _Tabla.Rows(0).Item(5)
+            _propietario = _Tabla.Rows(0).Item(4)
         End If
     End Sub
     Public Shared Function L_fnObtenerTara(_RazonSocial As String) As DataTable
@@ -2542,6 +2564,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@hora", _hora))
         _listParam.Add(New Datos.DParametro("@detBol", "", detalle))
         _listParam.Add(New Datos.DParametro("@controlTotal", _controlTotal))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@estado", _estado))
         _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
@@ -2903,7 +2926,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     Public Shared Function VerificarNumBoletaEnRegistroBoletas(_fecha As Integer) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_TablaInst1("*", "heaBol", "nroBoleta= " + Convert.ToString(Convert.ToInt32(_fecha)))
+        _Tabla = D_Datos_TablaInst1("*", "heaBol", "  nroBoleta= " + Convert.ToString(Convert.ToInt32(_fecha)))
         If _Tabla.Rows.Count > 0 Then
             _resultado = True
         Else
