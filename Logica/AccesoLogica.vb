@@ -569,6 +569,19 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         End If
         Return _Err
     End Function
+
+    Public Shared Function L_BuscarCodBOleta(_Numi As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _Err As Boolean
+        Dim _Where As String = "nroBoleta = " + _Numi
+        _Tabla = D_Datos_Tabla("*", "heaBol", _Where)
+        If (_Tabla.Rows.Count > 0) Then
+            _Err = True
+        Else
+            _Err = False
+        End If
+        Return _Err
+    End Function
     Public Shared Function L_BuscarCodTara(_Numi As String) As Boolean
         Dim _Tabla As DataTable
         Dim _Err As Boolean
@@ -2037,6 +2050,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 28))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_prReporteRep390(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 30))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
         _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)

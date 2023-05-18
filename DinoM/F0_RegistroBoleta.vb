@@ -169,6 +169,7 @@ Public Class F0_RegistroBoleta
         tbCodigo.Text = ""
         tbCliente.Clear()
         tbVendedor.Clear()
+        tbTotalDo.Text = "0"
         _CodCliente = 0
         _CodEmpleado = 0
         'tbFechaVenta.Value = Now.Date
@@ -684,6 +685,30 @@ Public Class F0_RegistroBoleta
                 ToastNotification.Show(Me, "Por Favor Ingrese el Número de Boleta".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 tbCodigo.Focus()
                 Return False
+            Else
+                If _Nuevo Then
+                    If L_BuscarCodBOleta(tbCodigo.Text) = True Then
+                        tbCodigo.BackColor = Color.Red
+                        MEP.SetError(tbCodigo, "Ingrese un código distinto!".ToUpper)
+                        Return False
+                    Else
+                        tbCodigo.BackColor = Color.White
+                        MEP.SetError(tbCodigo, String.Empty)
+                    End If
+                ElseIf _codBoleta = Convert.ToInt32(tbCodigo.Text) Then
+                    tbCodigo.BackColor = Color.White
+                    MEP.SetError(tbCodigo, String.Empty)
+                    Return True
+                Else
+                    If L_BuscarCodBOleta(tbCodigo.Text) = True Then
+                        tbCodigo.BackColor = Color.Red
+                        MEP.SetError(tbCodigo, "Ingrese un código distinto!".ToUpper)
+                        Return False
+                    Else
+                        tbCodigo.BackColor = Color.White
+                        MEP.SetError(tbCodigo, String.Empty)
+                    End If
+                End If
 
             End If
             If (_CodCliente <= 0) Then
@@ -1713,13 +1738,14 @@ Public Class F0_RegistroBoleta
             MEP.SetError(tbPesoBruto, "Ingrese peso bruto!".ToUpper)
             _Error = False
 
-        ElseIf tbPesoBruto.Text < tbPesoTara.Text Then
+        ElseIf tbPesoBruto.Value > tbPesoTara.Value Then
+            tbPesoBruto.BackColor = Color.White
+            MEP.SetError(tbPesoBruto, String.Empty)
+
+        Else
             tbPesoBruto.BackColor = Color.Red
             MEP.SetError(tbPesoBruto, "El peso bruto debe ser mayor al peso tara!".ToUpper)
             _Error = False
-        Else
-            tbPesoBruto.BackColor = Color.White
-            MEP.SetError(tbPesoBruto, String.Empty)
         End If
 
         MHighlighterFocus.UpdateHighlights()
