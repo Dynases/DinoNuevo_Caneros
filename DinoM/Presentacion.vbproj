@@ -364,6 +364,12 @@
     <Compile Include="F0_Libreria.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F0_PlanPagos.Designer.vb">
+      <DependentUpon>F0_PlanPagos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_PlanPagos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F0_Precios.Designer.vb">
       <DependentUpon>F0_Precios.vb</DependentUpon>
     </Compile>
@@ -1493,6 +1499,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Libreria.resx">
       <DependentUpon>F0_Libreria.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_PlanPagos.resx">
+      <DependentUpon>F0_PlanPagos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Precios.resx">
       <DependentUpon>F0_Precios.vb</DependentUpon>

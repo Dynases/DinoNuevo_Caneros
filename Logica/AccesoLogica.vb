@@ -8295,6 +8295,58 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function _CargarPagos(cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 17))
+        _listParam.Add(New Datos.DParametro("@trcan", cod))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function _CargarPlanPagos(cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 15))
+        _listParam.Add(New Datos.DParametro("@trcan", cod))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function _fnGuargarPlandePagos(codcan As Integer, codins As Integer, banco As String, fecha As String, moneda As Integer, monto As Double, operacion As String, plazo As String, TPP0011 As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim res As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 16))
+        _listParam.Add(New Datos.DParametro("@trcan", codcan))
+        _listParam.Add(New Datos.DParametro("@trins", codins))
+        _listParam.Add(New Datos.DParametro("@tpban", banco))
+        _listParam.Add(New Datos.DParametro("@trfec", fecha))
+        _listParam.Add(New Datos.DParametro("@trquin", moneda))
+        _listParam.Add(New Datos.DParametro("@trTotalD", monto))
+        _listParam.Add(New Datos.DParametro("@tpope", operacion))
+        _listParam.Add(New Datos.DParametro("@tppla", plazo))
+        _listParam.Add(New Datos.DParametro("@TPP0011", "", TPP0011))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            res = True
+        Else
+            res = False
+        End If
+        Return res
+    End Function
+
 #End Region
 
 #Region "Caña Comprometida"

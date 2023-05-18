@@ -1399,4 +1399,9 @@ Public Class P_Principal
         frm._modulo = FP_ModuloCanero
         frm.Show()
     End Sub
+
+    Private Sub btnPlandePagos_Click(sender As Object, e As EventArgs) Handles btPlandePagos.Click
+        Dim frm As New F0_PlanPagos
+        frm.Show()
+    End Sub
 End Class

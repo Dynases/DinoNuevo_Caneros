@@ -77,6 +77,7 @@ Public Class F0_Retenciones
         DescuentoXProveedorList = ObtenerDescuentoPorProveedor()
         ConfiguracionDescuentoEsXCantidad = TipoDescuentoEsXCantidad()
         'SwDescuentoProveedor.Visible = IIf(ConfiguracionDescuentoEsXCantidad, False, True)
+        tbFechaVenta.Value = Date.Now
         SwDescuentoProveedor.Visible = False
         Programa = P_Principal.btVentVenta.Text
     End Sub
@@ -297,7 +298,7 @@ Public Class F0_Retenciones
 
 
 
-
+        txtEstado.Clear()
         TextBoxX4.Clear()
         TextBoxX5.Clear()
         TextBoxX6.Clear()
@@ -522,6 +523,16 @@ Public Class F0_Retenciones
         With grdetalle.RootTable.Columns("saldo")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
+            .FormatString = "0.00"
+            .Caption = "Saldo"
+            .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
+
+        End With
+        With grdetalle.RootTable.Columns("saldo1")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Saldo"
@@ -529,7 +540,6 @@ Public Class F0_Retenciones
             .TotalFormatString = "0.00"
 
         End With
-
         With grdetalle
             '.DefaultFilterRowComparison = FilterConditionOperator.Contains
             '.FilterMode = FilterMode.Automatic
@@ -660,6 +670,15 @@ Public Class F0_Retenciones
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("saldo")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
+            .FormatString = "0.00"
+            .Caption = "Saldo"
+            .AggregateFunction = AggregateFunction.Sum
+
+        End With
+        With grdetalle.RootTable.Columns("saldo1")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
@@ -1266,12 +1285,13 @@ Public Class F0_Retenciones
                 Return False
 
             End If
-            If (TextBoxX3.Text = String.Empty) Then
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                ToastNotification.Show(Me, "Por Favor Ingrese un factor".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                TextBoxX3.Focus()
-                Return False
-
+            If SwitchButton1.Value = True Then
+                If (TextBoxX3.Text = String.Empty) Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Por Favor Ingrese un factor".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    TextBoxX3.Focus()
+                    Return False
+                End If
             End If
 
             If (grdetalle.GetTotal(grdetalle.RootTable.Columns("cobrar"), AggregateFunction.Sum) <= 0) Then
@@ -1458,19 +1478,26 @@ Public Class F0_Retenciones
 
             ef.tipo = 2
             ef.Context = "MENSAJE PRINCIPAL".ToUpper
-            ef.Header = "¿Desea guardar el registro como una" + tipo + "?".ToUpper
+            ef.Header = "¿Desea guardar el registro como una " + tipo + "?".ToUpper
             ef.ShowDialog()
             Dim bandera As Boolean = False
             bandera = ef.band
             Dim res As Boolean
             If (bandera = True) Then
                 'Dim dtDetalle As DataTable = rearmarDetalle()
-                res = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(cbQuincena.Value), CDbl(cbGestion.Value), CInt(idInstitucion.Text), _CodCliente,
+                If SwitchButton1.Value = True Then
+                    res = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), CDbl(cbQuincena.Value), CDbl(cbGestion.Value), CInt(idInstitucion.Text), _CodCliente,
                                                      CDbl(TextBoxX3.Text), CDbl(TextBoxX4.Text), CDbl(TextBoxX5.Text), CDbl(TextBoxX6.Text), CDbl(TextBoxX7.Text), CDbl(TextBoxX8.Text),
                                                      CDbl(TextBoxX9.Text), TComb, RComb, TInsu, RInsu, TRest, RRest, TCont, RCont, TSho, RSho, TOtSu, ROtSu, TConv, RConv, CDbl(tbTotalD.Text),
-                                                     CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable), IIf(SwitchButton1.Value = False, 0, 1))
+                                                     CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, IIf(CheckGrupo.Checked = False, 0, 1), CType(grdetalle.DataSource, DataTable), 1)
+                Else
+                    res = L_fnGrabarRetencion(tbFechaVenta.Value.ToString("dd-MM-yyyy"), 0, 0, CInt(idInstitucion.Text), _CodCliente,
+                                                     0, 0, 0, 0, 0, 0, 0, TComb, RComb, TInsu, RInsu, TRest, RRest, TCont, RCont, TSho, RSho, TOtSu, ROtSu, TConv, RConv, CDbl(tbTotalD.Text),
+                                                     CDbl(tbTotalR.Text), gi_userSuc, gi_userNumi, 0, CType(grdetalle.DataSource, DataTable), 0)
+                End If
+
             Else
-                res = False
+                    res = False
             End If
             If res Then
                     'res = P_fnGrabarFacturarTFV001(numi)
@@ -2458,6 +2485,7 @@ salirIf:
     End Sub
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellValueChanged
         Try
+
             'If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index) Then
             If (Not IsNumeric(grdetalle.GetValue("cobrar")) Or grdetalle.GetValue("cobrar").ToString = String.Empty) Then
 
@@ -2469,7 +2497,9 @@ salirIf:
 
 
             Else
-                If (grdetalle.GetValue("cobrar") > 0) And grdetalle.GetValue("cobrar") < grdetalle.GetValue("saldo") Then
+                If (grdetalle.GetValue("cobrar") >= 0) And grdetalle.GetValue("cobrar") < grdetalle.GetValue("saldo") Then
+                    grdetalle.SetValue("saldo1", grdetalle.GetValue("saldo") - grdetalle.GetValue("cobrar"))
+
                     '                   '                Dim cant As Integer = grdetalle.GetValue("tbcmin")
 
                     '                Dim stock As Double = grdetalle.GetValue("stock")
@@ -2855,16 +2885,22 @@ salirIf:
     End Sub
 
     Private Sub cbQuincena_ValueChanged(sender As Object, e As EventArgs) Handles cbQuincena.ValueChanged
-        If cbGestion.Text <> String.Empty Then
-            Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
-            tbFechaVenta.Value = dt.Rows(0).Item("fecha")
+        If SwitchButton1.Value = True Then
+
+            If cbGestion.Text <> String.Empty Then
+                Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
+                tbFechaVenta.Value = dt.Rows(0).Item("fecha")
+            End If
         End If
+
     End Sub
 
     Private Sub cbGestion_ValueChanged(sender As Object, e As EventArgs) Handles cbGestion.ValueChanged
-        If cbQuincena.Text <> String.Empty Then
-            Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
-            tbFechaVenta.Value = dt.Rows(0).Item("fecha")
+        If SwitchButton1.Value = True Then
+            If cbQuincena.Text <> String.Empty Then
+                Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
+                tbFechaVenta.Value = dt.Rows(0).Item("fecha")
+            End If
         End If
     End Sub
 
