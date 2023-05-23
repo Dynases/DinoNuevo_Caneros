@@ -29,6 +29,7 @@ Partial Class F0_Retenciones
         Dim cbQuincena_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.SwitchButton1 = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.cbGestion = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbQuincena = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.CheckGrupo = New DevComponents.DotNetBar.Controls.CheckBoxX()
@@ -112,7 +113,6 @@ Partial Class F0_Retenciones
         Me.PanelEncabezado = New System.Windows.Forms.Panel()
         Me.btnBitacora = New DevComponents.DotNetBar.ButtonX()
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
-        Me.SwitchButton1 = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -406,6 +406,22 @@ Partial Class F0_Retenciones
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1315, 57)
         Me.Panel2.TabIndex = 0
+        '
+        'SwitchButton1
+        '
+        '
+        '
+        '
+        Me.SwitchButton1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.SwitchButton1.Location = New System.Drawing.Point(1172, 2)
+        Me.SwitchButton1.Name = "SwitchButton1"
+        Me.SwitchButton1.OffBackColor = System.Drawing.Color.LightGreen
+        Me.SwitchButton1.OffText = "COBRANZA"
+        Me.SwitchButton1.OnBackColor = System.Drawing.Color.Gold
+        Me.SwitchButton1.OnText = "RETENCION"
+        Me.SwitchButton1.Size = New System.Drawing.Size(125, 22)
+        Me.SwitchButton1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.SwitchButton1.TabIndex = 398
         '
         'cbGestion
         '
@@ -1903,22 +1919,6 @@ Partial Class F0_Retenciones
         Me.SwDescuentoProveedor.Value = True
         Me.SwDescuentoProveedor.ValueObject = "Y"
         Me.SwDescuentoProveedor.Visible = False
-        '
-        'SwitchButton1
-        '
-        '
-        '
-        '
-        Me.SwitchButton1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.SwitchButton1.Location = New System.Drawing.Point(1172, 2)
-        Me.SwitchButton1.Name = "SwitchButton1"
-        Me.SwitchButton1.OffBackColor = System.Drawing.Color.LightGreen
-        Me.SwitchButton1.OffText = "COBRANZA"
-        Me.SwitchButton1.OnBackColor = System.Drawing.Color.Gold
-        Me.SwitchButton1.OnText = "RETENCION"
-        Me.SwitchButton1.Size = New System.Drawing.Size(125, 22)
-        Me.SwitchButton1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.SwitchButton1.TabIndex = 398
         '
         'F0_Retenciones
         '

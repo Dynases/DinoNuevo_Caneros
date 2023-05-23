@@ -8321,7 +8321,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
-    Public Shared Function _fnGuargarPlandePagos(codcan As Integer, codins As Integer, banco As String, fecha As String, moneda As Integer, monto As Double, operacion As String, plazo As String, TPP0011 As DataTable) As Boolean
+    Public Shared Function _fnGuargarPlandePagos(codcan As Integer, codins As Integer, banco As String, fecha As String, moneda As Integer, monto As Double, operacion As String, plazo As String, quincena As Integer, tipoCambio As Integer, TPP0011 As DataTable) As Boolean
         Dim _Tabla As DataTable
         Dim res As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -8335,6 +8335,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@trTotalD", monto))
         _listParam.Add(New Datos.DParametro("@tpope", operacion))
         _listParam.Add(New Datos.DParametro("@tppla", plazo))
+        _listParam.Add(New Datos.DParametro("@trid", quincena))
+        _listParam.Add(New Datos.DParametro("@trges", tipoCambio))
         _listParam.Add(New Datos.DParametro("@TPP0011", "", TPP0011))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
@@ -8345,6 +8347,19 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
             res = False
         End If
         Return res
+    End Function
+
+    Public Shared Function CargarRegistroPlanPago(cod As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 18))
+        _listParam.Add(New Datos.DParametro("@trcan", cod))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
     End Function
 
 #End Region
@@ -8450,4 +8465,24 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
 #End Region
 
+#Region "Plan de pagos"
+    Public Shared Function _fnGuargarPagos(IdPlanPago As Integer, TPP00121 As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim res As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _listParam.Add(New Datos.DParametro("@trges", IdPlanPago))
+        _listParam.Add(New Datos.DParametro("@TPP00121", "", TPP00121))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            res = True
+        Else
+            res = False
+        End If
+        Return res
+    End Function
+#End Region
 End Class

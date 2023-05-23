@@ -24,9 +24,15 @@ Partial Class F0_PlanPagos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_PlanPagos))
+        Dim cbTipoCambio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbQuincena_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbMoneda_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.cbTipoCambio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.cbQuincena = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.grGrupoEco = New Janus.Windows.GridEX.GridEX()
@@ -74,6 +80,8 @@ Partial Class F0_PlanPagos
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel2.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.cbTipoCambio, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel1.SuspendLayout()
         CType(Me.grGrupoEco, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbMoneda, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -142,6 +150,19 @@ Partial Class F0_PlanPagos
         Me.TxtNombreUsu.ReadOnly = True
         Me.TxtNombreUsu.Text = "DEFAULT"
         '
+        'btnGrabar
+        '
+        '
+        'btnEliminar
+        '
+        Me.btnEliminar.Visible = False
+        '
+        'btnModificar
+        '
+        '
+        'btnNuevo
+        '
+        '
         'PanelToolBar2
         '
         Me.PanelToolBar2.Location = New System.Drawing.Point(1074, 0)
@@ -153,6 +174,10 @@ Partial Class F0_PlanPagos
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.Panel1, 0)
+        '
+        'btnImprimir
+        '
+        Me.btnImprimir.Visible = False
         '
         'MPanelUserAct
         '
@@ -168,9 +193,9 @@ Partial Class F0_PlanPagos
         '
         'PanelContent
         '
-        Me.PanelContent.Controls.Add(Me.GroupPanel4)
         Me.PanelContent.Controls.Add(Me.GroupPanel3)
         Me.PanelContent.Controls.Add(Me.GroupPanel2)
+        Me.PanelContent.Controls.Add(Me.GroupPanel4)
         Me.PanelContent.Size = New System.Drawing.Size(1121, 494)
         '
         'Panel1
@@ -246,6 +271,10 @@ Partial Class F0_PlanPagos
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.cbTipoCambio)
+        Me.Panel2.Controls.Add(Me.cbQuincena)
+        Me.Panel2.Controls.Add(Me.LabelX8)
+        Me.Panel2.Controls.Add(Me.LabelX2)
         Me.Panel2.Controls.Add(Me.ButtonX1)
         Me.Panel2.Controls.Add(Me.GroupPanel1)
         Me.Panel2.Controls.Add(Me.tbPlazo)
@@ -276,12 +305,58 @@ Partial Class F0_PlanPagos
         Me.Panel2.Size = New System.Drawing.Size(1115, 177)
         Me.Panel2.TabIndex = 0
         '
+        'cbTipoCambio
+        '
+        cbTipoCambio_DesignTimeLayout.LayoutString = resources.GetString("cbTipoCambio_DesignTimeLayout.LayoutString")
+        Me.cbTipoCambio.DesignTimeLayout = cbTipoCambio_DesignTimeLayout
+        Me.cbTipoCambio.Location = New System.Drawing.Point(370, 129)
+        Me.cbTipoCambio.Name = "cbTipoCambio"
+        Me.cbTipoCambio.SelectedIndex = -1
+        Me.cbTipoCambio.SelectedItem = Nothing
+        Me.cbTipoCambio.Size = New System.Drawing.Size(120, 22)
+        Me.cbTipoCambio.TabIndex = 419
+        '
+        'cbQuincena
+        '
+        cbQuincena_DesignTimeLayout.LayoutString = resources.GetString("cbQuincena_DesignTimeLayout.LayoutString")
+        Me.cbQuincena.DesignTimeLayout = cbQuincena_DesignTimeLayout
+        Me.cbQuincena.Location = New System.Drawing.Point(370, 98)
+        Me.cbQuincena.Name = "cbQuincena"
+        Me.cbQuincena.SelectedIndex = -1
+        Me.cbQuincena.SelectedItem = Nothing
+        Me.cbQuincena.Size = New System.Drawing.Size(120, 22)
+        Me.cbQuincena.TabIndex = 418
+        '
+        'LabelX8
+        '
+        '
+        '
+        '
+        Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX8.Location = New System.Drawing.Point(251, 133)
+        Me.LabelX8.Name = "LabelX8"
+        Me.LabelX8.Size = New System.Drawing.Size(120, 23)
+        Me.LabelX8.TabIndex = 417
+        Me.LabelX8.Text = "Tipo de Cambio:"
+        '
+        'LabelX2
+        '
+        '
+        '
+        '
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Location = New System.Drawing.Point(251, 98)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.Size = New System.Drawing.Size(75, 23)
+        Me.LabelX2.TabIndex = 416
+        Me.LabelX2.Text = "Quincena:"
+        '
         'ButtonX1
         '
         Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.ButtonX1.Font = New System.Drawing.Font("Georgia", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.ButtonX1.Location = New System.Drawing.Point(532, 131)
+        Me.ButtonX1.Location = New System.Drawing.Point(744, 131)
         Me.ButtonX1.Name = "ButtonX1"
         Me.ButtonX1.Size = New System.Drawing.Size(110, 30)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -297,9 +372,9 @@ Partial Class F0_PlanPagos
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
         Me.GroupPanel1.Controls.Add(Me.grGrupoEco)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel1.Location = New System.Drawing.Point(650, 0)
+        Me.GroupPanel1.Location = New System.Drawing.Point(860, 0)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(460, 173)
+        Me.GroupPanel1.Size = New System.Drawing.Size(250, 173)
         '
         '
         '
@@ -336,7 +411,7 @@ Partial Class F0_PlanPagos
         Me.grGrupoEco.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grGrupoEco.Location = New System.Drawing.Point(0, 0)
         Me.grGrupoEco.Name = "grGrupoEco"
-        Me.grGrupoEco.Size = New System.Drawing.Size(454, 150)
+        Me.grGrupoEco.Size = New System.Drawing.Size(244, 150)
         Me.grGrupoEco.TabIndex = 0
         '
         'tbPlazo
@@ -346,7 +421,7 @@ Partial Class F0_PlanPagos
         '
         Me.tbPlazo.Border.Class = "TextBoxBorder"
         Me.tbPlazo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbPlazo.Location = New System.Drawing.Point(376, 131)
+        Me.tbPlazo.Location = New System.Drawing.Point(582, 95)
         Me.tbPlazo.Name = "tbPlazo"
         Me.tbPlazo.PreventEnterBeep = True
         Me.tbPlazo.Size = New System.Drawing.Size(150, 22)
@@ -362,7 +437,7 @@ Partial Class F0_PlanPagos
         Me.tbMonto.Location = New System.Drawing.Point(83, 131)
         Me.tbMonto.Name = "tbMonto"
         Me.tbMonto.PreventEnterBeep = True
-        Me.tbMonto.Size = New System.Drawing.Size(200, 22)
+        Me.tbMonto.Size = New System.Drawing.Size(150, 22)
         Me.tbMonto.TabIndex = 412
         '
         'cbMoneda
@@ -373,7 +448,7 @@ Partial Class F0_PlanPagos
         Me.cbMoneda.Name = "cbMoneda"
         Me.cbMoneda.SelectedIndex = -1
         Me.cbMoneda.SelectedItem = Nothing
-        Me.cbMoneda.Size = New System.Drawing.Size(200, 22)
+        Me.cbMoneda.Size = New System.Drawing.Size(150, 22)
         Me.cbMoneda.TabIndex = 411
         '
         'LabelX7
@@ -386,7 +461,7 @@ Partial Class F0_PlanPagos
         Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX7.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX7.Location = New System.Drawing.Point(290, 133)
+        Me.LabelX7.Location = New System.Drawing.Point(496, 97)
         Me.LabelX7.Name = "LabelX7"
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX7.Size = New System.Drawing.Size(41, 16)
@@ -403,7 +478,7 @@ Partial Class F0_PlanPagos
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX6.Location = New System.Drawing.Point(290, 101)
+        Me.LabelX6.Location = New System.Drawing.Point(496, 65)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX6.Size = New System.Drawing.Size(71, 16)
@@ -434,7 +509,7 @@ Partial Class F0_PlanPagos
         '
         Me.tbOperacion.Border.Class = "TextBoxBorder"
         Me.tbOperacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbOperacion.Location = New System.Drawing.Point(376, 99)
+        Me.tbOperacion.Location = New System.Drawing.Point(582, 63)
         Me.tbOperacion.Name = "tbOperacion"
         Me.tbOperacion.PreventEnterBeep = True
         Me.tbOperacion.Size = New System.Drawing.Size(150, 22)
@@ -483,7 +558,7 @@ Partial Class F0_PlanPagos
         Me.tbFechaD.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.tbFechaD.ButtonDropDown.Visible = True
         Me.tbFechaD.IsPopupCalendarOpen = False
-        Me.tbFechaD.Location = New System.Drawing.Point(409, 65)
+        Me.tbFechaD.Location = New System.Drawing.Point(370, 65)
         '
         '
         '
@@ -528,7 +603,7 @@ Partial Class F0_PlanPagos
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(290, 65)
+        Me.LabelX3.Location = New System.Drawing.Point(251, 65)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX3.Size = New System.Drawing.Size(122, 16)
@@ -545,7 +620,7 @@ Partial Class F0_PlanPagos
         Me.tbBanco.Location = New System.Drawing.Point(83, 63)
         Me.tbBanco.Name = "tbBanco"
         Me.tbBanco.PreventEnterBeep = True
-        Me.tbBanco.Size = New System.Drawing.Size(200, 22)
+        Me.tbBanco.Size = New System.Drawing.Size(150, 22)
         Me.tbBanco.TabIndex = 401
         '
         'tbCodCan
@@ -571,7 +646,7 @@ Partial Class F0_PlanPagos
         Me.TextBoxX1.Location = New System.Drawing.Point(129, 7)
         Me.TextBoxX1.Name = "TextBoxX1"
         Me.TextBoxX1.PreventEnterBeep = True
-        Me.TextBoxX1.Size = New System.Drawing.Size(400, 22)
+        Me.TextBoxX1.Size = New System.Drawing.Size(605, 22)
         Me.TextBoxX1.TabIndex = 399
         '
         'LabelX1
@@ -680,7 +755,7 @@ Partial Class F0_PlanPagos
         Me.tbInstitucion.Name = "tbInstitucion"
         Me.tbInstitucion.PreventEnterBeep = True
         Me.tbInstitucion.ReadOnly = True
-        Me.tbInstitucion.Size = New System.Drawing.Size(400, 21)
+        Me.tbInstitucion.Size = New System.Drawing.Size(605, 21)
         Me.tbInstitucion.TabIndex = 0
         '
         'lbFVenta
@@ -708,7 +783,7 @@ Partial Class F0_PlanPagos
         Me.GroupPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupPanel3.Location = New System.Drawing.Point(0, 200)
         Me.GroupPanel3.Name = "GroupPanel3"
-        Me.GroupPanel3.Size = New System.Drawing.Size(1121, 294)
+        Me.GroupPanel3.Size = New System.Drawing.Size(1121, 0)
         '
         '
         '
@@ -745,7 +820,7 @@ Partial Class F0_PlanPagos
         Me.grPlanPagos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grPlanPagos.Location = New System.Drawing.Point(0, 0)
         Me.grPlanPagos.Name = "grPlanPagos"
-        Me.grPlanPagos.Size = New System.Drawing.Size(1115, 271)
+        Me.grPlanPagos.Size = New System.Drawing.Size(1115, 8)
         Me.grPlanPagos.TabIndex = 1
         '
         'GroupPanel4
@@ -829,6 +904,8 @@ Partial Class F0_PlanPagos
         Me.GroupPanel2.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.cbTipoCambio, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanel1.ResumeLayout(False)
         CType(Me.grGrupoEco, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbMoneda, System.ComponentModel.ISupportInitialize).EndInit()
@@ -872,4 +949,8 @@ Partial Class F0_PlanPagos
     Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents grGrupoEco As Janus.Windows.GridEX.GridEX
     Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbTipoCambio As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents cbQuincena As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class
