@@ -28,6 +28,7 @@ Partial Class F0_PlanPagos
         Dim cbQuincena_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbMoneda_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.grPlandePagosC = New Janus.Windows.GridEX.GridEX()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.cbTipoCambio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbQuincena = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -79,6 +80,7 @@ Partial Class F0_PlanPagos
         Me.MSuperTabControl.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel2.SuspendLayout()
+        CType(Me.grPlandePagosC, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         CType(Me.cbTipoCambio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -150,6 +152,9 @@ Partial Class F0_PlanPagos
         Me.TxtNombreUsu.ReadOnly = True
         Me.TxtNombreUsu.Text = "DEFAULT"
         '
+        'btnSalir
+        '
+        '
         'btnGrabar
         '
         '
@@ -178,6 +183,18 @@ Partial Class F0_PlanPagos
         'btnImprimir
         '
         Me.btnImprimir.Visible = False
+        '
+        'btnUltimo
+        '
+        '
+        'btnSiguiente
+        '
+        '
+        'btnAnterior
+        '
+        '
+        'btnPrimero
+        '
         '
         'MPanelUserAct
         '
@@ -232,6 +249,7 @@ Partial Class F0_PlanPagos
         '
         Me.GroupPanel2.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel2.Controls.Add(Me.grPlandePagosC)
         Me.GroupPanel2.Controls.Add(Me.Panel2)
         Me.GroupPanel2.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel2.Dock = System.Windows.Forms.DockStyle.Top
@@ -268,6 +286,14 @@ Partial Class F0_PlanPagos
         Me.GroupPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel2.TabIndex = 231
         Me.GroupPanel2.Text = "DATOS GENERALES"
+        '
+        'grPlandePagosC
+        '
+        Me.grPlandePagosC.Location = New System.Drawing.Point(40, 0)
+        Me.grPlandePagosC.Name = "grPlandePagosC"
+        Me.grPlandePagosC.Size = New System.Drawing.Size(10, 10)
+        Me.grPlandePagosC.TabIndex = 1
+        Me.grPlandePagosC.Visible = False
         '
         'Panel2
         '
@@ -309,22 +335,24 @@ Partial Class F0_PlanPagos
         '
         cbTipoCambio_DesignTimeLayout.LayoutString = resources.GetString("cbTipoCambio_DesignTimeLayout.LayoutString")
         Me.cbTipoCambio.DesignTimeLayout = cbTipoCambio_DesignTimeLayout
+        Me.cbTipoCambio.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.cbTipoCambio.Location = New System.Drawing.Point(370, 129)
         Me.cbTipoCambio.Name = "cbTipoCambio"
         Me.cbTipoCambio.SelectedIndex = -1
         Me.cbTipoCambio.SelectedItem = Nothing
-        Me.cbTipoCambio.Size = New System.Drawing.Size(120, 22)
+        Me.cbTipoCambio.Size = New System.Drawing.Size(120, 21)
         Me.cbTipoCambio.TabIndex = 419
         '
         'cbQuincena
         '
         cbQuincena_DesignTimeLayout.LayoutString = resources.GetString("cbQuincena_DesignTimeLayout.LayoutString")
         Me.cbQuincena.DesignTimeLayout = cbQuincena_DesignTimeLayout
+        Me.cbQuincena.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.cbQuincena.Location = New System.Drawing.Point(370, 98)
         Me.cbQuincena.Name = "cbQuincena"
         Me.cbQuincena.SelectedIndex = -1
         Me.cbQuincena.SelectedItem = Nothing
-        Me.cbQuincena.Size = New System.Drawing.Size(120, 22)
+        Me.cbQuincena.Size = New System.Drawing.Size(120, 21)
         Me.cbQuincena.TabIndex = 418
         '
         'LabelX8
@@ -409,6 +437,7 @@ Partial Class F0_PlanPagos
         'grGrupoEco
         '
         Me.grGrupoEco.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grGrupoEco.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.grGrupoEco.Location = New System.Drawing.Point(0, 0)
         Me.grGrupoEco.Name = "grGrupoEco"
         Me.grGrupoEco.Size = New System.Drawing.Size(244, 150)
@@ -421,10 +450,11 @@ Partial Class F0_PlanPagos
         '
         Me.tbPlazo.Border.Class = "TextBoxBorder"
         Me.tbPlazo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbPlazo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbPlazo.Location = New System.Drawing.Point(582, 95)
         Me.tbPlazo.Name = "tbPlazo"
         Me.tbPlazo.PreventEnterBeep = True
-        Me.tbPlazo.Size = New System.Drawing.Size(150, 22)
+        Me.tbPlazo.Size = New System.Drawing.Size(150, 21)
         Me.tbPlazo.TabIndex = 413
         '
         'tbMonto
@@ -434,21 +464,23 @@ Partial Class F0_PlanPagos
         '
         Me.tbMonto.Border.Class = "TextBoxBorder"
         Me.tbMonto.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbMonto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbMonto.Location = New System.Drawing.Point(83, 131)
         Me.tbMonto.Name = "tbMonto"
         Me.tbMonto.PreventEnterBeep = True
-        Me.tbMonto.Size = New System.Drawing.Size(150, 22)
+        Me.tbMonto.Size = New System.Drawing.Size(150, 21)
         Me.tbMonto.TabIndex = 412
         '
         'cbMoneda
         '
         cbMoneda_DesignTimeLayout.LayoutString = resources.GetString("cbMoneda_DesignTimeLayout.LayoutString")
         Me.cbMoneda.DesignTimeLayout = cbMoneda_DesignTimeLayout
+        Me.cbMoneda.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.cbMoneda.Location = New System.Drawing.Point(83, 97)
         Me.cbMoneda.Name = "cbMoneda"
         Me.cbMoneda.SelectedIndex = -1
         Me.cbMoneda.SelectedItem = Nothing
-        Me.cbMoneda.Size = New System.Drawing.Size(150, 22)
+        Me.cbMoneda.Size = New System.Drawing.Size(150, 21)
         Me.cbMoneda.TabIndex = 411
         '
         'LabelX7
@@ -509,10 +541,12 @@ Partial Class F0_PlanPagos
         '
         Me.tbOperacion.Border.Class = "TextBoxBorder"
         Me.tbOperacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbOperacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.tbOperacion.ForeColor = System.Drawing.SystemColors.WindowText
         Me.tbOperacion.Location = New System.Drawing.Point(582, 63)
         Me.tbOperacion.Name = "tbOperacion"
         Me.tbOperacion.PreventEnterBeep = True
-        Me.tbOperacion.Size = New System.Drawing.Size(150, 22)
+        Me.tbOperacion.Size = New System.Drawing.Size(150, 21)
         Me.tbOperacion.TabIndex = 407
         '
         'LabelX4
@@ -541,7 +575,7 @@ Partial Class F0_PlanPagos
         Me.lbCtrlEnter.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbCtrlEnter.Font = New System.Drawing.Font("Georgia", 7.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbCtrlEnter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lbCtrlEnter.Location = New System.Drawing.Point(427, 0)
+        Me.lbCtrlEnter.Location = New System.Drawing.Point(637, 0)
         Me.lbCtrlEnter.Name = "lbCtrlEnter"
         Me.lbCtrlEnter.SingleLineColor = System.Drawing.SystemColors.Control
         Me.lbCtrlEnter.Size = New System.Drawing.Size(60, 10)
@@ -557,6 +591,7 @@ Partial Class F0_PlanPagos
         Me.tbFechaD.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaD.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.tbFechaD.ButtonDropDown.Visible = True
+        Me.tbFechaD.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbFechaD.IsPopupCalendarOpen = False
         Me.tbFechaD.Location = New System.Drawing.Point(370, 65)
         '
@@ -589,7 +624,7 @@ Partial Class F0_PlanPagos
         Me.tbFechaD.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaD.MonthCalendar.TodayButtonVisible = True
         Me.tbFechaD.Name = "tbFechaD"
-        Me.tbFechaD.Size = New System.Drawing.Size(120, 22)
+        Me.tbFechaD.Size = New System.Drawing.Size(120, 21)
         Me.tbFechaD.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaD.TabIndex = 405
         '
@@ -617,10 +652,11 @@ Partial Class F0_PlanPagos
         '
         Me.tbBanco.Border.Class = "TextBoxBorder"
         Me.tbBanco.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbBanco.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbBanco.Location = New System.Drawing.Point(83, 63)
         Me.tbBanco.Name = "tbBanco"
         Me.tbBanco.PreventEnterBeep = True
-        Me.tbBanco.Size = New System.Drawing.Size(150, 22)
+        Me.tbBanco.Size = New System.Drawing.Size(150, 21)
         Me.tbBanco.TabIndex = 401
         '
         'tbCodCan
@@ -630,10 +666,11 @@ Partial Class F0_PlanPagos
         '
         Me.tbCodCan.Border.Class = "TextBoxBorder"
         Me.tbCodCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodCan.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbCodCan.Location = New System.Drawing.Point(83, 7)
         Me.tbCodCan.Name = "tbCodCan"
         Me.tbCodCan.PreventEnterBeep = True
-        Me.tbCodCan.Size = New System.Drawing.Size(40, 22)
+        Me.tbCodCan.Size = New System.Drawing.Size(40, 21)
         Me.tbCodCan.TabIndex = 400
         '
         'TextBoxX1
@@ -643,10 +680,11 @@ Partial Class F0_PlanPagos
         '
         Me.TextBoxX1.Border.Class = "TextBoxBorder"
         Me.TextBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TextBoxX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.TextBoxX1.Location = New System.Drawing.Point(129, 7)
         Me.TextBoxX1.Name = "TextBoxX1"
         Me.TextBoxX1.PreventEnterBeep = True
-        Me.TextBoxX1.Size = New System.Drawing.Size(605, 22)
+        Me.TextBoxX1.Size = New System.Drawing.Size(605, 21)
         Me.TextBoxX1.TabIndex = 399
         '
         'LabelX1
@@ -674,7 +712,7 @@ Partial Class F0_PlanPagos
         '
         Me.tbcodInst.Border.Class = "TextBoxBorder"
         Me.tbcodInst.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbcodInst.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbcodInst.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbcodInst.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbcodInst.Location = New System.Drawing.Point(83, 34)
         Me.tbcodInst.Name = "tbcodInst"
@@ -749,7 +787,7 @@ Partial Class F0_PlanPagos
         '
         Me.tbInstitucion.Border.Class = "TextBoxBorder"
         Me.tbInstitucion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbInstitucion.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbInstitucion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tbInstitucion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbInstitucion.Location = New System.Drawing.Point(129, 34)
         Me.tbInstitucion.Name = "tbInstitucion"
@@ -818,6 +856,7 @@ Partial Class F0_PlanPagos
         'grPlanPagos
         '
         Me.grPlanPagos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grPlanPagos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.grPlanPagos.Location = New System.Drawing.Point(0, 0)
         Me.grPlanPagos.Name = "grPlanPagos"
         Me.grPlanPagos.Size = New System.Drawing.Size(1115, 8)
@@ -867,6 +906,7 @@ Partial Class F0_PlanPagos
         'grPagos
         '
         Me.grPagos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grPagos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.grPagos.Location = New System.Drawing.Point(0, 0)
         Me.grPagos.Name = "grPagos"
         Me.grPagos.Size = New System.Drawing.Size(1115, 327)
@@ -902,6 +942,7 @@ Partial Class F0_PlanPagos
         Me.MSuperTabControl.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanel2.ResumeLayout(False)
+        CType(Me.grPlandePagosC, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.cbTipoCambio, System.ComponentModel.ISupportInitialize).EndInit()
@@ -953,4 +994,5 @@ Partial Class F0_PlanPagos
     Friend WithEvents LabelX8 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbTipoCambio As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbQuincena As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents grPlandePagosC As Janus.Windows.GridEX.GridEX
 End Class

@@ -21,17 +21,20 @@ Public Class F0_PlanPagos
         tbCodCan.ReadOnly = False
         tbcodInst.ReadOnly = False
         tbFechaD.Value = Date.Now
-        tbInstitucion.ReadOnly = False
         tbMonto.ReadOnly = False
         tbOperacion.ReadOnly = False
         tbPlazo.ReadOnly = False
         cbMoneda.ReadOnly = False
         cbQuincena.ReadOnly = False
         cbTipoCambio.ReadOnly = False
-
+        tbFechaD.Enabled = True
         btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnGrabar.Enabled = True
+        btnAnterior.Enabled = False
+        btnPrimero.Enabled = False
+        btnSiguiente.Enabled = False
+        btnUltimo.Enabled = False
     End Sub
     Private Sub Inhabilitar()
         tbBanco.ReadOnly = True
@@ -44,10 +47,15 @@ Public Class F0_PlanPagos
         cbMoneda.ReadOnly = True
         cbQuincena.ReadOnly = True
         cbTipoCambio.ReadOnly = True
-
+        TextBoxX1.ReadOnly = True
         btnNuevo.Enabled = True
         btnModificar.Enabled = True
         btnGrabar.Enabled = False
+        tbFechaD.Enabled = False
+        btnAnterior.Enabled = True
+        btnPrimero.Enabled = True
+        btnSiguiente.Enabled = True
+        btnUltimo.Enabled = True
     End Sub
 
     Private Sub Limpiar()
@@ -78,17 +86,129 @@ Public Class F0_PlanPagos
     Private Sub IniciarComponentes()
         _prCargarComboMoneda(cbMoneda)
         Inhabilitar()
-    End Sub
-    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
-
+        cargarRegistroPagos()
     End Sub
 
-    Private Sub TextBoxX7_TextChanged(sender As Object, e As EventArgs) Handles tbPlazo.TextChanged
+    Private Sub cargarRegistroPagos()
+        Dim dt As DataTable = _fnCargarPagos()
 
+        grPlandePagosC.DataSource = dt
+        grPlandePagosC.RetrieveStructure()
+        grPlandePagosC.AlternatingColors = True
+
+        With grPlandePagosC.RootTable.Columns("tpnumi")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tpcan")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("ydcod")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("ydrazonsocial")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tpins")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("codInst")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("nomInst")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tpban")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tpmon")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tbmonto")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tbfecD")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tpquin")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tptcam")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tppla")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        With grPlandePagosC.RootTable.Columns("tpope")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+
+        With grPlandePagosC.RootTable.Columns("idPago")
+            .Width = 100
+            .Caption = "Fecha"
+            .Visible = False
+        End With
+        If (dt.Rows.Count <= 0) Then
+            CargarPlanes(0.1)
+        End If
     End Sub
+    Public Sub _prMostrarRegistro(_N As Integer)
+        '' grVentas.Row = _N
+        '     a.tanumi ,a.taalm ,a.tafdoc ,a.taven ,vendedor .yddesc as vendedor ,a.tatven ,a.tafvcr ,a.taclpr,
+        'cliente.yddesc as cliente ,a.tamon ,IIF(tamon=1,'Boliviano','Dolar') as moneda,a.taest ,a.taobs ,
+        'a.tadesc ,a.tafact ,a.tahact ,a.tauact,(Sum(b.tbptot)-a.tadesc ) as total,taproforma
 
-    Private Sub TextBoxX1_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX1.TextChanged
+        With grPlandePagosC
+            _CodCliente = .GetValue("tpcan")
+            _CodInstitucion = .GetValue("tpins")
+            _IdPlanPago = .GetValue("idPago")
+            TextBoxX1.Text = .GetValue("ydrazonsocial")
+            tbBanco.Text = .GetValue("tpban")
+            tbCodCan.Text = .GetValue("ydcod")
+            tbcodInst.Text = .GetValue("codInst")
+            tbFechaD.Value = .GetValue("tbfecD")
+            tbInstitucion.Text = .GetValue("nomInst")
+            tbMonto.Text = .GetValue("tbmonto")
+            tbOperacion.Text = .GetValue("tpope")
+            tbPlazo.Text = .GetValue("tppla")
+            cbMoneda.Value = .GetValue("tpmon")
+            cbQuincena.Value = .GetValue("tpquin")
+            cbTipoCambio.Value = .GetValue("tptcam")
 
+            CargarPlanes2(.GetValue("tpnumi"))
+            _prCargarGrupoEco(_CodCliente)
+            cargarPagos2(_IdPlanPago)
+            LblPaginacion.Text = Str(grPlandePagosC.Row + 1) + "/" + grPlandePagosC.RowCount.ToString
+        End With
     End Sub
 
     Private Sub _prCargarComboMoneda(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
@@ -151,65 +271,68 @@ Public Class F0_PlanPagos
             .Visible = False
         End With
         With grGrupoEco
+            .ColumnAutoResize = True
             .GroupByBoxVisible = False
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
         End With
     End Sub
     Private Sub TextBoxX1_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxX1.KeyDown
-        If e.KeyData = Keys.Control + Keys.Enter Then
+        If Accesible() Then
+            If e.KeyData = Keys.Control + Keys.Enter Then
 
-            Dim dt As DataTable
-            'dt = L_fnListarClientes()
-            dt = L_fnListarClientesVenta()
+                Dim dt As DataTable
+                'dt = L_fnListarClientes()
+                dt = L_fnListarClientesVenta()
 
-            Dim listEstCeldas As New List(Of Modelo.Celda)
-            listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
-            listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD. CLI", 100))
-            listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", True, "RAZÓN SOCIAL", 180))
-            listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
-            listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
-            listEstCeldas.Add(New Modelo.Celda("yddirec", True, "DIRECCIÓN", 220))
-            listEstCeldas.Add(New Modelo.Celda("ydtelf1", True, "Teléfono".ToUpper, 200))
-            listEstCeldas.Add(New Modelo.Celda("ydfnac", True, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
-            listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
-            listEstCeldas.Add(New Modelo.Celda("vendedor,", False, "ID", 50))
-            listEstCeldas.Add(New Modelo.Celda("yddias", False, "CRED", 50))
-            listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Nombre Factura", 50))
-            listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
-            listEstCeldas.Add(New Modelo.Celda("ydtipdocelec", False, "Nit/CI", 50))
-            listEstCeldas.Add(New Modelo.Celda("ydcorreo", False, "Nit/CI", 50))
-            listEstCeldas.Add(New Modelo.Celda("ydcompleCi", False, "Nit/CI", 50))
-            Dim ef = New Efecto
-            ef.tipo = 3
-            ef.dt = dt
-            ef.SeleclCol = 2
-            ef.listEstCeldas = listEstCeldas
-            ef.alto = 50
-            ef.ancho = 200
-            ef.Context = "Seleccione Cliente".ToUpper
-            ef.ShowDialog()
-            Dim bandera As Boolean = False
-            bandera = ef.band
-            If (bandera = True) Then
-                Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
-                _CodCliente = Row.Cells("ydnumi").Value
-                tbCodCan.Text = Row.Cells("ydcod").Value
-                TextBoxX1.Text = Row.Cells("ydrazonsocial").Value
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD. CLI", 100))
+                listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", True, "RAZÓN SOCIAL", 180))
+                listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
+                listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
+                listEstCeldas.Add(New Modelo.Celda("yddirec", True, "DIRECCIÓN", 220))
+                listEstCeldas.Add(New Modelo.Celda("ydtelf1", True, "Teléfono".ToUpper, 200))
+                listEstCeldas.Add(New Modelo.Celda("ydfnac", True, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
+                listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("vendedor,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("yddias", False, "CRED", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Nombre Factura", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydtipdocelec", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcorreo", False, "Nit/CI", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydcompleCi", False, "Nit/CI", 50))
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dt
+                ef.SeleclCol = 2
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 50
+                ef.ancho = 200
+                ef.Context = "Seleccione Cliente".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                    _CodCliente = Row.Cells("ydnumi").Value
+                    tbCodCan.Text = Row.Cells("ydcod").Value
+                    TextBoxX1.Text = Row.Cells("ydrazonsocial").Value
 
-                Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
-                If (numiVendedor > 0) Then
-                    ''tbVendedor.Text = Row.Cells("vendedor").Value
-                    _CodInstitucion = Row.Cells("ydnumivend").Value
-                    Dim dt1 As DataTable = L_fnListarCaneroInstitucion(_CodCliente)
-                    tbInstitucion.Text = dt1.Rows(0).Item("institucion")
-                    tbcodInst.Text = dt1.Rows(0).Item("codInst")
-                    'grdetalle.Select()
-                    'Table_Producto = Nothing
+                    Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
+                    If (numiVendedor > 0) Then
+                        ''tbVendedor.Text = Row.Cells("vendedor").Value
+                        _CodInstitucion = Row.Cells("ydnumivend").Value
+                        Dim dt1 As DataTable = L_fnListarCaneroInstitucion(_CodCliente)
+                        tbInstitucion.Text = dt1.Rows(0).Item("institucion")
+                        tbcodInst.Text = dt1.Rows(0).Item("codInst")
+                        'grdetalle.Select()
+                        'Table_Producto = Nothing
 
+                    End If
+
+                    _prCargarGrupoEco(_CodCliente)
                 End If
-
-                _prCargarGrupoEco(_CodCliente)
             End If
         End If
     End Sub
@@ -230,8 +353,8 @@ Public Class F0_PlanPagos
         CType(grPlanPagos.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, "", 0, 0, 0, 0)
     End Sub
 
-    Private Sub CargarPlanes()
-        Dim dt As DataTable = _CargarPlanPagos(_CodCliente)
+    Private Sub CargarPlanes(cod As Integer)
+        Dim dt As DataTable = _CargarPlanPagos(cod)
 
         'grPlanPagos.BoundMode = BoundMode.Unbound
         grPlanPagos.DataSource = dt
@@ -296,7 +419,7 @@ Public Class F0_PlanPagos
 
         If dt.Rows.Count = 0 Then
             'grPlanPagos.DataSource = dt
-
+            LimpiarCampos()
             _prAddDetalleVenta()
             ButtonX1.Visible = True
         Else
@@ -304,6 +427,89 @@ Public Class F0_PlanPagos
             cargarPagos()
             ButtonX1.Visible = False
         End If
+    End Sub
+
+    Private Sub LimpiarCampos()
+        tbBanco.Clear()
+        tbcodInst.Clear()
+        tbFechaD.Value = Date.Now
+        tbMonto.Clear()
+        tbOperacion.Clear()
+        tbPlazo.Clear()
+        cbMoneda.Clear()
+        cbQuincena.Clear()
+        cbTipoCambio.Clear()
+        TextBoxX1.Clear()
+        ButtonX1.Visible = False
+        Dim dt As DataTable = _CargarPagos(-1)
+        grPagos.DataSource = dt
+        dt = _CargarPlanPagos(-1)
+        grPlanPagos.DataSource = dt
+
+    End Sub
+    Private Sub CargarPlanes2(cod As Integer)
+        Dim dt As DataTable = _CargarPlanPagos2(cod)
+
+        'grPlanPagos.BoundMode = BoundMode.Unbound
+        grPlanPagos.DataSource = dt
+        grPlanPagos.RetrieveStructure()
+        grPlanPagos.AlternatingColors = True
+
+        'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
+
+        With grPlanPagos.RootTable.Columns("tpcuota")
+            .Width = 150
+            .Caption = "CUOTA"
+            .Visible = True
+            .FormatString = "0"
+
+        End With
+        With grPlanPagos.RootTable.Columns("tpfecha")
+            .Width = 160
+            .Caption = "FECHA"
+            .Visible = True
+            .EditType = EditType.CalendarCombo
+            '.DataTypeCode = TypeCode.DateTime.ToString("dd/MM/yyyy")
+            .DefaultValue = Date.Today
+            .FormatString = "dd/MM/yyyy"
+        End With
+
+        With grPlanPagos.RootTable.Columns("tpsaldo")
+            .Width = 150
+            .Visible = True
+            .Caption = "CAPITAL"
+            .FormatString = "0.00"
+            '.AggregateFunction = AggregateFunction.Sum
+        End With
+        With grPlanPagos.RootTable.Columns("tpamort")
+            .Width = 150
+            .Visible = True
+            .Caption = "AMORTIZACION"
+            .FormatString = "0.00"
+        End With
+        With grPlanPagos.RootTable.Columns("tpinteres")
+            .Width = 150
+            .Visible = True
+            .Caption = "INTERES"
+            .FormatString = "0.00"
+        End With
+        With grPlanPagos.RootTable.Columns("tptotal")
+            .Width = 150
+            .Visible = True
+            .Caption = "TOTAL"
+            .FormatString = "0.00"
+        End With
+        With grPlanPagos
+            '.DefaultFilterRowComparison = FilterConditionOperator.Contains
+            '.FilterMode = FilterMode.Automatic
+            '.FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            '.TotalRow = InheritableBoolean.True
+            '.TotalRowFormatStyle.BackColor = Color.Gold
+            '.TotalRowPosition = TotalRowPosition.BottomFixed
+            .VisualStyle = VisualStyle.Office2007
+        End With
     End Sub
 
     Private Sub CargarRegistro()
@@ -332,6 +538,16 @@ Public Class F0_PlanPagos
             dt.Rows(i).Item("saldo") = dt.Rows(i).Item("saldo2")
         Next
     End Sub
+
+    Private Sub ConvertirSus2(ByRef dt As DataTable)
+        For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+            dt.Rows(i).Item("tpsaldo") = dt.Rows(i).Item("tpsaldo") / CDbl(cbTipoCambio.Text)
+            dt.Rows(i).Item("tpamort") = dt.Rows(i).Item("tpamort") / CDbl(cbTipoCambio.Text)
+            dt.Rows(i).Item("tpinteres") = dt.Rows(i).Item("tpinteres") / CDbl(cbTipoCambio.Text)
+            dt.Rows(i).Item("tptotal") = dt.Rows(i).Item("tptotal") / CDbl(cbTipoCambio.Text)
+        Next
+    End Sub
+
     Private Sub cargarPagos()
         Dim dt As DataTable = _CargarPagos(_CodCliente)
         ConvertirSus(dt)
@@ -438,18 +654,127 @@ Public Class F0_PlanPagos
             .VisualStyle = VisualStyle.Office2007
         End With
     End Sub
+
+    Private Sub cargarPagos2(cod As Integer)
+        Dim dt As DataTable = _CargarPagos2(cod)
+        ConvertirSus2(dt)
+        grPagos.DataSource = dt
+        grPagos.RetrieveStructure()
+        grPagos.AlternatingColors = True
+
+        With grPagos.RootTable.Columns("ydcod")
+            .Width = 150
+            .Caption = "COD. SOCIO"
+            .Visible = True
+            .FormatString = "0"
+
+        End With
+        With grPagos.RootTable.Columns("tpcuota")
+            .Width = 150
+            .Caption = "CUOTA"
+            .Visible = True
+            .FormatString = "0"
+
+        End With
+        With grPagos.RootTable.Columns("tpfecha")
+            .Width = 160
+            .Caption = "FECHA"
+            .FormatString = "yyyy/MM/dd"
+            .Visible = True
+        End With
+
+        With grPagos.RootTable.Columns("tpsaldo")
+            .Width = 150
+            .Visible = True
+            .Caption = "CAPITAL"
+            .FormatString = "0.00"
+            '.AggregateFunction = AggregateFunction.Sum
+        End With
+        With grPagos.RootTable.Columns("tpamort")
+            .Width = 150
+            .Visible = True
+            .Caption = "AMORTIZACION"
+            .FormatString = "0.00"
+        End With
+        With grPagos.RootTable.Columns("tpinteres")
+            .Width = 150
+            .Visible = True
+            .Caption = "INTERES"
+            .FormatString = "0.00"
+        End With
+        With grPagos.RootTable.Columns("tptotal")
+            .Width = 150
+            .Visible = True
+            .Caption = "TOTAL"
+            .FormatString = "0.00"
+        End With
+        With grPagos.RootTable.Columns("estado")
+            .Width = 150
+            .Caption = "ESTADO"
+            .Visible = True
+            .FormatString = "0.00"
+
+        End With
+        With grPagos.RootTable.Columns("amortizacion")
+            .Width = 150
+            .Caption = "AMORTIZACION"
+            .Visible = True
+            .FormatString = "0.00"
+        End With
+        With grPagos.RootTable.Columns("aporte")
+            .Width = 150
+            .Caption = "APORTE"
+            .Visible = True
+            .FormatString = "0.00"
+
+        End With
+        With grPagos.RootTable.Columns("total")
+            .Width = 150
+            .Caption = "TOTAL"
+            .Visible = True
+            .FormatString = "0.00"
+
+        End With
+        With grPagos.RootTable.Columns("saldo")
+            .Width = 150
+            .Caption = "SALDO"
+            .Visible = True
+            .FormatString = "0.00"
+
+        End With
+        With grPagos.RootTable.Columns("saldo2")
+            .Width = 150
+            .Caption = "SALDO"
+            .Visible = False
+            .FormatString = "0.00"
+
+        End With
+        With grPagos
+            '.DefaultFilterRowComparison = FilterConditionOperator.Contains
+            '.FilterMode = FilterMode.Automatic
+            '.FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            '.TotalRow = InheritableBoolean.True
+            '.TotalRowFormatStyle.BackColor = Color.Gold
+            '.TotalRowPosition = TotalRowPosition.BottomFixed
+            .VisualStyle = VisualStyle.Office2007
+        End With
+    End Sub
     Private Sub tbCodCan_TextChanged(sender As Object, e As EventArgs) Handles tbCodCan.TextChanged
-        CargarPlanes()
+        CargarPlanes(_CodCliente)
         cargarPagos()
     End Sub
 
     Private Sub grPlanPagos_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grPlanPagos.EditingCell
-        If (e.Column.Index = grPlanPagos.RootTable.Columns("tpfecha").Index Or
+        If Accesible() Then
+            If (e.Column.Index = grPlanPagos.RootTable.Columns("tpfecha").Index Or
               e.Column.Index = grPlanPagos.RootTable.Columns("tpsaldo").Index Or
               e.Column.Index = grPlanPagos.RootTable.Columns("tpamort").Index Or
               e.Column.Index = grPlanPagos.RootTable.Columns("tpinteres").Index) Then
 
-            e.Cancel = False
+                e.Cancel = False
+            End If
         Else
             e.Cancel = True
         End If
@@ -511,7 +836,7 @@ Public Class F0_PlanPagos
 
         If res Then
             'SI se agrego
-            CargarPlanes()
+            CargarPlanes(_CodCliente)
         End If
     End Sub
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
@@ -577,13 +902,23 @@ Public Class F0_PlanPagos
         End If
     End Sub
 
+    Private Function Accesible() As Boolean
+        If btnNuevo.Enabled = True Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
     Private Sub grPagos_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grPagos.EditingCell
-        If (e.Column.Index = grPagos.RootTable.Columns("amortizacion").Index Or
+        If Accesible() Then
+            If (e.Column.Index = grPagos.RootTable.Columns("amortizacion").Index Or
               e.Column.Index = grPagos.RootTable.Columns("aporte").Index) Then
 
-            e.Cancel = False
+                e.Cancel = False
+            End If
         Else
-            e.Cancel = True
+                e.Cancel = True
+
         End If
     End Sub
 
@@ -653,5 +988,61 @@ Public Class F0_PlanPagos
             grPlanPagos.SetValue("tpfecha", a)
         End If
 
+    End Sub
+
+    Private Sub grPlandePagosC_SelectionChanged(sender As Object, e As EventArgs) Handles grPlandePagosC.SelectionChanged
+        If (grPlandePagosC.RowCount >= 0 And grPlandePagosC.Row >= 0) Then
+            _prMostrarRegistro(grPlandePagosC.Row)
+        End If
+    End Sub
+
+    Private Sub grGrupoEco_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grGrupoEco.EditingCell
+        e.Cancel = True
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        If btnNuevo.Enabled = True Then
+            Me.Close()
+        Else
+            Inhabilitar()
+            Limpiar()
+            cargarRegistroPagos()
+        End If
+    End Sub
+
+    Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
+        Dim _pos As Integer = grPlandePagosC.Row
+        If _pos < grPlandePagosC.RowCount - 1 And _pos >= 0 Then
+            _pos = grPlandePagosC.Row + 1
+            '' _prMostrarRegistro(_pos)
+            grPlandePagosC.Row = _pos
+        End If
+    End Sub
+
+    Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
+        Dim _pos As Integer = grPlandePagosC.Row
+        If grPlandePagosC.RowCount > 0 Then
+            _pos = grPlandePagosC.RowCount - 1
+            ''  _prMostrarRegistro(_pos)
+            grPlandePagosC.Row = _pos
+        End If
+    End Sub
+
+    Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
+        Dim _MPos As Integer = grPlandePagosC.Row
+        If _MPos > 0 And grPlandePagosC.RowCount > 0 Then
+            _MPos = _MPos - 1
+            ''  _prMostrarRegistro(_MPos)
+            grPlandePagosC.Row = _MPos
+        End If
+    End Sub
+
+    Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
+        Dim _MPos As Integer
+        If grPlandePagosC.RowCount > 0 Then
+            _MPos = 0
+            ''   _prMostrarRegistro(_MPos)
+            grPlandePagosC.Row = _MPos
+        End If
     End Sub
 End Class
