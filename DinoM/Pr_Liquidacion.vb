@@ -191,6 +191,10 @@ Public Class Pr_Liquidacion
 
     Private Sub Pr_Liquidacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prCargarQuincena(cbQuincena)
+        CheckTodos.Checked = True
+        CheckTodosCan.Checked = True
+        tbFechaI.Value = Date.Now
+        cbQuincena.Value = 0
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click

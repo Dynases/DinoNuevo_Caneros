@@ -2109,6 +2109,15 @@ Public Class F0_Retenciones
 
 
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
+        If (e.KeyData = Keys.Enter And grdetalle.Row >= 0 And
+                  grdetalle.Col = grdetalle.RootTable.Columns("cobrar").Index) Then
+            ActualizarTotales()
+            grdetalle.Row = grdetalle.Row + 1
+            ActualizarTotales()
+            grdetalle.Row = grdetalle.Row - 1
+            '_HabilitarProductos()
+
+        End If
         '        If (Not _fnAccesible()) Then
         '            Return
         '        End If
@@ -2874,8 +2883,8 @@ salirIf:
     End Sub
 
     Private Sub TextBoxX5_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX5.TextChanged
-        If TextBoxX4.Text <> "" Then
-            TextBoxX6.Text = CDbl(TextBoxX5.Text) * 100 / CDbl(TextBoxX4.Text)
+        If TextBoxX4.Text <> "" And TextBoxX4.Text <> "0.00" And TextBoxX5.Text <> "" And TextBoxX5.Text <> "0.00" Then
+            TextBoxX6.Text = (CDbl(TextBoxX5.Text) * 100 / CDbl(TextBoxX4.Text)).ToString("0.00")
         End If
     End Sub
 
@@ -2911,15 +2920,22 @@ salirIf:
                 cbQuincena.Enabled = False
                 tbFechaVenta.Enabled = True
                 TextBoxX3.Enabled = False
+                CheckGrupo.Enabled = False
             Else
                 cbQuincena.Enabled = True
                 cbGestion.Enabled = True
                 tbFechaVenta.Enabled = False
                 TextBoxX3.Enabled = True
-                CheckGrupo.Enabled = False
+                CheckGrupo.Enabled = True
             End If
         End If
         _Limpiar()
+    End Sub
+
+    Private Sub TextBoxX4_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX4.TextChanged
+        If TextBoxX5.Text <> "" And TextBoxX5.Text <> "0.00" And TextBoxX4.Text <> "" And TextBoxX4.Text <> "0.00" Then
+            TextBoxX6.Text = (CDbl(TextBoxX5.Text) * 100 / CDbl(TextBoxX4.Text)).ToString("0.00")
+        End If
     End Sub
 
     Private Sub GroupPanel1_Click(sender As Object, e As EventArgs) Handles GroupCobranza.Click
@@ -3310,7 +3326,7 @@ salirIf:
     End Sub
     Private Sub ActualizarTotales()
         Dim dtIngEgre As DataTable = CType(grdetalle.DataSource, DataTable)
-        TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10013 or taalm=10014")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10013 or taalm=10014"))
+        TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10014")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10014"))
         TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011 or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016"))
         TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005"))
         TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007"))
@@ -3328,7 +3344,7 @@ salirIf:
 
 
 
-        RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10013 or taalm=10014")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10013 or taalm=10014"))
+        RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm=10014")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm=10014"))
         RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016"))
         RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005"))
         RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007"))

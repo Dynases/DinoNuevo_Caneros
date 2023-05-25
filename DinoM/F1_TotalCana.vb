@@ -59,7 +59,7 @@ Public Class F1_TotalCana
         listEstCeldas.Add(New Modelo.Celda("nomInst", False))
         listEstCeldas.Add(New Modelo.Celda("fecha", True, "Fecha", 250))
         listEstCeldas.Add(New Modelo.Celda("gestion", True, "Gestion", 250))
-        listEstCeldas.Add(New Modelo.Celda("total", True, "Total", 250))
+        listEstCeldas.Add(New Modelo.Celda("total", True, "Total", 250, "0.00"))
 
 
         Return listEstCeldas
