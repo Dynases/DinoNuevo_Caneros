@@ -574,6 +574,7 @@ Partial Class F1_Liquidaciones
         Me.ButtonX2.TabIndex = 9
         Me.ButtonX2.Text = "GRABAR"
         Me.ButtonX2.TextColor = System.Drawing.Color.White
+        Me.ButtonX2.Visible = False
         '
         'F1_Liquidaciones
         '

@@ -199,7 +199,7 @@ Public Class F1_Liquidaciones
         _prCargarComboGestion(cbGestion)
         _prCargarQuincena(cbQuincena)
         btnGrabar.Enabled = False
-        ButtonX1.Enabled = False
+        ButtonX1.Enabled = True
 
     End Sub
 
@@ -212,7 +212,7 @@ Public Class F1_Liquidaciones
             cbQuincena.Enabled = False
             cbGestion.Enabled = False
             btnGrabar.Enabled = False
-            ButtonX1.Enabled = False
+            ButtonX1.Enabled = True
             tbCanero.Enabled = True
             tbInstitucion.Enabled = True
             tbFecha.Enabled = True
@@ -220,7 +220,7 @@ Public Class F1_Liquidaciones
             cbQuincena.Enabled = True
             cbGestion.Enabled = True
             btnGrabar.Enabled = True
-            ButtonX1.Enabled = False
+            ButtonX1.Enabled = True
             tbCanero.Enabled = False
             tbInstitucion.Enabled = False
             tbFecha.Enabled = False

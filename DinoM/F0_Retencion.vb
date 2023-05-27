@@ -2506,7 +2506,7 @@ salirIf:
 
 
             Else
-                If (grdetalle.GetValue("cobrar") >= 0) And grdetalle.GetValue("cobrar") < grdetalle.GetValue("saldo") Then
+                If (grdetalle.GetValue("cobrar") >= 0) And grdetalle.GetValue("cobrar") <= grdetalle.GetValue("saldo") Then
                     grdetalle.SetValue("saldo1", grdetalle.GetValue("saldo") - grdetalle.GetValue("cobrar"))
 
                     '                   '                Dim cant As Integer = grdetalle.GetValue("tbcmin")
@@ -3378,10 +3378,12 @@ salirIf:
             If SwitchButton1.Value = True Then
                 If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
                     If e.KeyData = Keys.Enter Then
+                        _CodCliente = grCanero.GetValue("ydnumi")
+                        TextBoxX4.Text = 0.00
+                        TextBoxX5.Text = 0.00
+                        TextBoxX6.Text = 0.00
 
                         CargarTotalQuincena(cbGestion.Value, _CodCliente)
-
-                        _CodCliente = grCanero.GetValue("ydnumi")
                         _prCargarGrupoEco(_CodCliente)
 
                         _prCargarDetalleVenta(_CodCliente)
