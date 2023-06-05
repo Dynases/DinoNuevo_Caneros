@@ -105,7 +105,7 @@ Public Class F1_Liquidaciones
         With JGrM_Buscador.RootTable.Columns("trid")
             .Width = 100
             .Caption = "CODIGO"
-            .Visible = False
+            .Visible = True
 
         End With
 
@@ -152,6 +152,8 @@ Public Class F1_Liquidaciones
             .Visible = True
             .Caption = "Combustible"
             .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+
         End With
 
         With JGrM_Buscador.RootTable.Columns("insumos")
@@ -159,6 +161,8 @@ Public Class F1_Liquidaciones
             .Visible = True
             .Caption = "Insumos"
             .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+
         End With
 
         With JGrM_Buscador.RootTable.Columns("Rest")
@@ -166,12 +170,16 @@ Public Class F1_Liquidaciones
             .Visible = True
             .Caption = "Restructuracion"
             .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+
         End With
         With JGrM_Buscador.RootTable.Columns("otros")
             .Width = 120
             .Visible = True
             .Caption = "Otros Prestamos"
             .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+
         End With
         With JGrM_Buscador.RootTable.Columns("convenio")
             .Width = 120
@@ -179,6 +187,8 @@ Public Class F1_Liquidaciones
             .Visible = True
             .Caption = "P. Convenio"
             .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+
         End With
 
         With JGrM_Buscador
@@ -188,6 +198,10 @@ Public Class F1_Liquidaciones
             .GroupByBoxVisible = False
             'diseño de la grilla
 
+            .RowHeaders = InheritableBoolean.True
+            .TotalRow = InheritableBoolean.True
+            .TotalRowFormatStyle.BackColor = Color.Gold
+            .TotalRowPosition = TotalRowPosition.BottomFixed
         End With
 
 

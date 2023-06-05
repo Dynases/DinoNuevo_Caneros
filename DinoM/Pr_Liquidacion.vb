@@ -164,7 +164,7 @@ Public Class Pr_Liquidacion
         End If
     End Sub
     Private Function interpretarDatos() As DataTable
-        Dim dt As DataTable = CargarCCPagosSaldos(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("yyyy/MM/dd"))
+        Dim dt As DataTable = CargarCCPagosSaldos(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
         Return dt
     End Function
@@ -195,9 +195,22 @@ Public Class Pr_Liquidacion
         CheckTodosCan.Checked = True
         tbFechaI.Value = Date.Now
         cbQuincena.Value = 0
+        tbFechaF.Value = Date.Now
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
+    End Sub
+
+    Private Sub MGPFiltros_Click(sender As Object, e As EventArgs) Handles MGPFiltros.Click
+
+    End Sub
+
+    Private Sub LabelX5_Click(sender As Object, e As EventArgs) Handles LabelX5.Click
+
+    End Sub
+
+    Private Sub LabelX6_Click(sender As Object, e As EventArgs) Handles LabelX6.Click
+
     End Sub
 End Class

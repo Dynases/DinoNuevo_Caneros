@@ -230,6 +230,7 @@ Partial Class F0_Retenciones
         'btnEliminar
         '
         Me.btnEliminar.Text = "ANULAR"
+        Me.btnEliminar.Visible = False
         '
         'btnModificar
         '
@@ -261,6 +262,7 @@ Partial Class F0_Retenciones
         '
         Me.btnImprimir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImprimir.Size = New System.Drawing.Size(260, 72)
+        Me.btnImprimir.Visible = False
         '
         'btnUltimo
         '
@@ -1899,6 +1901,7 @@ Partial Class F0_Retenciones
         Me.btnBitacora.TabIndex = 18
         Me.btnBitacora.Text = "ORDEN DE RETIRO"
         Me.btnBitacora.TextColor = System.Drawing.Color.White
+        Me.btnBitacora.Visible = False
         '
         'SwDescuentoProveedor
         '

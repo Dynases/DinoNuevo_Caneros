@@ -21,6 +21,7 @@ Public Class F0_Retenciones
     Dim _Inter As Integer = 0
 #Region "Variables Globales"
     Dim _CodCliente As Integer = 0
+    Dim Modificar As Boolean = False
     Dim _CodEmpleado As Integer = 0
     Dim _CodInstitucion As Integer = 0
     Dim OcultarFact As Integer = 0
@@ -191,7 +192,7 @@ Public Class F0_Retenciones
         btnGrabar.Enabled = False
         btnNuevo.Enabled = True
 
-        SwitchButton1.Enabled = False
+        SwitchButton1.IsReadOnly = True
         'btnEliminar.Enabled = True
 
         '------------REVISAR ESTADO
@@ -218,6 +219,13 @@ Public Class F0_Retenciones
         TbNombre2.ReadOnly = True
 
         FilaSelectLote = Nothing
+    End Sub
+
+    Private Sub _prhabilitarModificar()
+        btnNuevo.Enabled = False
+        btnModificar.Enabled = False
+        btnGrabar.Enabled = True
+
     End Sub
     Private Sub _prhabilitar()
 
@@ -249,7 +257,7 @@ Public Class F0_Retenciones
         'End If
 
 
-        SwitchButton1.Enabled = True
+        SwitchButton1.IsReadOnly = False
         TbNombre2.ReadOnly = False
 
         'dtDescuentos = L_fnListarDescuentosTodos()
@@ -353,6 +361,11 @@ Public Class F0_Retenciones
     Public Sub _prMostrarRegistro(_N As Integer)
 
         With grVentas
+            If .GetValue("trRetCob") = 1 Then
+                SwitchButton1.Value = True
+            Else
+                SwitchButton1.Value = False
+            End If
             cbQuincena.Text = .GetValue("trquin").ToString
             cbGestion.Text = .GetValue("trges").ToString
             TextBoxX3.Text = .GetValue("trfac").ToString
@@ -369,6 +382,7 @@ Public Class F0_Retenciones
             Else
                 CheckGrupo.CheckValue = False
             End If
+
             tbTComb.Text = .GetValue("trTComb").ToString
             tbTConv.Text = .GetValue("trTConv").ToString
             tbTCont.Text = .GetValue("trTCont").ToString
@@ -409,6 +423,8 @@ Public Class F0_Retenciones
         If CheckGrupo.Checked = True Then
             If SwitchButton1.Value = True Then
                 dt = cargarDeudasporGrupo(cbGestion.Value, cbQuincena.Value, CType(grGrupoEco.DataSource, DataTable))
+            Else
+                dt = cargarDeudasporGrupoCobranza(tbFechaVenta.Value.ToString("dd/MM/yyyy"), CType(grGrupoEco.DataSource, DataTable))
             End If
         Else
             If SwitchButton1.Value = True Then
@@ -619,7 +635,7 @@ Public Class F0_Retenciones
             '.Visible = gb_CodigoBarra
             .Visible = True
         End With
-        With grdetalle.RootTable.Columns("alm")
+        With grdetalle.RootTable.Columns("taalm")
             .Caption = "Descripción de Artículo".ToUpper
             .Width = 440
             .Visible = False
@@ -692,6 +708,15 @@ Public Class F0_Retenciones
             .GroupByBoxVisible = False
             'diseño de la grilla
             .VisualStyle = VisualStyle.Office2007
+            If Modificar = True Then
+                .RowHeaders = InheritableBoolean.True
+                .TotalRow = InheritableBoolean.True
+                .TotalRowFormatStyle.BackColor = Color.Gold
+                .TotalRowPosition = TotalRowPosition.BottomFixed
+            Else
+                .RowHeaders = InheritableBoolean.False
+                .TotalRow = InheritableBoolean.False
+            End If
         End With
     End Sub
     Private Sub _prCargarGrupoEco(_numi As String)
@@ -774,6 +799,11 @@ Public Class F0_Retenciones
         With grVentas.RootTable.Columns("codInst")
             .Width = 90
             .Visible = True
+            .Caption = "Cod. Inst."
+        End With
+        With grVentas.RootTable.Columns("trRetCob")
+            .Width = 90
+            .Visible = False
             .Caption = "Cod. Inst."
         End With
 
@@ -1084,8 +1114,13 @@ Public Class F0_Retenciones
         End If
         Return 1
     End Function
-    Public Function _fnAccesible()
-        Return tbFechaVenta.IsInputReadOnly = False
+    Public Function _fnAccesible() As Boolean
+        'Return tbFechaVenta.IsInputReadOnly = False
+        If btnNuevo.Enabled = False Or Modificar = True Then
+            Return True
+        Else
+            Return False
+        End If
     End Function
     Private Sub _HabilitarProductos()
 
@@ -1553,49 +1588,53 @@ Public Class F0_Retenciones
     End Sub
 
     Private Sub _prGuardarModificado()
-        Dim tabla As DataTable = L_fnMostrarMontos(0)
+        L_fnGuardarModificado(CInt(txtEstado.Text), CType(grdetalle.DataSource, DataTable))
+        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+        ToastNotification.Show(Me, "COdigo de retencion " + txtEstado.Text + " modificado con exito".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.TopCenter)
 
-        If _prExisteStockParaProducto() Then
-            Dim dtDetalle As DataTable = rearmarDetalle()
-            Dim res As Boolean = True 'L_fnModificarVenta()
+        'Dim tabla As DataTable = L_fnMostrarMontos(0)
 
-            'numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-            '                                                 IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-            '                                                Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-            '                                                 _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-            '                                                  tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-            '                                                  dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
-            If res Then
-                'If (gb_FacturaEmite) Then
-                '    L_fnEliminarDatos("TFV001", "fvanumi=" + tbCodigo.Text.Trim)
-                '    L_fnEliminarDatos("TFV0011", "fvbnumi=" + tbCodigo.Text.Trim)
-                '    P_fnGenerarFactura(tbCodigo.Text.Trim)
-                'End If
-                _prImiprimirNotaVenta(tbCodigo.Text)
-                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper,
-                                          img, 2000,
-                                          eToastGlowColor.Green,
-                                          eToastPosition.TopCenter
-                                          )
-                _prCargarVenta()
-                _prSalir()
-            Else
-                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                ToastNotification.Show(Me, "La Venta no pudo ser Modificada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+        'If _prExisteStockParaProducto() Then
+        '    Dim dtDetalle As DataTable = rearmarDetalle()
+        '    Dim res As Boolean = True 'L_fnModificarVenta()
 
-            End If
-        End If
+        '    'numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
+        '    '                                                 IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
+        '    '                                                Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
+        '    '                                                 _CodCliente, IIf(swMoneda.Value = True, 1, 0),
+        '    '                                                  tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+        '    '                                                  dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
+        '    If res Then
+        '        'If (gb_FacturaEmite) Then
+        '        '    L_fnEliminarDatos("TFV001", "fvanumi=" + tbCodigo.Text.Trim)
+        '        '    L_fnEliminarDatos("TFV0011", "fvbnumi=" + tbCodigo.Text.Trim)
+        '        '    P_fnGenerarFactura(tbCodigo.Text.Trim)
+        '        'End If
+        '        _prImiprimirNotaVenta(tbCodigo.Text)
+        '        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+        '        ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper,
+        '                                  img, 2000,
+        '                                  eToastGlowColor.Green,
+        '                                  eToastPosition.TopCenter
+        '                                  )
+        '        _prCargarVenta()
+        '        _prSalir()
+        '    Else
+        '        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+        '        ToastNotification.Show(Me, "La Venta no pudo ser Modificada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+        '    End If
+        'End If
     End Sub
     Private Sub _prSalir()
         If btnGrabar.Enabled = True Then
             _prInhabiliitar()
-
+            Modificar = False
             If grVentas.RowCount > 0 Then
-                _prMostrarRegistro(0)
+                    _prMostrarRegistro(0)
 
-            End If
-        Else
+                End If
+            Else
             Me.Close()
             '_modulo.Select()
         End If
@@ -1931,7 +1970,7 @@ Public Class F0_Retenciones
         cbGestion.Enabled = False
         tbFechaVenta.Enabled = True
         TextBoxX3.Enabled = False
-        CheckGrupo.Enabled = False
+        'CheckGrupo.Enabled = False
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         _prSalir()
@@ -2093,7 +2132,7 @@ Public Class F0_Retenciones
                 If (e.Column.Index = grdetalle.RootTable.Columns("cobrar").Index) Then
 
                     e.Cancel = False
-                    ActualizarTotales()
+                    'ActualizarTotales()
 
                 Else
                     e.Cancel = True
@@ -2583,47 +2622,54 @@ salirIf:
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
 
         _prGuardar()
-
+        If Modificar = True Then
+            _prGuardarModificado()
+            Modificar = False
+        End If
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        Try
+        _prhabilitarModificar()
+        Modificar = True
+        _prCargarDetalleVenta2(txtEstado.Text)
 
-            Dim dt As DataTable
-            'dt = L_fnListarClientes()
-            dt = L_fnListarClientesVentas(_CodCliente)
+        'Try
 
-            _CodEmpleado = dt.Rows(0).Item(8)
+        '    Dim dt As DataTable
+        '    'dt = L_fnListarClientes()
+        '    dt = L_fnListarClientesVentas(_CodCliente)
 
-            'swTipoVenta.Value = grVentas.GetValue("tatven")
+        '    _CodEmpleado = dt.Rows(0).Item(8)
 
-            If (grVentas.RowCount > 0) Then
-                If (gb_FacturaEmite) Then
-                    If (P_fnValidarFacturaVigente()) Then
-                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+        '    'swTipoVenta.Value = grVentas.GetValue("tatven")
 
-                        ToastNotification.Show(Me, "No se puede modificar la venta con codigo ".ToUpper + tbCodigo.Text + ", su factura esta validada por impuesto.".ToUpper,
-                                                  img, 2000,
-                                                  eToastGlowColor.Green,
-                                                  eToastPosition.TopCenter)
-                        Exit Sub
-                    End If
-                End If
+        '    If (grVentas.RowCount > 0) Then
+        '        If (gb_FacturaEmite) Then
+        '            If (P_fnValidarFacturaVigente()) Then
+        '                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
 
-                _prhabilitar()
+        '                ToastNotification.Show(Me, "No se puede modificar la venta con codigo ".ToUpper + tbCodigo.Text + ", su factura esta validada por impuesto.".ToUpper,
+        '                                          img, 2000,
+        '                                          eToastGlowColor.Green,
+        '                                          eToastPosition.TopCenter)
+        '                Exit Sub
+        '            End If
+        '        End If
+
+        '        _prhabilitar()
 
 
-                btnNuevo.Enabled = False
-                btnModificar.Enabled = False
-                btnEliminar.Enabled = False
-                btnGrabar.Enabled = True
+        '        btnNuevo.Enabled = False
+        '        btnModificar.Enabled = False
+        '        btnEliminar.Enabled = False
+        '        btnGrabar.Enabled = True
 
-                PanelNavegacion.Enabled = False
-                _prCargarIconELiminar()
-            End If
-        Catch ex As Exception
-            MostrarMensajeError(ex.Message)
-        End Try
+        '        PanelNavegacion.Enabled = False
+        '        _prCargarIconELiminar()
+        '    End If
+        'Catch ex As Exception
+        '    MostrarMensajeError(ex.Message)
+        'End Try
     End Sub
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         Try
@@ -2897,8 +2943,10 @@ salirIf:
         If SwitchButton1.Value = True Then
 
             If cbGestion.Text <> String.Empty Then
-                Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
-                tbFechaVenta.Value = dt.Rows(0).Item("fecha")
+                If CInt(cbGestion.Text) <> 0 Then
+                    Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
+                    tbFechaVenta.Value = dt.Rows(0).Item("fecha")
+                End If
             End If
         End If
 
@@ -2906,7 +2954,7 @@ salirIf:
 
     Private Sub cbGestion_ValueChanged(sender As Object, e As EventArgs) Handles cbGestion.ValueChanged
         If SwitchButton1.Value = True Then
-            If cbQuincena.Text <> String.Empty Then
+            If cbQuincena.Text <> String.Empty And cbQuincena.Text <> "0" Then
                 Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
                 tbFechaVenta.Value = dt.Rows(0).Item("fecha")
             End If
@@ -2920,13 +2968,13 @@ salirIf:
                 cbQuincena.Enabled = False
                 tbFechaVenta.Enabled = True
                 TextBoxX3.Enabled = False
-                CheckGrupo.Enabled = False
+                'CheckGrupo.Enabled = False
             Else
                 cbQuincena.Enabled = True
                 cbGestion.Enabled = True
                 tbFechaVenta.Enabled = False
                 TextBoxX3.Enabled = True
-                CheckGrupo.Enabled = True
+                'CheckGrupo.Enabled = True
             End If
         End If
         _Limpiar()
@@ -2936,6 +2984,22 @@ salirIf:
         If TextBoxX5.Text <> "" And TextBoxX5.Text <> "0.00" And TextBoxX4.Text <> "" And TextBoxX4.Text <> "0.00" Then
             TextBoxX6.Text = (CDbl(TextBoxX5.Text) * 100 / CDbl(TextBoxX4.Text)).ToString("0.00")
         End If
+    End Sub
+
+    Private Sub btnDuplicar_Click(sender As Object, e As EventArgs) Handles btnDuplicar.Click
+
+    End Sub
+
+    Private Sub grGrupoEco_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grGrupoEco.EditingCell
+        e.Cancel = True
+    End Sub
+
+    Private Sub GroupPanel4_Click(sender As Object, e As EventArgs) Handles GroupPanel4.Click
+
+    End Sub
+
+    Private Sub grCanero_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles grCanero.FormattingRow
+
     End Sub
 
     Private Sub GroupPanel1_Click(sender As Object, e As EventArgs) Handles GroupCobranza.Click
@@ -3414,13 +3478,14 @@ salirIf:
     End Sub
 
     Private Sub grCanero_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grCanero.EditingCell
-        If (e.Column.Index = grCanero.RootTable.Columns("ydnumi").Index Or
-              e.Column.Index = grCanero.RootTable.Columns("ydrazonsocial").Index) Then
+        'If (e.Column.Index = grCanero.RootTable.Columns("ydnumi").Index Or
+        '      e.Column.Index = grCanero.RootTable.Columns("ydrazonsocial").Index) Then
 
-            e.Cancel = True
-        Else
-            e.Cancel = False
-        End If
+        '    e.Cancel = True
+        'Else
+        '    e.Cancel = False
+        'End If
+        e.Cancel = True
     End Sub
 
 

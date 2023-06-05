@@ -39,6 +39,9 @@ Partial Class Pr_Liquidacion
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.cbQuincena = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.tbFechaF = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -55,6 +58,7 @@ Partial Class Pr_Liquidacion
         CType(Me.MPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -161,6 +165,9 @@ Partial Class Pr_Liquidacion
         '
         'MGPFiltros
         '
+        Me.MGPFiltros.Controls.Add(Me.LabelX6)
+        Me.MGPFiltros.Controls.Add(Me.LabelX5)
+        Me.MGPFiltros.Controls.Add(Me.tbFechaF)
         Me.MGPFiltros.Controls.Add(Me.LabelX1)
         Me.MGPFiltros.Controls.Add(Me.cbQuincena)
         Me.MGPFiltros.Controls.Add(Me.tbNomCan)
@@ -218,7 +225,7 @@ Partial Class Pr_Liquidacion
         '
         Me.tbNomCan.Border.Class = "TextBoxBorder"
         Me.tbNomCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNomCan.Location = New System.Drawing.Point(54, 152)
+        Me.tbNomCan.Location = New System.Drawing.Point(55, 197)
         Me.tbNomCan.Name = "tbNomCan"
         Me.tbNomCan.PreventEnterBeep = True
         Me.tbNomCan.Size = New System.Drawing.Size(185, 22)
@@ -230,7 +237,7 @@ Partial Class Pr_Liquidacion
         '
         '
         Me.CheckTodosCan.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckTodosCan.Location = New System.Drawing.Point(295, 153)
+        Me.CheckTodosCan.Location = New System.Drawing.Point(296, 198)
         Me.CheckTodosCan.Name = "CheckTodosCan"
         Me.CheckTodosCan.Size = New System.Drawing.Size(55, 23)
         Me.CheckTodosCan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -243,7 +250,7 @@ Partial Class Pr_Liquidacion
         '
         '
         Me.CheckUnaCan.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckUnaCan.Location = New System.Drawing.Point(245, 153)
+        Me.CheckUnaCan.Location = New System.Drawing.Point(246, 198)
         Me.CheckUnaCan.Name = "CheckUnaCan"
         Me.CheckUnaCan.Size = New System.Drawing.Size(44, 23)
         Me.CheckUnaCan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -259,7 +266,7 @@ Partial Class Pr_Liquidacion
         Me.tbCodCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodCan.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCodCan.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCodCan.Location = New System.Drawing.Point(4, 154)
+        Me.tbCodCan.Location = New System.Drawing.Point(5, 199)
         Me.tbCodCan.Name = "tbCodCan"
         Me.tbCodCan.PreventEnterBeep = True
         Me.tbCodCan.Size = New System.Drawing.Size(44, 22)
@@ -275,7 +282,7 @@ Partial Class Pr_Liquidacion
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(4, 123)
+        Me.LabelX2.Location = New System.Drawing.Point(5, 168)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX2.Size = New System.Drawing.Size(133, 23)
@@ -289,7 +296,7 @@ Partial Class Pr_Liquidacion
         '
         Me.tbInsCan.Border.Class = "TextBoxBorder"
         Me.tbInsCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbInsCan.Location = New System.Drawing.Point(54, 95)
+        Me.tbInsCan.Location = New System.Drawing.Point(55, 140)
         Me.tbInsCan.Name = "tbInsCan"
         Me.tbInsCan.PreventEnterBeep = True
         Me.tbInsCan.Size = New System.Drawing.Size(185, 22)
@@ -301,7 +308,7 @@ Partial Class Pr_Liquidacion
         '
         '
         Me.CheckTodos.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckTodos.Location = New System.Drawing.Point(295, 96)
+        Me.CheckTodos.Location = New System.Drawing.Point(296, 141)
         Me.CheckTodos.Name = "CheckTodos"
         Me.CheckTodos.Size = New System.Drawing.Size(55, 23)
         Me.CheckTodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -314,7 +321,7 @@ Partial Class Pr_Liquidacion
         '
         '
         Me.CheckUna.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckUna.Location = New System.Drawing.Point(245, 96)
+        Me.CheckUna.Location = New System.Drawing.Point(246, 141)
         Me.CheckUna.Name = "CheckUna"
         Me.CheckUna.Size = New System.Drawing.Size(44, 23)
         Me.CheckUna.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -330,7 +337,7 @@ Partial Class Pr_Liquidacion
         Me.tbCod.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCod.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCod.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCod.Location = New System.Drawing.Point(4, 97)
+        Me.tbCod.Location = New System.Drawing.Point(5, 142)
         Me.tbCod.Name = "tbCod"
         Me.tbCod.PreventEnterBeep = True
         Me.tbCod.Size = New System.Drawing.Size(44, 22)
@@ -346,7 +353,7 @@ Partial Class Pr_Liquidacion
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(8, 70)
+        Me.LabelX3.Location = New System.Drawing.Point(9, 115)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX3.Size = New System.Drawing.Size(133, 23)
@@ -362,7 +369,7 @@ Partial Class Pr_Liquidacion
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(67, 13)
+        Me.LabelX4.Location = New System.Drawing.Point(9, 3)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX4.Size = New System.Drawing.Size(74, 23)
@@ -380,7 +387,7 @@ Partial Class Pr_Liquidacion
         Me.tbFechaI.ButtonDropDown.Visible = True
         Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaI.IsPopupCalendarOpen = False
-        Me.tbFechaI.Location = New System.Drawing.Point(146, 14)
+        Me.tbFechaI.Location = New System.Drawing.Point(120, 31)
         '
         '
         '
@@ -419,7 +426,7 @@ Partial Class Pr_Liquidacion
         '
         cbQuincena_DesignTimeLayout.LayoutString = resources.GetString("cbQuincena_DesignTimeLayout.LayoutString")
         Me.cbQuincena.DesignTimeLayout = cbQuincena_DesignTimeLayout
-        Me.cbQuincena.Location = New System.Drawing.Point(3, 226)
+        Me.cbQuincena.Location = New System.Drawing.Point(4, 271)
         Me.cbQuincena.Name = "cbQuincena"
         Me.cbQuincena.SelectedIndex = -1
         Me.cbQuincena.SelectedItem = Nothing
@@ -435,12 +442,90 @@ Partial Class Pr_Liquidacion
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(4, 197)
+        Me.LabelX1.Location = New System.Drawing.Point(5, 242)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX1.Size = New System.Drawing.Size(133, 23)
         Me.LabelX1.TabIndex = 398
         Me.LabelX1.Text = "Tipo de Préstamo:"
+        '
+        'tbFechaF
+        '
+        '
+        '
+        '
+        Me.tbFechaF.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbFechaF.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbFechaF.ButtonDropDown.Visible = True
+        Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaF.IsPopupCalendarOpen = False
+        Me.tbFechaF.Location = New System.Drawing.Point(119, 73)
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbFechaF.MonthCalendar.ClearButtonVisible = True
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbFechaF.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.TodayButtonVisible = True
+        Me.tbFechaF.Name = "tbFechaF"
+        Me.tbFechaF.Size = New System.Drawing.Size(120, 22)
+        Me.tbFechaF.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbFechaF.TabIndex = 399
+        '
+        'LabelX5
+        '
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(40, 31)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(74, 23)
+        Me.LabelX5.TabIndex = 400
+        Me.LabelX5.Text = "Del:"
+        '
+        'LabelX6
+        '
+        Me.LabelX6.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX6.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX6.Location = New System.Drawing.Point(39, 72)
+        Me.LabelX6.Name = "LabelX6"
+        Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX6.Size = New System.Drawing.Size(74, 23)
+        Me.LabelX6.TabIndex = 401
+        Me.LabelX6.Text = "Al:"
         '
         'Pr_Liquidacion
         '
@@ -471,6 +556,7 @@ Partial Class Pr_Liquidacion
         CType(Me.MPicture, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -489,4 +575,7 @@ Partial Class Pr_Liquidacion
     Friend WithEvents tbFechaI As DevComponents.Editors.DateTimeAdv.DateTimeInput
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbQuincena As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents tbFechaF As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
 End Class
