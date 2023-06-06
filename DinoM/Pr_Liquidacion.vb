@@ -176,6 +176,7 @@ Public Class Pr_Liquidacion
 
             objrep.SetParameterValue("prestamo", cbQuincena.Text)
             objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+            objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
             MReportViewer.ReportSource = objrep
             MReportViewer.Show()
             MReportViewer.BringToFront()

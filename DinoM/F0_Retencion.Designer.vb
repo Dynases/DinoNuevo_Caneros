@@ -113,6 +113,8 @@ Partial Class F0_Retenciones
         Me.PanelEncabezado = New System.Windows.Forms.Panel()
         Me.btnBitacora = New DevComponents.DotNetBar.ButtonX()
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.LabelX18 = New DevComponents.DotNetBar.LabelX()
+        Me.tbId = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -380,6 +382,8 @@ Partial Class F0_Retenciones
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.tbId)
+        Me.Panel2.Controls.Add(Me.LabelX18)
         Me.Panel2.Controls.Add(Me.SwitchButton1)
         Me.Panel2.Controls.Add(Me.cbGestion)
         Me.Panel2.Controls.Add(Me.cbQuincena)
@@ -668,7 +672,7 @@ Partial Class F0_Retenciones
         Me.tbFechaVenta.ButtonDropDown.Visible = True
         Me.tbFechaVenta.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaVenta.IsPopupCalendarOpen = False
-        Me.tbFechaVenta.Location = New System.Drawing.Point(90, 2)
+        Me.tbFechaVenta.Location = New System.Drawing.Point(217, 2)
         '
         '
         '
@@ -781,7 +785,7 @@ Partial Class F0_Retenciones
         Me.lbFVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbFVenta.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbFVenta.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lbFVenta.Location = New System.Drawing.Point(3, 4)
+        Me.lbFVenta.Location = New System.Drawing.Point(118, 4)
         Me.lbFVenta.Name = "lbFVenta"
         Me.lbFVenta.SingleLineColor = System.Drawing.SystemColors.Control
         Me.lbFVenta.Size = New System.Drawing.Size(88, 23)
@@ -1923,6 +1927,36 @@ Partial Class F0_Retenciones
         Me.SwDescuentoProveedor.ValueObject = "Y"
         Me.SwDescuentoProveedor.Visible = False
         '
+        'LabelX18
+        '
+        Me.LabelX18.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX18.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX18.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX18.Location = New System.Drawing.Point(3, 5)
+        Me.LabelX18.Name = "LabelX18"
+        Me.LabelX18.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX18.Size = New System.Drawing.Size(58, 23)
+        Me.LabelX18.TabIndex = 399
+        Me.LabelX18.Text = "Codigo:"
+        '
+        'tbId
+        '
+        '
+        '
+        '
+        Me.tbId.Border.Class = "TextBoxBorder"
+        Me.tbId.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbId.Enabled = False
+        Me.tbId.Location = New System.Drawing.Point(62, 5)
+        Me.tbId.Name = "tbId"
+        Me.tbId.PreventEnterBeep = True
+        Me.tbId.Size = New System.Drawing.Size(50, 22)
+        Me.tbId.TabIndex = 400
+        '
         'F0_Retenciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2066,4 +2100,6 @@ Partial Class F0_Retenciones
     Friend WithEvents cbGestion As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbQuincena As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents SwitchButton1 As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents tbId As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX18 As DevComponents.DotNetBar.LabelX
 End Class

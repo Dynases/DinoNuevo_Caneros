@@ -361,6 +361,7 @@ Public Class F0_Retenciones
     Public Sub _prMostrarRegistro(_N As Integer)
 
         With grVentas
+            tbId.Text = .GetValue("trid")
             If .GetValue("trRetCob") = 1 Then
                 SwitchButton1.Value = True
             Else
@@ -773,13 +774,19 @@ Public Class F0_Retenciones
         '   a.tamon ,IIF(tamon=1,'Boliviano','Dolar') as moneda,a.taest ,a.taobs ,
         'a.tadesc ,a.tafact ,a.tahact ,a.tauact,(Sum(b.tbptot)-a.tadesc ) as total
 
+        With grVentas.RootTable.Columns("trid")
+            .Width = 100
+            .Caption = "Codigo"
+            .Visible = True
+
+        End With
+
         With grVentas.RootTable.Columns("trfecci")
             .Width = 100
             .Caption = "CODIGO"
             .Visible = False
 
         End With
-
         With grVentas.RootTable.Columns("trquin")
             .Width = 90
             .Visible = True
@@ -802,11 +809,15 @@ Public Class F0_Retenciones
             .Caption = "Cod. Inst."
         End With
         With grVentas.RootTable.Columns("trRetCob")
-            .Width = 90
+            .Width = 120
             .Visible = False
-            .Caption = "Cod. Inst."
+            .Caption = "Tipo"
         End With
-
+        With grVentas.RootTable.Columns("tipo")
+            .Width = 120
+            .Visible = True
+            .Caption = "Tipo"
+        End With
         With grVentas.RootTable.Columns("nomInst")
             .Width = 160
             .Visible = True
@@ -814,9 +825,21 @@ Public Class F0_Retenciones
         End With
         With grVentas.RootTable.Columns("trcan")
             .Width = 100
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            '.CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
-            .Caption = "VENDEDOR"
+            .Caption = "Cañero"
+        End With
+        With grVentas.RootTable.Columns("ydcod")
+            .Width = 100
+            '.CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "Cod. Cañero"
+        End With
+        With grVentas.RootTable.Columns("ydrazonsocial")
+            .Width = 200
+            '.CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "Cañero"
         End With
         With grVentas.RootTable.Columns("trfac")
             .Width = 250
@@ -1591,7 +1614,9 @@ Public Class F0_Retenciones
         L_fnGuardarModificado(CInt(txtEstado.Text), CType(grdetalle.DataSource, DataTable))
         Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
         ToastNotification.Show(Me, "COdigo de retencion " + txtEstado.Text + " modificado con exito".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.TopCenter)
-
+        _prInhabiliitar()
+        _Limpiar()
+        _prCargarVenta()
         'Dim tabla As DataTable = L_fnMostrarMontos(0)
 
         'If _prExisteStockParaProducto() Then
@@ -2621,10 +2646,12 @@ salirIf:
     End Sub
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
 
-        _prGuardar()
+
         If Modificar = True Then
             _prGuardarModificado()
             Modificar = False
+        Else
+            _prGuardar()
         End If
     End Sub
 
@@ -3391,7 +3418,7 @@ salirIf:
     Private Sub ActualizarTotales()
         Dim dtIngEgre As DataTable = CType(grdetalle.DataSource, DataTable)
         TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10014")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10014"))
-        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011 or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016"))
+        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011 or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm = 10006")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006"))
         TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005"))
         TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007"))
         TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1"))
@@ -3409,7 +3436,7 @@ salirIf:
 
 
         RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm=10014")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm=10014"))
-        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016"))
+        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006"))
         RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005"))
         RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007"))
         RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1"))
