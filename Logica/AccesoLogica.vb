@@ -444,6 +444,11 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Tabla = D_Datos_TablaInst("*", "Institucion", "id= " + _TipoVenta)
         Return _Tabla
     End Function
+    Public Shared Function ObtenerNumCuentaSurtidor(_NomTabla As String, _TipoVenta As String) As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst("*", "TY0031", "yccod1=1 and yccod2=8 " + "and yccod3= " + _TipoVenta)
+        Return _Tabla
+    End Function
     Public Shared Function ObtenerNumCuentaProveedor(_NomTabla As String, _TipoVenta As String) As DataTable
         Dim _Tabla As DataTable
         _Tabla = D_Datos_TablaInst("*", "TY004", "ydnumi= " + _TipoVenta + "and ydtip=3")
@@ -1903,6 +1908,16 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnListarClientesVentas11(numi As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 33))
+        _listParam.Add(New Datos.DParametro("@tanumi", numi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Sub L_Validar_CodigoTara(_Cod As String, ByRef _placa As String, ByRef _PesoTara As Decimal, ByRef _propietario As String)
         Dim _Tabla As DataTable
 
@@ -2218,6 +2233,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function L_fnGeneralVentaCombustibleOtroSurtidor() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 29))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function L_fnGeneralVentaServicios() As DataTable
         Dim _Tabla As DataTable
 
@@ -2384,6 +2411,19 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 101))
+        _listParam.Add(New Datos.DParametro("@tanumi", _numi))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnVentaNotaDeVentaOtros(_numi As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 30))
         _listParam.Add(New Datos.DParametro("@tanumi", _numi))
         _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
@@ -2661,6 +2701,95 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _resultado
     End Function
 
+    Public Shared Function L_fnGrabarVentaCombustibleOtroS(ByRef _tanumi As String, _tcentregado As String, _tcentregadoci As String, _tcdespachador As Integer, _tcplaca As String, _tcretiro As String, _tcnitretiro As String,
+                                           _tcfacnombre As String, _tcfacnit As String, _tiposoli As Integer, _surtidor As Integer, _tiposurtidor As Boolean, _Autorizacion As Integer, _Cantidad As Decimal, _Precio As Decimal, _Total As Decimal,
+                                                           _TipVenta As Integer, _cliente As Integer, _fdecha As String, _observacion As String
+                                           ) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", 28))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _listParam.Add(New Datos.DParametro("@tcentregado", _tcentregado))
+        _listParam.Add(New Datos.DParametro("@tcentregadoci", _tcentregadoci))
+        _listParam.Add(New Datos.DParametro("@tcdespachador", _tcdespachador))
+        _listParam.Add(New Datos.DParametro("@tcplaca", _tcplaca))
+        _listParam.Add(New Datos.DParametro("@tcretiro", _tcretiro))
+        _listParam.Add(New Datos.DParametro("@tcnitretiro", _tcnitretiro))
+        _listParam.Add(New Datos.DParametro("@tcfacnombre", _tcfacnombre))
+        _listParam.Add(New Datos.DParametro("@tcfacnit", _tcfacnit))
+        _listParam.Add(New Datos.DParametro("@tiposoli", _tiposoli))
+        _listParam.Add(New Datos.DParametro("@taest", 1))
+        _listParam.Add(New Datos.DParametro("@surtidor", _surtidor))
+        _listParam.Add(New Datos.DParametro("@tctiposurtidor", _tiposurtidor))
+        _listParam.Add(New Datos.DParametro("@autorizacion", _Autorizacion))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@cantidad", _Cantidad))
+        _listParam.Add(New Datos.DParametro("@precio", _Precio))
+        _listParam.Add(New Datos.DParametro("@total", _Total))
+        _listParam.Add(New Datos.DParametro("@tatven", _TipVenta))
+        _listParam.Add(New Datos.DParametro("@cliente", _cliente))
+        _listParam.Add(New Datos.DParametro("@tafdoc", _fdecha))
+        _listParam.Add(New Datos.DParametro("@taobs", _observacion))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_fnEditarVentaCombustibleOtroS(ByRef _tanumi As String, _tcentregado As String, _tcentregadoci As String, _tcdespachador As Integer, _tcplaca As String, _tcretiro As String, _tcnitretiro As String,
+                                           _tcfacnombre As String, _tcfacnit As String, _tiposoli As Integer, _surtidor As Integer, _tiposurtidor As Boolean, _Autorizacion As Integer, _Cantidad As Decimal, _Precio As Decimal, _Total As Decimal,
+                                                           _TipVenta As Integer, _cliente As Integer, _fdecha As String, _observacion As String
+                                           ) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", 31))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _listParam.Add(New Datos.DParametro("@tcentregado", _tcentregado))
+        _listParam.Add(New Datos.DParametro("@tcentregadoci", _tcentregadoci))
+        _listParam.Add(New Datos.DParametro("@tcdespachador", _tcdespachador))
+        _listParam.Add(New Datos.DParametro("@tcplaca", _tcplaca))
+        _listParam.Add(New Datos.DParametro("@tcretiro", _tcretiro))
+        _listParam.Add(New Datos.DParametro("@tcnitretiro", _tcnitretiro))
+        _listParam.Add(New Datos.DParametro("@tcfacnombre", _tcfacnombre))
+        _listParam.Add(New Datos.DParametro("@tcfacnit", _tcfacnit))
+        _listParam.Add(New Datos.DParametro("@tiposoli", _tiposoli))
+        _listParam.Add(New Datos.DParametro("@taest", 1))
+        _listParam.Add(New Datos.DParametro("@surtidor", _surtidor))
+        _listParam.Add(New Datos.DParametro("@tctiposurtidor", _tiposurtidor))
+        _listParam.Add(New Datos.DParametro("@autorizacion", _Autorizacion))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@cantidad", _Cantidad))
+        _listParam.Add(New Datos.DParametro("@precio", _Precio))
+        _listParam.Add(New Datos.DParametro("@total", _Total))
+        _listParam.Add(New Datos.DParametro("@tatven", _TipVenta))
+        _listParam.Add(New Datos.DParametro("@cliente", _cliente))
+        _listParam.Add(New Datos.DParametro("@tafdoc", _fdecha))
+        _listParam.Add(New Datos.DParametro("@taobs", _observacion))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
     Public Shared Function L_fnGrabarTO001(_tipo As Integer, ByRef _tanumi As Integer, Optional _obnumito1 As String = "", Optional _oblin As String = "",
                                            Optional _obcuenta As String = "", Optional _obobs As String = "", Optional _obdebebs As Double = 0.00,
                                            Optional _obhaberbs As Double = 0.00, Optional _obdebeus As Double = 0.00, Optional _obhaberus As Double = 0.00) As Integer
@@ -2845,6 +2974,28 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
             Dim _listParam As New List(Of Datos.DParametro)
 
             _listParam.Add(New Datos.DParametro("@tipo", -1))
+            _listParam.Add(New Datos.DParametro("@tanumi", numi))
+            _listParam.Add(New Datos.DParametro("@bcprograma", programa))
+            _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+            _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+            If _Tabla.Rows.Count > 0 Then
+                _resultado = True
+            Else
+                _resultado = False
+            End If
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
+    Public Shared Function L_fnEliminarVentaOtroSurtidor(numi As String, ByRef mensaje As String, programa As String) As Boolean
+        Dim _resultado As Boolean
+        If L_fnbValidarEliminacion(numi, "TV001", "tanumi", mensaje) = True Then
+            Dim _Tabla As DataTable
+            Dim _listParam As New List(Of Datos.DParametro)
+
+            _listParam.Add(New Datos.DParametro("@tipo", 32))
             _listParam.Add(New Datos.DParametro("@tanumi", numi))
             _listParam.Add(New Datos.DParametro("@bcprograma", programa))
             _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
@@ -3113,6 +3264,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _where = "tanumi = " + _Numi
 
         _Err = D_Modificar_Datos("TV001", Sql, _where)
+    End Sub
+    Public Shared Sub L_Actualiza_otroSurtidor_Contabiliza(_Numi As String, _numiConta As String)
+        Dim _Err As Boolean
+        Dim Sql, _where As String
+        Sql = "idContabiliza = " + _numiConta
+        _where = "tcvnumi = " + _Numi
+
+        _Err = D_Modificar_Datos("TV0011cp", Sql, _where)
     End Sub
     Public Shared Sub L_Actualiza_Prestamo_Contabiliza(_Numi As String, _numiConta As String)
         Dim _Err As Boolean

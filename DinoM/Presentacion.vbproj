@@ -418,6 +418,12 @@
     <Compile Include="F0_RotacionProductos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F0_TraspasoCupos.designer.vb">
+      <DependentUpon>F0_TraspasoCupos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_TraspasoCupos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F0_Usuarios.Designer.vb">
       <DependentUpon>F0_Usuarios.vb</DependentUpon>
     </Compile>
@@ -440,6 +446,12 @@
       <DependentUpon>F0_VentaComb.vb</DependentUpon>
     </Compile>
     <Compile Include="F0_VentaComb.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F0_VentaCombOtroSurtidor.designer.vb">
+      <DependentUpon>F0_VentaCombOtroSurtidor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_VentaCombOtroSurtidor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F1_Almacen.Designer.vb">
@@ -969,6 +981,12 @@
       <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reporte\R_NotaVenta_Carta_Dieselotro.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_NotaVenta_Carta_Dieselotro.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reporte\R_NotaVenta_MediaCarta.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1414,6 +1432,18 @@
     <Compile Include="Utils\F_Inventario.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utils\mensajePersonalizado.Designer.vb">
+      <DependentUpon>mensajePersonalizado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\mensajePersonalizado.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\notifi.designer.vb">
+      <DependentUpon>notifi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\notifi.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Visualizador.Designer.vb">
       <DependentUpon>Visualizador.vb</DependentUpon>
     </Compile>
@@ -1527,6 +1557,9 @@
     <EmbeddedResource Include="F0_RotacionProductos.resx">
       <DependentUpon>F0_RotacionProductos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F0_TraspasoCupos.resx">
+      <DependentUpon>F0_TraspasoCupos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F0_Usuarios.resx">
       <DependentUpon>F0_Usuarios.vb</DependentUpon>
     </EmbeddedResource>
@@ -1538,6 +1571,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_VentaComb.resx">
       <DependentUpon>F0_VentaComb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_VentaCombOtroSurtidor.resx">
+      <DependentUpon>F0_VentaCombOtroSurtidor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Almacen.resx">
       <DependentUpon>F1_Almacen.vb</DependentUpon>
@@ -1821,6 +1857,10 @@
     <EmbeddedResource Include="Reporte\R_NotaVenta_Carta_Diesel.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_NotaVenta_Carta_Diesel.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_NotaVenta_Carta_Dieselotro.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_NotaVenta_Carta_Dieselotro.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_NotaVenta_MediaCarta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2107,6 +2147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\F_Inventario.resx">
       <DependentUpon>F_Inventario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\mensajePersonalizado.resx">
+      <DependentUpon>mensajePersonalizado.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visualizador.resx">
       <DependentUpon>Visualizador.vb</DependentUpon>

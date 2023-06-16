@@ -1404,4 +1404,25 @@ Public Class P_Principal
         Dim frm As New F0_PlanPagos
         frm.Show()
     End Sub
+
+    Private Sub btVentaCombOtroSurtidor_Click(sender As Object, e As EventArgs) Handles btVentaCombOtroSurtidor.Click
+
+        Dim frm As New F0_VentaCombOtroSurtidor
+        frm._nameButton = btVentaComb.Name
+
+        frm._modulo = FP_VENTACOMBUSTIBLE
+
+        frm.Show()
+
+    End Sub
+
+    Private Sub btTraspasoCupos_Click(sender As Object, e As EventArgs) Handles btTraspasoCupos.Click
+        Dim frm As New F0_TraspasoCupos
+        frm._nameButton = btVentaComb.Name
+
+        frm._modulo = FP_ModuloCanero
+        frm.Name = "TRASPASO DE CUPOS"
+
+        frm.Show()
+    End Sub
 End Class
