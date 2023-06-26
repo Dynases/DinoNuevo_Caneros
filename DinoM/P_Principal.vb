@@ -1425,4 +1425,14 @@ Public Class P_Principal
 
         frm.Show()
     End Sub
+
+    Private Sub btnReporteOtrosSurtidores_Click(sender As Object, e As EventArgs) Handles btnReporteOtrosSurtidores.Click
+        Dim frm As New Pr_OtroSurtidor
+        frm._nameButton = btnReporteOtrosSurtidores.Name
+
+        frm._modulo = FP_VENTACOMBUSTIBLE
+        frm.Name = "REPORTE OTROS SURTIDORES"
+
+        frm.Show()
+    End Sub
 End Class

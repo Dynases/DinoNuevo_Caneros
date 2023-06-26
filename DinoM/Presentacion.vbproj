@@ -693,6 +693,12 @@
     <Compile Include="Pr_MovimientoDiarioVentas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pr_OtroSurtidor.designer.vb">
+      <DependentUpon>Pr_OtroSurtidor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_OtroSurtidor.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pr_ProductoRetiradoxCañero.Designer.vb">
       <DependentUpon>Pr_ProductoRetiradoxCañero.vb</DependentUpon>
     </Compile>
@@ -1087,6 +1093,12 @@
       <DependentUpon>R_ReporteCobranzasCarta.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_ReporteOtrosSurtidores.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_ReporteOtrosSurtidores.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_ReportePagosCobranzasCarta.vb">
@@ -1688,6 +1700,9 @@
     <EmbeddedResource Include="Pr_MovimientoDiarioVentas.resx">
       <DependentUpon>Pr_MovimientoDiarioVentas.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pr_OtroSurtidor.resx">
+      <DependentUpon>Pr_OtroSurtidor.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pr_ProductoRetiradoxCañero.resx">
       <DependentUpon>Pr_ProductoRetiradoxCañero.vb</DependentUpon>
     </EmbeddedResource>
@@ -1929,6 +1944,10 @@
     <EmbeddedResource Include="Reporte\R_ReporteCobranzasCarta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_ReporteCobranzasCarta.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_ReporteOtrosSurtidores.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_ReporteOtrosSurtidores.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_ReportePagosCobranzasCarta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

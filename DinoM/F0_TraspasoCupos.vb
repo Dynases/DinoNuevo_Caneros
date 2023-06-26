@@ -21,7 +21,7 @@ Public Class F0_TraspasoCupos
 #Region "METODOS PRIVADOS"
     Private Sub _PIniciarTodo()
 
-        Me.Text = "INSTITUCIONES"
+        Me.Text = "TRASPASO DE CUPOS"
         'Me.WindowState = FormWindowState.Maximized
 
 
@@ -40,7 +40,6 @@ Public Class F0_TraspasoCupos
         GroupPanel1.Style.BackColor2 = Color.FromArgb(13, 71, 161)
         GroupPanel1.Style.TextColor = Color.White
         JGr_Buscador.Focus()
-
     End Sub
     Private Sub _prAsignarPermisos()
 
@@ -297,7 +296,23 @@ Public Class F0_TraspasoCupos
 
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         _PNuevoRegistro()
+        _prCargarComboLibreria(CbGestion)
         JGr_Buscador.Enabled = False
+    End Sub
+
+    Private Sub _prCargarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = traerGestionTraspasoCupo()
+        With mCombo
+            .DropDownList.Columns.Clear()
+
+            .DropDownList.Columns.Add("ycdes3").Width = 200
+            .DropDownList.Columns("ycdes3").Caption = "DESCRIPCION"
+            .ValueMember = "ycdes3"
+            .DisplayMember = "ycdes3"
+            .DataSource = dt
+            .Refresh()
+        End With
     End Sub
     Private Sub _PNuevoRegistro()
         _PHabilitar()
@@ -512,72 +527,191 @@ Public Class F0_TraspasoCupos
     End Sub
 
     Private Sub TbNombre1_KeyDown(sender As Object, e As KeyEventArgs) Handles TbNombre1.KeyDown
+
         If (e.KeyData = Keys.Enter) Then
-            If TbNombre1.Text = String.Empty Then
+                If TbNombre1.Text = String.Empty Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "DEBE INGRESAR UN CODIGO DE CAÑERO PARA REALIZAR LA BUSQUEDA".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                ElseIf TbNombre1.Text = TextBoxX1.Text Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "NO PUEDE BUSCAR AL MISMO CAÑERO".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                Else
+
+                    Dim dt As DataTable
+                    'dt = L_fnListarClientes()
+                    dt = L_fnListarClientesVentas11(TbNombre1.Text)
+                If dt.Rows.Count > 0 Then
+                    Dim listEstCeldas As New List(Of Modelo.Celda)
+                    listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
+                    listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD-CANERO", 100))
+                    listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", True, "RAZÓN SOCIAL", 180))
+                    listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
+                    listEstCeldas.Add(New Modelo.Celda("vendedor,", True, "INSTITUCIÓN", 180))
+                    listEstCeldas.Add(New Modelo.Celda("total,", True, "TOTAL", 180))
+                    listEstCeldas.Add(New Modelo.Celda("pesoNeto,", True, "PESO NETO", 180))
+                    listEstCeldas.Add(New Modelo.Celda("cupoLibre,", True, "CUPO LIBRE ", 180))
+                    Dim ef = New Efecto
+                    ef.tipo = 3
+                    ef.dt = dt
+                    ef.SeleclCol = 2
+                    ef.listEstCeldas = listEstCeldas
+                    ef.alto = 50
+                    ef.ancho = 200
+                    ef.Context = "Seleccione Cañero".ToUpper
+                    ef.ShowDialog()
+                    Dim bandera As Boolean = False
+                    bandera = ef.band
+                    If (bandera = True) Then
+                        Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                        _CodCliente = Row.Cells("ydnumi").Value
+                        tbCliente.Text = Row.Cells("ydrazonsocial").Value
+                        '_dias = Row.Cells("yddias").Value
+                        tbCupoResgistrado.Text = Row.Cells("total").Value
+                        tbCupoActual.Text = Row.Cells("cupoLibre").Value
+                        TbNombre1.Text = Row.Cells("ydcod").Value
+                        Dim dt1 As DataTable
+                        dt1 = L_fnListarCaneroInstitucion(_CodCliente)
+                        Dim row1 As DataRow = dt1.Rows(dt1.Rows.Count - 1)
+                        tbVendedor.Text = row1("institucion")
+                        tbNit.Text = row1("codInst")
+                        'cbgrupo1.Focus()
+                        Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
+                        If (numiVendedor > 0) Then
+                            ''tbVendedor.Text = Row.Cells("vendedor").Value
+                            _CodEmpleado = Row.Cells("ydnumivend").Value
+
+                            'grdetalle1.Select()
+                        Else
+                            tbVendedor.Clear()
+                            _CodEmpleado = 0
+                            'cbgrupo1.Focus()
+
+                        End If
+                    End If
+                Else
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "ESTE CAÑERO NO TIENE REGISTRADO CAÑA COMPROMETIDA -- POR FAVOR REGISTRE ANTES DE HACER UN TRASPASO--".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    _CodEmpleado = 0
+                    tbCupoActual.Clear()
+                    tbCupoResgistrado.Clear()
+                    DoubleInput1.Text = 0
+                    tbNit.Clear()
+                    tbVendedor.Clear()
+                    tbCliente.Clear()
+                End If
+
+            End If
+
+            End If
+
+
+    End Sub
+
+    Private Sub TextBoxX1_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxX1.KeyDown
+
+        If (e.KeyData = Keys.Enter) Then
+            If TextBoxX1.Text = String.Empty Then
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                 ToastNotification.Show(Me, "DEBE INGRESAR UN CODIGO DE CAÑERO PARA REALIZAR LA BUSQUEDA".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ElseIf TextBoxX1.Text = TbNombre1.Text Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "NO PUEDE BUSCAR AL MISMO CAÑERO".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
             Else
                 Dim dt As DataTable
-                'dt = L_fnListarClientes()
-                dt = L_fnListarClientesVentas11(TbNombre1.Text)
+                    'dt = L_fnListarClientes()
+                    dt = L_fnListarClientesVentas11(TextBoxX1.Text)
+                If dt.Rows.Count > 0 Then
+                    Dim listEstCeldas As New List(Of Modelo.Celda)
+                    listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
+                    listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD-CANERO", 100))
+                    listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", True, "RAZÓN SOCIAL", 180))
+                    listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
+                    listEstCeldas.Add(New Modelo.Celda("vendedor,", True, "INSTITUCIÓN", 180))
+                    listEstCeldas.Add(New Modelo.Celda("total,", True, "TOTAL", 180))
+                    listEstCeldas.Add(New Modelo.Celda("pesoNeto,", True, "PESO NETO", 180))
+                    listEstCeldas.Add(New Modelo.Celda("cupoLibre,", True, "CUPO LIBRE ", 180))
+                    Dim ef = New Efecto
+                    ef.tipo = 3
+                    ef.dt = dt
+                    ef.SeleclCol = 2
+                    ef.listEstCeldas = listEstCeldas
+                    ef.alto = 50
+                    ef.ancho = 200
+                    ef.Context = "Seleccione Cañero".ToUpper
+                    ef.ShowDialog()
+                    Dim bandera As Boolean = False
+                    bandera = ef.band
+                    If (bandera = True) Then
+                        Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-                Dim listEstCeldas As New List(Of Modelo.Celda)
-                listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
-                listEstCeldas.Add(New Modelo.Celda("ydcod", True, "COD. CLI", 100))
-                listEstCeldas.Add(New Modelo.Celda("ydrazonsocial", False, "RAZÓN SOCIAL", 180))
-                listEstCeldas.Add(New Modelo.Celda("yddesc", True, "NOMBRE", 280))
-                listEstCeldas.Add(New Modelo.Celda("yddctnum", True, "N. Documento".ToUpper, 150))
-                listEstCeldas.Add(New Modelo.Celda("yddirec", False, "DIRECCIÓN", 220))
-                listEstCeldas.Add(New Modelo.Celda("ydtelf1", False, "Teléfono".ToUpper, 200))
-                listEstCeldas.Add(New Modelo.Celda("ydfnac", False, "F.Nacimiento".ToUpper, 150, "MM/dd,YYYY"))
-                listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
-                listEstCeldas.Add(New Modelo.Celda("vendedor,", False, "ID", 50))
-                listEstCeldas.Add(New Modelo.Celda("yddias", False, "CRED", 50))
-                listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Nombre Factura", 50))
-                listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
-                listEstCeldas.Add(New Modelo.Celda("ydtipdocelec", False, "Nit/CI", 50))
-                listEstCeldas.Add(New Modelo.Celda("ydcorreo", False, "Nit/CI", 50))
-                listEstCeldas.Add(New Modelo.Celda("ydcompleCi", False, "Nit/CI", 50))
-                Dim ef = New Efecto
-                ef.tipo = 3
-                ef.dt = dt
-                ef.SeleclCol = 2
-                ef.listEstCeldas = listEstCeldas
-                ef.alto = 50
-                ef.ancho = 200
-                ef.Context = "Seleccione Cliente".ToUpper
-                ef.ShowDialog()
-                Dim bandera As Boolean = False
-                bandera = ef.band
-                If (bandera = True) Then
-                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
-
-                    _CodCliente = Row.Cells("ydnumi").Value
-                    tbCliente.Text = Row.Cells("ydrazonsocial").Value
-                    '_dias = Row.Cells("yddias").Value
-
-                    TbNombre1.Text = Row.Cells("ydcod").Value
-                    Dim dt1 As DataTable
-                    dt1 = L_fnListarCaneroInstitucion(_CodCliente)
-                    Dim row1 As DataRow = dt1.Rows(dt1.Rows.Count - 1)
-                    tbVendedor.Text = row1("institucion")
-                    tbNit.Text = row1("codInst")
-                    'cbgrupo1.Focus()
-                    Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
-                    If (numiVendedor > 0) Then
-                        ''tbVendedor.Text = Row.Cells("vendedor").Value
-                        _CodEmpleado = Row.Cells("ydnumivend").Value
-
-                        'grdetalle1.Select()
-                    Else
-                        tbVendedor.Clear()
-                        _CodEmpleado = 0
+                        _CodCliente = Row.Cells("ydnumi").Value
+                        tbClienteR.Text = Row.Cells("ydrazonsocial").Value
+                        '_dias = Row.Cells("yddias").Value
+                        tbCupoRegistradoR.Text = Row.Cells("total").Value
+                        tbCupoActualR.Text = Row.Cells("cupoLibre").Value
+                        TextBoxX1.Text = Row.Cells("ydcod").Value
+                        Dim dt1 As DataTable
+                        dt1 = L_fnListarCaneroInstitucion(_CodCliente)
+                        Dim row1 As DataRow = dt1.Rows(dt1.Rows.Count - 1)
+                        tbVendedorR.Text = row1("institucion")
+                        tbNitR.Text = row1("codInst")
                         'cbgrupo1.Focus()
+                        Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
+                        If (numiVendedor > 0) Then
+                            ''tbVendedor.Text = Row.Cells("vendedor").Value
+                            _CodEmpleado = Row.Cells("ydnumivend").Value
 
+                            'grdetalle1.Select()
+                        Else
+                            tbVendedorR.Clear()
+                            _CodEmpleado = 0
+                            'cbgrupo1.Focus()
+
+                        End If
                     End If
+                Else
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "ESTE CAÑERO NO TIENE REGISTRADO CAÑA COMPROMETIDA -- POR FAVOR REGISTRE ANTES DE HACER UN TRASPASO--".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    _CodEmpleado = 0
+                    tbVendedorR.Clear()
+                    tbNitR.Clear()
+                    tbClienteR.Clear()
+                    tbCupoRegistradoR.Clear()
+                    tbCupoActualR.Clear()
                 End If
+
+            End If
+
+            End If
+
+    End Sub
+
+    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
+        If DoubleInput1.Text = String.Empty Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "DEBE COLOCAR UN VALOR DE CUPO A TRANSFERIR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+        ElseIf DoubleInput1.Value <= 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "DEBE COLOCAR UN VALOR MAYOR A CERO DE CUPO A TRANSFERIR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+        Else
+            If DoubleInput1.Value > tbCupoResgistrado.Text Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "NO PUEDE TRANSFERIR UN CUPO MAYOR AL REGISTRADO".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            Else
+                If tbCupoRegistradoR.Text = String.Empty Then
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "PRIMERO DEBE SELECCIONAR AL CAÑERO RECEPTOR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                Else
+                    DoubleInput2.Text = DoubleInput1.Value + Convert.ToDouble(tbCupoRegistradoR.Text)
+                End If
+
             End If
 
         End If
+
     End Sub
 End Class

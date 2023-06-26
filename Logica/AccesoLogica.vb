@@ -520,6 +520,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Ds
     End Function
 
+    Public Shared Function traerGestionTraspasoCupo() As DataTable
+        Dim _Tabla As DataTable
+
+        _Tabla = D_Datos_Tabla(" MAX(gestion)  as ycdes3", "TotalxCanero", "estado=1")
+
+        Return _Tabla
+    End Function
+
 #Region "INSTITUCION"
     Public Shared Function L_Institucion(_Modo As Integer, Optional _Cadena As String = "") As DataSet
         Dim _Tabla As DataTable
@@ -613,24 +621,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
     End Function
 
 
-    'Public Shared Function L_Institucion_Grabar(ByRef _numi As String, _codInst As String, _nomInst As String, _telf As String, _direc As String, _campo1 As String, _campo2 As String, Optional _campo3 As String = "") As Boolean
-    '    Dim _Actualizacion As String
-    '    Dim _Err As Boolean
-    '    Dim _Tabla As DataTable
-    '    _Tabla = D_Maximo("Institucion", "id", "id=id")
-    '    If Not IsDBNull(_Tabla.Rows(0).Item(0)) Then
-    '        _numi = _Tabla.Rows(0).Item(0) + 1
-    '    Else
-    '        _numi = "1"
-    '    End If
 
-    '    _Actualizacion = "'" + Date.Now.Date.ToString("yyyy/MM/dd") + "', '" + Now.Hour.ToString + ":" + Now.Minute.ToString + "' ,'" + L_Usuario + "'"
-
-    '    Dim Sql As String
-    '    Sql = _numi + ",'" + _codInst + "','" + _nomInst + "','" + _direc + "','" + _telf + "'," + _campo1 + "," + _campo2 + ",'" + _campo3 + "'," + _Actualizacion
-    '    _Err = D_Insertar_Datos("Institucion", Sql)
-    '    Return _Err
-    'End Function
     Public Shared Function L_Institucion_Grabar(_CodInst As String, _nomInst As String, _telf As String, _direc As String) As Boolean
         Dim _Error As Boolean
 
@@ -1912,7 +1903,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
-        _listParam.Add(New Datos.DParametro("@tipo", 33))
+        _listParam.Add(New Datos.DParametro("@tipo", 34))
         _listParam.Add(New Datos.DParametro("@tanumi", numi))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
 
@@ -2095,6 +2086,22 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
         _listParam.Add(New Datos.DParametro("@almacen", almacen))
         _Tabla = D_ProcedimientoConParam("Sp_Mam_ReporteVentas", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prReporteOtrosSurtidores(CodIns As Integer, CodCan As Integer, fechaI As String, fechaF As String, almacen As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 44))
+        _listParam.Add(New Datos.DParametro("@codCan", CodCan))
+        _listParam.Add(New Datos.DParametro("@codInst", CodIns))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@codSurtidor", almacen))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Boletas", _listParam)
 
         Return _Tabla
     End Function

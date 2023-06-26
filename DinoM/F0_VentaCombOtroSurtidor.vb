@@ -788,10 +788,8 @@ Public Class F0_VentaCombOtroSurtidor
             Dim numi As String = ""
             ''Verifica si existe estock para los productos
             If SwSurtidor.Value = True Then
-                
 
             Else
-
 
                 Dim res As Boolean = L_fnGrabarVentaCombustibleOtroS(numi, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text,
                                                                      tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text,
@@ -800,43 +798,29 @@ Public Class F0_VentaCombOtroSurtidor
 
                 If res Then
 
-
+                    contabilizarPrestamo(numi)
                     _prImiprimirNotaVenta(numi)
-                End If
+                    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                    ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter)
 
-                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
-                                          img, 2000,
-                                          eToastGlowColor.Green,
-                                          eToastPosition.TopCenter
-                                          )
-                _Limpiar()
-
-
-                Table_Producto = Nothing
-
-                _prSalir()
-                _prCargarVenta()
-                Dim _pos As Integer = grVentas.Row
-                If grVentas.RowCount > 0 Then
-                    _pos = grVentas.RowCount - 1
-                    ''  _prMostrarRegistro(_pos)
-                    grVentas.Row = _pos
-                End If
-                contabilizarPrestamo()
-                _prCargarVenta()
-                Dim _pos1 As Integer = grVentas.Row
-                If grVentas.RowCount > 0 Then
-                    _pos1 = grVentas.RowCount - 1
-                    ''  _prMostrarRegistro(_pos)
-                    grVentas.Row = _pos1
+                    _Limpiar()
+                    Table_Producto = Nothing
+                    _prSalir()
+                    _prCargarVenta()
+                    Dim _pos As Integer = grVentas.Row
+                    If grVentas.RowCount > 0 Then
+                        _pos = grVentas.RowCount - 1
+                        ''  _prMostrarRegistro(_pos)
+                        grVentas.Row = _pos
+                    End If
                 End If
             End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
-
-
     End Sub
     Public Sub _prImiprimirNotaVenta(numi As String)
         Dim ef = New Efecto
@@ -1662,12 +1646,12 @@ Public Class F0_VentaCombOtroSurtidor
         End If
     End Sub
 
-    Private Sub contabilizarPrestamo()
+    Private Sub contabilizarPrestamo(cod As Integer)
         Dim dt, dt1, dt2 As DataTable
-        Dim codigoVenta = tbCodigo.Text
+        Dim codigoVenta = cod
         'dt1 = L_BuscarCodCanero(1)
 
-        Dim codCanero As String = "P/Ord:. " + tbCodigo.Text + " -Diesel " + Convert.ToString(DoubleInput1.Text) + " Lts. -" + _CodCaneroUcg.ToString + "-" + tbCliente.Text.Trim   'obobs
+        Dim codCanero As String = "P/Ord:. " + codigoVenta.ToString + " -Diesel " + Convert.ToString(DoubleInput1.Text) + " Lts. -" + _CodCaneroUcg.ToString + "-" + tbCliente.Text.Trim   'obobs
         Dim total = 6.96 / tbTotalDo.Text 'para obtener debe haber
 
         Dim cuenta As String
@@ -1675,7 +1659,7 @@ Public Class F0_VentaCombOtroSurtidor
         dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
         dt2 = ObtenerNumCuentaSurtidor("TY0031", cbSurtidor.Value) ' ObtenerNumCuentaSurtidor()
 
-        Dim resTO001 = L_fnGrabarTO001prestamos(11, Convert.ToInt32(tbCodigo.Text), "false") 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001prestamos(11, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
 
         For a As Integer = 6 To 7 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
