@@ -25,8 +25,8 @@ Public Class F1_IngresosEgresos
     Private Sub _prIniciarTodo()
 
         Me.Text = "I N G R E S O S / E G R E S O S"
-        _prCargarComboLibreria(cbConcepto, 9, 1)
-        _prCargarComboLibreria(cbTipPago, 1, 11)
+        _prCargarComboLibreria(cbConcepto1, 9, 1)
+        _prCargarComboLibreria(cbTipPago1, 1, 11)
         _prCargarComboActivo(cbActivo)
         _PMIniciarTodo()
         '_prAsignarPermisos()
@@ -66,7 +66,7 @@ Public Class F1_IngresosEgresos
     End Sub
     Public Sub _prCargarLengthTextBox()
         tbDescripcion.MaxLength = 200
-        cbConcepto.MaxLength = 40
+        cbConcepto1.MaxLength = 40
 
     End Sub
 
@@ -132,8 +132,8 @@ Public Class F1_IngresosEgresos
         dpFecha.Enabled = True
         tbDescripcion.ReadOnly = False
         tbdescCanero.ReadOnly = False
-        cbConcepto.ReadOnly = False
-        cbTipPago.ReadOnly = False
+        cbConcepto1.ReadOnly = False
+        cbTipPago1.ReadOnly = False
         tbMonto.IsInputReadOnly = False
         tbObservacion.ReadOnly = False
         SwParticular.Value = True
@@ -153,8 +153,8 @@ Public Class F1_IngresosEgresos
         SwParticular.IsReadOnly = True
         dpFecha.Enabled = False
         tbDescripcion.ReadOnly = True
-        cbConcepto.ReadOnly = True
-        cbTipPago.ReadOnly = True
+        cbConcepto1.ReadOnly = True
+        cbTipPago1.ReadOnly = True
         tbMonto.IsInputReadOnly = True
         tbObservacion.ReadOnly = True
         btnVentCobros.Enabled = False
@@ -163,7 +163,7 @@ Public Class F1_IngresosEgresos
     Public Overrides Sub _PMOHabilitarFocus()
         With MHighlighterFocus
             .SetHighlightOnFocus(tbDescripcion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
-            .SetHighlightOnFocus(cbConcepto, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+            .SetHighlightOnFocus(cbConcepto1, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbMonto, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbObservacion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
             .SetHighlightOnFocus(tbcodigo, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
@@ -178,7 +178,7 @@ Public Class F1_IngresosEgresos
         dpFecha.Value = Now.Date
         tbDescripcion.Text = ""
         'cbConcepto.SelectedIndex = 0
-        cbConcepto.Text = ""
+        cbConcepto1.Text = ""
         tbMonto.Value = 0
         tbObservacion.Text = ""
 
@@ -208,20 +208,20 @@ Public Class F1_IngresosEgresos
         tbcodigo.BackColor = Color.White
         tbIdCaja.BackColor = Color.White
         tbDescripcion.BackColor = Color.White
-        cbConcepto.BackColor = Color.White
+        cbConcepto1.BackColor = Color.White
         tbMonto.BackColor = Color.White
         tbObservacion.BackColor = Color.White
     End Sub
     Public Overrides Function _PMOValidarCampos() As Boolean
         Dim _ok As Boolean = True
         MEP.Clear()
-        If cbConcepto.Text = "" Then
+        If cbConcepto1.Text = "" Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            MEP.SetError(cbConcepto, "Selecione un concepto !".ToUpper)
+            MEP.SetError(cbConcepto1, "Selecione un concepto !".ToUpper)
             _ok = False
         End If
 
-        If cbTipPago.Value = 3 Then
+        If cbTipPago1.Value = 3 Then
             If tbNroCheque.Text = String.Empty Then
                 tbNroCheque.BackColor = Color.White
                 MEP.SetError(tbNroCheque, "ingrese Dato en el campo Numero de Cheque !".ToUpper)
@@ -240,7 +240,7 @@ Public Class F1_IngresosEgresos
             End If
         End If
 
-        If cbTipPago.Value = 2 Then
+        If cbTipPago1.Value = 2 Then
             If tbNroOpera.Text = String.Empty Then
                 tbNroOpera.BackColor = Color.White
                 MEP.SetError(tbNroOpera, "ingrese Dato en el campo Numero de Operación !".ToUpper)
@@ -359,7 +359,7 @@ Public Class F1_IngresosEgresos
             dpFecha.Value = .GetValue("ieFecha")
             swTipo.Value = .GetValue("ieTipo")
             tbDescripcion.Text = .GetValue("ieDescripcion").ToString
-            cbConcepto.Value = .GetValue("ieConcepto")
+            cbConcepto1.Value = .GetValue("ieConcepto")
             tbMonto.Value = .GetValue("ieMonto")
             tbObservacion.Text = .GetValue("ieObs").ToString
             lbNroCaja.Text = .GetValue("NroCaja")
@@ -382,7 +382,7 @@ Public Class F1_IngresosEgresos
             tbNroCheque.Text = .GetValue("nCheque").ToString
             tbBanco.Text = .GetValue("banco").ToString
             SwParticular.Value = .GetValue("swCliente").ToString
-            cbTipPago.Value = .GetValue("swPago")
+            cbTipPago1.Value = .GetValue("swPago")
             SwMoneda.Value = .GetValue("swMoneda").ToString
             idCanero.Text = .GetValue("codCanero").ToString
             idInstitucion.Text = .GetValue("codIns").ToString
@@ -404,8 +404,8 @@ Public Class F1_IngresosEgresos
     Public Overrides Function _PMOGrabarRegistro() As Boolean
 
         Dim tipo As Integer = IIf(swTipo.Value = True, 1, 0)
-        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, IIf(tbIdCaja.Text = "", 0, tbIdCaja.Text), "155",
-                                                     idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago.Value, SwMoneda.Value)
+        Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto1.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, IIf(tbIdCaja.Text = "", 0, tbIdCaja.Text), "155",
+                                                     idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago1.Value, SwMoneda.Value)
         If res Then
             imprimir(tbcodigo.Text)
 
@@ -421,10 +421,10 @@ Public Class F1_IngresosEgresos
         Dim res As Boolean
         Dim tipo As Integer = IIf(swTipo.Value = True, 1, 0)
         If (Modificado = False) Then
-            res = L_prIngresoEgresoModificar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text, idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago.Value, SwMoneda.Value)
+            res = L_prIngresoEgresoModificar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto1.Value, tbMonto.Value, tbObservacion.Text, idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago1.Value, SwMoneda.Value)
 
         Else
-            res = L_prIngresoEgresoModificar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto.Value, tbMonto.Value, tbObservacion.Text)
+            res = L_prIngresoEgresoModificar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto1.Value, tbMonto.Value, tbObservacion.Text)
         End If
         If res Then
             Modificado = False
@@ -491,14 +491,14 @@ Public Class F1_IngresosEgresos
     Private Sub btConcepto_Click(sender As Object, e As EventArgs) Handles btConcepto.Click
         Dim numi As String = ""
 
-        If L_prLibreriaGrabar(numi, "9", "1", cbConcepto.Text, "") Then
-            _prCargarComboLibreria(cbConcepto, "9", "1")
-            cbConcepto.SelectedIndex = CType(cbConcepto.DataSource, DataTable).Rows.Count - 1
+        If L_prLibreriaGrabar(numi, "9", "1", cbConcepto1.Text, "") Then
+            _prCargarComboLibreria(cbConcepto1, "9", "1")
+            cbConcepto1.SelectedIndex = CType(cbConcepto1.DataSource, DataTable).Rows.Count - 1
         End If
     End Sub
 
-    Private Sub cbConcepto_ValueChanged(sender As Object, e As EventArgs) Handles cbConcepto.ValueChanged
-        If cbConcepto.SelectedIndex < 0 And cbConcepto.Text <> String.Empty Then
+    Private Sub cbConcepto1_ValueChanged(sender As Object, e As EventArgs) Handles cbConcepto1.ValueChanged
+        If cbConcepto1.SelectedIndex < 0 And cbConcepto1.Text <> String.Empty Then
             btConcepto.Visible = True
         Else
             btConcepto.Visible = False

@@ -273,6 +273,9 @@ Partial Class F0_VentaComb
         '
         Me.btnEliminar.Text = "ANULAR"
         '
+        'btnModificar
+        '
+        '
         'btnNuevo
         '
         '
@@ -614,7 +617,7 @@ Partial Class F0_VentaComb
         Me.tbAutoriza.Name = "tbAutoriza"
         Me.tbAutoriza.PreventEnterBeep = True
         Me.tbAutoriza.Size = New System.Drawing.Size(120, 21)
-        Me.tbAutoriza.TabIndex = 415
+        Me.tbAutoriza.TabIndex = 0
         '
         'SwSurtidor
         '
@@ -631,7 +634,7 @@ Partial Class F0_VentaComb
         Me.SwSurtidor.OnText = "SURTIDOR GUABIRA"
         Me.SwSurtidor.Size = New System.Drawing.Size(170, 28)
         Me.SwSurtidor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.SwSurtidor.TabIndex = 392
+        Me.SwSurtidor.TabIndex = 0
         Me.SwSurtidor.Value = True
         Me.SwSurtidor.ValueObject = "Y"
         '
@@ -666,7 +669,7 @@ Partial Class F0_VentaComb
         Me.cbSurtidor.SelectedIndex = -1
         Me.cbSurtidor.SelectedItem = Nothing
         Me.cbSurtidor.Size = New System.Drawing.Size(190, 22)
-        Me.cbSurtidor.TabIndex = 413
+        Me.cbSurtidor.TabIndex = 0
         Me.cbSurtidor.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'cbTipoSolicitud
@@ -697,7 +700,7 @@ Partial Class F0_VentaComb
         Me.tbPlaca.Name = "tbPlaca"
         Me.tbPlaca.PreventEnterBeep = True
         Me.tbPlaca.Size = New System.Drawing.Size(95, 22)
-        Me.tbPlaca.TabIndex = 400
+        Me.tbPlaca.TabIndex = 393
         '
         'LabelX36
         '
@@ -712,6 +715,7 @@ Partial Class F0_VentaComb
         Me.LabelX36.Size = New System.Drawing.Size(75, 23)
         Me.LabelX36.TabIndex = 412
         Me.LabelX36.Text = "C.I/NIT:"
+        Me.LabelX36.Visible = False
         '
         'LabelX35
         '
@@ -726,6 +730,7 @@ Partial Class F0_VentaComb
         Me.LabelX35.Size = New System.Drawing.Size(86, 23)
         Me.LabelX35.TabIndex = 409
         Me.LabelX35.Text = "Facturar a:"
+        Me.LabelX35.Visible = False
         '
         'LabelX34
         '
@@ -867,7 +872,7 @@ Partial Class F0_VentaComb
         Me.tbNitTraOrden.Name = "tbNitTraOrden"
         Me.tbNitTraOrden.PreventEnterBeep = True
         Me.tbNitTraOrden.Size = New System.Drawing.Size(120, 22)
-        Me.tbNitTraOrden.TabIndex = 391
+        Me.tbNitTraOrden.TabIndex = 390
         '
         'tbRetSurtidor
         '
@@ -880,7 +885,7 @@ Partial Class F0_VentaComb
         Me.tbRetSurtidor.Name = "tbRetSurtidor"
         Me.tbRetSurtidor.PreventEnterBeep = True
         Me.tbRetSurtidor.Size = New System.Drawing.Size(365, 22)
-        Me.tbRetSurtidor.TabIndex = 390
+        Me.tbRetSurtidor.TabIndex = 391
         '
         'tbTramOrden
         '
@@ -998,7 +1003,7 @@ Partial Class F0_VentaComb
         Me.tbObservacion.Name = "tbObservacion"
         Me.tbObservacion.PreventEnterBeep = True
         Me.tbObservacion.Size = New System.Drawing.Size(595, 32)
-        Me.tbObservacion.TabIndex = 362
+        Me.tbObservacion.TabIndex = 0
         '
         'LabelX21
         '
@@ -1030,7 +1035,7 @@ Partial Class F0_VentaComb
         Me.txtEstado.Name = "txtEstado"
         Me.txtEstado.PreventEnterBeep = True
         Me.txtEstado.Size = New System.Drawing.Size(95, 21)
-        Me.txtEstado.TabIndex = 359
+        Me.txtEstado.TabIndex = 0
         Me.txtEstado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'lbCredito
@@ -1186,15 +1191,14 @@ Partial Class F0_VentaComb
         cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
         Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
         Me.cbSucursal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbSucursal.Location = New System.Drawing.Point(453, 242)
+        Me.cbSucursal.Location = New System.Drawing.Point(491, 217)
         Me.cbSucursal.Name = "cbSucursal"
         Me.cbSucursal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbSucursal.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.cbSucursal.SelectedIndex = -1
         Me.cbSucursal.SelectedItem = Nothing
         Me.cbSucursal.Size = New System.Drawing.Size(140, 22)
-        Me.cbSucursal.TabIndex = 270
-        Me.cbSucursal.Visible = False
+        Me.cbSucursal.TabIndex = 0
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'tbFechaVenta
@@ -1252,7 +1256,7 @@ Partial Class F0_VentaComb
         Me.lbCtrlEnter.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbCtrlEnter.Font = New System.Drawing.Font("Georgia", 7.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbCtrlEnter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lbCtrlEnter.Location = New System.Drawing.Point(398, 57)
+        Me.lbCtrlEnter.Location = New System.Drawing.Point(398, 55)
         Me.lbCtrlEnter.Name = "lbCtrlEnter"
         Me.lbCtrlEnter.SingleLineColor = System.Drawing.SystemColors.Control
         Me.lbCtrlEnter.Size = New System.Drawing.Size(60, 10)
@@ -1273,7 +1277,8 @@ Partial Class F0_VentaComb
         Me.TbNombre1.Name = "TbNombre1"
         Me.TbNombre1.PreventEnterBeep = True
         Me.TbNombre1.Size = New System.Drawing.Size(365, 21)
-        Me.TbNombre1.TabIndex = 2
+        Me.TbNombre1.TabIndex = 0
+        Me.TbNombre1.Visible = False
         '
         'LabelX4
         '
@@ -1306,7 +1311,8 @@ Partial Class F0_VentaComb
         Me.tbNit.Name = "tbNit"
         Me.tbNit.PreventEnterBeep = True
         Me.tbNit.Size = New System.Drawing.Size(120, 21)
-        Me.tbNit.TabIndex = 1
+        Me.tbNit.TabIndex = 0
+        Me.tbNit.Visible = False
         '
         'LabelX3
         '
@@ -1371,7 +1377,7 @@ Partial Class F0_VentaComb
         Me.tbCliente.Name = "tbCliente"
         Me.tbCliente.PreventEnterBeep = True
         Me.tbCliente.Size = New System.Drawing.Size(365, 21)
-        Me.tbCliente.TabIndex = 0
+        Me.tbCliente.TabIndex = 387
         '
         'tbCodigo
         '
@@ -1472,6 +1478,7 @@ Partial Class F0_VentaComb
         Me.GroupPanelFactura2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanelFactura2.TabIndex = 240
         Me.GroupPanelFactura2.Text = "DATOS FACTURACIÓN"
+        Me.GroupPanelFactura2.Visible = False
         '
         'tbCodigoControl
         '
@@ -1724,7 +1731,7 @@ Partial Class F0_VentaComb
         '
         '
         Me.GroupCobranza.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupCobranza.TabIndex = 241
+        Me.GroupCobranza.TabIndex = 0
         '
         'tbTotalDo
         '
@@ -1735,11 +1742,11 @@ Partial Class F0_VentaComb
         Me.tbTotalDo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbTotalDo.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbTotalDo.ForeColor = System.Drawing.Color.Red
-        Me.tbTotalDo.Location = New System.Drawing.Point(156, 33)
+        Me.tbTotalDo.Location = New System.Drawing.Point(156, 67)
         Me.tbTotalDo.Name = "tbTotalDo"
         Me.tbTotalDo.SingleLineColor = System.Drawing.SystemColors.Control
         Me.tbTotalDo.Size = New System.Drawing.Size(180, 30)
-        Me.tbTotalDo.TabIndex = 358
+        Me.tbTotalDo.TabIndex = 0
         Me.tbTotalDo.Text = "0.00"
         Me.tbTotalDo.TextAlignment = System.Drawing.StringAlignment.Far
         '
@@ -1752,11 +1759,11 @@ Partial Class F0_VentaComb
         Me.tbTotalBs.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbTotalBs.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbTotalBs.ForeColor = System.Drawing.Color.Red
-        Me.tbTotalBs.Location = New System.Drawing.Point(156, 67)
+        Me.tbTotalBs.Location = New System.Drawing.Point(156, 31)
         Me.tbTotalBs.Name = "tbTotalBs"
         Me.tbTotalBs.SingleLineColor = System.Drawing.SystemColors.Control
         Me.tbTotalBs.Size = New System.Drawing.Size(180, 30)
-        Me.tbTotalBs.TabIndex = 355
+        Me.tbTotalBs.TabIndex = 0
         Me.tbTotalBs.Text = "0.00"
         Me.tbTotalBs.TextAlignment = System.Drawing.StringAlignment.Far
         '
@@ -1815,7 +1822,7 @@ Partial Class F0_VentaComb
         Me.tbMdesc.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMdesc.ForeColor = System.Drawing.Color.Black
         Me.tbMdesc.Increment = 1.0R
-        Me.tbMdesc.Location = New System.Drawing.Point(219, 65)
+        Me.tbMdesc.Location = New System.Drawing.Point(156, 67)
         Me.tbMdesc.MinValue = 0R
         Me.tbMdesc.Name = "tbMdesc"
         Me.tbMdesc.Size = New System.Drawing.Size(200, 26)
@@ -1957,7 +1964,7 @@ Partial Class F0_VentaComb
         Me.cbCambioDolar.SelectedIndex = -1
         Me.cbCambioDolar.SelectedItem = Nothing
         Me.cbCambioDolar.Size = New System.Drawing.Size(144, 22)
-        Me.cbCambioDolar.TabIndex = 8
+        Me.cbCambioDolar.TabIndex = 0
         Me.cbCambioDolar.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'btgrupo1
@@ -2413,7 +2420,7 @@ Partial Class F0_VentaComb
         Me.grdetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grdetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.grdetalle.Size = New System.Drawing.Size(760, 67)
-        Me.grdetalle.TabIndex = 3
+        Me.grdetalle.TabIndex = 415
         Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'GPanelProductos

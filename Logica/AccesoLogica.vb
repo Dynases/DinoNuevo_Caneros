@@ -444,6 +444,17 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Tabla = D_Datos_TablaInst("*", "Institucion", "id= " + _TipoVenta)
         Return _Tabla
     End Function
+    Public Shared Function verificarGrupoEconomico(_NomTabla As String, _TipoVenta As String) As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst(" id,codGrupo,dbo.TY004.ydcod,dbo.TY004.ydrazonsocial", _NomTabla + " inner JOIN dbo.TY004 ON  TG001.ydnumi=dbo.TY004.ydnumi AND dbo.TY004.ydtip=1 ", "dbo.TY004.ydcod= " + _TipoVenta)
+        Return _Tabla
+    End Function
+
+    Public Shared Function verificarGrupoEconomicoDet(_NomTabla As String, _TipoVenta As String) As DataTable
+        Dim _Tabla As DataTable
+        _Tabla = D_Datos_TablaInst(" id1,dbo.TY004.ydcod,dbo.TY004.ydrazonsocial ", _NomTabla + " inner JOIN dbo.TY004 ON  TG0011.ydnumi=dbo.TY004.ydnumi AND dbo.TY004.ydtip=1 ", "dbo.TY004.ydcod= " + _TipoVenta)
+        Return _Tabla
+    End Function
     Public Shared Function ObtenerNumCuentaSurtidor(_NomTabla As String, _TipoVenta As String) As DataTable
         Dim _Tabla As DataTable
         _Tabla = D_Datos_TablaInst("*", "TY0031", "yccod1=1 and yccod2=8 " + "and yccod3= " + _TipoVenta)
@@ -527,7 +538,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_TraspasoCupos() As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
 
+        _Tabla = D_Datos_Tabla1("idTraspCupo,codCaneroT codCaneroSys,canero.ydcod codCaneroUCG,caneroR.ydrazonsocial caneroUCG,fechaReg,porcentaje,cupoLibreTransferirT,CANERO.ydrazonsocial,dbo.Institucion.codInst,dbo.Institucion.nomInst,cupoRegAntT,cupoTransferirT,cupoRegNuevT,codCaneroR codCaneroSysR, caneroR.ydcod codCaneroUCGR,institucionR.codInst codInstR,institucionR.nomInst nomInstR,cupoRegAntR,cupoRegNuevR,gestion,dbo.traspasoCupos.fact,dbo.traspasoCupos.hact,dbo.traspasoCupos.uact,estado", "dbo.traspasoCupos INNER JOIN ty004 canero ON canero.ydnumi=dbo.traspasoCupos.codCaneroT AND canero.ydtip=1 INNER JOIN ty004 caneroR ON caneroR.ydnumi=dbo.traspasoCupos.codCaneroR AND caneroR.ydtip=1 INNER JOIN dbo.Institucion ON dbo.Institucion.id=canero.ydnumivend INNER JOIN dbo.Institucion institucionR ON institucionR.id=caneroR.ydnumivend")
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
 #Region "INSTITUCION"
     Public Shared Function L_Institucion(_Modo As Integer, Optional _Cadena As String = "") As DataSet
         Dim _Tabla As DataTable
@@ -662,6 +680,42 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@yfuact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            '_numi = _Tabla.Rows(0).Item(0)
+            _Error = False
+        Else
+            _Error = True
+        End If
+        Return Not _Error
+    End Function
+
+    Public Shared Function TraspasoCupo_Grabar(ByRef _tanumi As String, _codCaneroTransfiriente As Integer, _tbCupoRegAntT As Decimal, _cupotransferirT As Decimal, _cupoRegNuevt As Decimal,
+               _codCaneroReceptor As Integer, _tbCupoRegAntR As Decimal, _cupoRegNuevR As Decimal, _gestion As String, _fechaReg As String, _porcentaje As Decimal, _cupoLibreTransferirT As Decimal) As Boolean
+        Dim _Error As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 23))
+        _listParam.Add(New Datos.DParametro("@codCaneroTransfiriente", _codCaneroTransfiriente))
+        _listParam.Add(New Datos.DParametro("@tbCupoRegAntT", _tbCupoRegAntT))
+        _listParam.Add(New Datos.DParametro("@cupotransferirT", _cupotransferirT))
+        _listParam.Add(New Datos.DParametro("@cupoRegNuevt", _cupoRegNuevt))
+        _listParam.Add(New Datos.DParametro("@codCaneroReceptor", _codCaneroReceptor))
+
+
+        _listParam.Add(New Datos.DParametro("@tbCupoRegAntR", _tbCupoRegAntR))
+        _listParam.Add(New Datos.DParametro("@cupoRegNuevR", _cupoRegNuevR))
+        _listParam.Add(New Datos.DParametro("@gestion", _gestion))
+        _listParam.Add(New Datos.DParametro("@fechaReg", _fechaReg))
+
+        _listParam.Add(New Datos.DParametro("@porcentaje", _porcentaje))
+        _listParam.Add(New Datos.DParametro("@cupoLibreTransferirT", _cupoLibreTransferirT))
+        _listParam.Add(New Datos.DParametro("@estado", 1))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
 
         If _Tabla.Rows.Count > 0 Then
             '_numi = _Tabla.Rows(0).Item(0)
@@ -2079,7 +2133,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@tipo", 11))
         _listParam.Add(New Datos.DParametro("@cliente", CodCan))
         _listParam.Add(New Datos.DParametro("@vendedor", CodIns))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
@@ -2961,6 +3015,63 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@TV0011", "", detalle))
         _listParam.Add(New Datos.DParametro("@TV0014", "", monto))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnModificarVentaDieselPropio(ByRef _tanumi As String, _taidCorelativo As String, _tafdoc As String, _taven As Integer, _tatven As Integer, _tafvcr As String, _taclpr As Integer,
+                                           _tamon As Integer, _taobs As String,
+                                           _tadesc As Double, _taice As Double,
+                                           _tatotal As Double, detalle As DataTable, _almacen As Integer, _taprforma As Integer, Monto As DataTable, _NroCaja As Integer,
+                                           _programa As String, _tcentregado As String, _tcentregadoci As String, _tcdespachador As Integer, _tcplaca As String, _tcretiro As String, _tcnitretiro As String,
+                                           _tcfacnombre As String, _tcfacnit As String, _tiposoli As Integer, _surtidor As Integer, _tiposurtidor As Boolean, _Autorizacion As Integer) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", 222))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _listParam.Add(New Datos.DParametro("@taproforma", _taprforma))
+        _listParam.Add(New Datos.DParametro("@taidCore", _taidCorelativo))
+        _listParam.Add(New Datos.DParametro("@taalm", _almacen))
+        _listParam.Add(New Datos.DParametro("@tafdoc", _tafdoc))
+        _listParam.Add(New Datos.DParametro("@taven", _taven))
+        _listParam.Add(New Datos.DParametro("@tatven", _tatven))
+        _listParam.Add(New Datos.DParametro("@tafvcr", _tafvcr))
+        _listParam.Add(New Datos.DParametro("@taclpr", _taclpr))
+        _listParam.Add(New Datos.DParametro("@tamon", _tamon))
+        _listParam.Add(New Datos.DParametro("@taest", 1))
+        _listParam.Add(New Datos.DParametro("@taobs", _taobs))
+        _listParam.Add(New Datos.DParametro("@tadesc", _tadesc))
+        _listParam.Add(New Datos.DParametro("@taice", _taice))
+        _listParam.Add(New Datos.DParametro("@tatotal", _tatotal))
+        _listParam.Add(New Datos.DParametro("@taNrocaja", _NroCaja))
+        _listParam.Add(New Datos.DParametro("@bcprograma", _programa))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@TV0011", "", detalle))
+        _listParam.Add(New Datos.DParametro("@TV0014", "", Monto))
+        _listParam.Add(New Datos.DParametro("@tcentregado", _tcentregado))
+        _listParam.Add(New Datos.DParametro("@tcentregadoci", _tcentregadoci))
+        _listParam.Add(New Datos.DParametro("@tcdespachador", _tcdespachador))
+        _listParam.Add(New Datos.DParametro("@tcplaca", _tcplaca))
+        _listParam.Add(New Datos.DParametro("@tcretiro", _tcretiro))
+        _listParam.Add(New Datos.DParametro("@tcnitretiro", _tcnitretiro))
+        _listParam.Add(New Datos.DParametro("@tcfacnombre", _tcfacnombre))
+        _listParam.Add(New Datos.DParametro("@tcfacnit", _tcfacnit))
+        _listParam.Add(New Datos.DParametro("@tiposoli", _tiposoli))
+        _listParam.Add(New Datos.DParametro("@surtidor", _surtidor))
+        _listParam.Add(New Datos.DParametro("@tctiposurtidor", _tiposurtidor))
+        _listParam.Add(New Datos.DParametro("@autorizacion", _Autorizacion))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
 
 

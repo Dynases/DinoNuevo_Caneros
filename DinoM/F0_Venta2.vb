@@ -1821,18 +1821,7 @@ Public Class F0_Venta2
                                                     IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
                                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text, dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
 
-            'numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-            '                                                 IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-            '                                                Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-            '                                                 _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-            '                                                  tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-            '                                                  dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
             If res Then
-                'If (gb_FacturaEmite) Then
-                '    L_fnEliminarDatos("TFV001", "fvanumi=" + tbCodigo.Text.Trim)
-                '    L_fnEliminarDatos("TFV0011", "fvbnumi=" + tbCodigo.Text.Trim)
-                '    P_fnGenerarFactura(tbCodigo.Text.Trim)
-                'End If
                 _prImiprimirNotaVenta(tbCodigo.Text)
                 Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                 ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper,
@@ -5114,7 +5103,7 @@ salirIf:
             dsApi = L_Dosificacion("1", cbSucursal.Value, _Fecha)
         End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
-        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion + " and " + "fvaalm= " + Convert.ToString(cbSucursal.Value))
+        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion + " and " + "fvaalm= 1") '' + Convert.ToString(cbSucursal.Value))
         NumFactura = maxNFac + 1
 
         Emenvio.nitEmisor = 1028395023

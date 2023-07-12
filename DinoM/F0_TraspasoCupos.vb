@@ -8,7 +8,8 @@ Public Class F0_TraspasoCupos
     Dim _codInsti As Integer = 0
 #Region "ATRIBUTOS"
     Dim _Dsencabezado As DataSet
-    Dim _CodCliente As Integer = 0
+    Dim _CodCanerotransfirienteSys As Integer = 0
+    Dim _CodCanerotransreceptorSys As Integer = 0
     Dim _Nuevo As Boolean
     Private _Pos As Integer
     Public _tab As SuperTabItem
@@ -89,9 +90,25 @@ Public Class F0_TraspasoCupos
             Return
         End If
         With JGr_Buscador
-            Tb_Id.Text = .GetValue("id").ToString
-
-            NumiCuenta = .GetValue("canumi").ToString
+            tb_Id.Text = .GetValue("idTraspCupo").ToString
+            TbNombre1.Text = .GetValue("codCaneroUCG").ToString
+            tbCliente.Text = .GetValue("ydRazonSocial").ToString
+            tbNit.Text = .GetValue("codInst").ToString
+            tbCupoResgistrado.Text = .GetValue("cupoRegAntT").ToString
+            tbVendedor.Text = .GetValue("nomInst").ToString
+            DoubleInput1.Value = .GetValue("cupoTransferirT").ToString
+            DoubleInput4.Text = .GetValue("cupoRegNuevT").ToString
+            TextBoxX1.Text = .GetValue("codCaneroUCGR").ToString
+            tbClienteR.Text = .GetValue("caneroUCG").ToString
+            tbNitR.Text = .GetValue("codInstR").ToString
+            tbVendedorR.Text = .GetValue("nomInstR").ToString
+            tbCupoRegistradoR.Text = .GetValue("cupoRegAntR").ToString
+            DoubleInput2.Text = .GetValue("cupoRegNuevR").ToString
+            CbGestion.Text = .GetValue("gestion").ToString
+            DoubleInput3.Text = .GetValue("porcentaje").ToString
+            tbFechaVenc.Text = .GetValue("fechaReg").ToString
+            tbCupoActual.Text = .GetValue("cupoLibreTransferirT").ToString
+            'NumiCuenta = .GetValue("canumi").ToString
 
         End With
     End Sub
@@ -99,14 +116,15 @@ Public Class F0_TraspasoCupos
     Private Sub _PInhabilitar()
         Tb_Id.ReadOnly = True
 
-
+        ' tbFechaVenc.Enabled = False
 
 
         btnNuevo.Enabled = True
         btnModificar.Enabled = True
         btnEliminar.Enabled = True
         btnGrabar.Enabled = False
-
+        'DoubleInput1.Enabled = False
+        CbGestion.Enabled = False
         JGr_Buscador.Enabled = True
 
         btnGrabar.Image = My.Resources.save
@@ -134,39 +152,39 @@ Public Class F0_TraspasoCupos
 
     Private Sub _PCargarBuscador()
         _Dsencabezado = New DataSet
-        _Dsencabezado = L_Institucion(0)
+        _Dsencabezado = L_TraspasoCupos()
 
         JGr_Buscador.BoundMode = BoundMode.Bound
         JGr_Buscador.DataSource = _Dsencabezado.Tables(0) ' _Dsencabezado.Tables(0) ' dt
         JGr_Buscador.RetrieveStructure()
 
-        With JGr_Buscador.RootTable.Columns("id")
-            '.Visible = False
-            .Caption = "id".ToUpper
-            .Width = 50
+        With JGr_Buscador.RootTable.Columns("idTraspCupo")
+            .Visible = True
+            .Caption = "Cod.trasp".ToUpper
+            .Width = 30
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
-        With JGr_Buscador.RootTable.Columns("codInst")
-            '.Visible = False
+        With JGr_Buscador.RootTable.Columns("codCaneroSys")
+            .Visible = False
             .Caption = "Cod. Institución".ToUpper
             .Width = 150
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
-        With JGr_Buscador.RootTable.Columns("nomInst")
-            '   .Visible = False
-            .Caption = "Institución".ToUpper
-            .Width = 400
+        With JGr_Buscador.RootTable.Columns("codCaneroUcg")
+            .Visible = True
+            .Caption = "COD CANERO".ToUpper
+            .Width = 100
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
         End With
-        With JGr_Buscador.RootTable.Columns("cactaucg")
-            '   .Visible = False
-            .Caption = "Num.Cuenta".ToUpper
+        With JGr_Buscador.RootTable.Columns("ydRazonSocial")
+            .Visible = True
+            .Caption = "CANERO TRANSFIRIENTE".ToUpper
             .Width = 200
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
         End With
-        With JGr_Buscador.RootTable.Columns("canumi")
+        With JGr_Buscador.RootTable.Columns("codInst")
             .Visible = False
             .Caption = "Cod.Cuenta".ToUpper
             .Width = 400
@@ -174,22 +192,106 @@ Public Class F0_TraspasoCupos
 
         End With
 
-        With JGr_Buscador.RootTable.Columns("direc")
-            '.Visible = False
+        With JGr_Buscador.RootTable.Columns("nomInst")
+            .Visible = False
             .Caption = "Dirección".ToUpper
             .Width = 200
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             '.CellStyle.FontSize = gi_fuenteTamano
         End With
 
-        With JGr_Buscador.RootTable.Columns("telf")
-            .Caption = "Telefono".ToUpper
+        With JGr_Buscador.RootTable.Columns("cupoRegAntT")
+            .Caption = "CUPOANTERIOR".ToUpper
             .Width = 150
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
         End With
 
+        With JGr_Buscador.RootTable.Columns("cupoTransferirT")
+            .Caption = "CUPO transferir".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
+        End With
+        With JGr_Buscador.RootTable.Columns("cupoRegNuevT")
+            .Caption = "CUPO R Nuev".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+        With JGr_Buscador.RootTable.Columns("codCaneroSysR")
+            .Visible = False
+            .Caption = "CodCanRecep".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+
+        With JGr_Buscador.RootTable.Columns("codCaneroUCGR")
+            .Caption = "CodCanero".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+
+        With JGr_Buscador.RootTable.Columns("codInstR")
+            .Visible = False
+            .Caption = "CodCanRecep".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+        With JGr_Buscador.RootTable.Columns("nomInstR")
+            .Visible = False
+            .Caption = "CodCanRecep".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+        With JGr_Buscador.RootTable.Columns("porcentaje")
+            .Visible = False
+            .Caption = "CodCanRecep".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+        With JGr_Buscador.RootTable.Columns("cupoLibreTransferirT")
+            .Visible = False
+            .Caption = "CodCanRecep".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+        With JGr_Buscador.RootTable.Columns("cupoRegAntR")
+            .Visible = True
+            .Caption = "CodCanRecep".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+
+        With JGr_Buscador.RootTable.Columns("cupoRegNuevR")
+            .Visible = True
+            .Caption = "Cupo Nuevo".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+        With JGr_Buscador.RootTable.Columns("gestion")
+            .Visible = True
+            .Caption = "Gestion".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+
+        With JGr_Buscador.RootTable.Columns("fechaReg")
+            .Visible = True
+            .Caption = "Fecha".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
         'Habilitar Filtradores
         With JGr_Buscador
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -207,68 +309,73 @@ Public Class F0_TraspasoCupos
     Private Sub _PHabilitar()
 
 
-
+        DoubleInput1.IsInputReadOnly = False
         btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
         btnGrabar.Enabled = True
+        btnAgregar.Enabled = True
+        TbNombre1.ReadOnly = False
+        TextBoxX1.ReadOnly = False
+        tbFechaVenc.Enabled = True
     End Sub
 
     Private Sub _PLimpiar()
         Tb_Id.Text = String.Empty
-
+        tbCliente.Text = String.Empty
+        TbNombre1.Text = String.Empty
+        tbNit.Text = String.Empty
+        tbVendedor.Text = String.Empty
+        tbCupoResgistrado.Text = String.Empty
+        tbCupoActual.Text = String.Empty
+        DoubleInput1.Value = 0
+        tbFechaVenc.Text = Now.Date
+        TextBoxX1.Text = String.Empty
+        tbClienteR.Text = String.Empty
+        tbNitR.Text = String.Empty
+        tbVendedorR.Text = String.Empty
+        tbCupoRegistradoR.Text = String.Empty
+        DoubleInput2.Value = 0
+        DoubleInput3.Value = 0
+        DoubleInput4.Value = 0
         LblPaginacion.Text = String.Empty
     End Sub
 
     Public Function P_Validar() As Boolean
         Dim _Error As Boolean = True
         MEP.Clear()
+        If TbNombre1.Text = String.Empty Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "PRIMERO DEBE SELECCIONAR AL CAÑERO TRANSFIRIENTE".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            _Error = False
+        End If
+        If DoubleInput1.Text = String.Empty Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "DEBE COLOCAR UN VALOR DE CUPO A TRANSFERIR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            _Error = False
+        End If
+        If DoubleInput1.Value <= 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "DEBE COLOCAR UN VALOR MAYOR A CERO DE CUPO A TRANSFERIR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            _Error = False
+        End If
+        If tbCupoRegistradoR.Text = String.Empty Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "PRIMERO DEBE SELECCIONAR AL CAÑERO RECEPTOR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            _Error = False
+        End If
+        If DoubleInput1.Value > tbCupoActual.Text Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "NO PUEDE TRANSFERIR UN CUPO MAYOR AL CUPO LIBRE DE TRANSFERENCIA".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            _Error = False
+        End If
+        If DoubleInput1.Value = 0 Or DoubleInput2.Value = 0 Or DoubleInput3.Value = 0 Or DoubleInput4.Value = 0 Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "PRIMERO DEBE PRESIONAR EN TRASPASO".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            _Error = False
+        End If
 
-
-        'If Tb_NomInst.Text.Trim = String.Empty Then
-        '    Tb_NomInst.BackColor = Color.Red
-        '    MEP.SetError(Tb_NomInst, "Ingrese nombre de institución!".ToUpper)
-        '    _Error = False
-        'Else
-        '    Tb_NomInst.BackColor = Color.White
-        '    MEP.SetError(Tb_NomInst, String.Empty)
-        'End If
-
-
-        'If Tb_CodInst.Text.Trim = String.Empty Then
-        '    Tb_CodInst.BackColor = Color.Red
-        '    MEP.SetError(Tb_CodInst, "Ingrese un código de institución!".ToUpper)
-        '    _Error = False
-
-        'Else
-        '    'If _Nuevo Then
-        '    '    If L_BuscarCodInst(Tb_CodInst.Text) = True Then
-        '    '        Tb_CodInst.BackColor = Color.Red
-        '    '        MEP.SetError(Tb_CodInst, "Ingrese un código distinto!".ToUpper)
-        '    '        _Error = False
-        '    '    Else
-        '    '        Tb_CodInst.BackColor = Color.White
-        '    '        MEP.SetError(Tb_CodInst, String.Empty)
-        '    '    End If
-        '    'ElseIf _codInsti = Convert.ToInt32(Tb_CodInst.Text) Then
-        '    '    _Error = True
-        '    'Else
-        '    '    If L_BuscarCodInst(Tb_CodInst.Text) = True Then
-        '    '        Tb_CodInst.BackColor = Color.Red
-        '    '        MEP.SetError(Tb_CodInst, "Ingrese un código distinto!".ToUpper)
-        '    '        _Error = False
-        '    '    Else
-        '    '        Tb_CodInst.BackColor = Color.White
-        '    '        MEP.SetError(Tb_CodInst, String.Empty)
-        '    '    End If
-        '    'End If
-        '    'If _Error = True Then
-        '    '    Tb_CodInst.BackColor = Color.White
-        '    '    MEP.SetError(Tb_CodInst, String.Empty)
-        '    'End If
-        'End If
-        'MHighlighterFocus.UpdateHighlights()
-        'Return _Error
+        Return _Error
     End Function
 
 
@@ -316,7 +423,7 @@ Public Class F0_TraspasoCupos
     End Sub
     Private Sub _PNuevoRegistro()
         _PHabilitar()
-        'btnNuevo.Enabled = True
+        ' btnNuevo.Enabled = True
 
         _PLimpiar()
 
@@ -333,37 +440,28 @@ Public Class F0_TraspasoCupos
     End Sub
     Private Sub _PGrabarRegistro()
         Dim _Error As Boolean = False
-        If P_Validar() Then
-
-            If False Then 'btnGrabar.Tag = 0
-                btnGrabar.Tag = 1
-                btnGrabar.Refresh()
-                Exit Sub
-            Else
-                btnGrabar.Tag = 0
-                btnGrabar.Refresh()
-            End If
+        _Error = P_Validar()
+        If _Error = True Then
 
             If _Nuevo Then
 
                 'L_Institucion_Grabar(Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text)
 
                 'Tb_CodInst.Focus()
-
-                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
-
-
-
-                    'actualizar el grid de buscador
+                Dim numi As String = ""
+                Dim res As Boolean = TraspasoCupo_Grabar(numi, _CodCanerotransfirienteSys, tbCupoResgistrado.Text, DoubleInput1.Value, DoubleInput4.Value,
+                                                         _CodCanerotransreceptorSys, tbCupoRegistradoR.Text, DoubleInput2.Value, Year(tbFechaVenc.Text), tbFechaVenc.Text, DoubleInput3.Value, tbCupoActual.Text)
+                If res = True Then
+                    ToastNotification.Show(Me, "TRASPASO GRABADO CON EXITO.".ToUpper, My.Resources.GRABACION_EXITOSA, 8000, eToastGlowColor.Green, eToastPosition.TopCenter)
                     _PCargarBuscador()
-                    _PLimpiar()
+                    _PInhabilitar()
+                End If
 
-
-                    Else
+            Else
 
                 'L_Institucion_Modificar(Tb_Id.Text, Tb_CodInst.Text, Tb_NomInst.Text, Tb_Telefono.Text, Tb_Direccion.Text, NumiCuenta, 0, 0)
 
-                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_Id.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + tb_Id.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
                 _PCargarBuscador()
                 _Nuevo = False 'aumentado danny
@@ -563,16 +661,33 @@ Public Class F0_TraspasoCupos
                     Dim bandera As Boolean = False
                     bandera = ef.band
                     If (bandera = True) Then
+
+
+                        tbCliente.Text = String.Empty
+                        TbNombre1.Text = String.Empty
+                        tbNit.Text = String.Empty
+                        tbVendedor.Text = String.Empty
+
+                        tbCupoResgistrado.Text = String.Empty
+                        tbCupoActual.Text = String.Empty
+
+                        DoubleInput1.Value = 0
+                        DoubleInput4.Value = 0
+
+                        DoubleInput3.Value = 0
+
+
+
                         Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-                        _CodCliente = Row.Cells("ydnumi").Value
+                        _CodCanerotransfirienteSys = Row.Cells("ydnumi").Value
                         tbCliente.Text = Row.Cells("ydrazonsocial").Value
                         '_dias = Row.Cells("yddias").Value
                         tbCupoResgistrado.Text = Row.Cells("total").Value
-                        tbCupoActual.Text = Row.Cells("cupoLibre").Value
+                        tbCupoActual.Text = Row.Cells("total").Value - Row.Cells("cupoLibre").Value
                         TbNombre1.Text = Row.Cells("ydcod").Value
                         Dim dt1 As DataTable
-                        dt1 = L_fnListarCaneroInstitucion(_CodCliente)
+                        dt1 = L_fnListarCaneroInstitucion(_CodCanerotransfirienteSys)
                         Dim row1 As DataRow = dt1.Rows(dt1.Rows.Count - 1)
                         tbVendedor.Text = row1("institucion")
                         tbNit.Text = row1("codInst")
@@ -645,16 +760,24 @@ Public Class F0_TraspasoCupos
                     Dim bandera As Boolean = False
                     bandera = ef.band
                     If (bandera = True) Then
+
+                        TextBoxX1.Text = String.Empty
+                        tbClienteR.Text = String.Empty
+                        tbNitR.Text = String.Empty
+                        tbVendedorR.Text = String.Empty
+                        tbCupoRegistradoR.Text = String.Empty
+                        DoubleInput2.Value = 0
+
                         Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
-                        _CodCliente = Row.Cells("ydnumi").Value
+                        _CodCanerotransreceptorSys = Row.Cells("ydnumi").Value
                         tbClienteR.Text = Row.Cells("ydrazonsocial").Value
                         '_dias = Row.Cells("yddias").Value
                         tbCupoRegistradoR.Text = Row.Cells("total").Value
                         tbCupoActualR.Text = Row.Cells("cupoLibre").Value
                         TextBoxX1.Text = Row.Cells("ydcod").Value
                         Dim dt1 As DataTable
-                        dt1 = L_fnListarCaneroInstitucion(_CodCliente)
+                        dt1 = L_fnListarCaneroInstitucion(_CodCanerotransreceptorSys)
                         Dim row1 As DataRow = dt1.Rows(dt1.Rows.Count - 1)
                         tbVendedorR.Text = row1("institucion")
                         tbNitR.Text = row1("codInst")
@@ -690,28 +813,36 @@ Public Class F0_TraspasoCupos
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
-        If DoubleInput1.Text = String.Empty Then
+        If TbNombre1.Text = String.Empty Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "DEBE COLOCAR UN VALOR DE CUPO A TRANSFERIR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-        ElseIf DoubleInput1.Value <= 0 Then
-            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-            ToastNotification.Show(Me, "DEBE COLOCAR UN VALOR MAYOR A CERO DE CUPO A TRANSFERIR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ToastNotification.Show(Me, "PRIMERO DEBE SELECCIONAR AL CAÑERO TRANSFIRIENTE".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
         Else
-            If DoubleInput1.Value > tbCupoResgistrado.Text Then
+            If DoubleInput1.Text = String.Empty Then
                 Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                ToastNotification.Show(Me, "NO PUEDE TRANSFERIR UN CUPO MAYOR AL REGISTRADO".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                ToastNotification.Show(Me, "DEBE COLOCAR UN VALOR DE CUPO A TRANSFERIR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            ElseIf DoubleInput1.Value <= 0 Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "DEBE COLOCAR UN VALOR MAYOR A CERO DE CUPO A TRANSFERIR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             Else
                 If tbCupoRegistradoR.Text = String.Empty Then
                     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                     ToastNotification.Show(Me, "PRIMERO DEBE SELECCIONAR AL CAÑERO RECEPTOR".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
                 Else
-                    DoubleInput2.Text = DoubleInput1.Value + Convert.ToDouble(tbCupoRegistradoR.Text)
+                    If DoubleInput1.Value > tbCupoActual.Text Then
+                        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                        ToastNotification.Show(Me, "NO PUEDE TRANSFERIR UN CUPO MAYOR AL CUPO LIBRE DE TRANSFERENCIA".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                    Else
+                        DoubleInput2.Text = DoubleInput1.Value + Convert.ToDouble(tbCupoRegistradoR.Text)
+                        DoubleInput3.Text = ((DoubleInput1.Value / Convert.ToDecimal(tbCupoResgistrado.Text)) * 100)
+                        DoubleInput4.Text = Convert.ToDouble(tbCupoResgistrado.Text) - DoubleInput1.Value
+                    End If
+
                 End If
 
             End If
-
         End If
-
     End Sub
 End Class

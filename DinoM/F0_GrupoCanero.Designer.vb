@@ -30,6 +30,9 @@ Partial Class F0_GrupoCanero
         Me.grCanero = New Janus.Windows.GridEX.GridEX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnAgregar = New DevComponents.DotNetBar.ButtonX()
+        Me.codCaneroB = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbCodInst = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
@@ -69,6 +72,7 @@ Partial Class F0_GrupoCanero
         CType(Me.grCanero, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         CType(Me.tbFecha, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel2.SuspendLayout()
         Me.GroupPanel4.SuspendLayout()
@@ -394,6 +398,7 @@ Partial Class F0_GrupoCanero
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.White
+        Me.Panel2.Controls.Add(Me.GroupBox1)
         Me.Panel2.Controls.Add(Me.tbVendedor)
         Me.Panel2.Controls.Add(Me.tbCodInst)
         Me.Panel2.Controls.Add(Me.LabelX5)
@@ -411,6 +416,47 @@ Partial Class F0_GrupoCanero
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1145, 127)
         Me.Panel2.TabIndex = 0
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.btnAgregar)
+        Me.GroupBox1.Controls.Add(Me.codCaneroB)
+        Me.GroupBox1.Location = New System.Drawing.Point(698, 12)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(300, 70)
+        Me.GroupBox1.TabIndex = 239
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Buscador"
+        '
+        'btnAgregar
+        '
+        Me.btnAgregar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAgregar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAgregar.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAgregar.ImageFixedSize = New System.Drawing.Size(35, 30)
+        Me.btnAgregar.Location = New System.Drawing.Point(138, 23)
+        Me.btnAgregar.Name = "btnAgregar"
+        Me.btnAgregar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(8)
+        Me.btnAgregar.Size = New System.Drawing.Size(90, 25)
+        Me.btnAgregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAgregar.TabIndex = 240
+        Me.btnAgregar.Text = "BUSCAR"
+        '
+        'codCaneroB
+        '
+        Me.codCaneroB.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.codCaneroB.Border.Class = "TextBoxBorder"
+        Me.codCaneroB.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.codCaneroB.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.codCaneroB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.codCaneroB.Location = New System.Drawing.Point(52, 27)
+        Me.codCaneroB.Name = "codCaneroB"
+        Me.codCaneroB.PreventEnterBeep = True
+        Me.codCaneroB.Size = New System.Drawing.Size(80, 21)
+        Me.codCaneroB.TabIndex = 239
         '
         'tbVendedor
         '
@@ -775,6 +821,7 @@ Partial Class F0_GrupoCanero
         Me.GroupPanel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
         CType(Me.tbFecha, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel2.ResumeLayout(False)
         Me.GroupPanel4.ResumeLayout(False)
@@ -805,4 +852,7 @@ Partial Class F0_GrupoCanero
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbCliente As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbCodCanero As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents btnAgregar As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents codCaneroB As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

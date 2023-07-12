@@ -1335,6 +1335,7 @@ Public Class F0_VentaCombOtroSurtidor
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                     _CodCliente = Row.Cells("ydnumi").Value
+                    _CodCaneroUcg = Row.Cells("ydcod").Value
                     tbCliente.Text = Row.Cells("ydrazonsocial").Value
                     _dias = Row.Cells("yddias").Value
                     tbNit.Text = Row.Cells("ydnit").Value
@@ -1367,6 +1368,7 @@ Public Class F0_VentaCombOtroSurtidor
             dt = L_fnListarCaneroInstitucion(_CodCliente)
             Dim row As DataRow = dt.Rows(dt.Rows.Count - 1)
             tbVendedor.Text = row("institucion")
+            _CodInstitucion = row("id")
             tbRetSurtidor.Select()
         End If
     End Sub
@@ -1661,7 +1663,7 @@ Public Class F0_VentaCombOtroSurtidor
 
         Dim resTO001 = L_fnGrabarTO001prestamos(11, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
 
-        For a As Integer = 6 To 7 Step 1
+        For a As Integer = 6 To 6 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
 
 
@@ -1718,7 +1720,7 @@ Public Class F0_VentaCombOtroSurtidor
         ' Dim resTO001 = L_fnGrabarTO001prestamos(11, Convert.ToInt32(tbCodigo.Text), "false") 'numi cabecera to001
         'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
-        For a As Integer = 6 To 7 Step 1
+        For a As Integer = 6 To 6 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
 
             'dtDetalle = L_fnDetalleVenta1(codigoVenta)

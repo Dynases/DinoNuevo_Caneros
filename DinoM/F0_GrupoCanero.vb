@@ -1145,5 +1145,25 @@ salirIf:
             _CodInstitucion = row("id")
         End If
     End Sub
+
+    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
+        Dim dt1 As DataTable
+        dt1 = verificarGrupoEconomico("tg001", codCaneroB.Text)
+        If dt1.Rows.Count > 0 Then
+            '_numi = _Tabla.Rows(0).Item(0)
+            '_Error = False
+            MessageBox.Show("EL CAÑERO !---" + codCaneroB.Text + "-" + dt1.Rows(0).Item(3).ToString + "---! PERTENECE AL GRUPO ECONÓMICO --->" + dt1.Rows(0).Item(1).ToString)
+        Else
+            dt1 = verificarGrupoEconomicoDet("tg0011", codCaneroB.Text)
+            If dt1.Rows.Count > 0 Then
+                '_numi = _Tabla.Rows(0).Item(0)
+                '_Error = False
+                MessageBox.Show("EL CAÑERO !---" + codCaneroB.Text + "-" + dt1.Rows(0).Item(2).ToString + "---! PERTENECE AL GRUPO ECONÓMICO --->" + dt1.Rows(0).Item(0).ToString)
+            Else
+
+                MessageBox.Show("NO PERTENECE A NINGÚN GRUPO ECONÓMICO")
+            End If
+        End If
+    End Sub
 #End Region
 End Class

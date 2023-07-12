@@ -28,6 +28,9 @@ Partial Class F0_TraspasoCupos
         Dim CbGestion_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_TraspasoCupos))
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.DoubleInput3 = New DevComponents.Editors.DoubleInput()
+        Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
+        Me.DoubleInput2 = New DevComponents.Editors.DoubleInput()
         Me.tbCupoActualR = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.tbCupoRegistradoR = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -62,8 +65,9 @@ Partial Class F0_TraspasoCupos
         Me.tb_Id = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
-        Me.DoubleInput2 = New DevComponents.Editors.DoubleInput()
+        Me.tbFechaVenc = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
+        Me.DoubleInput4 = New DevComponents.Editors.DoubleInput()
         GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -81,6 +85,8 @@ Partial Class F0_TraspasoCupos
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         GroupPanel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        CType(Me.DoubleInput3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DoubleInput2, System.ComponentModel.ISupportInitialize).BeginInit()
         GroupPanel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.DoubleInput1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -89,7 +95,8 @@ Partial Class F0_TraspasoCupos
         CType(Me.JGr_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel1.SuspendLayout()
         CType(Me.CbGestion, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DoubleInput2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbFechaVenc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DoubleInput4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -132,6 +139,7 @@ Partial Class F0_TraspasoCupos
         '
         'PanelSuperior
         '
+        Me.PanelSuperior.Controls.Add(Me.tbFechaVenc)
         Me.PanelSuperior.Controls.Add(Me.LabelX11)
         Me.PanelSuperior.Controls.Add(Me.LabelX8)
         Me.PanelSuperior.Controls.Add(Me.tb_Id)
@@ -160,6 +168,7 @@ Partial Class F0_TraspasoCupos
         Me.PanelSuperior.Controls.SetChildIndex(Me.tb_Id, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.LabelX8, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.LabelX11, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.tbFechaVenc, 0)
         '
         'PanelInferior
         '
@@ -309,6 +318,7 @@ Partial Class F0_TraspasoCupos
         '
         'Panel3
         '
+        Me.Panel3.Controls.Add(Me.DoubleInput3)
         Me.Panel3.Controls.Add(Me.LabelX13)
         Me.Panel3.Controls.Add(Me.DoubleInput2)
         Me.Panel3.Controls.Add(Me.tbCupoActualR)
@@ -327,6 +337,60 @@ Partial Class F0_TraspasoCupos
         Me.Panel3.Size = New System.Drawing.Size(664, 127)
         Me.Panel3.TabIndex = 0
         '
+        'DoubleInput3
+        '
+        '
+        '
+        '
+        Me.DoubleInput3.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.DoubleInput3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.DoubleInput3.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.DoubleInput3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DoubleInput3.ForeColor = System.Drawing.Color.Black
+        Me.DoubleInput3.Increment = 1.0R
+        Me.DoubleInput3.IsInputReadOnly = True
+        Me.DoubleInput3.Location = New System.Drawing.Point(355, 94)
+        Me.DoubleInput3.MinValue = 0R
+        Me.DoubleInput3.Name = "DoubleInput3"
+        Me.DoubleInput3.Size = New System.Drawing.Size(120, 26)
+        Me.DoubleInput3.TabIndex = 376
+        Me.DoubleInput3.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
+        '
+        'LabelX13
+        '
+        Me.LabelX13.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX13.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX13.Location = New System.Drawing.Point(27, 95)
+        Me.LabelX13.Name = "LabelX13"
+        Me.LabelX13.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX13.Size = New System.Drawing.Size(120, 23)
+        Me.LabelX13.TabIndex = 375
+        Me.LabelX13.Text = "Cupo Nuevo:"
+        '
+        'DoubleInput2
+        '
+        '
+        '
+        '
+        Me.DoubleInput2.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.DoubleInput2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.DoubleInput2.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.DoubleInput2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DoubleInput2.ForeColor = System.Drawing.Color.Black
+        Me.DoubleInput2.Increment = 1.0R
+        Me.DoubleInput2.IsInputReadOnly = True
+        Me.DoubleInput2.Location = New System.Drawing.Point(162, 93)
+        Me.DoubleInput2.MinValue = 0R
+        Me.DoubleInput2.Name = "DoubleInput2"
+        Me.DoubleInput2.Size = New System.Drawing.Size(120, 26)
+        Me.DoubleInput2.TabIndex = 374
+        Me.DoubleInput2.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
+        '
         'tbCupoActualR
         '
         Me.tbCupoActualR.BackColor = System.Drawing.Color.White
@@ -337,7 +401,7 @@ Partial Class F0_TraspasoCupos
         Me.tbCupoActualR.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCupoActualR.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCupoActualR.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCupoActualR.Location = New System.Drawing.Point(488, 67)
+        Me.tbCupoActualR.Location = New System.Drawing.Point(488, 65)
         Me.tbCupoActualR.Name = "tbCupoActualR"
         Me.tbCupoActualR.PreventEnterBeep = True
         Me.tbCupoActualR.Size = New System.Drawing.Size(150, 21)
@@ -353,13 +417,12 @@ Partial Class F0_TraspasoCupos
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX6.Location = New System.Drawing.Point(355, 67)
+        Me.LabelX6.Location = New System.Drawing.Point(329, 95)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX6.Size = New System.Drawing.Size(120, 23)
+        Me.LabelX6.Size = New System.Drawing.Size(20, 23)
         Me.LabelX6.TabIndex = 373
-        Me.LabelX6.Text = "Cupo Libre:"
-        Me.LabelX6.Visible = False
+        Me.LabelX6.Text = "%:"
         '
         'tbCupoRegistradoR
         '
@@ -423,6 +486,7 @@ Partial Class F0_TraspasoCupos
         Me.TextBoxX1.Location = New System.Drawing.Point(103, 12)
         Me.TextBoxX1.Name = "TextBoxX1"
         Me.TextBoxX1.PreventEnterBeep = True
+        Me.TextBoxX1.ReadOnly = True
         Me.TextBoxX1.Size = New System.Drawing.Size(50, 21)
         Me.TextBoxX1.TabIndex = 272
         '
@@ -541,6 +605,8 @@ Partial Class F0_TraspasoCupos
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.LabelX14)
+        Me.Panel2.Controls.Add(Me.DoubleInput4)
         Me.Panel2.Controls.Add(Me.btnAgregar)
         Me.Panel2.Controls.Add(Me.LabelX7)
         Me.Panel2.Controls.Add(Me.tbCupoActual)
@@ -564,12 +630,13 @@ Partial Class F0_TraspasoCupos
         '
         Me.btnAgregar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnAgregar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAgregar.Enabled = False
         Me.btnAgregar.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAgregar.ImageFixedSize = New System.Drawing.Size(35, 30)
-        Me.btnAgregar.Location = New System.Drawing.Point(432, 94)
+        Me.btnAgregar.Location = New System.Drawing.Point(527, 93)
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(8)
-        Me.btnAgregar.Size = New System.Drawing.Size(150, 25)
+        Me.btnAgregar.Size = New System.Drawing.Size(90, 25)
         Me.btnAgregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAgregar.TabIndex = 11
         Me.btnAgregar.Text = "TRASPASO"
@@ -600,12 +667,12 @@ Partial Class F0_TraspasoCupos
         Me.tbCupoActual.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCupoActual.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCupoActual.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCupoActual.Location = New System.Drawing.Point(432, 65)
+        Me.tbCupoActual.Location = New System.Drawing.Point(465, 67)
         Me.tbCupoActual.Name = "tbCupoActual"
         Me.tbCupoActual.PreventEnterBeep = True
+        Me.tbCupoActual.ReadOnly = True
         Me.tbCupoActual.Size = New System.Drawing.Size(150, 21)
         Me.tbCupoActual.TabIndex = 370
-        Me.tbCupoActual.Visible = False
         '
         'LabelX5
         '
@@ -619,10 +686,9 @@ Partial Class F0_TraspasoCupos
         Me.LabelX5.Location = New System.Drawing.Point(299, 65)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(120, 23)
+        Me.LabelX5.Size = New System.Drawing.Size(150, 23)
         Me.LabelX5.TabIndex = 371
-        Me.LabelX5.Text = "Cupo Libre:"
-        Me.LabelX5.Visible = False
+        Me.LabelX5.Text = "Cupo Libre para Transferir:"
         '
         'tbCupoResgistrado
         '
@@ -668,6 +734,7 @@ Partial Class F0_TraspasoCupos
         Me.DoubleInput1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DoubleInput1.ForeColor = System.Drawing.Color.Black
         Me.DoubleInput1.Increment = 1.0R
+        Me.DoubleInput1.IsInputReadOnly = True
         Me.DoubleInput1.Location = New System.Drawing.Point(138, 92)
         Me.DoubleInput1.MinValue = 0R
         Me.DoubleInput1.Name = "DoubleInput1"
@@ -704,6 +771,7 @@ Partial Class F0_TraspasoCupos
         Me.TbNombre1.Location = New System.Drawing.Point(81, 12)
         Me.TbNombre1.Name = "TbNombre1"
         Me.TbNombre1.PreventEnterBeep = True
+        Me.TbNombre1.ReadOnly = True
         Me.TbNombre1.Size = New System.Drawing.Size(50, 21)
         Me.TbNombre1.TabIndex = 2
         '
@@ -957,40 +1025,87 @@ Partial Class F0_TraspasoCupos
         Me.LabelX11.TabIndex = 444
         Me.LabelX11.Text = "GESTIÓN.:"
         '
-        'LabelX13
-        '
-        Me.LabelX13.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX13.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX13.Location = New System.Drawing.Point(27, 95)
-        Me.LabelX13.Name = "LabelX13"
-        Me.LabelX13.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX13.Size = New System.Drawing.Size(120, 23)
-        Me.LabelX13.TabIndex = 375
-        Me.LabelX13.Text = "Cupo Nuevo:"
-        '
-        'DoubleInput2
+        'tbFechaVenc
         '
         '
         '
         '
-        Me.DoubleInput2.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.DoubleInput2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.DoubleInput2.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.DoubleInput2.Enabled = False
-        Me.DoubleInput2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DoubleInput2.ForeColor = System.Drawing.Color.Black
-        Me.DoubleInput2.Increment = 1.0R
-        Me.DoubleInput2.Location = New System.Drawing.Point(162, 93)
-        Me.DoubleInput2.MinValue = 0R
-        Me.DoubleInput2.Name = "DoubleInput2"
-        Me.DoubleInput2.Size = New System.Drawing.Size(120, 26)
-        Me.DoubleInput2.TabIndex = 374
-        Me.DoubleInput2.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
+        Me.tbFechaVenc.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbFechaVenc.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaVenc.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbFechaVenc.ButtonDropDown.Visible = True
+        Me.tbFechaVenc.Enabled = False
+        Me.tbFechaVenc.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaVenc.IsPopupCalendarOpen = False
+        Me.tbFechaVenc.Location = New System.Drawing.Point(679, 35)
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.tbFechaVenc.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaVenc.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbFechaVenc.MonthCalendar.ClearButtonVisible = True
+        '
+        '
+        '
+        Me.tbFechaVenc.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbFechaVenc.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaVenc.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbFechaVenc.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbFechaVenc.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbFechaVenc.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbFechaVenc.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaVenc.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbFechaVenc.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        '
+        '
+        '
+        Me.tbFechaVenc.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbFechaVenc.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaVenc.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbFechaVenc.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaVenc.MonthCalendar.TodayButtonVisible = True
+        Me.tbFechaVenc.Name = "tbFechaVenc"
+        Me.tbFechaVenc.Size = New System.Drawing.Size(120, 26)
+        Me.tbFechaVenc.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbFechaVenc.TabIndex = 445
+        '
+        'LabelX14
+        '
+        Me.LabelX14.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX14.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX14.Location = New System.Drawing.Point(299, 94)
+        Me.LabelX14.Name = "LabelX14"
+        Me.LabelX14.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX14.Size = New System.Drawing.Size(80, 23)
+        Me.LabelX14.TabIndex = 377
+        Me.LabelX14.Text = "Cupo Nuevo:"
+        '
+        'DoubleInput4
+        '
+        '
+        '
+        '
+        Me.DoubleInput4.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.DoubleInput4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.DoubleInput4.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.DoubleInput4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DoubleInput4.ForeColor = System.Drawing.Color.Black
+        Me.DoubleInput4.Increment = 1.0R
+        Me.DoubleInput4.IsInputReadOnly = True
+        Me.DoubleInput4.Location = New System.Drawing.Point(385, 92)
+        Me.DoubleInput4.MinValue = 0R
+        Me.DoubleInput4.Name = "DoubleInput4"
+        Me.DoubleInput4.Size = New System.Drawing.Size(120, 26)
+        Me.DoubleInput4.TabIndex = 376
+        Me.DoubleInput4.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'F0_TraspasoCupos
         '
@@ -1021,6 +1136,8 @@ Partial Class F0_TraspasoCupos
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         GroupPanel2.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
+        CType(Me.DoubleInput3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DoubleInput2, System.ComponentModel.ISupportInitialize).EndInit()
         GroupPanel3.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         CType(Me.DoubleInput1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1029,7 +1146,8 @@ Partial Class F0_TraspasoCupos
         CType(Me.JGr_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanel1.ResumeLayout(False)
         CType(Me.CbGestion, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DoubleInput2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbFechaVenc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DoubleInput4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1071,4 +1189,8 @@ Partial Class F0_TraspasoCupos
     Friend WithEvents tb_Id As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
     Friend WithEvents DoubleInput2 As DevComponents.Editors.DoubleInput
+    Friend WithEvents tbFechaVenc As DevComponents.Editors.DateTimeAdv.DateTimeInput
+    Friend WithEvents DoubleInput3 As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents DoubleInput4 As DevComponents.Editors.DoubleInput
 End Class

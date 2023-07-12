@@ -1168,7 +1168,12 @@ Public Class F0_MCompras
                                           eToastGlowColor.Green,
                                           eToastPosition.TopCenter
                                           )
-                contabilizarComprasCredito(numi)
+                If cbSucursal.Value = 3 Then
+                    contabilizarComprasCreditoSurtidorPropio(numi)
+                Else
+                    contabilizarComprasCredito(numi)
+                End If
+
                 _prCargarCompra()
                 P_GenerarReporteCompra()
                 _Limpiar()
@@ -2217,6 +2222,87 @@ salirIf:
                     haberbs = 0.00
                 Else
                     haberus = Format((IIf(row("tipo") = 5, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, "0.00")
+                    haberbs = Format(haberus * 6.96, "0.00")
+                    debeus = 0.00
+                    debebs = 0.00
+                End If
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                oblin = oblin + 1
+            Next
+        Next
+
+        'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+    End Sub
+
+    Private Sub contabilizarComprasCreditoSurtidorPropio(numi As String)
+        Dim codigoVenta = numi
+        Dim codCanero = "Compra de " + grdetalle.GetValue("cbcmin").ToString + " Lts. de Diesel a Bs. " + grdetalle.GetValue("cbpcost").ToString + " s/g Fact. " + tbNFactura.Text + " (" + codigoVenta + ") p/distribución cañeros" 'obobs
+        Dim total = tbtotal.Text 'para obtener debe haber
+        Dim dt, dt1, dtDetalle As DataTable
+        Dim cuenta As String
+        Dim debebs, haberbs, debeus, haberus, debeusNuev As Double
+        dt1 = ObtenerNumCuentaProveedor("TY004", _CodProveedor) 'obcuenta=ncuenta obtener cuenta de institucion
+
+
+
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value, 3, "", codCanero) 'numi cabecera to001
+
+        For a As Integer = 7 To 7 Step 1
+            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+
+            dtDetalle = L_fnDetalleCompra1(codigoVenta)
+
+
+            Dim oblin As Integer = 1
+            Dim totalCosto As Double = 0.00
+            For Each row In dt.Rows
+                '    Select Case row("cuenta")
+
+                If row("cuenta") = "-1" Then
+                    For Each detalle In dtDetalle.Rows
+                        cuenta = detalle("yfclot")
+                        If row("dh") = 1 Then
+
+                            debeus = Format((Format(detalle("cbptot"), "0.00000") * 0.13), "0.00000")
+                            debeus = Format((Convert.ToDouble(detalle("cbptot")) - debeus), "0.00")
+                            debebs = Format(debeus * 6.96, "0.00")
+                            haberus = 0.00
+                            haberbs = 0.00
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("cbptot"))
+                        Else
+                            haberus = (Convert.ToDouble(detalle("cbptot")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            haberbs = haberus * 6.96
+                            debeus = 0.00
+                            debebs = 0.00
+                            totalCosto = totalCosto + Convert.ToDouble(detalle("cbptot"))
+                        End If
+
+                        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, "Se adquiere de " + Convert.ToString(tbProveedor.Text).Trim() + ". " + detalle("cbcmin").ToString + " " + detalle("unidad").ToString + " " + detalle("producto").ToString, debebs, haberbs, debeus, haberus)
+                        oblin = oblin + 1
+                    Next
+
+
+                    If row("cuenta") = "-1" Then
+                        Continue For
+                    End If
+
+                End If
+                If row("cuenta") = "-2" Then
+                    cuenta = dt1.Rows(0).Item(10)
+
+                Else
+                    cuenta = row("cuenta")
+                End If
+                If row("dh") = 1 Then
+
+                    debeus = Format((IIf(row("tipo") = 7, Convert.ToDouble(total) / 6.96, totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, "0.00")
+                    debeusNuev = debeus
+
+                    debebs = Format(debeus * 6.96, "0.00")
+                    haberus = 0.00
+                    haberbs = 0.00
+                Else
+                    haberus = Format((IIf(row("tipo") = 7, Convert.ToDouble(total) / 6.96, totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, "0.00")
                     haberbs = Format(haberus * 6.96, "0.00")
                     debeus = 0.00
                     debebs = 0.00

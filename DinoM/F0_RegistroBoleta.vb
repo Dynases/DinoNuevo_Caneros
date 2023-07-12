@@ -464,7 +464,7 @@ Public Class F0_RegistroBoleta
 
         Dim controlTotalHead As Integer = 0
         Dim controlTotalDet As Integer = 0
-        controlTotalHead = tbCodigo.Value + Convert.ToInt32(TbNombre1.Text) + Convert.ToInt32(tbNit.Text) + Convert.ToInt32(IIf(cbgrupo1.Value = 3, 13, IIf(cbgrupo1.Value = 2, 13, 6)))
+        controlTotalHead = tbCodigo.Value + Convert.ToInt32(TbNombre1.Text) + Convert.ToInt32(tbNit.Text) + Convert.ToInt32(IIf(cbgrupo1.Value = 3, 13, IIf(cbgrupo1.Value = 2, 9, 6)))
         Dim dt As DataTable
 
         dt = CType(grdetalle1.DataSource, DataTable)
