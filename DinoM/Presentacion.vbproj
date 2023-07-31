@@ -223,21 +223,15 @@
     <Compile Include="Descuentos\Descuentos.Designer.vb">
       <DependentUpon>Descuentos.vb</DependentUpon>
     </Compile>
-    <Compile Include="Descuentos\Descuentos.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Descuentos\Descuentos.vb" />
     <Compile Include="F0_AnularFactura.Designer.vb">
       <DependentUpon>F0_AnularFactura.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_AnularFactura.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_AnularFactura.vb" />
     <Compile Include="F0_CierreCaja2.Designer.vb">
       <DependentUpon>F0_CierreCaja2.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_CierreCaja2.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_CierreCaja2.vb" />
     <Compile Include="F0_CierreCaja.Designer.vb">
       <DependentUpon>F0_CierreCaja.vb</DependentUpon>
     </Compile>
@@ -253,9 +247,7 @@
     <Compile Include="F0_Cobrar_Vendedor.Designer.vb">
       <DependentUpon>F0_Cobrar_Vendedor.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_Cobrar_Vendedor.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_Cobrar_Vendedor.vb" />
     <Compile Include="F0_CodigoControl.Designer.vb">
       <DependentUpon>F0_CodigoControl.vb</DependentUpon>
     </Compile>
@@ -265,9 +257,7 @@
     <Compile Include="F0_Compra.designer.vb">
       <DependentUpon>F0_Compra.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_Compra.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_Compra.vb" />
     <Compile Include="F0_Dias_Zafra.designer.vb">
       <DependentUpon>F0_Dias_Zafra.vb</DependentUpon>
     </Compile>
@@ -283,15 +273,11 @@
     <Compile Include="F0_GrupoCanero.designer.vb">
       <DependentUpon>F0_GrupoCanero.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_GrupoCanero.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_GrupoCanero.vb" />
     <Compile Include="F0_Instituciones.designer.vb">
       <DependentUpon>F0_Instituciones.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_Instituciones.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_Instituciones.vb" />
     <Compile Include="F0_KardexMovimiento.Designer.vb">
       <DependentUpon>F0_KardexMovimiento.vb</DependentUpon>
     </Compile>
@@ -307,9 +293,7 @@
     <Compile Include="F0_LibroVenta2.Designer.vb">
       <DependentUpon>F0_LibroVenta2.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_LibroVenta2.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_LibroVenta2.vb" />
     <Compile Include="F0_MantenimientoTaras.designer.vb">
       <DependentUpon>F0_MantenimientoTaras.vb</DependentUpon>
     </Compile>
@@ -331,9 +315,7 @@
     <Compile Include="F0_PagoCanero.designer.vb">
       <DependentUpon>F0_PagoCanero.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_PagoCanero.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_PagoCanero.vb" />
     <Compile Include="F0_PagosInicial.Designer.vb">
       <DependentUpon>F0_PagosInicial.vb</DependentUpon>
     </Compile>
@@ -367,9 +349,7 @@
     <Compile Include="F0_PlanPagos.Designer.vb">
       <DependentUpon>F0_PlanPagos.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_PlanPagos.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_PlanPagos.vb" />
     <Compile Include="F0_Precios.Designer.vb">
       <DependentUpon>F0_Precios.vb</DependentUpon>
     </Compile>
@@ -385,9 +365,7 @@
     <Compile Include="F0_Prestamo.Designer.vb">
       <DependentUpon>F0_Prestamo.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_Prestamo.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_Prestamo.vb" />
     <Compile Include="F0_RegistroBoleta.designer.vb">
       <DependentUpon>F0_RegistroBoleta.vb</DependentUpon>
     </Compile>
@@ -415,9 +393,7 @@
     <Compile Include="F0_RotacionProductos.Designer.vb">
       <DependentUpon>F0_RotacionProductos.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_RotacionProductos.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_RotacionProductos.vb" />
     <Compile Include="F0_TraspasoCupos.designer.vb">
       <DependentUpon>F0_TraspasoCupos.vb</DependentUpon>
     </Compile>
@@ -433,9 +409,7 @@
     <Compile Include="F0_Proforma.Designer.vb">
       <DependentUpon>F0_Proforma.vb</DependentUpon>
     </Compile>
-    <Compile Include="F0_Proforma.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F0_Proforma.vb" />
     <Compile Include="F0_Venta2.designer.vb">
       <DependentUpon>F0_Venta2.vb</DependentUpon>
     </Compile>
@@ -481,15 +455,11 @@
     <Compile Include="F1_DescuentoProd.Designer.vb">
       <DependentUpon>F1_DescuentoProd.vb</DependentUpon>
     </Compile>
-    <Compile Include="F1_DescuentoProd.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F1_DescuentoProd.vb" />
     <Compile Include="F1_IngresosEgresos.Designer.vb">
       <DependentUpon>F1_IngresosEgresos.vb</DependentUpon>
     </Compile>
-    <Compile Include="F1_IngresosEgresos.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F1_IngresosEgresos.vb" />
     <Compile Include="F1_ExcelVenta.Designer.vb">
       <DependentUpon>F1_ExcelVenta.vb</DependentUpon>
     </Compile>
@@ -505,9 +475,7 @@
     <Compile Include="F1_Productos.designer.vb">
       <DependentUpon>F1_Productos.vb</DependentUpon>
     </Compile>
-    <Compile Include="F1_Productos.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F1_Productos.vb" />
     <Compile Include="F1_Proveedor.Designer.vb">
       <DependentUpon>F1_Proveedor.vb</DependentUpon>
     </Compile>
@@ -517,9 +485,7 @@
     <Compile Include="F1_CobrosCobranzas.Designer.vb">
       <DependentUpon>F1_CobrosCobranzas.vb</DependentUpon>
     </Compile>
-    <Compile Include="F1_CobrosCobranzas.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="F1_CobrosCobranzas.vb" />
     <Compile Include="F1_MapaCLientes.Designer.vb">
       <DependentUpon>F1_MapaCLientes.vb</DependentUpon>
     </Compile>
@@ -596,9 +562,7 @@
     <Compile Include="Formularios\F_Cantidad.Designer.vb">
       <DependentUpon>F_Cantidad.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\F_Cantidad.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Formularios\F_Cantidad.vb" />
     <Compile Include="F_ClienteNuevo.designer.vb">
       <DependentUpon>F_ClienteNuevo.vb</DependentUpon>
     </Compile>
@@ -648,21 +612,15 @@
     <Compile Include="NroCaja.Designer.vb">
       <DependentUpon>NroCaja.vb</DependentUpon>
     </Compile>
-    <Compile Include="NroCaja.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="NroCaja.vb" />
     <Compile Include="Pr_BoletaMovimientoDiario.Designer.vb">
       <DependentUpon>Pr_BoletaMovimientoDiario.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_BoletaMovimientoDiario.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_BoletaMovimientoDiario.vb" />
     <Compile Include="Pr_EstadoCuentasClientesTodos.Designer.vb">
       <DependentUpon>Pr_EstadoCuentasClientesTodos.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_EstadoCuentasClientesTodos.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_EstadoCuentasClientesTodos.vb" />
     <Compile Include="Pr_EstadoCuentasClientes.Designer.vb">
       <DependentUpon>Pr_EstadoCuentasClientes.vb</DependentUpon>
     </Compile>
@@ -678,13 +636,17 @@
     <Compile Include="Pr_EstadoCuentasProveedores.Designer.vb">
       <DependentUpon>Pr_EstadoCuentasProveedores.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_EstadoCuentasProveedores.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_EstadoCuentasProveedores.vb" />
     <Compile Include="Pr_Liquidacion.Designer.vb">
       <DependentUpon>Pr_Liquidacion.vb</DependentUpon>
     </Compile>
     <Compile Include="Pr_Liquidacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pr_LiquidacionDetalle.designer.vb">
+      <DependentUpon>Pr_LiquidacionDetalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_LiquidacionDetalle.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pr_MovimientoDiarioVentas.Designer.vb">
@@ -702,9 +664,11 @@
     <Compile Include="Pr_ProductoRetiradoxCañero.Designer.vb">
       <DependentUpon>Pr_ProductoRetiradoxCañero.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_ProductoRetiradoxCañero.vb">
-      <SubType>Form</SubType>
+    <Compile Include="Pr_ProductoRetiradoxCañero.vb" />
+    <Compile Include="Pr_ProductosMasVendidos.designer.vb">
+      <DependentUpon>Pr_ProductosMasVendidos.vb</DependentUpon>
     </Compile>
+    <Compile Include="Pr_ProductosMasVendidos.vb" />
     <Compile Include="Pr_ReporteBoletaCaneroInstitucion.Designer.vb">
       <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
     </Compile>
@@ -726,9 +690,7 @@
     <Compile Include="Pr_ReporteResumenDiario.Designer.vb">
       <DependentUpon>Pr_ReporteResumenDiario.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_ReporteResumenDiario.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_ReporteResumenDiario.vb" />
     <Compile Include="Pr_RetiroInstitucionalInsumos.Designer.vb">
       <DependentUpon>Pr_RetiroInstitucionalInsumos.vb</DependentUpon>
     </Compile>
@@ -738,9 +700,7 @@
     <Compile Include="Pr_SAldosPorAlmacenLinea.Designer.vb">
       <DependentUpon>Pr_SAldosPorAlmacenLinea.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_SAldosPorAlmacenLinea.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_SAldosPorAlmacenLinea.vb" />
     <Compile Include="Pr_StockMinimo.Designer.vb">
       <DependentUpon>Pr_StockMinimo.vb</DependentUpon>
     </Compile>
@@ -768,15 +728,11 @@
     <Compile Include="PR_StockActualProductosLotes.Designer.vb">
       <DependentUpon>PR_StockActualProductosLotes.vb</DependentUpon>
     </Compile>
-    <Compile Include="PR_StockActualProductosLotes.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="PR_StockActualProductosLotes.vb" />
     <Compile Include="Pr_StockUtilidad.Designer.vb">
       <DependentUpon>Pr_StockUtilidad.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_StockUtilidad.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_StockUtilidad.vb" />
     <Compile Include="PR_StockActualProductos.Designer.vb">
       <DependentUpon>PR_StockActualProductos.vb</DependentUpon>
     </Compile>
@@ -786,21 +742,15 @@
     <Compile Include="Pr_HojaRuta.Designer.vb">
       <DependentUpon>Pr_HojaRuta.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_HojaRuta.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_HojaRuta.vb" />
     <Compile Include="Pr_KardexProductos.Designer.vb">
       <DependentUpon>Pr_KardexProductos.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_KardexProductos.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_KardexProductos.vb" />
     <Compile Include="Pr_ProductosVentas.Designer.vb">
       <DependentUpon>Pr_ProductosVentas.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pr_ProductosVentas.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Pr_ProductosVentas.vb" />
     <Compile Include="Pr_KardexCredito.Designer.vb">
       <DependentUpon>Pr_KardexCredito.vb</DependentUpon>
     </Compile>
@@ -853,7 +803,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReporteDiarioVentas.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteInsitucionUnaSolo.vb">
       <AutoGen>True</AutoGen>
@@ -865,7 +814,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReporteInstitucion.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReporteInstituciones.vb">
       <AutoGen>True</AutoGen>
@@ -889,6 +837,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rep_NotaVentaServicio.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_CCPagosSaldosDetallado.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_CCPagosSaldosDetallado.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_CierreCaja.vb">
@@ -925,7 +879,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_EstadoCuentasCompra.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_FacturaCarta2.vb">
       <AutoGen>True</AutoGen>
@@ -967,7 +920,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_NotaCompra.rpt</DependentUpon>
-      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_NotaPrestamo%28shoping%29.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_NotaPrestamo%28shoping%29.rpt</DependentUpon>
     </Compile>
     <Compile Include="Reporte\R_NotaPrestamo_Carta%28shoping%29.vb">
       <DependentUpon>R_NotaPrestamo_Carta%28shoping%29.rpt</DependentUpon>
@@ -1015,7 +972,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_Notadeentrega2.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_NotaDeVenta_012.vb">
       <AutoGen>True</AutoGen>
@@ -1027,7 +983,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_NotaVenta_7_5X100.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_NotaVenta_Carta.vb">
       <AutoGen>True</AutoGen>
@@ -1081,7 +1036,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_Rep390.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_Rep930.vb">
       <AutoGen>True</AutoGen>
@@ -1099,13 +1053,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_ReporteOtrosSurtidores.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_ReportePagosCobranzasCarta.vb">
       <DependentUpon>R_ReportePagosCobranzasCarta.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_ResumenDiario.vb">
       <AutoGen>True</AutoGen>
@@ -1117,13 +1069,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_SaldosPorLinea.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_GraficaVendedorVentasAlmacen.vb">
       <DependentUpon>R_GraficaVendedorVentasAlmacen.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_GraficaVendedorVentasRendimiento.vb">
       <DependentUpon>R_GraficaVendedorVentasRendimiento.rpt</DependentUpon>
@@ -1141,7 +1091,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_GraficaVentasAlmacen.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_FacturaCarta.vb">
       <AutoGen>True</AutoGen>
@@ -1171,7 +1120,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_HojaRuta.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_KardexInventarioGeneralResumenPorLotes.vb">
       <DependentUpon>R_KardexInventarioGeneralResumenPorLotes.rpt</DependentUpon>
@@ -1189,7 +1137,6 @@
       <DependentUpon>R_KardexInventarioProductoAgrupadoSinLote.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_KardexInventarioProductoSinLote.vb">
       <DependentUpon>R_KardexInventarioProductoSinLote.rpt</DependentUpon>
@@ -1224,20 +1171,16 @@
     <Compile Include="P_Principal.designer.vb">
       <DependentUpon>P_Principal.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Principal.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="P_Principal.vb" />
     <Compile Include="Reporte\R_MorosidadCredito.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_MorosidadCredito.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_Proforma.vb">
       <DependentUpon>R_Proforma.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_NotaDeVentaSinLote.vb">
       <DependentUpon>R_NotaDeVentaSinLote.rpt</DependentUpon>
@@ -1255,7 +1198,6 @@
       <DependentUpon>R_ReportePagosCobranzas.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_ReporteCobranzas.vb">
       <AutoGen>True</AutoGen>
@@ -1297,7 +1239,6 @@
       <DependentUpon>R_VentasAtendidasAlmacenVendedorRS.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasAtendidasVendedorAlmacenRS.vb">
       <DependentUpon>R_VentasAtendidasVendedorAlmacenRS.rpt</DependentUpon>
@@ -1315,7 +1256,6 @@
       <DependentUpon>R_VentasCajeraProveedorSinUsuario.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasCajeraProveedorProd.vb">
       <DependentUpon>R_VentasCajeraProveedorProd.rpt</DependentUpon>
@@ -1339,7 +1279,6 @@
       <DependentUpon>R_VentasCostosAlmacenVendedor.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasAtendidasVendedorAlmacen.vb">
       <DependentUpon>R_VentasAtendidasVendedorAlmacen.rpt</DependentUpon>
@@ -1357,13 +1296,17 @@
       <DependentUpon>R_VentasProductosAgrupado.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_VentasProductos.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_VentasProductos.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_VentasProductosMasVendidos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_VentasProductosMasVendidos.rpt</DependentUpon>
     </Compile>
     <Compile Include="Reporte\R_VentasVendedor12Meses.vb">
       <AutoGen>True</AutoGen>
@@ -1375,7 +1318,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RetiroInstitucionalTodos.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="RetiroInsumosUno.vb">
       <AutoGen>True</AutoGen>
@@ -1387,7 +1329,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_CCPagosSaldos.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="R_KardexCreditoPagos.Designer.vb">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>
@@ -1399,13 +1340,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_Prestamos.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="R_ProductoRetiradoxCañero.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_ProductoRetiradoxCañero.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\Efecto.Designer.vb">
       <DependentUpon>Efecto.vb</DependentUpon>
@@ -1706,6 +1645,9 @@
     <EmbeddedResource Include="Pr_ProductoRetiradoxCañero.resx">
       <DependentUpon>Pr_ProductoRetiradoxCañero.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pr_ProductosMasVendidos.resx">
+      <DependentUpon>Pr_ProductosMasVendidos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pr_ReporteBoletaCaneroInstitucion.resx">
       <DependentUpon>Pr_ReporteBoletaCaneroInstitucion.vb</DependentUpon>
     </EmbeddedResource>
@@ -1809,6 +1751,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rep_NotaVentaServicio.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_CCPagosSaldosDetallado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_CCPagosSaldosDetallado.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_CierreCaja.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_CierreCaja.vb</LastGenOutput>
@@ -1860,6 +1806,10 @@
     <EmbeddedResource Include="Reporte\R_NotaCompra.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_NotaCompra.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_NotaPrestamo%28shoping%29.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_NotaPrestamo%28shoping%29.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_NotaPrestamo_Carta%28shoping%29.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2123,6 +2073,10 @@
     <EmbeddedResource Include="Reporte\R_VentasProductos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_VentasProductos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_VentasProductosMasVendidos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_VentasProductosMasVendidos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_VentasVendedor12Meses.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

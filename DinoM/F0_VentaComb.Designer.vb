@@ -1199,6 +1199,7 @@ Partial Class F0_VentaComb
         Me.cbSucursal.SelectedItem = Nothing
         Me.cbSucursal.Size = New System.Drawing.Size(140, 22)
         Me.cbSucursal.TabIndex = 0
+        Me.cbSucursal.Visible = False
         Me.cbSucursal.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'tbFechaVenta

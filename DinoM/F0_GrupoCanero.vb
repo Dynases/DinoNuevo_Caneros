@@ -227,50 +227,84 @@ Public Class F0_GrupoCanero
         With grmovimiento.RootTable.Columns("id")
             .Width = 100
             .Caption = "CODIGO"
-            .Visible = True
+            .Visible = False
 
         End With
 
         With grmovimiento.RootTable.Columns("fecha")
             .Width = 90
-            .Visible = True
+            .Visible = False
             .Caption = "FECHA"
             .FormatString = "yyyy/MM/dd"
         End With
         With grmovimiento.RootTable.Columns("codGrupo")
             .Width = 90
-            .Visible = False
+            .Visible = True
+            .Caption = "COD.GRUPO"
         End With
 
         With grmovimiento.RootTable.Columns("ydcod")
-            .Width = 160
+            .Width = 120
             .Visible = True
-            .Caption = "CONCEPTO"
+            .Caption = "COD.CANERO"
         End With
         With grmovimiento.RootTable.Columns("observacion")
             .Width = 250
-            .Visible = True
+            .Visible = False
             .Caption = "observacion".ToUpper
         End With
 
 
 
-        With grmovimiento.RootTable.Columns("yddesc")
+        With grmovimiento.RootTable.Columns("ydnumi")
             .Width = 200
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-            .Visible = True
+            .Visible = False
             .Caption = "ALMACEN"
         End With
-        With grmovimiento.RootTable.Columns("codInst")
+        With grmovimiento.RootTable.Columns("yddesc")
+            .Width = 150
+            .Visible = True
+            .Caption = "CAÑERO"
+        End With
+        With grmovimiento.RootTable.Columns("ibhact")
             .Width = 90
             .Visible = False
+        End With
+        With grmovimiento.RootTable.Columns("ibuact")
+            .Width = 90
+            .Visible = False
+        End With
+        With grmovimiento.RootTable.Columns("ibfact")
+            .Width = 90
+            .Visible = False
+        End With
+        With grmovimiento.RootTable.Columns("id1")
+            .Width = 90
+            .Visible = False
+        End With
+        With grmovimiento.RootTable.Columns("codInst")
+            .Width = 120
+            .Visible = True
+            .Caption = "COD.INST"
         End With
         With grmovimiento.RootTable.Columns("nomInst")
-            .Width = 90
-            .Visible = False
+            .Width = 150
+            .Visible = True
+            .Caption = "INSTITUCION"
         End With
 
+        With grmovimiento
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+            .VisualStyle = VisualStyle.Office2007
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
 
+            .BoundMode = Janus.Data.BoundMode.Bound
+            .RowHeaders = InheritableBoolean.True
+        End With
 
         If (dt.Rows.Count <= 0) Then
             _prCargarDetalleGrupo(-1)

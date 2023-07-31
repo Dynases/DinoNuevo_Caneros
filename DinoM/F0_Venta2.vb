@@ -2051,7 +2051,7 @@ Public Class F0_Venta2
         If gs_user = "SERVICIOS" Then
             _Ds1 = L_DosificacionCajas("1", 1, _Fecha, gs_NroCaja)
         Else
-            _Ds1 = L_DosificacionCajas("1", gi_userSuc, _Fecha, gs_NroCaja)
+            _Ds1 = L_DosificacionCajas("1", cbSucursal.Value, _Fecha, gs_NroCaja)
         End If
         _Ds = L_Reporte_Factura(numi, numi)
         _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString
@@ -2067,7 +2067,7 @@ Public Class F0_Venta2
         _Key = _Ds1.Tables(0).Rows(0).Item("sbkey")
         _FechaAl = _Ds1.Tables(0).Rows(0).Item("sbfal")
 
-        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion)
+        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 " + " and fvaalm=" + Convert.ToString(cbSucursal.Value)) 'L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion)
         _NumFac = maxNFac + 1
 
         _TotalCC = Math.Round(CDbl(_Total), MidpointRounding.AwayFromZero)
@@ -5103,7 +5103,7 @@ salirIf:
             dsApi = L_Dosificacion("1", cbSucursal.Value, _Fecha)
         End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
-        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion + " and " + "fvaalm= 1") '' + Convert.ToString(cbSucursal.Value))
+        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 " + " and fvaalm=" + Convert.ToString(cbSucursal.Value)) ''+ "fvaalm= 1") '' 
         NumFactura = maxNFac + 1
 
         Emenvio.nitEmisor = 1028395023

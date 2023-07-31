@@ -16,7 +16,7 @@ Public Class Pr_Liquidacion
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("yccod3").Width = 60
             .DropDownList.Columns("yccod3").Caption = "CODIGO"
-            .DropDownList.Columns.Add("ycdes3").Width = 100
+            .DropDownList.Columns.Add("ycdes3").Width = 300
             .DropDownList.Columns("ycdes3").Caption = "PRESTAMO"
             .ValueMember = "yccod3"
             .DisplayMember = "ycdes3"
@@ -164,22 +164,43 @@ Public Class Pr_Liquidacion
         End If
     End Sub
     Private Function interpretarDatos() As DataTable
-        Dim dt As DataTable = CargarCCPagosSaldos(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+        Dim dt As DataTable
+        If swTipo.Value = True Then
+            dt = CargarCCPagosSaldos(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+        Else
+            dt = CargarCCPagosSaldosDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+
+        End If
 
         Return dt
     End Function
     Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
         Dim dt As DataTable = interpretarDatos()
-        If dt.Rows.Count > 0 Then
-            Dim objrep As New R_CCPagosSaldos
-            objrep.SetDataSource(dt)
 
-            objrep.SetParameterValue("prestamo", cbQuincena.Text)
-            objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
-            objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
-            MReportViewer.ReportSource = objrep
-            MReportViewer.Show()
-            MReportViewer.BringToFront()
+        If dt.Rows.Count > 0 Then
+            If swTipo.Value = True Then
+                Dim objrep As New R_CCPagosSaldos
+                objrep.SetDataSource(dt)
+
+                objrep.SetParameterValue("prestamo", cbQuincena.Text)
+                objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+                objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+                MReportViewer.ReportSource = objrep
+                MReportViewer.Show()
+                MReportViewer.BringToFront()
+            Else
+                Dim objrep As New R_CCPagosSaldosDetallado
+                objrep.SetDataSource(dt)
+
+                objrep.SetParameterValue("prestamo", cbQuincena.Text)
+                objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+                objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+                MReportViewer.ReportSource = objrep
+                MReportViewer.Show()
+                MReportViewer.BringToFront()
+            End If
+
+
         Else
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "NO HAY DATOS PARA MOSTRAR".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)

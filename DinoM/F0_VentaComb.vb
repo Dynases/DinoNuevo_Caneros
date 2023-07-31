@@ -1488,7 +1488,7 @@ Public Class F0_VentaComb
                 mensaje = mensaje + "- " + item + vbCrLf
             Next
             MostrarMensajeError(mensaje)
-            Return False
+            Return True
         End If
         Return True
     End Function
@@ -1511,12 +1511,12 @@ Public Class F0_VentaComb
                                                         tbTramOrden.Text + " - " + tbNitTraOrden.Text + " - PLACA: " + tbPlaca.Text + " - Autoriz.:" + tbAutoriza.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
                                                           dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text,
                                                           tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text,
-                                                          TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text)
+                                                          TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text, (grdetalle.GetValue("tbcmin") * 0.01) / 6.96)
                     If res Then
-
-
-                        _prImiprimirNotaVenta(numi)
                         tbCodigo.Text = numi
+                        contabilizar()
+                        _prImiprimirNotaVenta(numi)
+
                     End If
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -1525,7 +1525,7 @@ Public Class F0_VentaComb
                                               eToastGlowColor.Green,
                                               eToastPosition.TopCenter
                                               )
-                    contabilizar()
+
                     _Limpiar()
 
 
@@ -1546,8 +1546,8 @@ Public Class F0_VentaComb
                                                      IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
                                                     Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
                                                      _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-                                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text)
+                                                     tbTramOrden.Text + " - " + tbNitTraOrden.Text + " - PLACA: " + tbPlaca.Text + " - Autoriz.:" + tbAutoriza.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text, grdetalle.GetValue("tbcmin") * 0.01)
                 If res Then
 
                     _prImiprimirNotaVenta(numi)
@@ -1610,7 +1610,7 @@ Public Class F0_VentaComb
                                                      IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
                                                     Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
                                                      _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-                                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
+                                                      tbTramOrden.Text + " - " + tbNitTraOrden.Text + " - PLACA: " + tbPlaca.Text + " - Autoriz.:" + tbAutoriza.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
                                                       dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text)
             If res Then
                 L_Asiento_Borrar(codCont)
@@ -2548,7 +2548,7 @@ Public Class F0_VentaComb
 
         Dim resTO001 = L_fnGrabarTO001(12, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
 
-        For a As Integer = 8 To 9 Step 1
+        For a As Integer = 8 To 8 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
             dtDetalle = L_fnDetalleVenta1(codigoVenta)
 
@@ -2701,7 +2701,7 @@ Public Class F0_VentaComb
         ' dt2 = ObtenerNumCuentaSurtidor("TY0031", cbSurtidor.Value) ' ObtenerNumCuentaSurtidor()
         L_fnGrabarTO001(4, Convert.ToInt32(codigoVenta))
 
-        For a As Integer = 8 To 9 Step 1
+        For a As Integer = 8 To 8 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
             dtDetalle = L_fnDetalleVenta1(codigoVenta)
 

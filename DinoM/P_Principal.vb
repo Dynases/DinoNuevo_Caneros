@@ -1435,4 +1435,14 @@ Public Class P_Principal
 
         frm.Show()
     End Sub
+
+    Private Sub btnProductoMasVendido_Click(sender As Object, e As EventArgs) Handles btnProductoMasVendido.Click
+        Dim frm As New Pr_ProductosMasVendidos
+        frm._nameButton = btnProductoMasVendido.Name
+
+        'frm._modulo = FP_VENTACOMBUSTIBLE
+        frm.Name = "REPORTE PRODUCTOS MAS VENDIDOS"
+
+        frm.Show()
+    End Sub
 End Class

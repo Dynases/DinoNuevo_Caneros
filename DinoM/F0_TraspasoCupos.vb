@@ -684,7 +684,7 @@ Public Class F0_TraspasoCupos
                         tbCliente.Text = Row.Cells("ydrazonsocial").Value
                         '_dias = Row.Cells("yddias").Value
                         tbCupoResgistrado.Text = Row.Cells("total").Value
-                        tbCupoActual.Text = Row.Cells("total").Value - Row.Cells("cupoLibre").Value
+                        tbCupoActual.Text = Row.Cells("cupoLibre").Value
                         TbNombre1.Text = Row.Cells("ydcod").Value
                         Dim dt1 As DataTable
                         dt1 = L_fnListarCaneroInstitucion(_CodCanerotransfirienteSys)

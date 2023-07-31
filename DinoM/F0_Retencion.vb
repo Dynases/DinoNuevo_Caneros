@@ -557,6 +557,16 @@ Public Class F0_Retenciones
             .TotalFormatString = "0.00"
 
         End With
+        With grdetalle.RootTable.Columns("aporteDiesel")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Aporte Diesel Propio"
+            .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
+
+        End With
         With grdetalle
             '.DefaultFilterRowComparison = FilterConditionOperator.Contains
             '.FilterMode = FilterMode.Automatic

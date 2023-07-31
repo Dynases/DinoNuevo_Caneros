@@ -442,9 +442,9 @@ Public Class F0_Prestamo
     End Sub
 
     Public Sub _GuardarNuevo()
+        Dim numi As String = ""
 
-
-        Dim res As Boolean = L_fnGrabarPrestamo(tbfecha.Value.ToString("yyyy/MM/dd"), tbMoneda.Value, IIf(tbMoneda.Value = 1, cbTipoCambio.Value, 0), _CodInstitucion,
+        Dim res As Boolean = L_fnGrabarPrestamo(numi, tbfecha.Value.ToString("yyyy/MM/dd"), tbMoneda.Value, IIf(tbMoneda.Value = 1, cbTipoCambio.Value, 0), _CodInstitucion,
                                               cod, codFin.Text, codPres.Text, IIf(tbCodProv.Visible = False, 0, _CodProveedor),
                                               _codDocumento, tbCite.Text, tbTotal.Text,
                                               CDbl(tbInteres.Text), tbObs.Text)
@@ -452,8 +452,11 @@ Public Class F0_Prestamo
             _prCargarPrestamo()
             grPrestamo.Row = 0
             _MostrarRegistro()
-            contabilizarPrestamo()
-            _prImiprimirNotaPrestamo(tbcod.Text)
+            If codPres.Text <> "10016" And codPres.Text <> "10005" Then
+                contabilizarPrestamo()
+            End If
+
+            _prImiprimirNotaPrestamo(numi)
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
             ToastNotification.Show(Me, "El Prestamo Fue Registrado Correctamente".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         Else
@@ -467,17 +470,21 @@ Public Class F0_Prestamo
 
 
         Dim res As Boolean = L_fnModificarPrestamo(tbcod.Text, tbfecha.Value.ToString("yyyy/MM/dd"), tbMoneda.Value, IIf(tbMoneda.Value = 1, cbTipoCambio.Value, 0), codIns.Text,
-                                              codCan.Text, codFin.Text, codPres.Text, IIf(tbCodProv.Visible = False, 0, tbCodProv.Text),
+                                              codCan.Text, codFin.Text, codPres.Text, IIf(tbCodProv.Visible = False, 0, IIf(codPres.Text = "10016" Or codPres.Text = "10005", 2, tbCodProv.Text)),
                                               _codDocumento, tbCite.Text, tbTotal.Text,
                                               CDbl(tbInteres.Text), tbObs.Text)
         If res Then
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
             ToastNotification.Show(Me, "El Prestamo No Pudo Ser Registrado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         Else
-            L_Asiento_Borrar(codCont)
-            contabilizarPrestamoDetalle()
+            If codPres.Text <> "10016" And codPres.Text <> "10005" Then
+                L_Asiento_Borrar(codCont)
+
+                contabilizarPrestamoDetalle()
+            End If
+
             _prImiprimirNotaPrestamo(tbcod.Text)
-            Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+            Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
             ToastNotification.Show(Me, "El Prestamo Fue Registrado Correctamente".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         End If
 
@@ -788,9 +795,17 @@ Public Class F0_Prestamo
         End If
 
         Dim _Hora As String = Now.Hour.ToString + ":" + Now.Minute.ToString
-        Dim _Ds2 = L_Reporte_Factura_Cia("2")
+        Dim _Ds2, _Ds3
+        If codPres.Text = "10016" Or codPres.Text = "10005" Then
+            _Ds2 = L_Reporte_Factura_Cia("3")
 
-        Dim _Ds3 = L_ObtenerRutaImpresora("2") ' Datos de Impresion de Facturación
+            _Ds3 = L_ObtenerRutaImpresora("3")
+        Else
+            _Ds2 = L_Reporte_Factura_Cia("2")
+
+            _Ds3 = L_ObtenerRutaImpresora("2")
+        End If
+        ' Datos de Impresion de Facturación
         'If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
         '    P_Global.Visualizador = New Visualizador 'Comentar
         'End If
@@ -805,17 +820,26 @@ Public Class F0_Prestamo
         Dim empresaId = ObtenerEmpresaHabilitada()
         Dim empresaHabilitada As DataTable = ObtenerEmpresaTipoReporte(empresaId, Convert.ToInt32(ENReporte.NOTAVENTA))
         For Each fila As DataRow In empresaHabilitada.Rows
-            objrep = New R_NotaPrestamo_Cartashoping
-            SetParametrosNotaVenta(dt, total, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep)
+            If codPres.Text = "10016" Or codPres.Text = "10005" Then
+                objrep = New R_NotaPrestamoshoping
+                SetParametrosNotaVenta(dt, total, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep, tbPrest.Text)
+            Else
+                objrep = New R_NotaPrestamo_Cartashoping
+                SetParametrosNotaVenta(dt, total, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep, "")
+
+            End If
         Next
     End Sub
 
-    Private Sub SetParametrosNotaVenta(dt As DataTable, total As Decimal, _Hora As String, _Ds2 As DataSet, _Ds3 As DataSet, tipoReporte As String, objrep As Object)
+    Private Sub SetParametrosNotaVenta(dt As DataTable, total As Decimal, _Hora As String, _Ds2 As DataSet, _Ds3 As DataSet, tipoReporte As String, objrep As Object, prestamo As String)
 
         Select Case tipoReporte
             Case ENReporteTipo.NOTAVENTA_Carta
                 objrep.SetDataSource(dt)
+                If codPres.Text = "10016" Or codPres.Text = "10005" Then
+                    objrep.SetParameterValue("prestamo", prestamo)
 
+                End If
 
                 objrep.SetParameterValue("Logo", gb_UbiLogo)
                 objrep.SetParameterValue("NotaAdicional1", gb_NotaAdicional)
@@ -880,7 +904,7 @@ Public Class F0_Prestamo
         Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
         'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
-        For a As Integer = 6 To 7 Step 1
+        For a As Integer = 6 To 6 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
 
             'dtDetalle = L_fnDetalleVenta1(codigoVenta)
@@ -955,7 +979,7 @@ Public Class F0_Prestamo
 
 
         ' Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
-        For a As Integer = 6 To 7 Step 1
+        For a As Integer = 6 To 6 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
 
             'dtDetalle = L_fnDetalleVenta1(codigoVenta)
