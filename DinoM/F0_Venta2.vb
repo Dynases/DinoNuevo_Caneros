@@ -1540,7 +1540,7 @@ Public Class F0_Venta2
             'Validación para controlar caducidad de Dosificacion
             If tbNit.Text <> String.Empty Then
                 Dim fecha As String = Now.Date
-                Dim dtDosificacion As DataSet = L_DosificacionCajas("1", "1", fecha, gs_NroCaja)
+                Dim dtDosificacion As DataSet = L_DosificacionCajas("1", Convert.ToString(cbSucursal.Value), fecha, gs_NroCaja)
                 If dtDosificacion.Tables(0).Rows.Count = 0 Then
                     'dtDosificacion.Tables.Cast(Of DataTable)().Any(Function(x) x.DefaultView.Count = 0)
                     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -5094,13 +5094,13 @@ salirIf:
         If gs_user = "SERVICIOS" Then
             _Ds1 = L_DosificacionCajas("1", 1, _Fecha, gs_NroCaja)
         Else
-            _Ds1 = L_DosificacionCajas("1", gi_userSuc, _Fecha, gs_NroCaja)
+            _Ds1 = L_DosificacionCajas("1", Convert.ToString(cbSucursal.Value), _Fecha, gs_NroCaja)
         End If
         _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString
         If gs_user = "SERVICIOS" Then
             dsApi = L_Dosificacion("1", 1, _Fecha)
         Else
-            dsApi = L_Dosificacion("1", cbSucursal.Value, _Fecha)
+            dsApi = L_Dosificacion("1", Convert.ToString(cbSucursal.Value), _Fecha)
         End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
         Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 " + " and fvaalm=" + Convert.ToString(cbSucursal.Value)) ''+ "fvaalm= 1") '' 

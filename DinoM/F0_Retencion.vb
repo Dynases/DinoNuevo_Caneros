@@ -509,6 +509,15 @@ Public Class F0_Retenciones
             .AggregateFunction = AggregateFunction.Sum
             .TotalFormatString = "0.00"
         End With
+        With grdetalle.RootTable.Columns("capital1")
+            .Width = 110
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Capital"
+            .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
+        End With
         With grdetalle.RootTable.Columns("aporte")
             .Width = 110
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -518,7 +527,15 @@ Public Class F0_Retenciones
             .AggregateFunction = AggregateFunction.Sum
             .TotalFormatString = "0.00"
         End With
-
+        With grdetalle.RootTable.Columns("aporte1")
+            .Width = 110
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Aporte"
+            .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
+        End With
         With grdetalle.RootTable.Columns("deuda")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -537,6 +554,7 @@ Public Class F0_Retenciones
             .AggregateFunction = AggregateFunction.Sum
             .TotalFormatString = "0.00"
         End With
+
         With grdetalle.RootTable.Columns("saldo")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -563,6 +581,17 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Aporte Diesel Propio"
+            .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
+
+        End With
+
+        With grdetalle.RootTable.Columns("aporteDiesel1")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Aporte Diesel Propio1"
             .AggregateFunction = AggregateFunction.Sum
             .TotalFormatString = "0.00"
 
@@ -677,6 +706,14 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Aporte"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grdetalle.RootTable.Columns("aporteDieselPropio")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Aporte Diesel"
             .AggregateFunction = AggregateFunction.Sum
         End With
 
@@ -2172,6 +2209,7 @@ Public Class F0_Retenciones
                 Else
                     e.Cancel = True
                 End If
+
             End If
 
 
@@ -2183,8 +2221,34 @@ Public Class F0_Retenciones
 
 
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
+
         If (e.KeyData = Keys.Enter And grdetalle.Row >= 0 And
                   grdetalle.Col = grdetalle.RootTable.Columns("cobrar").Index) Then
+
+            Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
+            Dim aporteDiesel As Decimal = Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))
+            Dim aporte As Decimal = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+            Dim capital As Decimal = Convert.ToDouble(grdetalle.GetValue("capital1"))
+            Dim capitalNuevo As Decimal
+            '_fnObtenerFilaDetalle(pos, lin)
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(grdetalle.GetValue("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+
+            If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
+                If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
+                    If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
+                        capitalNuevo = 0.00
+                    Else
+                        capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
+                    End If
+                Else
+                    capitalNuevo = capital
+                End If
+            Else
+                capitalNuevo = capital
+            End If
+
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
             ActualizarTotales()
             grdetalle.Row = grdetalle.Row + 1
             ActualizarTotales()
@@ -2192,93 +2256,6 @@ Public Class F0_Retenciones
             '_HabilitarProductos()
 
         End If
-        '        If (Not _fnAccesible()) Then
-        '            Return
-        '        End If
-        '        If (e.KeyData = Keys.Enter) Then
-        '            Dim f, c As Integer
-        '            c = grdetalle.Col
-        '            f = grdetalle.Row
-
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("tbcmin").Index) Then
-        '                If (grdetalle.GetValue("producto") <> String.Empty) Then
-        '                    _prAddDetalleVenta()
-        '                    _HabilitarProductos()
-        '                Else
-        '                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
-        '                If (grdetalle.GetValue("producto") <> String.Empty) Then
-        '                    _prAddDetalleVenta()
-        '                    _HabilitarProductos()
-        '                Else
-        '                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
-        '                If (grdetalle.GetValue("yfcbarra").ToString().Trim() <> String.Empty) Then
-        '                    cargarProductos()
-        '                    If (grdetalle.Row = grdetalle.RowCount - 1) Then
-        '                        If (existeProducto(grdetalle.GetValue("yfcbarra").ToString)) Then
-        '                            If (Not verificarExistenciaUnica(grdetalle.GetValue("yfcbarra").ToString)) Then
-        '                                ponerProducto(grdetalle.GetValue("yfcbarra").ToString)
-        '                                _prAddDetalleVenta()
-        '                            Else
-        '                                sumarCantidad(grdetalle.GetValue("yfcbarra").ToString)
-        '                            End If
-        '                        Else
-        '                            grdetalle.DataChanged = False
-        '                            ToastNotification.Show(Me, "El código de barra del producto no existe", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                        End If
-        '                    Else
-        '                        grdetalle.DataChanged = False
-        '                        grdetalle.Row = grdetalle.RowCount - 1
-        '                        grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index
-        '                        ToastNotification.Show(Me, "El cursor debe situarse en la ultima fila", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                    End If
-        '                Else
-        '                    ToastNotification.Show(Me, "El código de barra no puede quedar vacio", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            'opcion para cargar la grilla con el codigo de barra
-        '            'If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
-
-        '            '    If (grdetalle.GetValue("yfcbarra") <> String.Empty) Then
-        '            '        _buscarRegistro(grdetalle.GetValue("yfcbarra"))
-
-
-        '            '        '_prAddDetalleVenta()
-        '            '        '_HabilitarProductos()
-        '            '        ' MsgBox("hola de la grilla" + grdetalle.GetValue("yfcbarra") + t.Container.ToString)
-        '            '        'ojo
-        '            '    Else
-        '            '        ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '            '    End If
-
-        '            'End If
-        'salirIf:
-        '        End If
-
-        '        If (e.KeyData = Keys.Control + Keys.Enter And grdetalle.Row >= 0 And
-        '            grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
-        '            Dim indexfil As Integer = grdetalle.Row
-        '            Dim indexcol As Integer = grdetalle.Col
-        '            _HabilitarProductos()
-
-        '        End If
-        '        If (e.KeyData = Keys.Escape And grdetalle.Row >= 0) Then
-
-        '            _prEliminarFila()
-
-
-        '        End If
-        '        If (e.KeyData = Keys.Control + Keys.S) Then
-        '            tbMontoBs.Select()
-        '        End If
 
 
         Try
@@ -2287,45 +2264,8 @@ Public Class F0_Retenciones
                 Return
             End If
 
-
-
-
-
-            'opcion para cargar la grilla con el codigo de barra
-            'If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
-
-            '    If (grdetalle.GetValue("yfcbarra") <> String.Empty) Then
-            '        _buscarRegistro(grdetalle.GetValue("yfcbarra"))
-
-
-            '        '_prAddDetalleVenta()
-            '        '_HabilitarProductos()
-            '        ' MsgBox("hola de la grilla" + grdetalle.GetValue("yfcbarra") + t.Container.ToString)
-            '        'ojo
-            '    Else
-            '        ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-            '    End If
-
-            'End If
 salirIf:
 
-
-            'If (e.KeyData = Keys.Control + Keys.Enter And grdetalle.Row >= 0 And
-            '    grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
-            '    Dim indexfil As Integer = grdetalle.Row
-            '    Dim indexcol As Integer = grdetalle.Col
-            '    _HabilitarProductos()
-
-            'End If
-            'If (e.KeyData = Keys.Escape And grdetalle.Row >= 0) Then
-
-            '    _prEliminarFila()
-            '    CalculoDescuentoXProveedor()
-
-            'End If
-            'If (e.KeyData = Keys.Control + Keys.S) Then
-
-            'End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
@@ -2567,69 +2507,6 @@ salirIf:
 
     End Sub
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellValueChanged
-        Try
-
-            'If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index) Then
-            If (Not IsNumeric(grdetalle.GetValue("cobrar")) Or grdetalle.GetValue("cobrar").ToString = String.Empty) Then
-
-                grdetalle.SetValue("cobrar", 0)
-                '            grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-                '            grdetalle.SetValue("tbporc", 0)
-                '            grdetalle.SetValue("tbdesc", 0)
-                '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbpbas"))
-
-
-            Else
-                If (grdetalle.GetValue("cobrar") >= 0) And grdetalle.GetValue("cobrar") <= grdetalle.GetValue("saldo") Then
-                    grdetalle.SetValue("saldo1", grdetalle.GetValue("saldo") - grdetalle.GetValue("cobrar"))
-
-                    '                   '                Dim cant As Integer = grdetalle.GetValue("tbcmin")
-
-                    '                Dim stock As Double = grdetalle.GetValue("stock")
-                    '                If (cant > stock) And stock <> -9999 Then
-                    '                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                    '                    Dim pos As Integer = -1
-                    '                    _fnObtenerFilaDetalle(pos, lin)
-                    '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcmin") = 1
-                    '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
-                    '                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = grdetalle.GetValue("tbpcos") * 1
-                    '                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                    '                    ToastNotification.Show(Me, "La cantidad de la venta no debe ser mayor al del stock" & vbCrLf &
-                    '                    "Stock=" + Str(stock).ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                    '                    grdetalle.SetValue("tbcmin", 1)
-                    '                    grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-                    '                    grdetalle.SetValue("tbptot2", grdetalle.GetValue("tbpcos") * 1)
-
-                    '                    _prCalcularPrecioTotal()
-                    '                Else
-                    '                    If (cant = stock) Then
-
-
-                    '                        'grdetalle.SelectedFormatStyle.ForeColor = Color.Blue
-                    '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle = New GridEXFormatStyle
-                    '                        'grdetalle.CurrentRow.Cells(e.Column).FormatStyle.BackColor = Color.Pink
-                    '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.BackColor = Color.DodgerBlue
-                    '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.ForeColor = Color.White
-                    '                        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.FontBold = TriState.True
-                    '                    End If
-                    '                End If
-
-                Else
-                    grdetalle.SetValue("cobrar", 0)
-
-                    '                grdetalle.SetValue("tbcmin", 1)
-                    '                grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-                    '                grdetalle.SetValue("tbporc", 0)
-                    '                grdetalle.SetValue("tbdesc", 0)
-                    '                grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbpbas"))
-
-                End If
-                '        End If
-            End If
-            ActualizarTotales()
-        Catch ex As Exception
-            MostrarMensajeError(ex.Message)
-        End Try
     End Sub
 
 
@@ -2949,7 +2826,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub TextBoxX7_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX7.TextChanged
+    Private Sub TextBoxX7_TextChanged(sender As Object, e As EventArgs)
         If TextBoxX3.Text <> "" Then
             TextBoxX8.Text = CDbl(TextBoxX7.Text) * CDbl(TextBoxX3.Text)
             TextBoxX9.Text = CDbl(TextBoxX7.Text) * CDbl(TextBoxX3.Text) * 6.96
@@ -2965,7 +2842,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub TextBoxX5_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX5.TextChanged
+    Private Sub TextBoxX5_TextChanged(sender As Object, e As EventArgs)
         If TextBoxX4.Text <> "" And TextBoxX4.Text <> "0.00" And TextBoxX5.Text <> "" And TextBoxX5.Text <> "0.00" Then
             TextBoxX6.Text = (CDbl(TextBoxX5.Text) * 100 / CDbl(TextBoxX4.Text)).ToString("0.00")
         End If
@@ -3017,7 +2894,7 @@ salirIf:
         _Limpiar()
     End Sub
 
-    Private Sub TextBoxX4_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX4.TextChanged
+    Private Sub TextBoxX4_TextChanged(sender As Object, e As EventArgs)
         If TextBoxX5.Text <> "" And TextBoxX5.Text <> "0.00" And TextBoxX4.Text <> "" And TextBoxX4.Text <> "0.00" Then
             TextBoxX6.Text = (CDbl(TextBoxX5.Text) * 100 / CDbl(TextBoxX4.Text)).ToString("0.00")
         End If
@@ -3027,19 +2904,63 @@ salirIf:
 
     End Sub
 
-    Private Sub grGrupoEco_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grGrupoEco.EditingCell
+    Private Sub grGrupoEco_EditingCell(sender As Object, e As EditingCellEventArgs)
         e.Cancel = True
     End Sub
 
-    Private Sub GroupPanel4_Click(sender As Object, e As EventArgs) Handles GroupPanel4.Click
+    Private Sub GroupPanel4_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub grCanero_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles grCanero.FormattingRow
+    Private Sub grCanero_FormattingRow(sender As Object, e As RowLoadEventArgs)
 
     End Sub
 
-    Private Sub GroupPanel1_Click(sender As Object, e As EventArgs) Handles GroupCobranza.Click
+    Private Sub GroupPanel1_Click_1(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub grCanero_KeyDown_1(sender As Object, e As KeyEventArgs) Handles grCanero.KeyDown
+        If grCanero.RowCount > 0 Then
+            If SwitchButton1.Value = True Then
+                If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
+                    If e.KeyData = Keys.Enter Then
+                        _CodCliente = grCanero.GetValue("ydnumi")
+                        TextBoxX4.Text = 0.00
+                        TextBoxX5.Text = 0.00
+                        TextBoxX6.Text = 0.00
+
+                        CargarTotalQuincena(cbGestion.Value, _CodCliente)
+                        _prCargarGrupoEco(_CodCliente)
+
+                        _prCargarDetalleVenta(_CodCliente)
+
+
+                        ActualizarTotales()
+
+                    End If
+                Else
+                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                    ToastNotification.Show(Me, "Por Favor Seleccione una Gestion y una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                End If
+            Else
+                If e.KeyData = Keys.Enter Then
+
+                    _CodCliente = grCanero.GetValue("ydnumi")
+                    _prCargarGrupoEco(_CodCliente)
+
+                    _prCargarDetalleVenta(_CodCliente)
+
+
+                    ActualizarTotales()
+
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub GroupPanel1_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -3430,7 +3351,7 @@ salirIf:
         TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10014")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10014"))
         TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011 or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm = 10006")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006"))
         TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005"))
-        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007"))
+        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 3")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 3"))
         TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1"))
         TSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 2"))
         TOtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009"))
@@ -3448,7 +3369,7 @@ salirIf:
         RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm=10014")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm=10014"))
         RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006"))
         RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005"))
-        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007"))
+        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007 or taalm  = 3")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007 or taalm  = 3"))
         RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1"))
         RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2"))
         ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009"))
@@ -3474,47 +3395,9 @@ salirIf:
         TextBoxX7.Text = dt.Rows(0).Item("quincena")
 
     End Sub
-    Private Sub grCanero_KeyDown(sender As Object, e As KeyEventArgs) Handles grCanero.KeyDown
-        If grCanero.RowCount > 0 Then
-            If SwitchButton1.Value = True Then
-                If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
-                    If e.KeyData = Keys.Enter Then
-                        _CodCliente = grCanero.GetValue("ydnumi")
-                        TextBoxX4.Text = 0.00
-                        TextBoxX5.Text = 0.00
-                        TextBoxX6.Text = 0.00
-
-                        CargarTotalQuincena(cbGestion.Value, _CodCliente)
-                        _prCargarGrupoEco(_CodCliente)
-
-                        _prCargarDetalleVenta(_CodCliente)
 
 
-                        ActualizarTotales()
-
-                    End If
-                Else
-                    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                    ToastNotification.Show(Me, "Por Favor Seleccione una Gestion y una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-
-                End If
-            Else
-                If e.KeyData = Keys.Enter Then
-
-                    _CodCliente = grCanero.GetValue("ydnumi")
-                    _prCargarGrupoEco(_CodCliente)
-
-                    _prCargarDetalleVenta(_CodCliente)
-
-
-                    ActualizarTotales()
-
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub grCanero_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grCanero.EditingCell
+    Private Sub grCanero_EditingCell(sender As Object, e As EditingCellEventArgs)
         'If (e.Column.Index = grCanero.RootTable.Columns("ydnumi").Index Or
         '      e.Column.Index = grCanero.RootTable.Columns("ydrazonsocial").Index) Then
 
