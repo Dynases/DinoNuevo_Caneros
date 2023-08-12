@@ -24,7 +24,7 @@ Public Class F1_Liquidaciones
     End Sub
     Private Sub _prCargarQuincena(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_fnListarQuincena()
+        dt = L_fnListarQuincena(1)
         With mCombo
             .DropDownList.Columns.Clear()
 

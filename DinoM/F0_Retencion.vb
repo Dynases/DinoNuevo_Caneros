@@ -68,7 +68,7 @@ Public Class F0_Retenciones
         _prValidadFactura()
         _prCargarNameLabel()
         _prCargarComboGestion(cbGestion)
-        _prCargarQuincena(cbQuincena)
+
         'COnfiguracion previa para Pantalla de facturacion o Nota de venta
         If gb_FacturaEmite Then
             btnModificar.Visible = True
@@ -134,7 +134,7 @@ Public Class F0_Retenciones
         With mCombo
             .DropDownList.Columns.Clear()
 
-            .DropDownList.Columns.Add("gestion").Width = 60
+            .DropDownList.Columns.Add("gestion").Width = 80
             .DropDownList.Columns("gestion").Caption = "GESTION"
             .ValueMember = "gestion"
             .DisplayMember = "gestion"
@@ -144,12 +144,18 @@ Public Class F0_Retenciones
     End Sub
     Private Sub _prCargarQuincena(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_fnListarQuincena()
+        dt = L_fnListarQuincena(cbGestion.Value)
         With mCombo
             .DropDownList.Columns.Clear()
 
             .DropDownList.Columns.Add("quincena").Width = 100
             .DropDownList.Columns("quincena").Caption = "QUINCENA"
+            .DropDownList.Columns.Add("inicioQuin").Width = 105
+            .DropDownList.Columns("inicioQuin").Caption = "INICIO"
+            .DropDownList.Columns.Add("finQuin").Width = 105
+            .DropDownList.Columns("finQuin").Caption = "FIN"
+            .DropDownList.Columns.Add("gestion").Width = 95
+            .DropDownList.Columns("gestion").Caption = "GESTION"
             .ValueMember = "quincena"
             .DisplayMember = "quincena"
             .DataSource = dt
@@ -217,7 +223,8 @@ Public Class F0_Retenciones
 
 
         TbNombre2.ReadOnly = True
-
+        tbCanero.ReadOnly = True
+        tbCodCanero.ReadOnly = True
         FilaSelectLote = Nothing
     End Sub
 
@@ -286,7 +293,8 @@ Public Class F0_Retenciones
         cbGestion.Clear()
         TextBoxX3.Clear()
 
-
+        tbCodCanero.Clear()
+        tbCanero.Clear()
         txtEstado.ReadOnly = True
 
         tbcodInst.Clear()
@@ -402,6 +410,8 @@ Public Class F0_Retenciones
             tbTotalR.Text = .GetValue("trTotalR").ToString
             tbcodInst.Text = .GetValue("codInst").ToString
             tbInstitucion.Text = .GetValue("nomInst").ToString
+            tbCodCanero.Text = .GetValue("ydcod").ToString
+            tbCanero.Text = .GetValue("ydrazonsocial").ToString
             idInstitucion.Text = .GetValue("trins").ToString
             _CodCliente = .GetValue("trcan").ToString
             _prCargarListaCanerosxInstitucion(idInstitucion.Text)
@@ -423,13 +433,13 @@ Public Class F0_Retenciones
         Dim dt As New DataTable
         If CheckGrupo.Checked = True Then
             If SwitchButton1.Value = True Then
-                dt = cargarDeudasporGrupo(cbGestion.Value, cbQuincena.Value, CType(grGrupoEco.DataSource, DataTable))
+                dt = cargarDeudasporGrupo(cbGestion.Value, tbFechaVenta.Value.ToString("dd/MM/yyyy"), CType(grGrupoEco.DataSource, DataTable))
             Else
                 dt = cargarDeudasporGrupoCobranza(tbFechaVenta.Value.ToString("dd/MM/yyyy"), CType(grGrupoEco.DataSource, DataTable))
             End If
         Else
             If SwitchButton1.Value = True Then
-                dt = cargarDeudasporCanero(_numi, cbGestion.Value, cbQuincena.Value)
+                dt = cargarDeudasporCanero(_numi, cbGestion.Value, tbFechaVenta.Value.ToString("dd/MM/yyyy"))
             Else
                 dt = cargaCobranzaporCanero(_numi, tbFechaVenta.Value.ToString("dd/MM/yyyy"))
             End If
@@ -512,7 +522,7 @@ Public Class F0_Retenciones
         With grdetalle.RootTable.Columns("capital1")
             .Width = 110
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Capital"
             .AggregateFunction = AggregateFunction.Sum
@@ -530,7 +540,7 @@ Public Class F0_Retenciones
         With grdetalle.RootTable.Columns("aporte1")
             .Width = 110
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Aporte"
             .AggregateFunction = AggregateFunction.Sum
@@ -589,7 +599,7 @@ Public Class F0_Retenciones
         With grdetalle.RootTable.Columns("aporteDiesel1")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Aporte Diesel Propio1"
             .AggregateFunction = AggregateFunction.Sum
@@ -1309,39 +1319,6 @@ Public Class F0_Retenciones
         Dim TotalDescuento1 As Double = 0
         Dim TotalCosto As Double = 0
         Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)
-        'For i As Integer = 0 To dt.Rows.Count - 1 Step 1
-        '    If gs_user = "SERVICIOS" Then
-        '        If (dt.Rows(i).Item("estado") >= 0) Then
-        '            TotalDescuento = TotalDescuento + Format(Format((dt.Rows(i).Item("tbptot") * Convert.ToDecimal(cbCambioDolar.Text)), "0.00000"))
-        '            TotalDescuento1 = TotalDescuento1 + Format(dt.Rows(i).Item("tbptot"), "0.00000")
-        '            TotalCosto = TotalCosto + dt.Rows(i).Item("tbptot2")
-        '        End If
-        '    Else
-        '        If (dt.Rows(i).Item("estado") >= 0) Then
-        '            TotalDescuento = TotalDescuento + Format(Format((dt.Rows(i).Item("tbpbas") * Convert.ToDecimal(cbCambioDolar.Text)), "0.00000") * dt.Rows(i).Item("tbcmin"), "0.00000")
-        '            TotalDescuento1 = TotalDescuento1 + Format(dt.Rows(i).Item("tbpbas") * dt.Rows(i).Item("tbcmin"), "0.00000")
-
-        '            TotalCosto = TotalCosto + dt.Rows(i).Item("tbptot2")
-        '        End If
-        '    End If
-
-
-        'Next
-
-
-        'grdetalle.UpdateData()
-        'Dim montoDo As Decimal
-        'Dim montodesc As Double = tbMdesc.Value
-        'Dim pordesc As Double = ((montodesc * 100) / TotalDescuento)
-
-        'Dim subtotal = Convert.ToDouble(Format(TotalDescuento, "0.00000"))
-        'tbSubTotal.Value = subtotal
-
-        ''tbTotalBs.Text = total.ToString()
-        'tbTotalBs.Text = Format(tbSubTotal.Value - montodesc, "0.00000")
-        'montoDo = Convert.ToDecimal(tbTotalBs.Text) / IIf(cbCambioDolar.Text = "", 1, Convert.ToDecimal(cbCambioDolar.Text))
-        'tbTotalDo.Text = Format(TotalDescuento1, "0.00")
-
 
 
     End Sub
@@ -1567,11 +1544,7 @@ Public Class F0_Retenciones
 
     Public Sub _GuardarNuevo()
         Try
-            'Dim numi As String = ""
-            'Dim tabla As DataTable = L_fnMostrarMontos(0)
-            'Dim factura = gb_FacturaEmite
 
-            ''Verifica si existe estock para los productos
             Dim tipo As String
             If SwitchButton1.Value = False Then
                 tipo = "Cobranza"
@@ -1664,39 +1637,7 @@ Public Class F0_Retenciones
         _prInhabiliitar()
         _Limpiar()
         _prCargarVenta()
-        'Dim tabla As DataTable = L_fnMostrarMontos(0)
 
-        'If _prExisteStockParaProducto() Then
-        '    Dim dtDetalle As DataTable = rearmarDetalle()
-        '    Dim res As Boolean = True 'L_fnModificarVenta()
-
-        '    'numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-        '    '                                                 IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-        '    '                                                Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-        '    '                                                 _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-        '    '                                                  tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-        '    '                                                  dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
-        '    If res Then
-        '        'If (gb_FacturaEmite) Then
-        '        '    L_fnEliminarDatos("TFV001", "fvanumi=" + tbCodigo.Text.Trim)
-        '        '    L_fnEliminarDatos("TFV0011", "fvbnumi=" + tbCodigo.Text.Trim)
-        '        '    P_fnGenerarFactura(tbCodigo.Text.Trim)
-        '        'End If
-        '        _prImiprimirNotaVenta(tbCodigo.Text)
-        '        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-        '        ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Modificado con Exito.".ToUpper,
-        '                                  img, 2000,
-        '                                  eToastGlowColor.Green,
-        '                                  eToastPosition.TopCenter
-        '                                  )
-        '        _prCargarVenta()
-        '        _prSalir()
-        '    Else
-        '        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-        '        ToastNotification.Show(Me, "La Venta no pudo ser Modificada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-
-        '    End If
-        'End If
     End Sub
     Private Sub _prSalir()
         If btnGrabar.Enabled = True Then
@@ -1729,12 +1670,6 @@ Public Class F0_Retenciones
             grVentas.Row = _MPos
         End If
     End Sub
-
-
-
-
-
-
 
     Public Function P_fnImageToByteArray(ByVal imageIn As Image) As Byte()
         Dim ms As New System.IO.MemoryStream()
@@ -2050,7 +1985,7 @@ Public Class F0_Retenciones
     End Sub
 
     Public _MListEstBuscador As List(Of Modelo.Celda)
-    Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbInstitucion.KeyDown
+    Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs)
 
         If (_fnAccesible()) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
@@ -2186,7 +2121,7 @@ Public Class F0_Retenciones
     End Sub
 
 
-    Private Sub grdetalle_EditingCell(sender As Object, e As EditingCellEventArgs) Handles grdetalle.EditingCell
+    Private Sub grdetalle_EditingCell(sender As Object, e As EditingCellEventArgs)
         If (_fnAccesible()) Then
             'Habilitar solo las columnas de Precio, %, Monto y Observación
             'If (e.Column.Index = grdetalle.RootTable.Columns("yfcbarra").Index Or 'e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index) 
@@ -2506,16 +2441,16 @@ salirIf:
 
 
     End Sub
-    Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellValueChanged
+    Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs)
     End Sub
 
 
 
 
-    Private Sub grdetalle_CellEdited_1(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellEdited
+    Private Sub grdetalle_CellEdited_1(sender As Object, e As ColumnActionEventArgs)
         ActualizarTotales()
     End Sub
-    Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs) Handles grdetalle.MouseClick
+    Private Sub grdetalle_MouseClick(sender As Object, e As MouseEventArgs)
         Try
             If (Not _fnAccesible()) Then
                 Return
@@ -2826,14 +2761,7 @@ salirIf:
         End If
     End Sub
 
-    Private Sub TextBoxX7_TextChanged(sender As Object, e As EventArgs)
-        If TextBoxX3.Text <> "" Then
-            TextBoxX8.Text = CDbl(TextBoxX7.Text) * CDbl(TextBoxX3.Text)
-            TextBoxX9.Text = CDbl(TextBoxX7.Text) * CDbl(TextBoxX3.Text) * 6.96
-        End If
-    End Sub
-
-    Private Sub TextBoxX3_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX3.TextChanged
+    Private Sub TextBoxX3_TextChanged(sender As Object, e As EventArgs)
         If btnGrabar.Enabled = True Then
             If TextBoxX7.Text <> "" Then
                 TextBoxX8.Text = CDbl(TextBoxX7.Text) * IIf(TextBoxX3.Text = "", 0, CDbl(TextBoxX3.Text))
@@ -2842,31 +2770,22 @@ salirIf:
         End If
     End Sub
 
-    Private Sub TextBoxX5_TextChanged(sender As Object, e As EventArgs)
-        If TextBoxX4.Text <> "" And TextBoxX4.Text <> "0.00" And TextBoxX5.Text <> "" And TextBoxX5.Text <> "0.00" Then
-            TextBoxX6.Text = (CDbl(TextBoxX5.Text) * 100 / CDbl(TextBoxX4.Text)).ToString("0.00")
-        End If
-    End Sub
-
     Private Sub CheckGrupo_CheckedChanged(sender As Object, e As EventArgs) Handles CheckGrupo.CheckedChanged
         _prCargarDetalleVenta(_CodCliente)
         ActualizarTotales()
+        tbCanero.Clear()
+        tbCodCanero.Clear()
     End Sub
 
     Private Sub cbQuincena_ValueChanged(sender As Object, e As EventArgs) Handles cbQuincena.ValueChanged
         If SwitchButton1.Value = True Then
-
-            If cbGestion.Text <> String.Empty Then
-                If CInt(cbGestion.Text) <> 0 Then
-                    Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
-                    tbFechaVenta.Value = dt.Rows(0).Item("fecha")
-                End If
-            End If
+            Dim dt As DataTable = cbQuincena.DataSource
+            tbFechaVenta.Value = dt.Rows(cbQuincena.Value - 1).Item("finQuin")
         End If
 
     End Sub
 
-    Private Sub cbGestion_ValueChanged(sender As Object, e As EventArgs) Handles cbGestion.ValueChanged
+    Private Sub cbGestion_ValueChanged(sender As Object, e As EventArgs)
         If SwitchButton1.Value = True Then
             If cbQuincena.Text <> String.Empty And cbQuincena.Text <> "0" Then
                 Dim dt As DataTable = cargarFechaCierre(cbGestion.Value, cbQuincena.Value)
@@ -2920,8 +2839,78 @@ salirIf:
 
     End Sub
 
+    Private Sub tbInstitucion_KeyUp(sender As Object, e As KeyEventArgs) Handles tbInstitucion.KeyUp
+        If (_fnAccesible()) Then
+            If e.KeyData = Keys.Control + Keys.Enter Then
+                Dim dt As DataTable
+                dt = L_fnListarInstitucion()
+
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("id,", False, "ID", 50))
+                listEstCeldas.Add(New Modelo.Celda("CodInst", True, "CODIGO", 50))
+                listEstCeldas.Add(New Modelo.Celda("nomInst", True, "NOMBRE", 280))
+                listEstCeldas.Add(New Modelo.Celda("direc", True, "DIRECCION".ToUpper, 150))
+                listEstCeldas.Add(New Modelo.Celda("telf", True, "TELEFONO", 220))
+                listEstCeldas.Add(New Modelo.Celda("campo1", False, "campo1".ToUpper, 200))
+                listEstCeldas.Add(New Modelo.Celda("campo2", False, "F.campo2".ToUpper, 150))
+                listEstCeldas.Add(New Modelo.Celda("campo3", False, "campo3".ToUpper, 200))
+                listEstCeldas.Add(New Modelo.Celda("fact", False, "F.fact".ToUpper, 150))
+                listEstCeldas.Add(New Modelo.Celda("hact", False, "hact".ToUpper, 200))
+                listEstCeldas.Add(New Modelo.Celda("uact", False, "F.uact".ToUpper, 150))
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dt
+                ef.SeleclCol = 1
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 50
+                ef.ancho = 350
+                ef.Context = "Seleccione Institucion".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                    If (IsNothing(Row)) Then
+                        ' tbInsCan.Focus()
+                        Return
+                    End If
+                    tbcodInst.Text = Row.Cells("CodInst").Value
+                    tbInstitucion.Text = Row.Cells("nomInst").Value
+                    idInstitucion.Text = Row.Cells("id").Value
+                    _CodInstitucion = Row.Cells("id").Value
+                    _prCargarListaCanerosxInstitucion(idInstitucion.Text)
+                End If
+
+            End If
+
+        End If
+    End Sub
+
+    Private Sub grCanero_EditingCell_1(sender As Object, e As EditingCellEventArgs) Handles grCanero.EditingCell
+        If (e.Column.Index = grCanero.RootTable.Columns("ydnumi").Index Or
+             e.Column.Index = grCanero.RootTable.Columns("ydrazonsocial").Index) Then
+
+            e.Cancel = True
+        Else
+            e.Cancel = False
+        End If
+    End Sub
+
+
+
+    Private Sub cbGestion_ValueChanged_1(sender As Object, e As EventArgs) Handles cbGestion.ValueChanged
+        _prCargarQuincena(cbQuincena)
+        ' _Limpiar()
+    End Sub
+
+    Private Sub LabelX19_Click(sender As Object, e As EventArgs) Handles LabelX19.Click
+
+    End Sub
+
     Private Sub grCanero_KeyDown_1(sender As Object, e As KeyEventArgs) Handles grCanero.KeyDown
         If grCanero.RowCount > 0 Then
+            tbCodCanero.Text = IIf(grCanero.GetValue("ydrazonsocial") = "", "", grCanero.GetValue("ydcod"))
+            tbCanero.Text = IIf(grCanero.GetValue("ydrazonsocial") = "", "", grCanero.GetValue("ydrazonsocial"))
             If SwitchButton1.Value = True Then
                 If cbQuincena.Text <> String.Empty And cbGestion.Text <> String.Empty Then
                     If e.KeyData = Keys.Enter Then
@@ -2929,6 +2918,7 @@ salirIf:
                         TextBoxX4.Text = 0.00
                         TextBoxX5.Text = 0.00
                         TextBoxX6.Text = 0.00
+
 
                         CargarTotalQuincena(cbGestion.Value, _CodCliente)
                         _prCargarGrupoEco(_CodCliente)
@@ -2948,6 +2938,7 @@ salirIf:
                 If e.KeyData = Keys.Enter Then
 
                     _CodCliente = grCanero.GetValue("ydnumi")
+
                     _prCargarGrupoEco(_CodCliente)
 
                     _prCargarDetalleVenta(_CodCliente)
@@ -3331,7 +3322,7 @@ salirIf:
                 Select Convert.ToDecimal(proc.ItemArray(ENDetalleVenta.totalDescuento))).Sum()
     End Function
 
-    Private Sub tbCliente_TextChanged(sender As Object, e As EventArgs) Handles tbInstitucion.TextChanged
+    Private Sub tbCliente_TextChanged(sender As Object, e As EventArgs)
         If btnNuevo.Enabled = True Then
             'Dim dt As DataTable
             'dt = L_fnListarCaneroInstitucion(_CodCliente)
@@ -3351,7 +3342,7 @@ salirIf:
         TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10014")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10014"))
         TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011 or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm = 10006")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006"))
         TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005"))
-        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 3")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 3"))
+        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 3 or taalm  = 4"))
         TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1"))
         TSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 2"))
         TOtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009"))
@@ -3369,7 +3360,7 @@ salirIf:
         RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm=10014")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm=10014"))
         RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006"))
         RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005"))
-        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007 or taalm  = 3")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007 or taalm  = 3"))
+        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007 or taalm  = 3 or taalm  = 4"))
         RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1"))
         RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2"))
         ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009"))
@@ -3389,7 +3380,9 @@ salirIf:
     End Sub
 
     Private Sub CargarTotalQuincena(gestion As String, codCan As Integer)
-        Dim dt As DataTable = L_fnCargarCupo(codCan, gestion, CInt(cbQuincena.Value))
+        Dim dt1 As DataTable = cbQuincena.DataSource
+        Dim dt As DataTable = L_fnCargarCupo(codCan, gestion, CStr(dt1.Rows(cbQuincena.Value - 1).Item("inicioQuin")), CStr(dt1.Rows(cbQuincena.Value - 1).Item("finQuin"))
+)
         TextBoxX4.Text = dt.Rows(0).Item("cupo")
         TextBoxX5.Text = dt.Rows(0).Item("ingresado")
         TextBoxX7.Text = dt.Rows(0).Item("quincena")

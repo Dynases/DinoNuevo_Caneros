@@ -369,7 +369,7 @@ Public Class F0_TraspasoCupos
             ToastNotification.Show(Me, "NO PUEDE TRANSFERIR UN CUPO MAYOR AL CUPO LIBRE DE TRANSFERENCIA".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             _Error = False
         End If
-        If DoubleInput1.Value = 0 Or DoubleInput2.Value = 0 Or DoubleInput3.Value = 0 Or DoubleInput4.Value = 0 Then
+        If DoubleInput1.Value = 0 Or DoubleInput2.Value = 0 Or DoubleInput3.Value = 0 Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "PRIMERO DEBE PRESIONAR EN TRASPASO".ToUpper, img, 10000, eToastGlowColor.Red, eToastPosition.BottomCenter)
             _Error = False

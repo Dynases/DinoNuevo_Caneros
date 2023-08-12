@@ -2025,6 +2025,8 @@ Public Class F0_RegistroBoleta
         'lblFecha.Text = DateTime.Now.ToLongDateString()
     End Sub
 
+
+
     Private Sub TaraNuevo()
         Dim frm As New F_ClienteNuevo
         Dim dt As DataTable
