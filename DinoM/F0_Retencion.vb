@@ -186,7 +186,8 @@ Public Class F0_Retenciones
         cbQuincena.ReadOnly = True
         cbGestion.ReadOnly = True
         TextBoxX3.ReadOnly = True
-
+        TextBoxX8.ReadOnly = True
+        TextBoxX9.ReadOnly = True
         tbFechaVenta.Enabled = False
 
         txtEstado.ReadOnly = True
@@ -232,7 +233,7 @@ Public Class F0_Retenciones
         btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnGrabar.Enabled = True
-
+        SwitchButton1.IsReadOnly = False
     End Sub
     Private Sub _prhabilitar()
 
@@ -710,6 +711,14 @@ Public Class F0_Retenciones
             .Caption = "Capital"
             .AggregateFunction = AggregateFunction.Sum
         End With
+        With grdetalle.RootTable.Columns("capital1")
+            .Width = 110
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
+            .FormatString = "0.00"
+            .Caption = "Capital"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
         With grdetalle.RootTable.Columns("aporte")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -718,7 +727,15 @@ Public Class F0_Retenciones
             .Caption = "Aporte"
             .AggregateFunction = AggregateFunction.Sum
         End With
-        With grdetalle.RootTable.Columns("aporteDieselPropio")
+        With grdetalle.RootTable.Columns("aporte1")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
+            .FormatString = "0.00"
+            .Caption = "Aporte"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grdetalle.RootTable.Columns("aporteDiesel")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
@@ -726,7 +743,14 @@ Public Class F0_Retenciones
             .Caption = "Aporte Diesel"
             .AggregateFunction = AggregateFunction.Sum
         End With
-
+        With grdetalle.RootTable.Columns("aporteDiesel1")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
+            .FormatString = "0.00"
+            .Caption = "Aporte Diesel"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
         With grdetalle.RootTable.Columns("deuda")
             .Width = 90
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -1575,20 +1599,20 @@ Public Class F0_Retenciones
                 End If
 
             Else
-                    res = False
+                res = False
             End If
             If res Then
-                    'res = P_fnGrabarFacturarTFV001(numi)
-                    'Emite factura
+                'res = P_fnGrabarFacturarTFV001(numi)
+                'Emite factura
 
-                    '_Limpiar()
-                    _prCargarVenta()
-
-
-                    _prSalir()
+                '_Limpiar()
+                _prCargarVenta()
 
 
-                    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                _prSalir()
+
+
+                Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                 ToastNotification.Show(Me, "Código de " + tipo.ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
                                                   img, 2000,
                                                   eToastGlowColor.Green,
@@ -1599,8 +1623,8 @@ Public Class F0_Retenciones
 
                 Table_Producto = Nothing
 
-                Else
-                    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
                 ToastNotification.Show(Me, "La " + tipo + " no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
             End If
@@ -1644,10 +1668,10 @@ Public Class F0_Retenciones
             _prInhabiliitar()
             Modificar = False
             If grVentas.RowCount > 0 Then
-                    _prMostrarRegistro(0)
+                _prMostrarRegistro(0)
 
-                End If
-            Else
+            End If
+        Else
             Me.Close()
             '_modulo.Select()
         End If
@@ -1814,7 +1838,7 @@ Public Class F0_Retenciones
                 Dim doctoprint As New System.Drawing.Printing.PrintDocument()
                 doctoprint.PrinterSettings.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
                 Dim rawKind As Integer
-                For c = 0 To doctoPrint.PrinterSettings.PaperSizes.Count - 1
+                For c = 0 To doctoprint.PrinterSettings.PaperSizes.Count - 1
                     If doctoprint.PrinterSettings.PaperSizes(c).PaperName = "factura" Then
                         rawKind = CInt(doctoprint.PrinterSettings.PaperSizes(c).GetType().GetField("kind", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic).GetValue(doctoprint.PrinterSettings.PaperSizes(c)))
                         Exit For
@@ -1824,7 +1848,7 @@ Public Class F0_Retenciones
 
                 objrep.PrintToPrinter(1, True, 0, 0)
 
-                    End If
+            End If
         End If
     End Sub
 
@@ -2154,37 +2178,67 @@ Public Class F0_Retenciones
 
     End Sub
 
+    Private Sub AjustarGrid()
+        For pos As Integer = 0 To grdetalle.RowCount - 1 Step 1
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") + CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel1")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel1") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") + CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte1")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte1") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") + CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital1")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital1") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cobrar") < CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel"), CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cobrar") - CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cobrar"), 0.00)
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cobrar") > CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel"), IIf((CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cobrar") - CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel")) > CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte"), 0.00, CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") - CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cobrar") - CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel1")), CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel")) 'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cobrar") - CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cobrar"), 0.00)
+            Dim capNue As Double
+            If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > Convert.ToDecimal(grdetalle.GetValue("aporteDiesel")) Then
+                If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - Convert.ToDecimal(grdetalle.GetValue("aporteDiesel"))) > Convert.ToDecimal(grdetalle.GetValue("aporte")) Then
+                    If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - Convert.ToDecimal(grdetalle.GetValue("aporteDiesel"))) - Convert.ToDecimal(grdetalle.GetValue("aporte"))) > Convert.ToDecimal(grdetalle.GetValue("capital")) Then
+                        capNue = 0.00
+                    Else
+                        capNue = Convert.ToDecimal(grdetalle.GetValue("capital")) - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - Convert.ToDecimal(grdetalle.GetValue("aporteDiesel"))) - Convert.ToDecimal(grdetalle.GetValue("aporte")))
+                    End If
+                Else
+                    capNue = Convert.ToDecimal(grdetalle.GetValue("capital"))
+                End If
+            Else
+                capNue = Convert.ToDecimal(grdetalle.GetValue("capital"))
+            End If
 
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capNue
+        Next
+    End Sub
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
 
         If (e.KeyData = Keys.Enter And grdetalle.Row >= 0 And
                   grdetalle.Col = grdetalle.RootTable.Columns("cobrar").Index) Then
-
             Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
+
+
             Dim aporteDiesel As Decimal = Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))
             Dim aporte As Decimal = Convert.ToDouble(grdetalle.GetValue("aporte1"))
             Dim capital As Decimal = Convert.ToDouble(grdetalle.GetValue("capital1"))
             Dim capitalNuevo As Decimal
             '_fnObtenerFilaDetalle(pos, lin)
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(grdetalle.GetValue("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
 
-            If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
-                If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
-                    If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
-                        capitalNuevo = 0.00
+                If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
+                    If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
+                        If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
+                            capitalNuevo = 0.00
+                        Else
+                            capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
+                        End If
                     Else
-                        capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
+                        capitalNuevo = capital
                     End If
                 Else
                     capitalNuevo = capital
                 End If
-            Else
-                capitalNuevo = capital
-            End If
 
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
-            ActualizarTotales()
+                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
+
+
+                ActualizarTotales()
             grdetalle.Row = grdetalle.Row + 1
             ActualizarTotales()
             grdetalle.Row = grdetalle.Row - 1
@@ -2480,8 +2534,9 @@ salirIf:
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
         _prhabilitarModificar()
         Modificar = True
-        _prCargarDetalleVenta2(txtEstado.Text)
 
+        _prCargarDetalleVenta2(txtEstado.Text)
+        AjustarGrid()
         'Try
 
         '    Dim dt As DataTable
@@ -2761,11 +2816,13 @@ salirIf:
         End If
     End Sub
 
-    Private Sub TextBoxX3_TextChanged(sender As Object, e As EventArgs)
+    Private Sub TextBoxX3_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX3.TextChanged
         If btnGrabar.Enabled = True Then
-            If TextBoxX7.Text <> "" Then
-                TextBoxX8.Text = CDbl(TextBoxX7.Text) * IIf(TextBoxX3.Text = "", 0, CDbl(TextBoxX3.Text))
-                TextBoxX9.Text = CDbl(TextBoxX7.Text) * IIf(TextBoxX3.Text = "", 0, CDbl(TextBoxX3.Text)) * 6.96
+            If TextBoxX3.Text <> "" Then
+                If TextBoxX7.Text <> "" Then
+                    TextBoxX8.Text = CDbl(TextBoxX7.Text) * IIf(TextBoxX3.Text = "", 0, CDbl(TextBoxX3.Text))
+                    TextBoxX9.Text = CDbl(TextBoxX7.Text) * IIf(TextBoxX3.Text = "", 0, CDbl(TextBoxX3.Text)) * 6.96
+                End If
             End If
         End If
     End Sub
@@ -2778,11 +2835,12 @@ salirIf:
     End Sub
 
     Private Sub cbQuincena_ValueChanged(sender As Object, e As EventArgs) Handles cbQuincena.ValueChanged
-        If SwitchButton1.Value = True Then
-            Dim dt As DataTable = cbQuincena.DataSource
-            tbFechaVenta.Value = dt.Rows(cbQuincena.Value - 1).Item("finQuin")
+        If btnNuevo.Enabled = False Then
+            If SwitchButton1.Value = True Then
+                Dim dt As DataTable = cbQuincena.DataSource
+                tbFechaVenta.Value = dt.Rows(cbQuincena.Value - 1).Item("finQuin")
+            End If
         End If
-
     End Sub
 
     Private Sub cbGestion_ValueChanged(sender As Object, e As EventArgs)

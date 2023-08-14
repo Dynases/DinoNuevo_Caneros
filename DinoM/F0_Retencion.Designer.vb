@@ -39,6 +39,9 @@ Partial Class F0_Retenciones
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
+        Me.tbCodCanero = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbCanero = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbGestion = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbQuincena = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbId = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -114,9 +117,6 @@ Partial Class F0_Retenciones
         Me.tbTotalR = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbTComb = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX20 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
-        Me.tbCodCanero = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbCanero = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -576,6 +576,54 @@ Partial Class F0_Retenciones
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1315, 57)
         Me.Panel2.TabIndex = 0
+        '
+        'LabelX19
+        '
+        Me.LabelX19.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX19.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX19.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX19.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX19.Location = New System.Drawing.Point(429, 28)
+        Me.LabelX19.Name = "LabelX19"
+        Me.LabelX19.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX19.Size = New System.Drawing.Size(60, 23)
+        Me.LabelX19.TabIndex = 407
+        Me.LabelX19.Text = "Cañero:"
+        '
+        'tbCodCanero
+        '
+        Me.tbCodCanero.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbCodCanero.Border.Class = "TextBoxBorder"
+        Me.tbCodCanero.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodCanero.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodCanero.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodCanero.Location = New System.Drawing.Point(499, 30)
+        Me.tbCodCanero.Name = "tbCodCanero"
+        Me.tbCodCanero.PreventEnterBeep = True
+        Me.tbCodCanero.Size = New System.Drawing.Size(50, 21)
+        Me.tbCodCanero.TabIndex = 406
+        '
+        'tbCanero
+        '
+        Me.tbCanero.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbCanero.Border.Class = "TextBoxBorder"
+        Me.tbCanero.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCanero.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCanero.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCanero.Location = New System.Drawing.Point(557, 31)
+        Me.tbCanero.Name = "tbCanero"
+        Me.tbCanero.PreventEnterBeep = True
+        Me.tbCanero.Size = New System.Drawing.Size(345, 21)
+        Me.tbCanero.TabIndex = 405
         '
         'cbGestion
         '
@@ -1217,7 +1265,7 @@ Partial Class F0_Retenciones
         Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX8.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX8.Location = New System.Drawing.Point(790, 3)
+        Me.LabelX8.Location = New System.Drawing.Point(651, 3)
         Me.LabelX8.Name = "LabelX8"
         Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX8.Size = New System.Drawing.Size(57, 16)
@@ -1250,7 +1298,7 @@ Partial Class F0_Retenciones
         Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX7.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX7.Location = New System.Drawing.Point(651, 3)
+        Me.LabelX7.Location = New System.Drawing.Point(790, 3)
         Me.LabelX7.Name = "LabelX7"
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX7.Size = New System.Drawing.Size(50, 16)
@@ -1946,56 +1994,6 @@ Partial Class F0_Retenciones
         Me.LabelX20.TabIndex = 357
         Me.LabelX20.Text = "Combust."
         Me.LabelX20.TextAlignment = System.Drawing.StringAlignment.Center
-        '
-        'LabelX19
-        '
-        Me.LabelX19.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX19.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX19.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX19.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX19.Location = New System.Drawing.Point(429, 28)
-        Me.LabelX19.Name = "LabelX19"
-        Me.LabelX19.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX19.Size = New System.Drawing.Size(60, 23)
-        Me.LabelX19.TabIndex = 407
-        Me.LabelX19.Text = "Cañero:"
-        '
-        'tbCodCanero
-        '
-        Me.tbCodCanero.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.tbCodCanero.Border.Class = "TextBoxBorder"
-        Me.tbCodCanero.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCodCanero.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodCanero.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCodCanero.Location = New System.Drawing.Point(499, 30)
-        Me.tbCodCanero.Name = "tbCodCanero"
-        Me.tbCodCanero.PreventEnterBeep = True
-        Me.tbCodCanero.Size = New System.Drawing.Size(50, 21)
-        Me.tbCodCanero.TabIndex = 406
-        '
-        'tbCanero
-        '
-        Me.tbCanero.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbCanero.BackColor = System.Drawing.Color.White
-        '
-        '
-        '
-        Me.tbCanero.Border.Class = "TextBoxBorder"
-        Me.tbCanero.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCanero.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCanero.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCanero.Location = New System.Drawing.Point(557, 31)
-        Me.tbCanero.Name = "tbCanero"
-        Me.tbCanero.PreventEnterBeep = True
-        Me.tbCanero.Size = New System.Drawing.Size(345, 21)
-        Me.tbCanero.TabIndex = 405
         '
         'F0_Retenciones
         '
