@@ -8479,13 +8479,23 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 #End Region
 
 #Region "Retencion"
+    Public Shared Function L_fnRetencion(_numi As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 25))
+        _listParam.Add(New Datos.DParametro("@trid", _numi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnGrabarRetencion(fecci As String, quincena As Integer, gestion As Integer, inst As Integer, canero As Integer, factor As Decimal, cupo As Decimal,
                                            totalIng As Double, porcentaje As Double,
                                            totalIngQuin As Double, RetBs As Double,
                                            RetSus As Double, TComb As Double, RComb As Double, TInsu As Double, RInsu As Double,
                                            TRest As Double, RRest As Double, TCont As Double, RCont As Double, TSho As Double, RSho As Double,
-                                           TOtSu As Double, ROtSu As Double, TConv As Double, RConv As Double, TotalD As Double, TotalR As Double,
+                                           TOtSu As Double, ROtSu As Double, TConv As Double, RConv As Double, ROprevConv As Double, TotalD As Double, TotalR As Double,
                                            alm As Integer, usuario As Integer, CheckGrupo As Integer, detalle As DataTable, estRetencion As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
@@ -8519,6 +8529,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@trROtSu", ROtSu))
         _listParam.Add(New Datos.DParametro("@trTConv", TConv))
         _listParam.Add(New Datos.DParametro("@trRConv", RConv))
+        _listParam.Add(New Datos.DParametro("@trRProvConv", ROprevConv))
         _listParam.Add(New Datos.DParametro("@trTotalD", TotalD))
         _listParam.Add(New Datos.DParametro("@trTotalR", TotalR))
         _listParam.Add(New Datos.DParametro("@tralm", alm))

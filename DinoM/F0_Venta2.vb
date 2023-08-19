@@ -5104,7 +5104,7 @@ salirIf:
         End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
         Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 " + " and fvaalm=" + Convert.ToString(cbSucursal.Value)) ''+ "fvaalm= 1") '' 
-        NumFactura = maxNFac + 1
+        NumFactura = 425
 
         Emenvio.nitEmisor = 1028395023
         Emenvio.razonSocialEmisor = "ASOCIACION GREMIAL AGROPECUARIA UNIÓN DE CAÑEROS GUABIRA"

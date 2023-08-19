@@ -33,9 +33,7 @@ Partial Class F0_Retenciones
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.grVentas = New Janus.Windows.GridEX.GridEX()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
-        Me.btnDuplicar = New DevComponents.DotNetBar.ButtonX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.btnBitacora = New DevComponents.DotNetBar.ButtonX()
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -117,6 +115,9 @@ Partial Class F0_Retenciones
         Me.tbTotalR = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbTComb = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX20 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
+        Me.tbtprovConv = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbrProvConv = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -243,14 +244,9 @@ Partial Class F0_Retenciones
         '
         'PanelToolBar2
         '
-        Me.PanelToolBar2.Controls.Add(Me.btnDuplicar)
-        Me.PanelToolBar2.Controls.Add(Me.btnBitacora)
         Me.PanelToolBar2.Location = New System.Drawing.Point(1094, 0)
         Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelToolBar2.Size = New System.Drawing.Size(260, 72)
-        Me.PanelToolBar2.Controls.SetChildIndex(Me.btnImprimir, 0)
-        Me.PanelToolBar2.Controls.SetChildIndex(Me.btnBitacora, 0)
-        Me.PanelToolBar2.Controls.SetChildIndex(Me.btnDuplicar, 0)
         '
         'PanelPrincipal
         '
@@ -265,7 +261,6 @@ Partial Class F0_Retenciones
         '
         Me.btnImprimir.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImprimir.Size = New System.Drawing.Size(260, 72)
-        Me.btnImprimir.Visible = False
         '
         'btnUltimo
         '
@@ -439,46 +434,10 @@ Partial Class F0_Retenciones
         '
         Me.PrintDialog1.UseEXDialog = True
         '
-        'btnDuplicar
-        '
-        Me.btnDuplicar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnDuplicar.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnDuplicar.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnDuplicar.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDuplicar.Image = Global.DinoM.My.Resources.Resources._14
-        Me.btnDuplicar.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnDuplicar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnDuplicar.Location = New System.Drawing.Point(180, 0)
-        Me.btnDuplicar.Name = "btnDuplicar"
-        Me.btnDuplicar.Size = New System.Drawing.Size(80, 72)
-        Me.btnDuplicar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnDuplicar.TabIndex = 13
-        Me.btnDuplicar.Text = "DUPLICAR"
-        Me.btnDuplicar.TextColor = System.Drawing.Color.White
-        Me.btnDuplicar.Visible = False
-        '
         'Timer1
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
-        '
-        'btnBitacora
-        '
-        Me.btnBitacora.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnBitacora.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnBitacora.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnBitacora.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnBitacora.Image = Global.DinoM.My.Resources.Resources.printee
-        Me.btnBitacora.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnBitacora.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnBitacora.Location = New System.Drawing.Point(0, 0)
-        Me.btnBitacora.Name = "btnBitacora"
-        Me.btnBitacora.Size = New System.Drawing.Size(88, 72)
-        Me.btnBitacora.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnBitacora.TabIndex = 18
-        Me.btnBitacora.Text = "ORDEN DE RETIRO"
-        Me.btnBitacora.TextColor = System.Drawing.Color.White
-        Me.btnBitacora.Visible = False
         '
         'SwDescuentoProveedor
         '
@@ -1139,7 +1098,7 @@ Partial Class F0_Retenciones
         Me.GroupPanel1.Dock = System.Windows.Forms.DockStyle.Left
         Me.GroupPanel1.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(500, 212)
+        Me.GroupPanel1.Size = New System.Drawing.Size(550, 212)
         '
         '
         '
@@ -1177,12 +1136,12 @@ Partial Class F0_Retenciones
         Me.grCanero.Dock = System.Windows.Forms.DockStyle.Right
         Me.grCanero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grCanero.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.grCanero.Location = New System.Drawing.Point(0, 0)
+        Me.grCanero.Location = New System.Drawing.Point(-4, 0)
         Me.grCanero.Name = "grCanero"
         Me.grCanero.NewRowEnterKeyBehavior = Janus.Windows.GridEX.NewRowEnterKeyBehavior.None
         Me.grCanero.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grCanero.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grCanero.Size = New System.Drawing.Size(494, 189)
+        Me.grCanero.Size = New System.Drawing.Size(548, 189)
         Me.grCanero.TabIndex = 4
         Me.grCanero.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -1498,7 +1457,7 @@ Partial Class F0_Retenciones
         '
         Me.gpDetalleVenta.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.gpDetalleVenta.TabIndex = 3
-        Me.gpDetalleVenta.Text = "DETALLE DE LA VENTA"
+        Me.gpDetalleVenta.Text = "DETALLE "
         '
         'Panel5
         '
@@ -1538,6 +1497,9 @@ Partial Class F0_Retenciones
         Me.GroupCobranza.BackColor = System.Drawing.Color.White
         Me.GroupCobranza.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupCobranza.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupCobranza.Controls.Add(Me.LabelX22)
+        Me.GroupCobranza.Controls.Add(Me.tbtprovConv)
+        Me.GroupCobranza.Controls.Add(Me.tbrProvConv)
         Me.GroupCobranza.Controls.Add(Me.LabelX15)
         Me.GroupCobranza.Controls.Add(Me.LabelX14)
         Me.GroupCobranza.Controls.Add(Me.LabelX17)
@@ -1661,7 +1623,7 @@ Partial Class F0_Retenciones
         Me.LabelX16.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX16.Font = New System.Drawing.Font("Georgia", 10.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX16.ForeColor = System.Drawing.Color.White
-        Me.LabelX16.Location = New System.Drawing.Point(110, 419)
+        Me.LabelX16.Location = New System.Drawing.Point(110, 409)
         Me.LabelX16.Name = "LabelX16"
         Me.LabelX16.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX16.Size = New System.Drawing.Size(78, 18)
@@ -1915,7 +1877,7 @@ Partial Class F0_Retenciones
         '
         Me.tbTConv.Border.Class = "TextBoxBorder"
         Me.tbTConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbTConv.Location = New System.Drawing.Point(5, 419)
+        Me.tbTConv.Location = New System.Drawing.Point(5, 409)
         Me.tbTConv.Name = "tbTConv"
         Me.tbTConv.PreventEnterBeep = True
         Me.tbTConv.ReadOnly = True
@@ -1929,7 +1891,7 @@ Partial Class F0_Retenciones
         '
         Me.tbRConv.Border.Class = "TextBoxBorder"
         Me.tbRConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbRConv.Location = New System.Drawing.Point(206, 414)
+        Me.tbRConv.Location = New System.Drawing.Point(206, 404)
         Me.tbRConv.Name = "tbRConv"
         Me.tbRConv.PreventEnterBeep = True
         Me.tbRConv.ReadOnly = True
@@ -1995,6 +1957,51 @@ Partial Class F0_Retenciones
         Me.LabelX20.Text = "Combust."
         Me.LabelX20.TextAlignment = System.Drawing.StringAlignment.Center
         '
+        'LabelX22
+        '
+        Me.LabelX22.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX22.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX22.Font = New System.Drawing.Font("Georgia", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX22.ForeColor = System.Drawing.Color.White
+        Me.LabelX22.Location = New System.Drawing.Point(110, 443)
+        Me.LabelX22.Name = "LabelX22"
+        Me.LabelX22.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX22.Size = New System.Drawing.Size(78, 18)
+        Me.LabelX22.TabIndex = 388
+        Me.LabelX22.Text = "Prov.Conv"
+        Me.LabelX22.TextAlignment = System.Drawing.StringAlignment.Center
+        '
+        'tbtprovConv
+        '
+        '
+        '
+        '
+        Me.tbtprovConv.Border.Class = "TextBoxBorder"
+        Me.tbtprovConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbtprovConv.Location = New System.Drawing.Point(5, 443)
+        Me.tbtprovConv.Name = "tbtprovConv"
+        Me.tbtprovConv.PreventEnterBeep = True
+        Me.tbtprovConv.ReadOnly = True
+        Me.tbtprovConv.Size = New System.Drawing.Size(100, 22)
+        Me.tbtprovConv.TabIndex = 387
+        '
+        'tbrProvConv
+        '
+        '
+        '
+        '
+        Me.tbrProvConv.Border.Class = "TextBoxBorder"
+        Me.tbrProvConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbrProvConv.Location = New System.Drawing.Point(206, 438)
+        Me.tbrProvConv.Name = "tbrProvConv"
+        Me.tbrProvConv.PreventEnterBeep = True
+        Me.tbrProvConv.ReadOnly = True
+        Me.tbrProvConv.Size = New System.Drawing.Size(100, 22)
+        Me.tbrProvConv.TabIndex = 386
+        '
         'F0_Retenciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2056,9 +2063,7 @@ Partial Class F0_Retenciones
     Friend WithEvents Panel6 As Panel
     Friend WithEvents grVentas As Janus.Windows.GridEX.GridEX
     Friend WithEvents PrintDialog1 As PrintDialog
-    Protected WithEvents btnDuplicar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Timer1 As Timer
-    Protected WithEvents btnBitacora As DevComponents.DotNetBar.ButtonX
     Friend WithEvents SwDescuentoProveedor As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents PanelFondoDetalle As Panel
     Friend WithEvents GroupPanelFactura2 As DevComponents.DotNetBar.Controls.GroupPanel
@@ -2140,4 +2145,7 @@ Partial Class F0_Retenciones
     Friend WithEvents LabelX19 As DevComponents.DotNetBar.LabelX
     Friend WithEvents tbCodCanero As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbCanero As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX22 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbtprovConv As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbrProvConv As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

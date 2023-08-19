@@ -24,12 +24,18 @@ Public Class F1_Liquidaciones
     End Sub
     Private Sub _prCargarQuincena(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_fnListarQuincena(1)
+        dt = L_fnListarQuincena(cbGestion.Value)
         With mCombo
             .DropDownList.Columns.Clear()
 
             .DropDownList.Columns.Add("quincena").Width = 100
             .DropDownList.Columns("quincena").Caption = "QUINCENA"
+            .DropDownList.Columns.Add("inicioQuin").Width = 105
+            .DropDownList.Columns("inicioQuin").Caption = "INICIO"
+            .DropDownList.Columns.Add("finQuin").Width = 105
+            .DropDownList.Columns("finQuin").Caption = "FIN"
+            .DropDownList.Columns.Add("gestion").Width = 95
+            .DropDownList.Columns("gestion").Caption = "GESTION"
             .ValueMember = "quincena"
             .DisplayMember = "quincena"
             .DataSource = dt
@@ -298,6 +304,10 @@ Public Class F1_Liquidaciones
     End Sub
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
         Guardar()
+    End Sub
+
+    Private Sub cbGestion_ValueChanged(sender As Object, e As EventArgs) Handles cbGestion.ValueChanged
+        _prCargarQuincena(cbQuincena)
     End Sub
 
     Private Sub tbCanero_TextChanged(sender As Object, e As EventArgs) Handles tbCanero.TextChanged
