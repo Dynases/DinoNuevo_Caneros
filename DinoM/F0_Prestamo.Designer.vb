@@ -64,8 +64,8 @@ Partial Class F0_Prestamo
         Me.codIns = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.codMon = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbfecha = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.CachedKardexClienteRes1 = New DinoM.CachedKardexClienteRes()
         Me.grPrestamo = New Janus.Windows.GridEX.GridEX()
+        Me.CachedKardexClienteRes1 = New DinoM.CachedKardexClienteRes()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -154,6 +154,9 @@ Partial Class F0_Prestamo
         '
         '
         'btnGrabar
+        '
+        '
+        'btnEliminar
         '
         '
         'btnModificar

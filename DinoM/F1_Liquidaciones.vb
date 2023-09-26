@@ -218,6 +218,7 @@ Public Class F1_Liquidaciones
         tbFecha.Value = Date.Now
         _prCargarComboGestion(cbGestion)
         _prCargarQuincena(cbQuincena)
+        btnGrabar.Visible = False
         btnGrabar.Enabled = False
         ButtonX1.Enabled = True
 
@@ -287,13 +288,9 @@ Public Class F1_Liquidaciones
         End If
         Return dtBuscador
     End Function
-    Public Overrides Function _PMOGrabarRegistro() As Boolean
-        Dim res As Boolean
 
-        Return res
-    End Function
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
-
+        Guardar()
     End Sub
     Private Sub Guardar()
         If ValidarCampos() = False Then
@@ -302,12 +299,14 @@ Public Class F1_Liquidaciones
             GuardarNuevo()
         End If
     End Sub
-    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
-        Guardar()
-    End Sub
+
 
     Private Sub cbGestion_ValueChanged(sender As Object, e As EventArgs) Handles cbGestion.ValueChanged
         _prCargarQuincena(cbQuincena)
+    End Sub
+
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+        Guardar()
     End Sub
 
     Private Sub tbCanero_TextChanged(sender As Object, e As EventArgs) Handles tbCanero.TextChanged

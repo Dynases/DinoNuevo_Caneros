@@ -1765,50 +1765,71 @@ Public Class F0_VentaCombOtroSurtidor
     End Sub
     Dim fechaOriginal As String
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        fechaOriginal = tbFechaVenta.Text
-        _prhabilitar()
-        Dim dt As DataTable
-        dt = L_fnListarClientesVentas(_CodCliente)
-        _CodCaneroUcg = dt.Rows(0).Item(1)
+        If (L_fnVerificarCObros(tbCodigo.Text, cbSucursal.Value)) Then
 
-        _CodEmpleado = dt.Rows(0).Item(8)
-        btnNuevo.Enabled = False
-        btnModificar.Enabled = False
-        btnEliminar.Enabled = False
-        btnGrabar.Enabled = True
+            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+            ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+            Exit Sub
+        Else
+            fechaOriginal = tbFechaVenta.Text
+            _prhabilitar()
+            Dim dt As DataTable
+            dt = L_fnListarClientesVentas(_CodCliente)
+            _CodCaneroUcg = dt.Rows(0).Item(1)
+
+            _CodEmpleado = dt.Rows(0).Item(8)
+            btnNuevo.Enabled = False
+            btnModificar.Enabled = False
+            btnEliminar.Enabled = False
+            btnGrabar.Enabled = True
+        End If
+
     End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-        If (tbCodigo.Text <> String.Empty) Then
-            Dim result As DialogResult = MessageBox.Show("¿Está seguro de ANULAR el prestamo de Diesel con número de orden:" + tbCodigo.Text + "?", "PRESTAMO DIESEL OTROS SURTIDORES", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+        If (L_fnVerificarCObros(tbCodigo.Text, cbSucursal.Value)) Then
 
-            If result = DialogResult.OK Then
-                Dim mensajeError As String = ""
-                Dim res As Boolean = L_fnEliminarVentaOtroSurtidor(tbCodigo.Text, mensajeError, Programa)
-                If res Then
-                    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                    ToastNotification.Show(Me, "Código de Prestamo de Diesel ".ToUpper + tbCodigo.Text + " anulado con Exito.".ToUpper,
-                                              img, 2000,
-                                              eToastGlowColor.Green,
-                                              eToastPosition.TopCenter)
+            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+            ToastNotification.Show(Me, "No se puede anular la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+            Exit Sub
+        Else
+            If (tbCodigo.Text <> String.Empty) Then
+                Dim result As DialogResult = MessageBox.Show("¿Está seguro de ANULAR el prestamo de Diesel con número de orden:" + tbCodigo.Text + "?", "PRESTAMO DIESEL OTROS SURTIDORES", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
 
-                    _prCargarVenta()
-                    Dim _pos As Integer = grVentas.Row
-                    If grVentas.RowCount > 0 Then
-                        _pos = grVentas.RowCount - 1
-                        ''  _prMostrarRegistro(_pos)
-                        grVentas.Row = _pos
+                If result = DialogResult.OK Then
+                    Dim mensajeError As String = ""
+                    Dim res As Boolean = L_fnEliminarVentaOtroSurtidor(tbCodigo.Text, mensajeError, Programa)
+                    If res Then
+                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                        ToastNotification.Show(Me, "Código de Prestamo de Diesel ".ToUpper + tbCodigo.Text + " anulado con Exito.".ToUpper,
+                                                  img, 2000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+
+                        _prCargarVenta()
+                        Dim _pos As Integer = grVentas.Row
+                        If grVentas.RowCount > 0 Then
+                            _pos = grVentas.RowCount - 1
+                            ''  _prMostrarRegistro(_pos)
+                            grVentas.Row = _pos
+                        End If
+
+                    Else
+                        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                        ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                     End If
-
-                Else
-                    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                    ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                ElseIf result = DialogResult.Cancel Then
+                    ' Código para ejecutar si se hace clic en "Cancelar"
                 End If
-            ElseIf result = DialogResult.Cancel Then
-                ' Código para ejecutar si se hace clic en "Cancelar"
+
+
             End If
-
-
         End If
     End Sub
 

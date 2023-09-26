@@ -49,7 +49,7 @@ Public Class F0_Retenciones
         MSuperTabControl.SelectedTabIndex = 0
         'Me.WindowState = FormWindowState.Maximized
 
-        _prValidarLote()
+        '_prValidarLote()
 
 
         'lbTipoMoneda.Visible = False
@@ -65,7 +65,7 @@ Public Class F0_Retenciones
         Me.Icon = ico
         _prAsignarPermisos()
         P_prCargarParametro()
-        _prValidadFactura()
+        '_prValidadFactura()
         _prCargarNameLabel()
         _prCargarComboGestion(cbGestion)
 
@@ -369,12 +369,13 @@ Public Class F0_Retenciones
     Public Sub _prMostrarRegistro(_N As Integer)
 
         With grVentas
-            tbId.Text = .GetValue("trid")
+
             If .GetValue("trRetCob") = 1 Then
                 SwitchButton1.Value = True
             Else
                 SwitchButton1.Value = False
             End If
+            tbId.Text = .GetValue("trid").ToString
             cbQuincena.Text = .GetValue("trquin").ToString
             cbGestion.Text = .GetValue("trges").ToString
             TextBoxX3.Text = .GetValue("trfac").ToString
@@ -468,20 +469,6 @@ Public Class F0_Retenciones
             .Width = 90
             .Visible = False
         End With
-        'If _codeBar = 2 Then
-        '    With grdetalle.RootTable.Columns("yfcbarra")
-        '        .Caption = "Cod.Barra"
-        '        .Width = 100
-        '        .Visible = True
-
-        '    End With
-        'Else
-        '    With grdetalle.RootTable.Columns("yfcbarra")
-        '        .Caption = "Cod.Barra"
-        '        .Width = 100
-        '        .Visible = False
-        '    End With
-        'End If
 
         With grdetalle.RootTable.Columns("ydrazonsocial")
             .Caption = "Código".ToUpper
@@ -526,7 +513,7 @@ Public Class F0_Retenciones
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = False
             .FormatString = "0.00"
-            .Caption = "Capital"
+            .Caption = "Capital1"
             .AggregateFunction = AggregateFunction.Sum
             .TotalFormatString = "0.00"
         End With
@@ -544,7 +531,7 @@ Public Class F0_Retenciones
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = False
             .FormatString = "0.00"
-            .Caption = "Aporte"
+            .Caption = "Aporte1"
             .AggregateFunction = AggregateFunction.Sum
             .TotalFormatString = "0.00"
         End With
@@ -575,6 +562,15 @@ Public Class F0_Retenciones
             .AggregateFunction = AggregateFunction.Sum
             .TotalFormatString = "0.00"
         End With
+        With grdetalle.RootTable.Columns("amortizacion")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Amortizacion"
+            .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
+        End With
         With grdetalle.RootTable.Columns("saldo")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -588,13 +584,24 @@ Public Class F0_Retenciones
         With grdetalle.RootTable.Columns("saldo1")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Saldo"
             .AggregateFunction = AggregateFunction.Sum
             .TotalFormatString = "0.00"
 
         End With
+        With grdetalle.RootTable.Columns("descApor")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Desc.Aporte"
+            .AggregateFunction = AggregateFunction.Sum
+            .TotalFormatString = "0.00"
+
+        End With
+
         With grdetalle.RootTable.Columns("aporteDiesel")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -766,6 +773,22 @@ Public Class F0_Retenciones
             .Visible = True
             .FormatString = "0.00"
             .Caption = "Deuda"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grdetalle.RootTable.Columns("amortizacion")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Amortizacion"
+            .AggregateFunction = AggregateFunction.Sum
+        End With
+        With grdetalle.RootTable.Columns("descAporte")
+            .Width = 90
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Desc.Aport"
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("cobrar")
@@ -1437,10 +1460,25 @@ Public Class F0_Retenciones
                 End If
             End If
 
+            'If (grdetalle.GetTotal(grdetalle.RootTable.Columns("cobrar"), AggregateFunction.Sum) <= 0 Or grdetalle.GetTotal(grdetalle.RootTable.Columns("descAporte"), AggregateFunction.Sum) <= 0) Then
+            '    Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            '    ToastNotification.Show(Me, "Por Favor Ingrese un monto a cobrar".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            '    Return False
+
+            'End If
+
             If (grdetalle.GetTotal(grdetalle.RootTable.Columns("cobrar"), AggregateFunction.Sum) <= 0) Then
-                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
-                ToastNotification.Show(Me, "Por Favor Ingrese un monto a cobrar".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                Return False
+                If (grdetalle.GetTotal(grdetalle.RootTable.Columns("convenio"), AggregateFunction.Sum) <= 0) Then
+                    If (grdetalle.GetTotal(grdetalle.RootTable.Columns("amortizacion"), AggregateFunction.Sum) <= 0) Then
+                        If (grdetalle.GetTotal(grdetalle.RootTable.Columns("descApor"), AggregateFunction.Sum) <= 0) Then
+                            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                            ToastNotification.Show(Me, "Por Favor Ingrese un monto a cobrar".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                            Return False
+                        End If
+                    End If
+                End If
+
 
             End If
             Return True
@@ -1928,6 +1966,7 @@ Public Class F0_Retenciones
         tbFechaVenta.Enabled = True
         TextBoxX3.Enabled = False
         'CheckGrupo.Enabled = False
+
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         _prSalir()
@@ -2101,19 +2140,30 @@ Public Class F0_Retenciones
                     e.Cancel = True
                 End If
             Else
-                If (e.Column.Index = grdetalle.RootTable.Columns("cobrar").Index) Then
+                If (e.Column.Index = grdetalle.RootTable.Columns("cobrar").Index Or e.Column.Index = grdetalle.RootTable.Columns("descApor").Index) Then
 
                     e.Cancel = False
                     'ActualizarTotales()
 
                 Else
                     e.Cancel = True
+                    If SwitchButton1.Value = True Then
+                        If e.Column.Index = grdetalle.RootTable.Columns("convenio").Index And SwitchButton1.Value = True And grdetalle.GetValue("taalm") = 10016 Then
+                            e.Cancel = False
+                        Else
+                            e.Cancel = True
 
-                    If e.Column.Index = grdetalle.RootTable.Columns("convenio").Index And SwitchButton1.Value = True And grdetalle.GetValue("taalm") = 10016 Then
-                        e.Cancel = False
+                        End If
                     Else
-                        e.Cancel = True
+                        If e.Column.Index = grdetalle.RootTable.Columns("amortizacion").Index Then
+                            e.Cancel = False
+                        Else
+                            e.Cancel = True
+
+                        End If
                     End If
+
+
                 End If
 
 
@@ -2155,49 +2205,442 @@ Public Class F0_Retenciones
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capNue
         Next
     End Sub
+
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
 
-        If (e.KeyData = Keys.Enter And grdetalle.Row >= 0 And
-                  grdetalle.Col = grdetalle.RootTable.Columns("cobrar").Index) Then
-            Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
-
-
-            Dim aporteDiesel As Decimal = Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))
-            Dim aporte As Decimal = Convert.ToDouble(grdetalle.GetValue("aporte1"))
-            Dim capital As Decimal = Convert.ToDouble(grdetalle.GetValue("capital1"))
-            Dim capitalNuevo As Decimal
-            '_fnObtenerFilaDetalle(pos, lin)
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(grdetalle.GetValue("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
-
-            If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
-                If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
-                    If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
-                        capitalNuevo = 0.00
-                    Else
-                        capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
-                    End If
-                Else
-                    capitalNuevo = capital
-                End If
-            Else
-                capitalNuevo = capital
-            End If
-
-            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
-
-
-            ActualizarTotales()
-            grdetalle.Row = grdetalle.Row + 1
-            ActualizarTotales()
-            grdetalle.Row = grdetalle.Row - 1
-            '_HabilitarProductos()
-
-        End If
-
-
         Try
+            If (e.KeyCode = Keys.Enter) Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                    Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
 
+
+                    Dim aporteDiesel As Decimal = Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))
+                    Dim aporte As Decimal = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    Dim capital As Decimal = Convert.ToDouble(grdetalle.GetValue("capital1"))
+                    Dim capitalNuevo As Decimal
+
+                    Dim prueba = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    If ((Convert.ToDecimal(grdetalle.GetValue("descApor")))) <= prueba Then
+
+                        aporte = prueba - ((Convert.ToDecimal(grdetalle.GetValue("descApor"))))
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = aporte
+                    Else
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("descApor") = 0
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "error descuento aporte".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                    End If
+                    '_fnObtenerFilaDetalle(pos, lin)
+                    If (((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) + Convert.ToDecimal(grdetalle.GetValue("cobrar"))) <= (aporte + capital + aporteDiesel) Then
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(grdetalle.GetValue("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+
+                        If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
+                            If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
+                                If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
+                                    capitalNuevo = 0.00
+                                Else
+                                    capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
+                                End If
+                            Else
+                                capitalNuevo = capital
+                            End If
+                        Else
+                            capitalNuevo = capital
+                        End If
+                        If ((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) <= Convert.ToDouble(grdetalle.GetValue("capital1")) Then
+                            capitalNuevo = capitalNuevo - ((Convert.ToDecimal(grdetalle.GetValue("amortizacion"))))
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
+                        Else
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
+                            'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                            ' Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                            'ToastNotification.Show(Me, "la amortizacion no puede ser mayor al capital".ToUpper,
+                            '                              img, 5000,
+                            '                              eToastGlowColor.Green,
+                            '                              eToastPosition.TopCenter)
+                        End If
+
+
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+
+
+
+                    Else
+
+                        If (Convert.ToDecimal(grdetalle.GetValue("amortizacion"))) > Convert.ToDouble(grdetalle.GetValue("capital")) Then
+                            ' CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                        End If
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "el cobro no puede ser mayor al capital mas su aporte".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+                    End If
+
+                    '_HabilitarProductos()
+
+                Else
+
+                End If
+            End If
+            If e.KeyCode = Keys.Up Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                    Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
+
+
+                    Dim aporteDiesel As Decimal = Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))
+                    Dim aporte As Decimal = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    Dim capital As Decimal = Convert.ToDouble(grdetalle.GetValue("capital1"))
+                    Dim capitalNuevo As Decimal
+
+                    Dim prueba = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    If ((Convert.ToDecimal(grdetalle.GetValue("descApor")))) <= prueba Then
+
+                        aporte = prueba - ((Convert.ToDecimal(grdetalle.GetValue("descApor"))))
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = aporte
+                    Else
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("descApor") = 0
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "error descuento aporte".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                    End If
+                    '_fnObtenerFilaDetalle(pos, lin)
+                    If (((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) + Convert.ToDecimal(grdetalle.GetValue("cobrar"))) <= (aporte + capital + aporteDiesel) Then
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(grdetalle.GetValue("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+
+                        If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
+                            If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
+                                If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
+                                    capitalNuevo = 0.00
+                                Else
+                                    capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
+                                End If
+                            Else
+                                capitalNuevo = capital
+                            End If
+                        Else
+                            capitalNuevo = capital
+                        End If
+                        If ((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) <= Convert.ToDouble(grdetalle.GetValue("capital1")) Then
+                            capitalNuevo = capitalNuevo - ((Convert.ToDecimal(grdetalle.GetValue("amortizacion"))))
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
+                        Else
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
+                            'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                            ' Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                            'ToastNotification.Show(Me, "la amortizacion no puede ser mayor al capital".ToUpper,
+                            '                              img, 5000,
+                            '                              eToastGlowColor.Green,
+                            '                              eToastPosition.TopCenter)
+                        End If
+
+
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+
+
+
+                    Else
+
+                        If (Convert.ToDecimal(grdetalle.GetValue("amortizacion"))) > Convert.ToDouble(grdetalle.GetValue("capital")) Then
+                            ' CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                        End If
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "el cobro no puede ser mayor al capital mas su aporte".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+                    End If
+
+                    '_HabilitarProductos()
+
+                Else
+
+                End If
+            ElseIf e.KeyCode = Keys.Down Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                    Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
+
+
+                    Dim aporteDiesel As Decimal = Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))
+                    Dim aporte As Decimal = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    Dim capital As Decimal = Convert.ToDouble(grdetalle.GetValue("capital1"))
+                    Dim capitalNuevo As Decimal
+
+                    Dim prueba = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    If ((Convert.ToDecimal(grdetalle.GetValue("descApor")))) <= prueba Then
+
+                        aporte = prueba - ((Convert.ToDecimal(grdetalle.GetValue("descApor"))))
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = aporte
+                    Else
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("descApor") = 0
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "error descuento aporte".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                    End If
+                    '_fnObtenerFilaDetalle(pos, lin)
+                    If (((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) + Convert.ToDecimal(grdetalle.GetValue("cobrar"))) <= (aporte + capital + aporteDiesel) Then
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(grdetalle.GetValue("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+
+                        If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
+                            If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
+                                If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
+                                    capitalNuevo = 0.00
+                                Else
+                                    capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
+                                End If
+                            Else
+                                capitalNuevo = capital
+                            End If
+                        Else
+                            capitalNuevo = capital
+                        End If
+                        If ((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) <= Convert.ToDouble(grdetalle.GetValue("capital1")) Then
+                            capitalNuevo = capitalNuevo - ((Convert.ToDecimal(grdetalle.GetValue("amortizacion"))))
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
+                        Else
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                            ' Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                            'ToastNotification.Show(Me, "la amortizacion no puede ser mayor al capital".ToUpper,
+                            '                              img, 5000,
+                            '                              eToastGlowColor.Green,
+                            '                              eToastPosition.TopCenter)
+                        End If
+
+
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+
+
+
+                    Else
+
+                        If (Convert.ToDecimal(grdetalle.GetValue("amortizacion"))) > Convert.ToDouble(grdetalle.GetValue("capital")) Then
+                            ' CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                        End If
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "el cobro no puede ser mayor al capital mas su aporte".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+                        grdetalle.RootTable.Columns("cobrar").AggregateFunction = AggregateFunction.Sum
+                    End If
+
+                    '_HabilitarProductos()
+
+                Else
+
+                End If
+            ElseIf e.KeyCode = Keys.Left Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                    Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
+
+
+                    Dim aporteDiesel As Decimal = Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))
+                    Dim aporte As Decimal = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    Dim capital As Decimal = Convert.ToDouble(grdetalle.GetValue("capital1"))
+                    Dim capitalNuevo As Decimal
+
+                    Dim prueba = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    If ((Convert.ToDecimal(grdetalle.GetValue("descApor")))) <= prueba Then
+
+                        aporte = prueba - ((Convert.ToDecimal(grdetalle.GetValue("descApor"))))
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = aporte
+                    Else
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("descApor") = 0
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "error descuento aporte".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                    End If
+                    '_fnObtenerFilaDetalle(pos, lin)
+                    If (((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) + Convert.ToDecimal(grdetalle.GetValue("cobrar"))) <= (aporte + capital + aporteDiesel) Then
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(grdetalle.GetValue("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+
+                        If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
+                            If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
+                                If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
+                                    capitalNuevo = 0.00
+                                Else
+                                    capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
+                                End If
+                            Else
+                                capitalNuevo = capital
+                            End If
+                        Else
+                            capitalNuevo = capital
+                        End If
+                        If ((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) <= Convert.ToDouble(grdetalle.GetValue("capital1")) Then
+                            capitalNuevo = capitalNuevo - ((Convert.ToDecimal(grdetalle.GetValue("amortizacion"))))
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
+                        Else
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                            ' Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                            'ToastNotification.Show(Me, "la amortizacion no puede ser mayor al capital".ToUpper,
+                            '                              img, 5000,
+                            '                              eToastGlowColor.Green,
+                            '                              eToastPosition.TopCenter)
+                        End If
+
+
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+
+
+
+                    Else
+
+                        If (Convert.ToDecimal(grdetalle.GetValue("amortizacion"))) > Convert.ToDouble(grdetalle.GetValue("capital")) Then
+                            ' CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                        End If
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "el cobro no puede ser mayor al capital mas su aporte".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+                        grdetalle.RootTable.Columns("cobrar").AggregateFunction = AggregateFunction.Sum
+                    End If
+
+                    '_HabilitarProductos()
+
+                Else
+
+                End If
+            ElseIf e.KeyCode = Keys.Right Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                    Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
+
+
+                    Dim aporteDiesel As Decimal = Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))
+                    Dim aporte As Decimal = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    Dim capital As Decimal = Convert.ToDouble(grdetalle.GetValue("capital1"))
+                    Dim capitalNuevo As Decimal
+
+                    Dim prueba = Convert.ToDouble(grdetalle.GetValue("aporte1"))
+                    If ((Convert.ToDecimal(grdetalle.GetValue("descApor")))) <= prueba Then
+
+                        aporte = prueba - ((Convert.ToDecimal(grdetalle.GetValue("descApor"))))
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = aporte
+                    Else
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("descApor") = 0
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "error descuento aporte".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                    End If
+                    '_fnObtenerFilaDetalle(pos, lin)
+                    If (((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) + Convert.ToDecimal(grdetalle.GetValue("cobrar"))) <= (aporte + capital + aporteDiesel) Then
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporteDiesel") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(grdetalle.GetValue("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = IIf(Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+
+                        If Convert.ToDecimal(grdetalle.GetValue("cobrar")) > aporteDiesel Then
+                            If (Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) > aporte Then
+                                If ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte) > capital Then
+                                    capitalNuevo = 0.00
+                                Else
+                                    capitalNuevo = capital - ((Convert.ToDecimal(grdetalle.GetValue("cobrar")) - aporteDiesel) - aporte)
+                                End If
+                            Else
+                                capitalNuevo = capital
+                            End If
+                        Else
+                            capitalNuevo = capital
+                        End If
+                        If ((Convert.ToDecimal(grdetalle.GetValue("amortizacion")))) <= Convert.ToDouble(grdetalle.GetValue("capital1")) Then
+                            capitalNuevo = capitalNuevo - ((Convert.ToDecimal(grdetalle.GetValue("amortizacion"))))
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("capital") = capitalNuevo
+                        Else
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                            ' Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                            'ToastNotification.Show(Me, "la amortizacion no puede ser mayor al capital".ToUpper,
+                            '                              img, 5000,
+                            '                              eToastGlowColor.Green,
+                            '                              eToastPosition.TopCenter)
+                        End If
+
+
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+
+
+
+                    Else
+
+                        If (Convert.ToDecimal(grdetalle.GetValue("amortizacion"))) > Convert.ToDouble(grdetalle.GetValue("capital")) Then
+                            ' CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                        End If
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "el cobro no puede ser mayor al capital mas su aporte".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+                        grdetalle.RootTable.Columns("cobrar").AggregateFunction = AggregateFunction.Sum
+                    End If
+
+                    '_HabilitarProductos()
+
+                Else
+
+                End If
+            End If
             If (Not _fnAccesible()) Then
                 Return
             End If
@@ -2596,7 +3039,7 @@ salirIf:
         Dim _pos As Integer = grVentas.Row
         If _pos < grVentas.RowCount - 1 And _pos >= 0 Then
             _pos = grVentas.Row + 1
-            '' _prMostrarRegistro(_pos)
+            '_prMostrarRegistro(_pos)
             grVentas.Row = _pos
         End If
     End Sub
@@ -2605,46 +3048,17 @@ salirIf:
         Dim _pos As Integer = grVentas.Row
         If grVentas.RowCount > 0 Then
             _pos = grVentas.RowCount - 1
-            ''  _prMostrarRegistro(_pos)
+            '_prMostrarRegistro(_pos)
             grVentas.Row = _pos
         End If
     End Sub
 
     Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
-        'If swTipoVenta.Value = True Then
-        '    contabilizarContado()
-        'Else
-        '    contabilizar()
-        '    L_fnGrabarTxCobrar(tbCodigo.Text)
-        'End If
-        'Dim a As Double = CDbl(Convert.ToDouble(tbTotalDo.Text) + tbMdesc.Value)
-        ''Dim b As Double = CDbl(IIf(IsDBNull(tbIce.Value), 0, tbIce.Value)) 'Ya esta calculado el 55% del ICE
-        'Dim b As Double = CDbl(0)
-        'Dim c As Double = CDbl("0")
-        'Dim d As Double = CDbl("0")
-        'Dim ee As Double = a - b - c - d
-        'Dim f As Double = CDbl(tbMdesc.Value)
-        'Dim g As Double = ee - f
-        'Dim h As Double = g * (gi_IVA / 100)
 
-        'Dim res As Boolean = False
-        'Dim _Hora As String = Now.Hour.ToString("D2") + ":" + Now.Minute.ToString("D2")
-
-
-        ''Grabar Nuevo y Modificado en la BDDiconDinoEco en la tabla TPA001
-        'If (tbCodigo.Text = String.Empty) Then
-        '    L_Grabar_TPA001(tbCodigo.Text, dtiFechaFactura.Value.ToString("yyyy/MM/dd"), "2", _CodCliente, TbNombre1.Text, "1",
-        '                "1", CStr(Format(g, "####0.00")), "1", "6.96", "0", "0")
-        'Else
-        '    If (tbCodigo.Text <> String.Empty) Then
-        '        L_Grabar_TPA001(tbCodigo.Text, dtiFechaFactura.Value.ToString("yyyy/MM/dd"), "2", _CodCliente, TbNombre1.Text, "1",
-        '                 "2", CStr(Format(g, "####0.00")), "1", "6.96", "0", "0")
-        '    End If
-        'End If
         Dim _MPos As Integer = grVentas.Row
         If _MPos > 0 And grVentas.RowCount > 0 Then
             _MPos = _MPos - 1
-            ''  _prMostrarRegistro(_MPos)
+            '_prMostrarRegistro(_MPos)
             grVentas.Row = _MPos
         End If
     End Sub
@@ -2798,25 +3212,12 @@ salirIf:
         End If
     End Sub
 
-    Private Sub btnDuplicar_Click(sender As Object, e As EventArgs)
 
-    End Sub
 
     Private Sub grGrupoEco_EditingCell(sender As Object, e As EditingCellEventArgs)
         e.Cancel = True
     End Sub
 
-    Private Sub GroupPanel4_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub grCanero_FormattingRow(sender As Object, e As RowLoadEventArgs)
-
-    End Sub
-
-    Private Sub GroupPanel1_Click_1(sender As Object, e As EventArgs)
-
-    End Sub
 
     Private Sub tbInstitucion_KeyUp(sender As Object, e As KeyEventArgs) Handles tbInstitucion.KeyUp
         If (_fnAccesible()) Then
@@ -2865,6 +3266,8 @@ salirIf:
         End If
     End Sub
 
+
+
     Private Sub grCanero_EditingCell_1(sender As Object, e As EditingCellEventArgs) Handles grCanero.EditingCell
         If (e.Column.Index = grCanero.RootTable.Columns("ydnumi").Index Or
              e.Column.Index = grCanero.RootTable.Columns("ydrazonsocial").Index) Then
@@ -2875,16 +3278,161 @@ salirIf:
         End If
     End Sub
 
+    Private Sub grdetalle_Click(sender As Object, e As EventArgs) Handles grdetalle.Click
+        If btnNuevo.Enabled = True Then
+            If filaEditada IsNot Nothing Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) < (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                    Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
 
+
+                    Dim aporteDiesel As Decimal = CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("aporteDiesel1")
+                    Dim aporte As Decimal = CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("aporte1")
+                    Dim capital As Decimal = CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("capital1")
+                    Dim capitalNuevo As Decimal
+
+                    Dim prueba = Convert.ToDouble(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("aporte1"))
+                    If ((Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("descApor")))) <= prueba Then
+
+                        aporte = prueba - ((Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("descApor"))))
+                        CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("aporte") = aporte
+                    Else
+                        CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("descApor") = 0
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "error descuento aporte".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                    End If
+                    '_fnObtenerFilaDetalle(pos, lin)
+                    If (((Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("amortizacion")))) + Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar"))) <= (aporte + capital + aporteDiesel) Then
+                        CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("aporteDiesel") = IIf(Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")) < aporteDiesel, aporteDiesel - Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")), 0.00)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+                        CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("aporte") = IIf(Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")) > aporteDiesel, IIf((Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")) - aporteDiesel) > aporte, 0.00, aporte - (Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")) - aporteDiesel)), aporte)      'CType(grdetalle.DataSource, DataTable).Rows(pos).Item("aporte") = grdetalle.GetValue("tbcmin")
+
+                        If Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")) > aporteDiesel Then
+                            If (Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")) - aporteDiesel) > aporte Then
+                                If ((Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")) - aporteDiesel) - aporte) > capital Then
+                                    capitalNuevo = 0.00
+                                Else
+                                    capitalNuevo = capital - ((Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("cobrar")) - aporteDiesel) - aporte)
+                                End If
+                            Else
+                                capitalNuevo = capital
+                            End If
+                        Else
+                            capitalNuevo = capital
+                        End If
+                        If ((Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("amortizacion")))) <= Convert.ToDouble(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("capital1")) Then
+                            capitalNuevo = capitalNuevo - ((Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("amortizacion"))))
+                            CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("capital") = capitalNuevo
+                        Else
+                            CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("amortizacion") = 0
+                            ' Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                            'ToastNotification.Show(Me, "la amortizacion no puede ser mayor al capital".ToUpper,
+                            '                              img, 5000,
+                            '                              eToastGlowColor.Green,
+                            '                              eToastPosition.TopCenter)
+                        End If
+
+
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row + 1
+                        ActualizarTotales()
+                        grdetalle.Row = grdetalle.Row - 1
+
+
+
+                    Else
+
+                        If (Convert.ToDecimal(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("amortizacion"))) > Convert.ToDouble(CType(grdetalle.DataSource, DataTable).Rows(filaEditada.AbsolutePosition - IIf(filaEditada.AbsolutePosition = 0, 0, 1)).Item("capital")) Then
+                            ' CType(grdetalle.DataSource, DataTable).Rows(pos).Item("amortizacion") = 0
+                        End If
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                        ToastNotification.Show(Me, "el cobro no puede ser mayor al capital mas su aporte".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                        ActualizarTotales()
+
+
+                    End If
+
+                    '_HabilitarProductos()
+
+                Else
+
+                End If
+                filaEditada = Nothing
+            End If
+
+        End If
+
+    End Sub
 
     Private Sub cbGestion_ValueChanged_1(sender As Object, e As EventArgs) Handles cbGestion.ValueChanged
         _prCargarQuincena(cbQuincena)
         ' _Limpiar()
     End Sub
 
-    Private Sub LabelX19_Click(sender As Object, e As EventArgs) Handles LabelX19.Click
 
+    Private filaEditada As Janus.Windows.GridEX.GridEXRow = Nothing
+    Private Sub grdetalle_CellValueChanged_1(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellValueChanged
+        Try
+            ' Obtener la fila editada
+            filaEditada = grdetalle.CurrentRow
+            ' Obtener el nombre de la columna editada
+            Dim columnaEditada As String = e.Column.Key
+            Dim columnaEditad As Double = (Convert.ToDouble(grdetalle.GetValue("capital")) + Convert.ToDouble(grdetalle.GetValue("aporte")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel")))
+            ' Realizar acciones basadas en la columna editada
+            'MessageBox.Show("Se editó la columna: " & columnaEditada)
+            If columnaEditada = "cobrar" Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) > (Convert.ToDouble(grdetalle.GetValue("capital")) + Convert.ToDouble(grdetalle.GetValue("aporte")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel"))) Then
+                    MessageBox.Show("El COBRO NO PUEDE SER MAYOR")
+                    Dim currentRow As Janus.Windows.GridEX.GridEXRow = grdetalle.CurrentRow
+                    Dim valorActual = currentRow.Cells("cobrar").Value
+
+                    currentRow.Cells("cobrar").Value = 0
+
+                End If
+            ElseIf columnaEditada = "amortizacion" Then
+                If Convert.ToDouble(grdetalle.GetValue("amortizacion")) > (Convert.ToDouble(grdetalle.GetValue("capital"))) Then
+                    MessageBox.Show("LA AMORTIZACION NO PUEDE SER MAYOR")
+                    Dim currentRow As Janus.Windows.GridEX.GridEXRow = grdetalle.CurrentRow
+                    currentRow.Cells("amortizacion").Value = 0
+
+                End If
+            ElseIf columnaEditada = "descApor" Then
+                If Convert.ToDouble(grdetalle.GetValue("descApor")) > (Convert.ToDouble(grdetalle.GetValue("aporte1"))) Then
+                    MessageBox.Show("EL DESCUENTO APORTE NO PUEDE SER MAYOR")
+                    Dim currentRow As Janus.Windows.GridEX.GridEXRow = grdetalle.CurrentRow
+                    currentRow.Cells("descApor").Value = 0
+
+                End If
+            End If
+
+            If (Not IsNumeric(grdetalle.GetValue("descApor")) Or grdetalle.GetValue("descApor").ToString = String.Empty) Then
+
+                'L_fnListarDescuentosTodos
+                Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
+
+                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("descApor") = 0
+
+            End If
+
+
+
+        Catch ex As Exception
+            MostrarMensajeError(ex.Message)
+        End Try
     End Sub
+
+
+
+
+
+
 
     Private Sub grCanero_KeyDown_1(sender As Object, e As KeyEventArgs) Handles grCanero.KeyDown
         If grCanero.RowCount > 0 Then
@@ -2930,43 +3478,8 @@ salirIf:
         End If
     End Sub
 
-    Private Sub GroupPanel1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    'Private Sub grdetalle_Enter(sender As Object, e As EventArgs) Handles grdetalle.Enter
-    '    Try
-    '        If (_fnAccesible()) Then
-    '            If (_CodCliente <= 0) Then
-    '                ToastNotification.Show(Me, "           Antes de Continuar Por favor Seleccione un Cliente!!             ", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.TopCenter)
-    '                tbInstitucion.Focus()
-
-    '                Return
-    '            End If
-    '            If (_CodEmpleado <= 0) Then
 
 
-    '                ToastNotification.Show(Me, "           Antes de Continuar Por favor Seleccione un Vendedor!!             ", My.Resources.WARNING, 4000, eToastGlowColor.Red, eToastPosition.TopCenter)
-
-    '                Return
-
-    '            End If
-
-    '            grdetalle.Select()
-    '            If _codeBar = 1 Then
-    '                If gb_CodigoBarra Then
-    '                    grdetalle.Col = 5
-    '                    grdetalle.Row = 0
-    '                Else
-    '                    grdetalle.Col = 3
-    '                    grdetalle.Row = 0
-    '                End If
-    '            End If
-    '        End If
-    '    Catch ex As Exception
-    '        MostrarMensajeError(ex.Message)
-    '    End Try
-    'End Sub
 
 
 
@@ -3203,14 +3716,6 @@ salirIf:
         End If
     End Sub
 
-    'Private Sub TbNombre1_KeyDown(sender As Object, e As KeyEventArgs) Handles TbNombre1.KeyDown
-    '    If (e.KeyData = Keys.Enter) Then
-    '        grdetalle.Col = 7
-    '        grdetalle.Row = 0
-    '        grdetalle.Select()
-
-    '    End If
-    'End Sub
 
     Private Sub CalculoDescuentoXProveedor()
         If ConfiguracionDescuentoEsXCantidad = True Then
@@ -3313,18 +3818,15 @@ salirIf:
 
     End Sub
 
-    Private Sub btnCont_Click(sender As Object, e As EventArgs)
-
-    End Sub
     Private Sub ActualizarTotales()
         Dim dtIngEgre As DataTable = CType(grdetalle.DataSource, DataTable)
-        TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10014")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10014"))
-        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011 or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm = 10006")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006"))
+        TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10016 or taalm=100160")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10016 or taalm=100161"))
+        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 100011  or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10011 or taalm=100111 or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131  or taalm=10015 or taalm=100151 or taalm = 10006 or taalm=100061")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10015 or taalm=100151 or taalm=10006 or taalm=100061"))
         TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005"))
-        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 3 or taalm  = 4"))
+        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 100071  or taalm  = 3 or taalm  = 4"))
         TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1"))
-        TSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 2"))
-        TOtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009"))
+        TSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2"))
+        TOtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009 or taalm  = 100091")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009 or taalm  = 100091"))
 
         tbTConv.Text = TConv.ToString("0.00")
         tbTCont.Text = TCont.ToString("0.00")
@@ -3336,14 +3838,14 @@ salirIf:
 
 
 
-        RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm=10014")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm=10014"))
-        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10001 or taalm  = 10002 or taalm  = 10003 or taalm  = 10004 or taalm=10011  or taalm=10012 or taalm=10013 or taalm=10015 or taalm=10016 or taalm=10006"))
-        RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10005"))
-        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10007 or taalm  = 3 or taalm  = 4"))
-        RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 1"))
-        RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10008 or taalm  = 2"))
-        ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009")), 0, dtIngEgre.Compute("Sum(cobrar)", "taalm  = 10009"))
-        ROprevConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(convenio)", "taalm  = 10016")), 0, dtIngEgre.Compute("Sum(convenio)", "taalm  = 10016"))
+        RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm=10016 or taalm=100161")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm=10016 or taalm=100161"))
+        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10015 or taalm=100151  or taalm=10006 or taalm=100061")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10015 or taalm=100151  or taalm=10006 or taalm=100061"))
+        RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm  = 10005 or taalm  = 100051")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10005 or taalm  = 100051"))
+        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4"))
+        RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 1"))
+        RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2"))
+        ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10009 or taalm  = 100091")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10009 or  taalm  = 100091"))
+        ROprevConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(convenio) + Sum(amortizacion)", "taalm  = 10016 or taalm  = 100161")), 0, dtIngEgre.Compute("Sum(convenio) + Sum(amortizacion)", "taalm  = 10016 or taalm  = 100161"))
 
         tbRConv.Text = RConv.ToString("0.00")
         tbRCont.Text = RCont.ToString("0.00")

@@ -89,6 +89,9 @@ Partial Class F0_Retenciones
         Me.grdetalle = New Janus.Windows.GridEX.GridEX()
         Me.PanelFacturaYCobranza = New System.Windows.Forms.Panel()
         Me.GroupCobranza = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
+        Me.tbtprovConv = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbrProvConv = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX15 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX17 = New DevComponents.DotNetBar.LabelX()
@@ -115,9 +118,6 @@ Partial Class F0_Retenciones
         Me.tbTotalR = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbTComb = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX20 = New DevComponents.DotNetBar.LabelX()
-        Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
-        Me.tbtprovConv = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.tbrProvConv = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -979,7 +979,7 @@ Partial Class F0_Retenciones
         Me.tbCodigo.Enabled = False
         Me.tbCodigo.Font = New System.Drawing.Font("Georgia", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCodigo.ForeColor = System.Drawing.Color.Black
-        Me.tbCodigo.Location = New System.Drawing.Point(256, 7)
+        Me.tbCodigo.Location = New System.Drawing.Point(354, 29)
         Me.tbCodigo.Name = "tbCodigo"
         Me.tbCodigo.PreventEnterBeep = True
         Me.tbCodigo.Size = New System.Drawing.Size(80, 26)
@@ -1563,6 +1563,51 @@ Partial Class F0_Retenciones
         Me.GroupCobranza.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupCobranza.TabIndex = 0
         '
+        'LabelX22
+        '
+        Me.LabelX22.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX22.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX22.Font = New System.Drawing.Font("Georgia", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.LabelX22.ForeColor = System.Drawing.Color.White
+        Me.LabelX22.Location = New System.Drawing.Point(110, 443)
+        Me.LabelX22.Name = "LabelX22"
+        Me.LabelX22.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX22.Size = New System.Drawing.Size(78, 18)
+        Me.LabelX22.TabIndex = 388
+        Me.LabelX22.Text = "Prov.Conv"
+        Me.LabelX22.TextAlignment = System.Drawing.StringAlignment.Center
+        '
+        'tbtprovConv
+        '
+        '
+        '
+        '
+        Me.tbtprovConv.Border.Class = "TextBoxBorder"
+        Me.tbtprovConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbtprovConv.Location = New System.Drawing.Point(5, 443)
+        Me.tbtprovConv.Name = "tbtprovConv"
+        Me.tbtprovConv.PreventEnterBeep = True
+        Me.tbtprovConv.ReadOnly = True
+        Me.tbtprovConv.Size = New System.Drawing.Size(100, 22)
+        Me.tbtprovConv.TabIndex = 387
+        '
+        'tbrProvConv
+        '
+        '
+        '
+        '
+        Me.tbrProvConv.Border.Class = "TextBoxBorder"
+        Me.tbrProvConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbrProvConv.Location = New System.Drawing.Point(206, 438)
+        Me.tbrProvConv.Name = "tbrProvConv"
+        Me.tbrProvConv.PreventEnterBeep = True
+        Me.tbrProvConv.ReadOnly = True
+        Me.tbrProvConv.Size = New System.Drawing.Size(100, 22)
+        Me.tbrProvConv.TabIndex = 386
+        '
         'LabelX15
         '
         Me.LabelX15.BackColor = System.Drawing.Color.Transparent
@@ -1956,51 +2001,6 @@ Partial Class F0_Retenciones
         Me.LabelX20.TabIndex = 357
         Me.LabelX20.Text = "Combust."
         Me.LabelX20.TextAlignment = System.Drawing.StringAlignment.Center
-        '
-        'LabelX22
-        '
-        Me.LabelX22.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX22.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX22.Font = New System.Drawing.Font("Georgia", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX22.ForeColor = System.Drawing.Color.White
-        Me.LabelX22.Location = New System.Drawing.Point(110, 443)
-        Me.LabelX22.Name = "LabelX22"
-        Me.LabelX22.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX22.Size = New System.Drawing.Size(78, 18)
-        Me.LabelX22.TabIndex = 388
-        Me.LabelX22.Text = "Prov.Conv"
-        Me.LabelX22.TextAlignment = System.Drawing.StringAlignment.Center
-        '
-        'tbtprovConv
-        '
-        '
-        '
-        '
-        Me.tbtprovConv.Border.Class = "TextBoxBorder"
-        Me.tbtprovConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbtprovConv.Location = New System.Drawing.Point(5, 443)
-        Me.tbtprovConv.Name = "tbtprovConv"
-        Me.tbtprovConv.PreventEnterBeep = True
-        Me.tbtprovConv.ReadOnly = True
-        Me.tbtprovConv.Size = New System.Drawing.Size(100, 22)
-        Me.tbtprovConv.TabIndex = 387
-        '
-        'tbrProvConv
-        '
-        '
-        '
-        '
-        Me.tbrProvConv.Border.Class = "TextBoxBorder"
-        Me.tbrProvConv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbrProvConv.Location = New System.Drawing.Point(206, 438)
-        Me.tbrProvConv.Name = "tbrProvConv"
-        Me.tbrProvConv.PreventEnterBeep = True
-        Me.tbrProvConv.ReadOnly = True
-        Me.tbrProvConv.Size = New System.Drawing.Size(100, 22)
-        Me.tbrProvConv.TabIndex = 386
         '
         'F0_Retenciones
         '

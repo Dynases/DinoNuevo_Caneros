@@ -2764,37 +2764,59 @@ Public Class F0_VentaComb
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         Try
-            Dim ef = New Efecto
-            ef.tipo = 2
-            ef.Context = "¿esta seguro de ANULAR el registro?".ToUpper
-            ef.Header = "mensaje principal".ToUpper
-            ef.ShowDialog()
-            Dim bandera As Boolean = False
-            bandera = ef.band
-            If (bandera = True) Then
-                Dim mensajeError As String = ""
-                Dim res As Boolean = L_fnEliminarVenta(tbCodigo.Text, mensajeError, Programa)
-                If res Then
-                    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                    ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper,
-                                          img, 2000,
-                                          eToastGlowColor.Green,
-                                          eToastPosition.TopCenter)
-                    _prFiltrar()
-                Else
-                    Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                    ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            If (L_fnVerificarCObros(tbCodigo.Text, cbSucursal.Value)) Then
+
+                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+                ToastNotification.Show(Me, "No se puede anular la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                Exit Sub
+            Else
+
+                Dim ef = New Efecto
+                ef.tipo = 2
+                ef.Context = "¿esta seguro de ANULAR el registro?".ToUpper
+                ef.Header = "mensaje principal".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim mensajeError As String = ""
+                    Dim res As Boolean = L_fnEliminarVenta(tbCodigo.Text, mensajeError, Programa)
+                    If res Then
+                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                        ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter)
+                        _prFiltrar()
+                    Else
+                        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                        ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    End If
                 End If
-            End If
+                End If
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
+
         If grVentas.GetValue("taest") <> 1 Then
             MessageBox.Show("No se puede editar por que esta anulado")
         Else
+            If (L_fnVerificarCObros(tbCodigo.Text, cbSucursal.Value)) Then
+
+                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+                ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                Exit Sub
+
+            End If
             fechaOriginal = tbFechaVenta.Text
             _prhabilitar()
             Dim dt As DataTable

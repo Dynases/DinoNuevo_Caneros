@@ -1,10 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class F1_Liquidaciones
     'Inherits System.Windows.Forms.Form
     Inherits Modelo.ModeloF1
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -21,7 +21,7 @@ Partial Class F1_Liquidaciones
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F1_Liquidaciones))
         Dim cbGestion_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
@@ -146,14 +146,7 @@ Partial Class F1_Liquidaciones
         '
         'PanelToolBar1
         '
-        Me.PanelToolBar1.Controls.Add(Me.ButtonX2)
         Me.PanelToolBar1.Size = New System.Drawing.Size(453, 72)
-        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnNuevo, 0)
-        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnModificar, 0)
-        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnEliminar, 0)
-        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnGrabar, 0)
-        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnSalir, 0)
-        Me.PanelToolBar1.Controls.SetChildIndex(Me.ButtonX2, 0)
         '
         'btnSalir
         '
@@ -161,6 +154,7 @@ Partial Class F1_Liquidaciones
         '
         'btnGrabar
         '
+        Me.btnGrabar.Visible = False
         '
         'btnEliminar
         '
@@ -180,6 +174,7 @@ Partial Class F1_Liquidaciones
         '
         'MPanelSup
         '
+        Me.MPanelSup.Controls.Add(Me.ButtonX2)
         Me.MPanelSup.Controls.Add(Me.SwitchButton1)
         Me.MPanelSup.Controls.Add(Me.GroupPanel2)
         Me.MPanelSup.Controls.Add(Me.GroupPanel1)
@@ -190,6 +185,7 @@ Partial Class F1_Liquidaciones
         Me.MPanelSup.Controls.SetChildIndex(Me.GroupPanel2, 0)
         Me.MPanelSup.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.MPanelSup.Controls.SetChildIndex(Me.SwitchButton1, 0)
+        Me.MPanelSup.Controls.SetChildIndex(Me.ButtonX2, 0)
         '
         'PanelPrincipal
         '
@@ -228,6 +224,7 @@ Partial Class F1_Liquidaciones
         '
         '
         Me.GroupPanelBuscador.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GroupPanelBuscador.Text = "B U S C A D O "
         '
         'JGrM_Buscador
         '
@@ -548,7 +545,7 @@ Partial Class F1_Liquidaciones
         '
         '
         Me.SwitchButton1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.SwitchButton1.Location = New System.Drawing.Point(38, 29)
+        Me.SwitchButton1.Location = New System.Drawing.Point(38, 55)
         Me.SwitchButton1.Name = "SwitchButton1"
         Me.SwitchButton1.OffBackColor = System.Drawing.Color.Gold
         Me.SwitchButton1.OffText = "CONSULTAR"
@@ -561,20 +558,14 @@ Partial Class F1_Liquidaciones
         'ButtonX2
         '
         Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.ButtonX2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.ButtonX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.ButtonX2.Image = Global.DinoM.My.Resources.Resources.save
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.ButtonX2.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.ButtonX2.Location = New System.Drawing.Point(376, 0)
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.ButtonX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.ButtonX2.Location = New System.Drawing.Point(69, 21)
         Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(75, 72)
+        Me.ButtonX2.Size = New System.Drawing.Size(75, 23)
         Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX2.TabIndex = 9
-        Me.ButtonX2.Text = "GRABAR"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        Me.ButtonX2.Visible = False
+        Me.ButtonX2.TabIndex = 44
+        Me.ButtonX2.Text = "grabar"
         '
         'F1_Liquidaciones
         '

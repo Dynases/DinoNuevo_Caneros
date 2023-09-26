@@ -735,7 +735,18 @@ Public Class F0_Prestamo
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        _Habilitar()
+        If (L_fnVerificarCObros(tbcod.Text, codPres.Text)) Then
+
+            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+            ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbcod.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+            Exit Sub
+        Else
+            _Habilitar()
+        End If
+
     End Sub
 
     Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
@@ -1013,5 +1024,9 @@ Public Class F0_Prestamo
         Next
 
         'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+    End Sub
+
+    Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+
     End Sub
 End Class

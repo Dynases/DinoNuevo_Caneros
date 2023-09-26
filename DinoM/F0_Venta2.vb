@@ -1545,7 +1545,7 @@ Public Class F0_Venta2
                     'dtDosificacion.Tables.Cast(Of DataTable)().Any(Function(x) x.DefaultView.Count = 0)
                     Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                     ToastNotification.Show(Me, "La Dosificación para las facturas ya caducó, ingrese nueva dosificación".ToUpper, img, 3500, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                    Return False
+                    Return True
                 End If
             End If
 
@@ -2430,6 +2430,8 @@ Public Class F0_Venta2
         Dim est As String = L_fnObtenerDatoTabla("TFV001", "fvaest", "fvanumi=" + tbCodigo.Text.Trim)
         Return (est.Equals("True"))
     End Function
+
+
 
     Private Sub P_prCargarVariablesIndispensables()
         If (gb_FacturaEmite) Then
@@ -3886,8 +3888,18 @@ salirIf:
             'swTipoVenta.Value = grVentas.GetValue("tatven")
 
             If (grVentas.RowCount > 0) Then
+                If (L_fnVerificarCObros(tbCodigo.Text, cbSucursal.Value)) Then
+
+                    Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+                    ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                    Exit Sub
+
+                End If
                 If (gb_FacturaEmite) Then
-                    If (P_fnValidarFacturaVigente()) Then
+                    If ( tbNroFactura.Text <> String.Empty) Then
                         Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
 
                         ToastNotification.Show(Me, "No se puede modificar la venta con codigo ".ToUpper + tbCodigo.Text + ", su factura esta validada por impuesto.".ToUpper,
@@ -3910,6 +3922,7 @@ salirIf:
                 PanelNavegacion.Enabled = False
                 _prCargarIconELiminar()
             End If
+
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
@@ -5103,8 +5116,8 @@ salirIf:
             dsApi = L_Dosificacion("1", Convert.ToString(cbSucursal.Value), _Fecha)
         End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
-        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 " + " and fvaalm=" + Convert.ToString(cbSucursal.Value)) ''+ "fvaalm= 1") '' 
-        NumFactura = 425
+        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 and fvaalm=" + Convert.ToString(cbSucursal.Value))  '+ Convert.ToString(cbSucursal.Value)) ''+ "fvaalm= 1") '' 
+        NumFactura = 2079
 
         Emenvio.nitEmisor = 1028395023
         Emenvio.razonSocialEmisor = "ASOCIACION GREMIAL AGROPECUARIA UNIÓN DE CAÑEROS GUABIRA"
@@ -5193,6 +5206,7 @@ salirIf:
             mensajeRespuesta = "Factura validada correctamente por Impuestos."
         End If
         MessageBox.Show(mensajeRespuesta)
+
         Dim codigo = result.estadoEmisionEDOC
         Dim xml As String
 
