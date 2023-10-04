@@ -166,9 +166,20 @@ Public Class Pr_Liquidacion
     Private Function interpretarDatos() As DataTable
         Dim dt As DataTable
         If swTipo.Value = True Then
-            dt = CargarCCPagosSaldos(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+            If CheckBoxX1.Checked = True Then
+                dt = CargarCCPagosSaldosConAportes(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+            Else
+                dt = CargarCCPagosSaldos(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+
+            End If
         Else
-            dt = CargarCCPagosSaldosDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+            If CheckBoxX1.Checked = True Then
+                dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+
+            Else
+                dt = CargarCCPagosSaldosDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+
+            End If
 
         End If
 
@@ -185,16 +196,18 @@ Public Class Pr_Liquidacion
                 objrep.SetParameterValue("prestamo", cbQuincena.Text)
                 objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
                 objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+                objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
                 MReportViewer.ReportSource = objrep
                 MReportViewer.Show()
                 MReportViewer.BringToFront()
             Else
-                Dim objrep As New R_CCPagosSaldosDetallado
+                Dim objrep As New R_CCPagosSaldosDetallado1
                 objrep.SetDataSource(dt)
 
                 objrep.SetParameterValue("prestamo", cbQuincena.Text)
                 objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
                 objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+                objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
                 MReportViewer.ReportSource = objrep
                 MReportViewer.Show()
                 MReportViewer.BringToFront()

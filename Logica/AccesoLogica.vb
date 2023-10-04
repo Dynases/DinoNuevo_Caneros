@@ -8498,12 +8498,23 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 #End Region
 
 #Region "Retencion"
-    Public Shared Function L_fnRetencion(_numi As String) As DataTable
+    Public Shared Function L_fnRetencionCo(_numi As String) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 25))
+        _listParam.Add(New Datos.DParametro("@trid", _numi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnRetencion(_numi As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 26))
         _listParam.Add(New Datos.DParametro("@trid", _numi))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
 
@@ -8625,7 +8636,41 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function CargarCCPagosSaldosConAportes(codCan As Integer, codIns As Integer, codPrest As Integer, fec As String, fecF As String, codAporte As String) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 27))
+        _listParam.Add(New Datos.DParametro("@trcan", codCan))
+        _listParam.Add(New Datos.DParametro("@trins", codIns))
+        _listParam.Add(New Datos.DParametro("@tralm", codPrest))
+        _listParam.Add(New Datos.DParametro("@fechaF", fecF))
+        _listParam.Add(New Datos.DParametro("@trfec", fec))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@traporte", codAporte))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function CargarCCPagosSaldosDetConAporte(codCan As Integer, codIns As Integer, codPrest As Integer, fec As String, fecF As String, codAporte As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 28))
+        _listParam.Add(New Datos.DParametro("@trcan", codCan))
+        _listParam.Add(New Datos.DParametro("@trins", codIns))
+        _listParam.Add(New Datos.DParametro("@tralm", codPrest))
+        _listParam.Add(New Datos.DParametro("@fechaF", fecF))
+        _listParam.Add(New Datos.DParametro("@trfec", fec))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@traporte", codAporte))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function CargarCCPagosSaldosDet(codCan As Integer, codIns As Integer, codPrest As Integer, fec As String, fecF As String) As DataTable
         Dim _Tabla As DataTable
 
@@ -8638,6 +8683,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@fechaF", fecF))
         _listParam.Add(New Datos.DParametro("@trfec", fec))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
         _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
 
         Return _Tabla

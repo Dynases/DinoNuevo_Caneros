@@ -43,6 +43,7 @@ Partial Class Pr_Liquidacion
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.swTipo = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.CheckBoxX1 = New DevComponents.DotNetBar.Controls.CheckBoxX()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -77,7 +78,7 @@ Partial Class Pr_Liquidacion
         Me.SuperTabPrincipal.ControlBox.MenuBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabPrincipal.ControlBox.MenuBox, Me.SuperTabPrincipal.ControlBox.CloseBox})
-        Me.SuperTabPrincipal.Size = New System.Drawing.Size(800, 450)
+        Me.SuperTabPrincipal.Size = New System.Drawing.Size(800, 514)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelBuscador, 0)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelRegistro, 0)
         '
@@ -87,7 +88,7 @@ Partial Class Pr_Liquidacion
         '
         'SuperTabControlPanelRegistro
         '
-        Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(768, 450)
+        Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(768, 514)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelIzq, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelPrincipal, 0)
@@ -111,7 +112,7 @@ Partial Class Pr_Liquidacion
         '
         'PanelInferior
         '
-        Me.PanelInferior.Location = New System.Drawing.Point(0, 414)
+        Me.PanelInferior.Location = New System.Drawing.Point(0, 478)
         Me.PanelInferior.Size = New System.Drawing.Size(768, 36)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Gold
@@ -153,7 +154,7 @@ Partial Class Pr_Liquidacion
         '
         'PanelPrincipal
         '
-        Me.PanelPrincipal.Size = New System.Drawing.Size(405, 414)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(405, 478)
         '
         'MPanelUserAct
         '
@@ -161,11 +162,12 @@ Partial Class Pr_Liquidacion
         '
         'MReportViewer
         '
-        Me.MReportViewer.Size = New System.Drawing.Size(405, 414)
+        Me.MReportViewer.Size = New System.Drawing.Size(405, 478)
         Me.MReportViewer.ToolPanelWidth = 200
         '
         'MGPFiltros
         '
+        Me.MGPFiltros.Controls.Add(Me.CheckBoxX1)
         Me.MGPFiltros.Controls.Add(Me.swTipo)
         Me.MGPFiltros.Controls.Add(Me.LabelX6)
         Me.MGPFiltros.Controls.Add(Me.LabelX5)
@@ -184,7 +186,7 @@ Partial Class Pr_Liquidacion
         Me.MGPFiltros.Controls.Add(Me.LabelX3)
         Me.MGPFiltros.Controls.Add(Me.LabelX4)
         Me.MGPFiltros.Controls.Add(Me.tbFechaI)
-        Me.MGPFiltros.Size = New System.Drawing.Size(363, 342)
+        Me.MGPFiltros.Size = New System.Drawing.Size(363, 406)
         '
         '
         '
@@ -216,7 +218,7 @@ Partial Class Pr_Liquidacion
         '
         'PanelIzq
         '
-        Me.PanelIzq.Size = New System.Drawing.Size(363, 414)
+        Me.PanelIzq.Size = New System.Drawing.Size(363, 478)
         Me.PanelIzq.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelIzq.Controls.SetChildIndex(Me.MGPFiltros, 0)
         '
@@ -550,11 +552,24 @@ Partial Class Pr_Liquidacion
         Me.swTipo.Value = True
         Me.swTipo.ValueObject = "Y"
         '
+        'CheckBoxX1
+        '
+        '
+        '
+        '
+        Me.CheckBoxX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckBoxX1.Location = New System.Drawing.Point(130, 269)
+        Me.CheckBoxX1.Name = "CheckBoxX1"
+        Me.CheckBoxX1.Size = New System.Drawing.Size(200, 23)
+        Me.CheckBoxX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckBoxX1.TabIndex = 403
+        Me.CheckBoxX1.Text = "Con Aportes 2022"
+        '
         'Pr_Liquidacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(800, 514)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Name = "Pr_Liquidacion"
         Me.Opacity = 0.99R
@@ -602,4 +617,5 @@ Partial Class Pr_Liquidacion
     Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swTipo As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents CheckBoxX1 As DevComponents.DotNetBar.Controls.CheckBoxX
 End Class

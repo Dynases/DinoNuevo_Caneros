@@ -24,16 +24,17 @@ Partial Class F1_IngresosEgresos
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F1_IngresosEgresos))
+        Dim cbTipPago1_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbConcepto1_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbActivo_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbCuenta_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbConcepto_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbTipPago_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim cbTipPago1_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.cbTipPago1 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbConcepto1 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
         Me.idInstitucion = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -91,7 +92,6 @@ Partial Class F1_IngresosEgresos
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.cbConcepto = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbTipPago = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.cbTipPago1 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -112,6 +112,7 @@ Partial Class F1_IngresosEgresos
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupPanel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        CType(Me.cbTipPago1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbConcepto1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbMonto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanel2.SuspendLayout()
@@ -120,7 +121,6 @@ Partial Class F1_IngresosEgresos
         CType(Me.cbCuenta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbConcepto, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbTipPago, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbTipPago1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -202,6 +202,9 @@ Partial Class F1_IngresosEgresos
         Me.BubbleBarUsuario.SelectedTabColors.BorderColor = System.Drawing.Color.Black
         '
         'btnSalir
+        '
+        '
+        'btnGrabar
         '
         '
         'btnModificar
@@ -389,6 +392,24 @@ Partial Class F1_IngresosEgresos
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(801, 281)
         Me.Panel3.TabIndex = 227
+        '
+        'cbTipPago1
+        '
+        Me.cbTipPago1.BorderStyle = Janus.Windows.GridEX.BorderStyle.Flat
+        Me.cbTipPago1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        cbTipPago1_DesignTimeLayout.LayoutString = resources.GetString("cbTipPago1_DesignTimeLayout.LayoutString")
+        Me.cbTipPago1.DesignTimeLayout = cbTipPago1_DesignTimeLayout
+        Me.cbTipPago1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbTipPago1.Location = New System.Drawing.Point(89, 225)
+        Me.cbTipPago1.Name = "cbTipPago1"
+        Me.cbTipPago1.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbTipPago1.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbTipPago1.SelectedIndex = -1
+        Me.cbTipPago1.SelectedItem = Nothing
+        Me.cbTipPago1.Size = New System.Drawing.Size(200, 22)
+        Me.cbTipPago1.TabIndex = 412
+        Me.cbTipPago1.TabStop = False
+        Me.cbTipPago1.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'cbConcepto1
         '
@@ -1313,24 +1334,6 @@ Partial Class F1_IngresosEgresos
         Me.cbTipPago.TabStop = False
         Me.cbTipPago.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'cbTipPago1
-        '
-        Me.cbTipPago1.BorderStyle = Janus.Windows.GridEX.BorderStyle.Flat
-        Me.cbTipPago1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        cbTipPago1_DesignTimeLayout.LayoutString = resources.GetString("cbTipPago1_DesignTimeLayout.LayoutString")
-        Me.cbTipPago1.DesignTimeLayout = cbTipPago1_DesignTimeLayout
-        Me.cbTipPago1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbTipPago1.Location = New System.Drawing.Point(89, 225)
-        Me.cbTipPago1.Name = "cbTipPago1"
-        Me.cbTipPago1.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbTipPago1.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.cbTipPago1.SelectedIndex = -1
-        Me.cbTipPago1.SelectedItem = Nothing
-        Me.cbTipPago1.Size = New System.Drawing.Size(200, 22)
-        Me.cbTipPago1.TabIndex = 412
-        Me.cbTipPago1.TabStop = False
-        Me.cbTipPago1.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
         'F1_IngresosEgresos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1363,6 +1366,7 @@ Partial Class F1_IngresosEgresos
         Me.GroupPanel1.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        CType(Me.cbTipPago1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbConcepto1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbMonto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanel2.ResumeLayout(False)
@@ -1372,7 +1376,6 @@ Partial Class F1_IngresosEgresos
         CType(Me.cbCuenta, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbConcepto, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbTipPago, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbTipPago1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

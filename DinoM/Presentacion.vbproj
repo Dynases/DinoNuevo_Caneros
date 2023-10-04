@@ -903,10 +903,10 @@
       <DependentUpon>Rep_NotaVentaServicio.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reporte\R_CCPagosSaldosDetallado.vb">
+    <Compile Include="Reporte\R_CCPagosSaldosDetallado1.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>R_CCPagosSaldosDetallado.rpt</DependentUpon>
+      <DependentUpon>R_CCPagosSaldosDetallado1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_CierreCaja.vb">
@@ -979,6 +979,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_LiquidacionXcobrar.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_LiquidacionXcobrarRetencion.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_LiquidacionXcobrarRetencion.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_Movimiento.vb">
@@ -1848,9 +1854,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rep_NotaVentaServicio.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reporte\R_CCPagosSaldosDetallado.rpt">
+    <EmbeddedResource Include="Reporte\R_CCPagosSaldosDetallado1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>R_CCPagosSaldosDetallado.vb</LastGenOutput>
+      <LastGenOutput>R_CCPagosSaldosDetallado1.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_CierreCaja.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1899,6 +1905,10 @@
     <EmbeddedResource Include="Reporte\R_LiquidacionXcobrar.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_LiquidacionXcobrar.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_LiquidacionXcobrarRetencion.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_LiquidacionXcobrarRetencion.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_Movimiento.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

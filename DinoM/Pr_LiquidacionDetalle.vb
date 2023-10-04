@@ -171,7 +171,7 @@ Public Class Pr_LiquidacionDetalle
     Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
         Dim dt As DataTable = interpretarDatos()
         If dt.Rows.Count > 0 Then
-            Dim objrep As New R_CCPagosSaldosDetallado
+            Dim objrep As New R_CCPagosSaldos
             objrep.SetDataSource(dt)
 
             objrep.SetParameterValue("prestamo", cbQuincena.Text)

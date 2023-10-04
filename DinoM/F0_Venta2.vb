@@ -3069,6 +3069,7 @@ Public Class F0_Venta2
         '        End If
 
 
+
         Try
 
             If (Not _fnAccesible()) Then
@@ -5117,7 +5118,7 @@ salirIf:
         End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
         Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 and fvaalm=" + Convert.ToString(cbSucursal.Value))  '+ Convert.ToString(cbSucursal.Value)) ''+ "fvaalm= 1") '' 
-        NumFactura = 2079
+        NumFactura = maxNFac + 1
 
         Emenvio.nitEmisor = 1028395023
         Emenvio.razonSocialEmisor = "ASOCIACION GREMIAL AGROPECUARIA UNIÓN DE CAÑEROS GUABIRA"
@@ -5339,6 +5340,32 @@ salirIf:
 
         Return estadoEmisionEdoc
     End Function
+
+    Public Function ConsultarDocumento(tokenObtenido)
+
+        Dim api = New DBApi()
+        Dim Emenvio = New EmisorEnvio.consultarEstadoEmision()
+
+        Dim json = JsonConvert.SerializeObject(Emenvio)
+        Dim url = "https://bo-emp-rest-consulta-v2-1.edocnube.com/api/Consultar/ConsultaDocumento?nit=1028395023&cuf=465D9AC6070486A393768C60C9425D753EA73DA3651C4212C73DFFD74"
+
+        Dim headers = New List(Of Parametro) From {
+            New Parametro("Authorization", "Bearer " + tokenObtenido),
+            New Parametro("Content-Type", "Accept:application/json; charset=utf-8")
+        }
+
+        Dim parametros = New List(Of Parametro)
+
+        Dim response = api.MGet(url, headers, parametros)
+
+        Dim result = JsonConvert.DeserializeObject(Of RespEmisor)(response)
+        Dim resultError = JsonConvert.DeserializeObject(Of Resp400)(response)
+
+
+        estadoEmisionEdoc = result.estadoEmisionEDOC
+
+        Return estadoEmisionEdoc
+    End Function
     Public Function MetodoPago(tokenObtenido)
 
         Dim api = New DBApi()
@@ -5441,6 +5468,8 @@ salirIf:
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        contabilizar()
+        'contabilizar()
+        tokenSifac = ObtToken(3)
+        ConsultarDocumento(tokenSifac)
     End Sub
 End Class

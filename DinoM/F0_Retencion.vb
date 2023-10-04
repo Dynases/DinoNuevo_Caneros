@@ -78,7 +78,7 @@ Public Class F0_Retenciones
         DescuentoXProveedorList = ObtenerDescuentoPorProveedor()
         ConfiguracionDescuentoEsXCantidad = TipoDescuentoEsXCantidad()
         'SwDescuentoProveedor.Visible = IIf(ConfiguracionDescuentoEsXCantidad, False, True)
-        tbFechaVenta.Value = Date.Now
+        'tbFechaVenta.Value = Date.Now
         SwDescuentoProveedor.Visible = False
         Programa = P_Principal.btVentVenta.Text
     End Sub
@@ -362,7 +362,7 @@ Public Class F0_Retenciones
         '_prAddDetalleVenta()
 
         TbNombre2.Clear()
-
+        tbFechaVenta.Value = Date.Now
         FilaSelectLote = Nothing
 
     End Sub
@@ -1798,11 +1798,18 @@ Public Class F0_Retenciones
 
     End Sub
     Private Sub P_GenerarReporte(numi As String)
-        Dim dt As DataTable = L_fnRetencion(tbId.Text)
 
 
-        Dim objrep As New R_LiquidacionXcobrar
-        SetParametrosNotaVenta(dt, objrep)
+        If SwitchButton1.Value = False Then
+            Dim dt As DataTable = L_fnRetencionCo(tbId.Text)
+            Dim objrep As New R_LiquidacionXcobrar
+            SetParametrosNotaVenta(dt, objrep)
+        Else
+            Dim dt As DataTable = L_fnRetencion(tbId.Text)
+            Dim objrep As New R_LiquidacionXcobrarRetencion
+            SetParametrosNotaVenta(dt, objrep)
+        End If
+
     End Sub
 
     Private Sub SetParametrosNotaVenta(dt As DataTable, objrep As Object)
@@ -3076,7 +3083,9 @@ salirIf:
 
 
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+
         P_GenerarReporte(tbId.Text)
+
     End Sub
 
     Private Sub TbNit_KeyPress(sender As Object, e As KeyPressEventArgs)
@@ -3820,11 +3829,11 @@ salirIf:
 
     Private Sub ActualizarTotales()
         Dim dtIngEgre As DataTable = CType(grdetalle.DataSource, DataTable)
-        TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10016 or taalm=100160")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10016 or taalm=100161"))
-        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 100011  or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10011 or taalm=100111 or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131  or taalm=10015 or taalm=100151 or taalm = 10006 or taalm=100061")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10015 or taalm=100151 or taalm=10006 or taalm=100061"))
-        TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005"))
+        TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10016 or taalm=100161")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10016 or taalm=100161"))
+        TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 100011  or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10010 or taalm=100101 or taalm=10011 or taalm=100111 or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10014 or taalm=10015 or taalm=100151 ")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10010 or taalm=100101 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10014  or taalm=10015 or taalm=100151 "))
+        TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005 or taalm  = 100051")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005 or taalm  = 100051"))
         TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 100071  or taalm  = 3 or taalm  = 4"))
-        TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1"))
+        TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1 or taalm  = 10006 or taalm  = 100061")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1 or taalm  = 10006 or taalm  = 100061"))
         TSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2"))
         TOtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009 or taalm  = 100091")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009 or taalm  = 100091"))
 
@@ -3839,13 +3848,13 @@ salirIf:
 
 
         RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm=10016 or taalm=100161")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm=10016 or taalm=100161"))
-        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10015 or taalm=100151  or taalm=10006 or taalm=100061")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10015 or taalm=100151  or taalm=10006 or taalm=100061"))
+        RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10010 or taalm=100101 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131  or taalm=10014 or taalm=10015 or taalm=100151 ")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10010 or taalm=100101 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10014  or taalm=10015 or taalm=100151"))
         RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm  = 10005 or taalm  = 100051")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10005 or taalm  = 100051"))
         RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4"))
-        RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 1")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 1"))
+        RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 1 or taalm  = 10006 or taalm  = 100061")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 1 or taalm  = 10006 or taalm  = 100061"))
         RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2"))
         ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10009 or taalm  = 100091")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10009 or  taalm  = 100091"))
-        ROprevConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(convenio) + Sum(amortizacion)", "taalm  = 10016 or taalm  = 100161")), 0, dtIngEgre.Compute("Sum(convenio) + Sum(amortizacion)", "taalm  = 10016 or taalm  = 100161"))
+        ROprevConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(convenio)", "taalm  = 10016 or taalm  = 100161")), 0, dtIngEgre.Compute("Sum(convenio) ", "taalm  = 10016 or taalm  = 100161"))
 
         tbRConv.Text = RConv.ToString("0.00")
         tbRCont.Text = RCont.ToString("0.00")
