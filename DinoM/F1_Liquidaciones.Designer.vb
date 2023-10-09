@@ -146,7 +146,14 @@ Partial Class F1_Liquidaciones
         '
         'PanelToolBar1
         '
+        Me.PanelToolBar1.Controls.Add(Me.ButtonX2)
         Me.PanelToolBar1.Size = New System.Drawing.Size(453, 72)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnNuevo, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnModificar, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnEliminar, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnGrabar, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.btnSalir, 0)
+        Me.PanelToolBar1.Controls.SetChildIndex(Me.ButtonX2, 0)
         '
         'btnSalir
         '
@@ -174,7 +181,6 @@ Partial Class F1_Liquidaciones
         '
         'MPanelSup
         '
-        Me.MPanelSup.Controls.Add(Me.ButtonX2)
         Me.MPanelSup.Controls.Add(Me.SwitchButton1)
         Me.MPanelSup.Controls.Add(Me.GroupPanel2)
         Me.MPanelSup.Controls.Add(Me.GroupPanel1)
@@ -185,7 +191,6 @@ Partial Class F1_Liquidaciones
         Me.MPanelSup.Controls.SetChildIndex(Me.GroupPanel2, 0)
         Me.MPanelSup.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.MPanelSup.Controls.SetChildIndex(Me.SwitchButton1, 0)
-        Me.MPanelSup.Controls.SetChildIndex(Me.ButtonX2, 0)
         '
         'PanelPrincipal
         '
@@ -560,12 +565,13 @@ Partial Class F1_Liquidaciones
         Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.ButtonX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.ButtonX2.Location = New System.Drawing.Point(69, 21)
+        Me.ButtonX2.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX2.Location = New System.Drawing.Point(358, 12)
         Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(75, 23)
+        Me.ButtonX2.Size = New System.Drawing.Size(75, 50)
         Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX2.TabIndex = 44
-        Me.ButtonX2.Text = "grabar"
+        Me.ButtonX2.TabIndex = 45
+        Me.ButtonX2.Text = "GRABAR"
         '
         'F1_Liquidaciones
         '

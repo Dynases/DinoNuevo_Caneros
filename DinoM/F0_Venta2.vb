@@ -866,8 +866,50 @@ Public Class F0_Venta2
 
         If (tbCodigo.Text <> String.Empty) Then
 
-            _GuardarNuevo()
+            '_GuardarNuevo()
+            Try
 
+                Dim Succes As String = Emisor(tokenSifac) 'comentar para evitar mandar factura electronica
+                If Succes = 2 Or Succes = 8 Or Succes = 5 Then
+                    If tbCodigo.Text <> String.Empty Then
+                        P_fnGenerarFactura(tbCodigo.Text)
+                        If gs_user <> "SERVICIOS" Then
+                            If swTipoVenta.Value = True Then
+                                contabilizarContado()
+                            Else
+                                contabilizar()
+                                L_fnGrabarTxCobrar(tbCodigo.Text)
+                            End If
+                        End If
+                        'If (gb_FacturaEmite) Then
+                        '    If tbNit.Text <> String.Empty Then
+
+                        '        P_fnGenerarFactura(tbCodigo.Text)
+
+                        '    End If
+
+                        'End If
+                        _prCargarVenta()
+                        _prSalir()
+                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                        ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + "facturado con Exito.".ToUpper,
+                                                      img, 2000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                        Table_Producto = Nothing
+                    Else
+                        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                        ToastNotification.Show(Me, "La Venta no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+
+                    End If
+                Else
+                    MessageBox.Show(mensajeRespuesta)
+                End If
+
+                ' End If
+            Catch ex As Exception
+                MostrarMensajeError(ex.Message)
+            End Try
         Else
             'If (tbCodigo.Text <> String.Empty) Then
             '    _prGuardarModificado()
@@ -1715,24 +1757,15 @@ Public Class F0_Venta2
 
     Public Sub _GuardarNuevo()
         Try
-            Dim numi As String = ""
-            Dim tabla As DataTable = L_fnMostrarMontos(0)
-            Dim factura = gb_FacturaEmite
-            _prInsertarMontoNuevo(tabla)
-            ''Verifica si existe estock para los productos
-            ' If _prExisteStockParaProducto() Then
-            Dim Succes As String = Emisor(tokenSifac) 'comentado para evitar mandar factura electronica
-            If Succes = 2 Or Succes = 8 Or Succes = 5 Then 'Succes = 1 Or
-                ' Dim dtDetalle As DataTable = rearmarDetalle()
-                'Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
-                '                                     IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
-                '                                    Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
-                '                                     _CodCliente, IIf(swMoneda.Value = True, 1, 0),
-                '                                      tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                '                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
-                If tbCodigo.Text <> String.Empty Then 'res Then
-                    'res = P_fnGrabarFacturarTFV001(numi)
-                    'Emite factura
+            'Dim numi As String = ""
+            'Dim tabla As DataTable = L_fnMostrarMontos(0)
+            'Dim factura = gb_FacturaEmite
+
+
+            Dim Succes As String = Emisor(tokenSifac) 'comentar para evitar mandar factura electronica
+            If Succes = 2 Or Succes = 8 Or Succes = 5 Then
+                If tbCodigo.Text <> String.Empty Then
+
                     If gs_user <> "SERVICIOS" Then
                         If swTipoVenta.Value = True Then
                             contabilizarContado()
@@ -1749,7 +1782,7 @@ Public Class F0_Venta2
                         End If
 
                     End If
-                    '_Limpiar()
+
                     _prCargarVenta()
 
 
@@ -3857,6 +3890,16 @@ salirIf:
 
     End Sub
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
+        If (L_fnVerificarFactura(tbCodigo.Text, cbSucursal.Value)) Then
+
+            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+            ToastNotification.Show(Me, "No se puede grabar la venta con código ".ToUpper + tbCodigo.Text + ", porque ya esta facturado, por favor cierre la ventana de ventas y vuelva a abrir para ver los cambios.".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+            Exit Sub
+
+        End If
         If Convert.ToDouble(tbTotalDo.Text) > 7180.0 Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "MONTO TOTAL EXCEDIDO PARA PODER REALIZAR LA VENTA (MONTO PERMITIDO HASTA 7180 $)".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
@@ -3893,6 +3936,16 @@ salirIf:
 
                     Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
                     ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+                    Exit Sub
+
+                End If
+                If (L_fnVerificarFactura(tbCodigo.Text, cbSucursal.Value)) Then
+
+                    Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+                    ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque ya esta facturado, por favor cierre la ventana de ventas y vuelva a abrir para ver los cambios.".ToUpper,
                                                   img, 5000,
                                                   eToastGlowColor.Green,
                                                   eToastPosition.TopCenter)
@@ -4383,8 +4436,7 @@ salirIf:
             _prInsertarMontoNuevo(tabla)
             ''Verifica si existe estock para los productos
             If _prExisteStockParaProducto() Then
-                ' Dim Succes As String = Emisor(tokenSifac)
-                'If Succes = 2 Or Succes = 8 Or Succes = 5 Then
+
                 Dim dtDetalle As DataTable = rearmarDetalle()
                 Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), gi_userNumi,
                                                          IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True,
@@ -4393,19 +4445,9 @@ salirIf:
                                                           tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
                                                           dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa)
                 If res Then
-                    'res = P_fnGrabarFacturarTFV001(numi)
-                    'Emite factura
-                    'If (gb_FacturaEmite) Then
-                    '    If tbNit.Text <> String.Empty Then
 
-                    '        P_fnGenerarFactura(numi)
-                    '        _prImiprimirNotaVenta(numi)
-                    '    Else
-                    '        _prImiprimirNotaVenta(numi)
-                    '    End If
-                    ' Else
                     _prImiprimirNotaVenta(numi)
-                    ' End If
+
                     _prCargarVenta1()
                     _prInhabiliitar()
                     If grVentas.RowCount > 0 Then
@@ -4413,7 +4455,6 @@ salirIf:
 
                     End If
 
-                    'contabilizar()
 
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                     ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
@@ -5206,10 +5247,11 @@ salirIf:
         If estadoEmisionEdoc = 2 Then
             mensajeRespuesta = "Factura validada correctamente por Impuestos."
         End If
-        MessageBox.Show(mensajeRespuesta)
+
 
         Dim codigo = result.estadoEmisionEDOC
         Dim xml As String
+
 
         Return codigo
     End Function

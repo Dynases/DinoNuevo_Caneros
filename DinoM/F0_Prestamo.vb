@@ -1,6 +1,7 @@
 ﻿Imports System.Drawing.Printing
 Imports DevComponents.DotNetBar
 Imports DevComponents.DotNetBar.Controls
+Imports Janus.Windows.GridEX
 Imports Logica.AccesoLogica
 Imports UTILITIES
 Public Class F0_Prestamo
@@ -36,10 +37,12 @@ Public Class F0_Prestamo
             grPrestamo.Row = 0
             _MostrarRegistro()
         End If
-
-
+        grPrestamo.Row = grPrestamo.RowCount - 1
 
         LblPaginacion.Text = CStr(grPrestamo.Row + 1) + "/" + CStr(grPrestamo.RowCount)
+
+
+
 
     End Sub
 
@@ -71,6 +74,7 @@ Public Class F0_Prestamo
         btnPrimero.Enabled = True
         btnSiguiente.Enabled = True
         btnUltimo.Enabled = True
+        grPrestamo.Enabled = True
     End Sub
     Private Sub _Habilitar()
         tbfecha.Enabled = True
@@ -100,6 +104,7 @@ Public Class F0_Prestamo
         btnPrimero.Enabled = False
         btnSiguiente.Enabled = False
         btnUltimo.Enabled = False
+        grPrestamo.Enabled = False
     End Sub
 
     Public Sub Limpiar()
@@ -128,7 +133,7 @@ Public Class F0_Prestamo
     Public Sub _MostrarRegistro()
 
         With grPrestamo
-            tbcod.Text = .GetValue("tbid")
+            tbcod.Text = .GetValue("tbid").ToString
             tbfecha.Text = .GetValue("tbfec").ToString
             codMon.Text = .GetValue("tbmon").ToString
             tbMoneda.Value = .GetValue("tbmon")
@@ -183,14 +188,14 @@ Public Class F0_Prestamo
         grPrestamo.AlternatingColors = True
 
         With grPrestamo.RootTable.Columns("tbid")
-            .Width = 150
-            .Caption = "LOTE"
-            .Visible = False
+            .Width = 100
+            .Caption = "CODIGO"
+            .Visible = True
         End With
         With grPrestamo.RootTable.Columns("tbfec")
             .Width = 120
             .Caption = "FECHA VENC."
-            .Visible = False
+            .Visible = True
             .FormatString = "dd/MM/yyyy"
         End With
 
@@ -214,12 +219,14 @@ Public Class F0_Prestamo
         End With
 
         With grPrestamo.RootTable.Columns("codInst")
+            .Caption = "CODINST"
             .Width = 90
-            .Visible = False
+            .Visible = True
         End With
         With grPrestamo.RootTable.Columns("nomInst")
-            .Width = 90
-            .Visible = False
+            .Caption = "INSTITUCION"
+            .Width = 150
+            .Visible = True
         End With
 
         With grPrestamo.RootTable.Columns("tbcan")
@@ -229,15 +236,16 @@ Public Class F0_Prestamo
 
         End With
         With grPrestamo.RootTable.Columns("ydcod")
-            .Caption = "DESCRIPCIÓN DE ARTÍCULO"
-            .Width = 280
-            .Visible = False
+            .Caption = "CODCANERO"
+            .Width = 100
+            .Visible = True
 
         End With
         With grPrestamo.RootTable.Columns("ydrazonsocial")
-            .Width = 50
+            .Caption = "CANERO"
+            .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = False
+            .Visible = True
         End With
 
         With grPrestamo.RootTable.Columns("tbfin")
@@ -264,9 +272,10 @@ Public Class F0_Prestamo
 
         End With
         With grPrestamo.RootTable.Columns("tbnomprov")
+            .Caption = "PROVEEDOR"
             .Width = 110
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = False
+            .Visible = True
 
         End With
         With grPrestamo.RootTable.Columns("tbdoc")
@@ -281,9 +290,10 @@ Public Class F0_Prestamo
             .Visible = False
         End With
         With grPrestamo.RootTable.Columns("tbcap")
+            .Caption = "APORTE"
             .Width = 120
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = False
+            .Visible = True
         End With
 
         With grPrestamo.RootTable.Columns("tbapor")
@@ -302,7 +312,14 @@ Public Class F0_Prestamo
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
+        With grPrestamo
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            'diseño de la grilla
 
+        End With
     End Sub
 
     Private Sub _prCargarComboDocumento(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
@@ -380,7 +397,7 @@ Public Class F0_Prestamo
         dt = L_fnGeneralMoneda()
         Dim fila = dt.NewRow()
         fila(0) = 0
-        fila(1) = "SELECCIONE MODENA"
+        fila(1) = "SELECCIONE MONEDA"
         dt.Rows.InsertAt(fila, 0)
         'a.ylcod1 ,a.yldes1 
         With mCombo
@@ -452,7 +469,7 @@ Public Class F0_Prestamo
             _prCargarPrestamo()
             grPrestamo.Row = 0
             _MostrarRegistro()
-            If codPres.Text <> "10016" And codPres.Text <> "10005" Then
+            If codPres.Text <> "10016" And codPres.Text <> "10005" And tbCodProv.Text <> 2 Then
                 contabilizarPrestamo()
             End If
 
@@ -1028,5 +1045,19 @@ Public Class F0_Prestamo
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
 
+    End Sub
+
+    Private Sub grPrestamo_KeyDown(sender As Object, e As KeyEventArgs) Handles grPrestamo.KeyDown
+        If e.KeyData = Keys.Enter Then
+            MSuperTabControl.SelectedTabIndex = 0
+            grPrestamo.Focus()
+
+        End If
+    End Sub
+
+    Private Sub grPrestamo_SelectionChanged(sender As Object, e As EventArgs) Handles grPrestamo.SelectionChanged
+        If (grPrestamo.RowCount >= 0 And grPrestamo.Row >= 0) Then
+            _MostrarRegistro()
+        End If
     End Sub
 End Class

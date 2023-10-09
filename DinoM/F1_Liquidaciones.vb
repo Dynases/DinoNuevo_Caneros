@@ -305,7 +305,11 @@ Public Class F1_Liquidaciones
         _prCargarQuincena(cbQuincena)
     End Sub
 
-    Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
+    Private Sub ButtonX2_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub ButtonX2_Click_1(sender As Object, e As EventArgs) Handles ButtonX2.Click
         Guardar()
     End Sub
 

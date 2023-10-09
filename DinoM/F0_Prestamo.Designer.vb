@@ -64,8 +64,12 @@ Partial Class F0_Prestamo
         Me.codIns = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.codMon = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbfecha = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.grPrestamo = New Janus.Windows.GridEX.GridEX()
         Me.CachedKardexClienteRes1 = New DinoM.CachedKardexClienteRes()
+        Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.grPrestamo = New Janus.Windows.GridEX.GridEX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -89,6 +93,9 @@ Partial Class F0_Prestamo
         CType(Me.tbPrest, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFinan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbfecha, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel1.SuspendLayout()
+        Me.GroupPanel3.SuspendLayout()
+        Me.Panel6.SuspendLayout()
         CType(Me.grPrestamo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -233,8 +240,12 @@ Partial Class F0_Prestamo
         Me.MSuperTabControl.ControlBox.MenuBox.Name = ""
         Me.MSuperTabControl.ControlBox.Name = ""
         Me.MSuperTabControl.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.MSuperTabControl.ControlBox.MenuBox, Me.MSuperTabControl.ControlBox.CloseBox})
+        Me.MSuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
+        Me.MSuperTabControl.SelectedTabIndex = 1
         Me.MSuperTabControl.Size = New System.Drawing.Size(800, 339)
+        Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
+        Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         '
         'PictureBox1
         '
@@ -281,7 +292,6 @@ Partial Class F0_Prestamo
         Me.GroupPanel1.Controls.Add(Me.codIns)
         Me.GroupPanel1.Controls.Add(Me.codMon)
         Me.GroupPanel1.Controls.Add(Me.tbfecha)
-        Me.GroupPanel1.Controls.Add(Me.grPrestamo)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.GroupPanel1.ImeMode = System.Windows.Forms.ImeMode.[On]
@@ -831,19 +841,92 @@ Partial Class F0_Prestamo
         Me.tbfecha.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbfecha.TabIndex = 4
         '
+        'SuperTabItem1
+        '
+        Me.SuperTabItem1.AttachedControl = Me.SuperTabControlPanel1
+        Me.SuperTabItem1.GlobalItem = False
+        Me.SuperTabItem1.Name = "SuperTabItem1"
+        Me.SuperTabItem1.Text = "BUSCAR"
+        '
+        'SuperTabControlPanel1
+        '
+        Me.SuperTabControlPanel1.Controls.Add(Me.GroupPanel3)
+        Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(767, 339)
+        Me.SuperTabControlPanel1.TabIndex = 0
+        Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
+        '
+        'GroupPanel3
+        '
+        Me.GroupPanel3.CanvasColor = System.Drawing.SystemColors.Control
+        Me.GroupPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel3.Controls.Add(Me.Panel6)
+        Me.GroupPanel3.DisabledBackColor = System.Drawing.Color.Empty
+        Me.GroupPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupPanel3.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.GroupPanel3.Name = "GroupPanel3"
+        Me.GroupPanel3.Size = New System.Drawing.Size(767, 339)
+        '
+        '
+        '
+        Me.GroupPanel3.Style.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(72, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.GroupPanel3.Style.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(72, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.GroupPanel3.Style.BackColorGradientAngle = 90
+        Me.GroupPanel3.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderBottomWidth = 1
+        Me.GroupPanel3.Style.BorderColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(72, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.GroupPanel3.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderLeftWidth = 1
+        Me.GroupPanel3.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderRightWidth = 1
+        Me.GroupPanel3.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.GroupPanel3.Style.BorderTopWidth = 1
+        Me.GroupPanel3.Style.CornerDiameter = 4
+        Me.GroupPanel3.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded
+        Me.GroupPanel3.Style.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupPanel3.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center
+        Me.GroupPanel3.Style.TextColor = System.Drawing.Color.White
+        Me.GroupPanel3.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near
+        '
+        '
+        '
+        Me.GroupPanel3.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        '
+        '
+        Me.GroupPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.GroupPanel3.TabIndex = 5
+        Me.GroupPanel3.Text = "BUSCADOR  DE PRESTAMOS"
+        '
+        'Panel6
+        '
+        Me.Panel6.BackColor = System.Drawing.Color.White
+        Me.Panel6.Controls.Add(Me.grPrestamo)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(761, 316)
+        Me.Panel6.TabIndex = 0
+        '
         'grPrestamo
         '
+        Me.grPrestamo.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
         Me.grPrestamo.BackColor = System.Drawing.Color.GhostWhite
         Me.grPrestamo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grPrestamo.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid
         Me.grPrestamo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grPrestamo.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grPrestamo.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grPrestamo.Location = New System.Drawing.Point(0, 0)
         Me.grPrestamo.Name = "grPrestamo"
         Me.grPrestamo.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grPrestamo.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grPrestamo.Size = New System.Drawing.Size(764, 315)
-        Me.grPrestamo.TabIndex = 12
-        Me.grPrestamo.Visible = False
+        Me.grPrestamo.SelectOnExpand = False
+        Me.grPrestamo.Size = New System.Drawing.Size(761, 316)
+        Me.grPrestamo.TabIndex = 13
         Me.grPrestamo.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'F0_Prestamo
@@ -883,6 +966,9 @@ Partial Class F0_Prestamo
         CType(Me.tbPrest, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFinan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbfecha, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel1.ResumeLayout(False)
+        Me.GroupPanel3.ResumeLayout(False)
+        Me.Panel6.ResumeLayout(False)
         CType(Me.grPrestamo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -924,5 +1010,9 @@ Partial Class F0_Prestamo
     Friend WithEvents tbObs As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents tbcod As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents SuperTabControlPanel1 As DevComponents.DotNetBar.SuperTabControlPanel
+    Friend WithEvents SuperTabItem1 As DevComponents.DotNetBar.SuperTabItem
+    Friend WithEvents GroupPanel3 As DevComponents.DotNetBar.Controls.GroupPanel
+    Friend WithEvents Panel6 As Panel
     Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
 End Class

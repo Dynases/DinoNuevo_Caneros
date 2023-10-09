@@ -1134,8 +1134,8 @@ Public Class F0_Retenciones
         End With
         With grVentas.RootTable.Columns("trfec")
             .Width = 100
-            .Caption = "COD. Institucion"
-            .Visible = False
+            .Caption = "FECHA"
+            .Visible = True
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
         End With
         With grVentas.RootTable.Columns("trhor")
@@ -1143,6 +1143,19 @@ Public Class F0_Retenciones
             .Caption = "COD. Institucion"
             .Visible = False
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+        End With
+        With grVentas.RootTable.Columns("trrprovconv")
+            .Width = 100
+            .Caption = "COD. Institucion"
+            .Visible = False
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+        End With
+        With grVentas.RootTable.Columns("totalCobro")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .Caption = "TOTAL"
+            .FormatString = "0.00"
         End With
         With grVentas.RootTable.Columns("trest")
             .Width = 150
@@ -1800,6 +1813,7 @@ Public Class F0_Retenciones
     Private Sub P_GenerarReporte(numi As String)
 
 
+
         If SwitchButton1.Value = False Then
             Dim dt As DataTable = L_fnRetencionCo(tbId.Text)
             Dim objrep As New R_LiquidacionXcobrar
@@ -2217,7 +2231,7 @@ Public Class F0_Retenciones
 
         Try
             If (e.KeyCode = Keys.Enter) Then
-                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= Convert.ToDouble((Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))).ToString("0.00")) Then
                     Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
 
 
@@ -2304,7 +2318,7 @@ Public Class F0_Retenciones
                 End If
             End If
             If e.KeyCode = Keys.Up Then
-                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= Convert.ToDouble((Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))).ToString("0.00")) Then
                     Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
 
 
@@ -2390,7 +2404,7 @@ Public Class F0_Retenciones
 
                 End If
             ElseIf e.KeyCode = Keys.Down Then
-                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= Convert.ToDouble((Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))).ToString("0.00")) Then
                     Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
 
 
@@ -2476,7 +2490,7 @@ Public Class F0_Retenciones
 
                 End If
             ElseIf e.KeyCode = Keys.Left Then
-                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= Convert.ToDouble((Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))).ToString("0.00")) Then
                     Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
 
 
@@ -2562,7 +2576,7 @@ Public Class F0_Retenciones
 
                 End If
             ElseIf e.KeyCode = Keys.Right Then
-                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) <= Convert.ToDouble((Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))).ToString("0.00")) Then
                     Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
 
 
@@ -3288,9 +3302,9 @@ salirIf:
     End Sub
 
     Private Sub grdetalle_Click(sender As Object, e As EventArgs) Handles grdetalle.Click
-        If btnNuevo.Enabled = True Then
+        If btnNuevo.Enabled = False Then
             If filaEditada IsNot Nothing Then
-                If Convert.ToDouble(grdetalle.GetValue("cobrar")) < (Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))) Then
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) < Convert.ToDouble((Convert.ToDouble(grdetalle.GetValue("capital1")) + Convert.ToDouble(grdetalle.GetValue("aporte1")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel1"))).ToString("0.00")) Then
                     Dim pos As Integer = Convert.ToInt32(grdetalle.CurrentRow.RowIndex.ToString)
 
 
@@ -3397,7 +3411,12 @@ salirIf:
             ' Realizar acciones basadas en la columna editada
             'MessageBox.Show("Se editó la columna: " & columnaEditada)
             If columnaEditada = "cobrar" Then
-                If Convert.ToDouble(grdetalle.GetValue("cobrar")) > (Convert.ToDouble(grdetalle.GetValue("capital")) + Convert.ToDouble(grdetalle.GetValue("aporte")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel"))) Then
+                Dim a As Double = Convert.ToDouble((Convert.ToDouble(grdetalle.GetValue("capital")) + Convert.ToDouble(grdetalle.GetValue("aporte")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel"))).ToString("0.00"))
+
+                Dim b As Double = Convert.ToDouble(grdetalle.GetValue("capital"))
+                Dim cc As Double = Convert.ToDouble(grdetalle.GetValue("aporte"))
+                Dim ccc As Double = Convert.ToDouble(grdetalle.GetValue("aporteDiesel"))
+                If Convert.ToDouble(grdetalle.GetValue("cobrar")) > Convert.ToDouble((Convert.ToDouble(grdetalle.GetValue("capital")) + Convert.ToDouble(grdetalle.GetValue("aporte")) + Convert.ToDouble(grdetalle.GetValue("aporteDiesel"))).ToString("0.00")) Then
                     MessageBox.Show("El COBRO NO PUEDE SER MAYOR")
                     Dim currentRow As Janus.Windows.GridEX.GridEXRow = grdetalle.CurrentRow
                     Dim valorActual = currentRow.Cells("cobrar").Value

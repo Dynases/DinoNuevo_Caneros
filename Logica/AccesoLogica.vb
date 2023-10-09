@@ -3187,6 +3187,26 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _resultado
     End Function
 
+    Public Shared Function L_fnVerificarFactura(numi As String, almacen As String) As Boolean
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 36))
+        _listParam.Add(New Datos.DParametro("@tanumi", numi))
+        _listParam.Add(New Datos.DParametro("@taalm", almacen))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
+
+
     Public Shared Function VerificarAnalisis(_fecha As String) As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
