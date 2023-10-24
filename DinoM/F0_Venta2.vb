@@ -15,8 +15,7 @@ Imports DinoM.RespMetodosPago
 Imports DinoM.EmisorResp
 Imports DinoM.RespTipoDoc
 Imports DinoM.UmedidaResp
-Imports System.Xml
-
+Imports System.Threading
 Public Class F0_Venta2
     Dim _Inter As Integer = 0
 #Region "Variables Globales"
@@ -70,6 +69,7 @@ Public Class F0_Venta2
     Public linkCodigoQr As String
     Public codigoError As String
     Public mensajeRespuesta As String
+    Public bandEditar As Boolean
 #Region "Metodos Privados"
     Private Sub _IniciarTodo()
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
@@ -872,7 +872,7 @@ Public Class F0_Venta2
                 Dim Succes As String = Emisor(tokenSifac) 'comentar para evitar mandar factura electronica
                 If Succes = 2 Or Succes = 8 Or Succes = 5 Then
                     If tbCodigo.Text <> String.Empty Then
-                        P_fnGenerarFactura(tbCodigo.Text)
+
                         If gs_user <> "SERVICIOS" Then
                             If swTipoVenta.Value = True Then
                                 contabilizarContado()
@@ -881,19 +881,12 @@ Public Class F0_Venta2
                                 L_fnGrabarTxCobrar(tbCodigo.Text)
                             End If
                         End If
-                        'If (gb_FacturaEmite) Then
-                        '    If tbNit.Text <> String.Empty Then
-
-                        '        P_fnGenerarFactura(tbCodigo.Text)
-
-                        '    End If
-
-                        'End If
+                        P_fnGenerarFactura(tbCodigo.Text)
                         _prCargarVenta()
                         _prSalir()
                         Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                         ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + "facturado con Exito.".ToUpper,
-                                                      img, 2000,
+                                                      img, 5000,
                                                       eToastGlowColor.Green,
                                                       eToastPosition.TopCenter)
                         Table_Producto = Nothing
@@ -1734,12 +1727,17 @@ Public Class F0_Venta2
                 Dim productoRepeditos = detalle.DefaultView.ToTable
                 Dim saldo = productoRepeditos.Compute("SUM(tbcmin)", String.Empty)
                 'Dim saldo = fila.Item("tbcmin")
+                'If bandEditar = True Then
+
+                'Else End If
                 If inventario < saldo Then
-                    Dim mensaje As String = "No existe stock para el producto: " + fila.Item("producto") + " stock actual = " + inventario.ToString()
-                    Lmensaje.Add(mensaje)
-                    'Throw New Exception("No existe stock para el producto:" + fila.Item("producto") + " stock actual =" + inventario)
+                        Dim mensaje As String = "No existe stock para el producto: " + fila.Item("producto") + " stock actual = " + inventario.ToString()
+                        Lmensaje.Add(mensaje)
+                        'Throw New Exception("No existe stock para el producto:" + fila.Item("producto") + " stock actual =" + inventario)
+                    End If
+
+
                 End If
-            End If
             aux = idProducto
             'dtSaldos.Select = "icfven ASC"
             'dtSaldos = dtSaldos.DefaultView.ToTable
@@ -3919,63 +3917,147 @@ salirIf:
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
         Try
+            Dim resultado = New DialogResult()
+            Dim mensaje = New mensajePersonalizado()
+            mensaje.Label4.Visible = False
+            mensaje.Label3.Visible = False
+            mensaje.Label1.Visible = False
+            mensaje.Label5.Visible = False
+            mensaje.Label2.Text = "DESEA CONTINUAR PARA MODIFICAR LA VENTA?"
+            mensaje.Label6.Visible = False
+            resultado = mensaje.ShowDialog()
+            If resultado = DialogResult.OK Then
+                bandEditar = True
+                Dim dt As DataTable
+                'dt = L_fnListarClientes()
+                dt = L_fnListarClientesVentas(_CodCliente)
+                _codCaneroUcg = dt.Rows(0).Item(1)
+                TbNombre1.Text = dt.Rows(0).Item(11)
+                tbNit.Text = dt.Rows(0).Item(12)
+                _CodEmpleado = dt.Rows(0).Item(8)
+                tipoDocumento = dt.Rows(0)("ydtipdocelec") 'dt.Rows(1).Item(8) ' dt.Row.Cells("ydtipdocelec").Value
+                dtiFechaFactura.Value = Now.Date
+                'swTipoVenta.Value = grVentas.GetValue("tatven")
 
-            Dim dt As DataTable
-            'dt = L_fnListarClientes()
-            dt = L_fnListarClientesVentas(_CodCliente)
-            _codCaneroUcg = dt.Rows(0).Item(1)
-            TbNombre1.Text = dt.Rows(0).Item(11)
-            tbNit.Text = dt.Rows(0).Item(12)
-            _CodEmpleado = dt.Rows(0).Item(8)
-            tipoDocumento = dt.Rows(0)("ydtipdocelec") 'dt.Rows(1).Item(8) ' dt.Row.Cells("ydtipdocelec").Value
-            dtiFechaFactura.Value = Now.Date
-            'swTipoVenta.Value = grVentas.GetValue("tatven")
+                If (grVentas.RowCount > 0) Then
+                    If (L_fnVerificarCObros(tbCodigo.Text, cbSucursal.Value)) Then
 
-            If (grVentas.RowCount > 0) Then
-                If (L_fnVerificarCObros(tbCodigo.Text, cbSucursal.Value)) Then
-
-                    Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
-                    ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
-                                                  img, 5000,
-                                                  eToastGlowColor.Green,
-                                                  eToastPosition.TopCenter)
-                    Exit Sub
-
-                End If
-                If (L_fnVerificarFactura(tbCodigo.Text, cbSucursal.Value)) Then
-
-                    Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
-                    ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque ya esta facturado, por favor cierre la ventana de ventas y vuelva a abrir para ver los cambios.".ToUpper,
-                                                  img, 5000,
-                                                  eToastGlowColor.Green,
-                                                  eToastPosition.TopCenter)
-                    Exit Sub
-
-                End If
-                If (gb_FacturaEmite) Then
-                    If ( tbNroFactura.Text <> String.Empty) Then
                         Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
-
-                        ToastNotification.Show(Me, "No se puede modificar la venta con codigo ".ToUpper + tbCodigo.Text + ", su factura esta validada por impuesto.".ToUpper,
-                                                  img, 2000,
-                                                  eToastGlowColor.Green,
-                                                  eToastPosition.TopCenter)
+                        ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
                         Exit Sub
-                    End If
-                End If
-                Dim a = swTipoVenta.Value
-                Dim aa = CbMetodoPago.SelectedIndex
-                _prhabilitar()
-                swTipoVenta.Value = a
-                CbMetodoPago.SelectedIndex = aa
-                btnNuevo.Enabled = False
-                btnModificar.Enabled = False
-                btnEliminar.Enabled = False
-                btnGrabar.Enabled = True
 
-                PanelNavegacion.Enabled = False
-                _prCargarIconELiminar()
+                    End If
+                    If (L_fnVerificarFactura(tbCodigo.Text, cbSucursal.Value)) Then
+
+                        Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+                        ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque ya esta facturado, por favor cierre la ventana de ventas y vuelva a abrir para ver los cambios.".ToUpper,
+                                                      img, 5000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                        Exit Sub
+
+                    End If
+                    If (gb_FacturaEmite) Then
+                        If (tbNroFactura.Text <> String.Empty) Then
+                            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                            ToastNotification.Show(Me, "No se puede modificar la venta con codigo ".ToUpper + tbCodigo.Text + ", su factura esta validada por impuesto.".ToUpper,
+                                                      img, 2000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+                            Exit Sub
+                        End If
+                    End If
+                    Dim a = swTipoVenta.Value
+                    Dim aa = CbMetodoPago.SelectedIndex
+                    _prhabilitar()
+                    swTipoVenta.Value = a
+                    CbMetodoPago.SelectedIndex = aa
+                    btnNuevo.Enabled = False
+                    btnModificar.Enabled = False
+                    btnEliminar.Enabled = False
+                    btnGrabar.Enabled = False
+
+                    PanelNavegacion.Enabled = False
+                    _prCargarIconELiminar()
+                End If
+            Else
+                Dim resultado1 = New DialogResult()
+                Dim mensaje1 = New mensajePersonalizado()
+                mensaje1.Label1.Visible = False
+                mensaje1.Label5.Visible = False
+                mensaje1.Label4.Visible = False
+                mensaje1.Label3.Visible = False
+                mensaje1.Label2.Text = "DESEA CONTINUAR PARA FACTURAR LA VENTA?"
+                mensaje1.Label6.Visible = False
+                resultado1 = mensaje1.ShowDialog()
+                If resultado1 = DialogResult.OK Then
+                    bandEditar = False
+                    Dim dt As DataTable
+                    'dt = L_fnListarClientes()
+                    dt = L_fnListarClientesVentas(_CodCliente)
+                    _codCaneroUcg = dt.Rows(0).Item(1)
+                    TbNombre1.Text = dt.Rows(0).Item(11)
+                    tbNit.Text = dt.Rows(0).Item(12)
+                    _CodEmpleado = dt.Rows(0).Item(8)
+                    tipoDocumento = dt.Rows(0)("ydtipdocelec") 'dt.Rows(1).Item(8) ' dt.Row.Cells("ydtipdocelec").Value
+                    dtiFechaFactura.Value = Now.Date
+                    'swTipoVenta.Value = grVentas.GetValue("tatven")
+
+                    If (grVentas.RowCount > 0) Then
+                        If (L_fnVerificarCObros(tbCodigo.Text, cbSucursal.Value)) Then
+
+                            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+                            ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                          img, 5000,
+                                                          eToastGlowColor.Green,
+                                                          eToastPosition.TopCenter)
+                            Exit Sub
+
+                        End If
+                        If (L_fnVerificarFactura(tbCodigo.Text, cbSucursal.Value)) Then
+
+                            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+                            ToastNotification.Show(Me, "No se puede editar la venta con código ".ToUpper + tbCodigo.Text + ", porque ya esta facturado, por favor cierre la ventana de ventas y vuelva a abrir para ver los cambios.".ToUpper,
+                                                          img, 5000,
+                                                          eToastGlowColor.Green,
+                                                          eToastPosition.TopCenter)
+                            Exit Sub
+
+                        End If
+                        If (gb_FacturaEmite) Then
+                            If (tbNroFactura.Text <> String.Empty) Then
+                                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                                ToastNotification.Show(Me, "No se puede modificar la venta con codigo ".ToUpper + tbCodigo.Text + ", su factura esta validada por impuesto.".ToUpper,
+                                                          img, 2000,
+                                                          eToastGlowColor.Green,
+                                                          eToastPosition.TopCenter)
+                                Exit Sub
+                            End If
+                        End If
+                        Dim a = swTipoVenta.Value
+                        Dim aa = CbMetodoPago.SelectedIndex
+                        '_prhabilitar()
+                        swTipoVenta.Value = a
+                        CbMetodoPago.SelectedIndex = aa
+                        btnNuevo.Enabled = False
+                        btnModificar.Enabled = False
+                        btnEliminar.Enabled = False
+                        btnGrabar.Enabled = True
+                        btnBitacora.Enabled = False
+
+                        PanelNavegacion.Enabled = False
+                        '_prCargarIconELiminar()
+                    End If
+                Else
+
+                End If
             End If
+
 
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -4662,29 +4744,7 @@ salirIf:
             End If
         End If
 
-        'Dim dtb As DataTable
-        'dtb = L_prBitacora(tbCodigo.Text)
-        'If dtb.Rows.Count > 0 Then
-        '    Dim listEstCeldas As New List(Of Modelo.Celda)
-        '    listEstCeldas.Add(New Modelo.Celda("accion", True, "ACCIÓN", 120))
-        '    listEstCeldas.Add(New Modelo.Celda("vcfact", True, "FECHA", 80))
-        '    listEstCeldas.Add(New Modelo.Celda("vchact", True, "HORA", 70))
-        '    listEstCeldas.Add(New Modelo.Celda("vcuact", True, "USUARIO", 120))
-        '    listEstCeldas.Add(New Modelo.Celda("vcnumi", False, "ID", 50))
 
-        '    Dim ef = New Efecto
-        '    ef.tipo = 3
-        '    ef.dt = dtb
-        '    ef.SeleclCol = 2
-        '    ef.listEstCeldas = listEstCeldas
-        '    ef.AutoScrollPosition = AutoScrollPosition
-        '    'ef.alto = 450
-        '    'ef.ancho = 180
-        '    ef.Context = "BITÁCORA DE LA VENTA"
-        '    ef.ShowDialog()
-        'Else
-        '    ToastNotification.Show(Me, "No existe bitácora para este registro".ToUpper, My.Resources.WARNING, 3000, eToastGlowColor.Blue, eToastPosition.TopCenter)
-        'End If
     End Sub
     'Private Sub TbNombre1_KeyDown(sender As Object, e As KeyEventArgs) Handles TbNombre1.KeyDown
     '    If (e.KeyData = Keys.Enter) Then
@@ -4805,30 +4865,24 @@ salirIf:
     End Sub
 
     Private Sub contabilizar()
+        Dim sumaDebeUs = 0.00 'al debe cuando sale diferencia negativa
+        Dim sumaHaberUs = 0.00
         Dim codigoVenta = tbCodigo.Text
-        Dim codCanero = "P/Ord." + codigoVenta + " " + Convert.ToString(_CodCliente) + " " + tbCliente.Text 'obobs
+        Dim codCanero = "P/Ord." + codigoVenta + " " + Convert.ToString(_codCaneroUcg) + " " + tbCliente.Text 'obobs
         Dim total = tbTotalDo.Text 'para obtener debe haber
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
         Dim debebs, haberbs, debeus, haberus As Double
         dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
 
-
-
         Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value) 'numi cabecera to001
-        'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
         For a As Integer = 1 To 2 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
-            'Dim grdetalle1 As GridEX
+
             dtDetalle = L_fnDetalleVenta1(codigoVenta)
 
-            'Dim dt As New DataTable
-            'dt = L_fnDetalleVenta(_numi)
-            'grdetalle.DataSource = dt
 
-            'dtDetalle = CType(grdetalle1.DataSource, DataTable)
-            'dtDetalle = dt
             Dim oblin As Integer = 1
             Dim totalCosto As Double = 0.00
             For Each row In dt.Rows
@@ -4838,13 +4892,15 @@ salirIf:
                     For Each detalle In dtDetalle.Rows
                         cuenta = detalle("yfclot")
                         If row("dh") = 1 Then
-                            debeus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            debeus = Math.Round((Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                            sumaDebeUs = Math.Round(sumaDebeUs + debeus, 2)
                             debebs = debeus * 6.96
                             haberus = 0.00
                             haberbs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
                         Else
-                            haberus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
+                            haberus = Math.Round((Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                            sumaHaberUs = Math.Round(sumaHaberUs + haberus, 2)
                             haberbs = haberus * 6.96
                             debeus = 0.00
                             debebs = 0.00
@@ -4862,18 +4918,28 @@ salirIf:
 
                 End If
                 If row("cuenta") = "-2" Then
-                    cuenta = dt1.Rows(0).Item(5)
+                    If swTipoVenta.Value = False Then
+                        If _CodCliente = 691 Then
+                            cuenta = 312
+                        Else
+                            cuenta = dt1.Rows(0).Item(5)
+                        End If
+                    Else
+                        cuenta = dt1.Rows(0).Item(5)
+                    End If
 
                 Else
                     cuenta = row("cuenta")
                 End If
                 If row("dh") = 1 Then
-                    debeus = (IIf(row("tipo") = 1, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
+                    debeus = Math.Round((IIf(row("tipo") = 1, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                    sumaDebeUs = Math.Round(sumaDebeUs + debeus, 2)
                     debebs = debeus * 6.96
                     haberus = 0.00
                     haberbs = 0.00
                 Else
-                    haberus = (IIf(row("tipo") = 1, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
+                    haberus = Math.Round((IIf(row("tipo") = 1, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                    sumaHaberUs = Math.Round(sumaHaberUs + haberus, 2)
                     haberbs = haberus * 6.96
                     debeus = 0.00
                     debebs = 0.00
@@ -4882,8 +4948,16 @@ salirIf:
                 oblin = oblin + 1
             Next
         Next
+        'If sumaDebeUs - sumaHaberUs <> 0.00 Then
+        '    MessageBox.Show(sumaDebeUs - sumaHaberUs)
+        'End If
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
 
         L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+        'Thread.Sleep(5000)
+        'Me.Invoke(Sub()
+        '              popupForm.Close()
+        '          End Sub)
     End Sub
 
 
@@ -4917,14 +4991,14 @@ salirIf:
                     For Each detalle In dtDetalle.Rows
                         cuenta = detalle("yfclot")
                         If row("dh") = 1 Then
-                            debeus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
-                            debebs = debeus * 6.96
+                            debeus = Math.Round((Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                            debebs = Math.Round(debeus * 6.96, 2)
                             haberus = 0.00
                             haberbs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
                         Else
-                            haberus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
-                            haberbs = haberus * 6.96
+                            haberus = Math.Round((Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                            haberbs = Math.Round(haberus * 6.96, 2)
                             debeus = 0.00
                             debebs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
@@ -4947,13 +5021,13 @@ salirIf:
                     cuenta = row("cuenta")
                 End If
                 If row("dh") = 1 Then
-                    debeus = (IIf(row("tipo") = 3, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
-                    debebs = debeus * 6.96
+                    debeus = Math.Round((IIf(row("tipo") = 3, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                    debebs = Math.Round(debeus * 6.96, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
-                    haberus = (IIf(row("tipo") = 3, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100
-                    haberbs = haberus * 6.96
+                    haberus = Math.Round((IIf(row("tipo") = 3, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                    haberbs = Math.Round(haberus * 6.96, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
@@ -4961,7 +5035,7 @@ salirIf:
                 oblin = oblin + 1
             Next
         Next
-
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
         L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
 
@@ -5508,10 +5582,20 @@ salirIf:
 
 
     End Sub
-
+    Dim popupForm As New notifi()
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'contabilizar()
-        tokenSifac = ObtToken(3)
-        ConsultarDocumento(tokenSifac)
+        'Dim thread As New Thread(AddressOf contabilizar)
+        'thread.Start()
+
+        '' Mostrar el formulario "popup"
+
+        'popupForm.ShowDialog() '
+        If swTipoVenta.Value = True Then
+            contabilizarContado()
+        Else
+            contabilizar()
+        End If
+
+
     End Sub
 End Class

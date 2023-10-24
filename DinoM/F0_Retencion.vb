@@ -806,7 +806,6 @@ Public Class F0_Retenciones
             .FormatString = "0.00"
             .Caption = "Saldo"
             .AggregateFunction = AggregateFunction.Sum
-
         End With
         With grdetalle.RootTable.Columns("convenio")
             .Width = 100

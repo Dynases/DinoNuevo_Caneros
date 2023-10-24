@@ -215,8 +215,19 @@ Public Class Pr_Liquidacion
 
 
         Else
+            Dim objrep As New R_CCPagosSaldos
+            objrep.SetDataSource(dt)
+
+            objrep.SetParameterValue("prestamo", cbQuincena.Text)
+            objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+            objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+            objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
+            MReportViewer.ReportSource = objrep
+            MReportViewer.Show()
+            MReportViewer.BringToFront()
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "NO HAY DATOS PARA MOSTRAR".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)
+
         End If
     End Sub
 

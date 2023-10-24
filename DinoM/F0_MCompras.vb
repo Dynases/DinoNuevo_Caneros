@@ -2230,7 +2230,7 @@ salirIf:
                 oblin = oblin + 1
             Next
         Next
-
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
         'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
 
@@ -2270,8 +2270,8 @@ salirIf:
                             haberbs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("cbptot"))
                         Else
-                            haberus = (Convert.ToDouble(detalle("cbptot")) * Convert.ToDouble(row("porcentaje"))) / 100
-                            haberbs = haberus * 6.96
+                            haberus = Format((Convert.ToDouble(detalle("cbptot")) * Convert.ToDouble(row("porcentaje"))) / 100, "0.00")
+                            haberbs = Format(haberus * 6.96, "0.00")
                             debeus = 0.00
                             debebs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("cbptot"))
@@ -2311,7 +2311,7 @@ salirIf:
                 oblin = oblin + 1
             Next
         Next
-
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
         'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
 

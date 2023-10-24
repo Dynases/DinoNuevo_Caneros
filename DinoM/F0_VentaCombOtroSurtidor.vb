@@ -467,14 +467,54 @@ Public Class F0_VentaCombOtroSurtidor
             .Width = 160
             .Visible = False
         End With
-
-
+        With grVentas.RootTable.Columns("ydnumi")
+            .Width = 160
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("ydcod")
+            .Width = 90
+            .Visible = True
+            .Caption = "CODCAÑERO".ToUpper
+        End With
+        With grVentas.RootTable.Columns("cliente")
+            .Width = 250
+            .Visible = True
+            .Caption = "CAÑERO".ToUpper
+        End With
+        With grVentas.RootTable.Columns("id")
+            .Width = 160
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("codInst")
+            .Width = 90
+            .Visible = True
+            .Caption = "CODINSTITUCION".ToUpper
+        End With
         With grVentas.RootTable.Columns("institucion")
             .Width = 250
             .Visible = True
             .Caption = "INSTITUCION".ToUpper
         End With
-
+        With grVentas.RootTable.Columns("tcestado")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcfact")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("thact")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tauact")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
         With grVentas.RootTable.Columns("tcentregado")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -530,6 +570,44 @@ Public Class F0_VentaCombOtroSurtidor
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcnroautorizacion")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tccantidad")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcprecio")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tctotal")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tcObservacion")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("idContabiliza")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
+            'diseño de la grilla
+
         End With
         If (dt.Rows.Count <= 0) Then
             _prCargarDetalleVenta(-1)
@@ -1672,20 +1750,30 @@ Public Class F0_VentaCombOtroSurtidor
             For Each row In dt.Rows
 
                 If row("cuenta") = "-2" Then
-                    cuenta = dt1.Rows(0).Item(7)
+
+                    If swTipoVenta.Value = True Then
+                        cuenta = 208
+                    Else
+                        If _CodCliente = 691 Then
+                            cuenta = 312
+                        Else
+                            cuenta = dt1.Rows(0).Item(7)
+                        End If
+                    End If
+
 
                 Else
                     cuenta = dt2.Rows(0).Item(3) ' dtDetalle.Rows(0).Item(10) 'row("cuenta")
                 End If
                 If row("dh") = 1 Then
-                    debeus = (Convert.ToDouble(tbTotalDo.Text) / 6.96) * Convert.ToDouble(row("porcentaje")) / 100
-                    debebs = debeus * 6.96
+                    debeus = Math.Round((Convert.ToDouble(tbTotalDo.Text) / 6.96) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    debebs = Math.Round(debeus * 6.96, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
 
-                    haberus = (Convert.ToDouble(tbTotalDo.Text) / 6.96) * Convert.ToDouble(row("porcentaje")) / 100
-                    haberbs = haberus * 6.96
+                    haberus = Math.Round((Convert.ToDouble(tbTotalDo.Text) / 6.96) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    haberbs = Math.Round(haberus * 6.96, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
@@ -1693,7 +1781,7 @@ Public Class F0_VentaCombOtroSurtidor
                 oblin = oblin + 1
             Next
         Next
-
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
         L_Actualiza_otroSurtidor_Contabiliza(codigoVenta, resTO001)
         Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
         ToastNotification.Show(Me, " Venta ".ToUpper + tbCodigo.Text + " Contabilizada con Exito.".ToUpper,
@@ -1731,20 +1819,23 @@ Public Class F0_VentaCombOtroSurtidor
             For Each row In dt.Rows
 
                 If row("cuenta") = "-2" Then
-                    cuenta = dt1.Rows(0).Item(7)
-
+                    If _CodCliente = 691 Then
+                        cuenta = 312
+                    Else
+                        cuenta = dt1.Rows(0).Item(7)
+                    End If
                 Else
                     cuenta = dt2.Rows(0).Item(3) ' dtDetalle.Rows(0).Item(10) 'row("cuenta")
                 End If
                 If row("dh") = 1 Then
-                    debeus = (Convert.ToDouble(tbTotalDo.Text) / 6.96) * Convert.ToDouble(row("porcentaje")) / 100
-                    debebs = debeus * 6.96
+                    debeus = Math.Round((Convert.ToDouble(tbTotalDo.Text) / 6.96) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    debebs = Math.Round(debeus * 6.96, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
 
-                    haberus = (Convert.ToDouble(tbTotalDo.Text) / 6.96) * Convert.ToDouble(row("porcentaje")) / 100
-                    haberbs = haberus * 6.96
+                    haberus = Math.Round((Convert.ToDouble(tbTotalDo.Text) / 6.96) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    haberbs = Math.Round(haberus * 6.96, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
@@ -1752,7 +1843,7 @@ Public Class F0_VentaCombOtroSurtidor
                 oblin = oblin + 1
             Next
         Next
-
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(codCont)
         'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
 
@@ -1843,6 +1934,10 @@ Public Class F0_VentaCombOtroSurtidor
         'If e.KeyData = Keys.Enter Then
         '    cbSurtidor.Focus()
         'End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        contabilizarPrestamo(tbCodigo.Text)
     End Sub
 
 

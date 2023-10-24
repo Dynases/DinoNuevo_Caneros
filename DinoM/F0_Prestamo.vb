@@ -971,20 +971,25 @@ Public Class F0_Prestamo
 
                 'End If
                 If row("cuenta") = "-2" Then
-                    cuenta = dt1.Rows(0).Item(7)
+                    If _CodCliente = 691 Then
+                        cuenta = 312
+                    Else
+                        cuenta = dt1.Rows(0).Item(7)
+                    End If
+
 
                 Else
                     cuenta = dtDetalle.Rows(0).Item(10) 'row("cuenta")
                 End If
                 If row("dh") = 1 Then
-                    debeus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
-                    debebs = debeus * 6.96
+                    debeus = Math.Round(Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    debebs = Math.Round(debeus * 6.96, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
 
-                    haberus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
-                    haberbs = haberus * 6.96
+                    haberus = Math.Round(Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    haberbs = Math.Round(haberus * 6.96, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
@@ -992,7 +997,7 @@ Public Class F0_Prestamo
                 oblin = oblin + 1
             Next
         Next
-
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
         L_Actualiza_Prestamo_Contabiliza(codigoVenta, resTO001)
     End Sub
     Private Sub contabilizarPrestamoDetalle()
@@ -1024,14 +1029,14 @@ Public Class F0_Prestamo
                     cuenta = dtDetalle.Rows(0).Item(10) 'row("cuenta")
                 End If
                 If row("dh") = 1 Then
-                    debeus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
-                    debebs = debeus * 6.96
+                    debeus = Math.Round(Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    debebs = Math.Round(debeus * 6.96, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
 
-                    haberus = Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100
-                    haberbs = haberus * 6.96
+                    haberus = Math.Round(Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    haberbs = Math.Round(haberus * 6.96, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
@@ -1039,7 +1044,7 @@ Public Class F0_Prestamo
                 oblin = oblin + 1
             Next
         Next
-
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(codCont)
         'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
 

@@ -444,6 +444,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Tabla = D_Datos_TablaInst("*", "Institucion", "id= " + _TipoVenta)
         Return _Tabla
     End Function
+
     Public Shared Function verificarGrupoEconomico(_NomTabla As String, _TipoVenta As String) As DataTable
         Dim _Tabla As DataTable
         _Tabla = D_Datos_TablaInst(" id,codGrupo,dbo.TY004.ydcod,dbo.TY004.ydrazonsocial", _NomTabla + " inner JOIN dbo.TY004 ON  TG001.ydnumi=dbo.TY004.ydnumi AND dbo.TY004.ydtip=1 ", "dbo.TY004.ydcod= " + _TipoVenta)
@@ -2239,6 +2240,23 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
 
         Return _Tabla
+    End Function
+    Public Shared Function L_fnObtenerDiferenciaAsientoContable(almacen As Integer) As Double
+        Dim _resultado As Double
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 37))
+        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@tanumi", almacen))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = _Tabla.Rows(0).Item(1)
+        End If
+
+        Return _resultado
     End Function
     Public Shared Function L_fnGeneralVentaTodos() As DataTable
         Dim _Tabla As DataTable
