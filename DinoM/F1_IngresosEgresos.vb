@@ -339,6 +339,7 @@ Public Class F1_IngresosEgresos
         listEstCeldas.Add(New Modelo.Celda("swCliente", False, "Id Asig", 100))
         listEstCeldas.Add(New Modelo.Celda("swPago", False))
         listEstCeldas.Add(New Modelo.Celda("swMoneda", False, "Id Asig", 100))
+        listEstCeldas.Add(New Modelo.Celda("ordenDe", False, "A La Orden", 100))
         Return listEstCeldas
 
     End Function
@@ -387,7 +388,7 @@ Public Class F1_IngresosEgresos
             idCanero.Text = .GetValue("codCanero").ToString
             idInstitucion.Text = .GetValue("codIns").ToString
 
-
+            tbOrden.Text = .GetValue("ordenDe").ToString
 
             'diseño de la grilla para el Total
             .TotalRow = InheritableBoolean.True
@@ -405,8 +406,13 @@ Public Class F1_IngresosEgresos
 
         Dim tipo As Integer = IIf(swTipo.Value = True, 1, 0)
         Dim res As Boolean = L_prIngresoEgresoGrabar(tbcodigo.Text, dpFecha.Value, tipo, tbDescripcion.Text, cbConcepto1.Value, tbMonto.Value, tbObservacion.Text, gs_NroCaja, IIf(tbIdCaja.Text = "", 0, tbIdCaja.Text), "155",
-                                                     idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago1.Value, SwMoneda.Value)
+                                                     idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago1.Value, SwMoneda.Value, tbOrden.Text, tbalmacen.Text)
         If res Then
+
+            If tbalmacen.Text = 1 Or tbalmacen.Text = 2 Or tbalmacen.Text = 3 Or tbalmacen.Text = 4 Then
+                contabilizar(tbcodigo.Text)
+            End If
+
             imprimir(tbcodigo.Text)
 
             Modificado = False
@@ -467,6 +473,7 @@ Public Class F1_IngresosEgresos
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         tbDescripcion.Focus()
         nuevo = 1
+        tbalmacen.Text = 0
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         If btnGrabar.Enabled = True Then
@@ -538,6 +545,7 @@ Public Class F1_IngresosEgresos
         tbdescCanero.Text = frm.Canero
         tbcodInst.Text = frm.Codinstitucion
         tbInstitucion.Text = frm.Institucion
+        tbalmacen.Text = frm.Almacen
         tbDescripcion.Text = "PAGO POR VTA DE INSUMOS S/O " + frm.Codigo
         'tbAsigDesc.Text = frm2.tbObservacion.Text
         'tbAsigDesc.Text = frm2.Observacion
@@ -756,10 +764,82 @@ Public Class F1_IngresosEgresos
         End If
     End Sub
 
-    Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
 
-    End Sub
 
 
 #End Region
+
+
+    Private Sub contabilizar(cod As Integer)
+        Dim dt, dt1, dt2 As DataTable
+        Dim codigoVenta = cod
+        'dt1 = L_BuscarCodCanero(1)
+        Dim glosaReferencia As String
+
+        Select Case tbalmacen.Text
+            Case 1
+                glosaReferencia = tbdescCanero.Text + " Pgo/Ord:. " + tbIdCaja.Text.ToString + " ALMACEN-CENTRAL "    'obobs
+
+            Case 2
+                glosaReferencia = tbdescCanero.Text + " Pgo/Ord:. " + tbIdCaja.Text.ToString + " ALMACEN-SHOPPING "    'obobs
+            Case 3
+                glosaReferencia = tbdescCanero.Text + " Pgo/Ord:. " + tbIdCaja.Text.ToString + " DIESEL-PROPIO "    'obobs
+            Case 4
+                glosaReferencia = tbdescCanero.Text + " Pgo/Ord:. " + tbIdCaja.Text.ToString + " OTROS-SURTIDORES "    'obobs
+            Case Else
+                ' Código a ejecutar si el valor no coincide con ningún caso anterior
+        End Select
+        Dim total = tbMonto.Value 'para obtener debe haber
+
+        Dim cuenta As String
+        Dim debebs, haberbs, debeus, haberus As Double
+
+        Dim resTO001 = L_fnGrabarTO001Ingresos(15, dpFecha.Value, tbOrden.Text, tbNroCheque.Text, tbBanco.Text, glosaReferencia, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
+
+        For a As Integer = 9 To 9 Step 1
+            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+
+
+            Dim oblin As Integer = 1
+            'Dim totalCosto As Double = 0.00
+            For Each row In dt.Rows
+
+                If row("cuenta") = "-2" Then
+                    cuenta = codCuenta.Text ' dtDetalle.Rows(0).Item(10) 'row("cuenta")
+                Else
+                    cuenta = 208
+                End If
+                If row("dh") = 1 Then
+                    debeus = Math.Round((Convert.ToDouble(total)) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    debebs = Math.Round(debeus * 6.96, 2)
+                    haberus = 0.00
+                    haberbs = 0.00
+                Else
+
+                    haberus = Math.Round((Convert.ToDouble(total)) * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    haberbs = Math.Round(haberus * 6.96, 2)
+                    debeus = 0.00
+                    debebs = 0.00
+                End If
+                Dim resTO0011 As Boolean = L_fnGrabarTO001Ingresos(2, dpFecha.Value, tbOrden.Text, tbNroCheque.Text, tbBanco.Text, glosaReferencia, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta,, debebs, haberbs, debeus, haberus)
+                oblin = oblin + 1
+            Next
+        Next
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
+        L_Actualiza_ingreso_Contabiliza(codigoVenta, resTO001)
+        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+        ToastNotification.Show(Me, " Venta ".ToUpper + tbcodigo.Text + " Contabilizada con Exito.".ToUpper,
+                                              img, 2000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter
+                                              )
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        contabilizar(tbcodigo.Text)
+    End Sub
+
+    Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
+
+    End Sub
 End Class

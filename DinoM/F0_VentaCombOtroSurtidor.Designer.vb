@@ -1870,6 +1870,7 @@ Partial Class F0_VentaCombOtroSurtidor
         Me.Button1.TabIndex = 390
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'F0_VentaCombOtroSurtidor
         '

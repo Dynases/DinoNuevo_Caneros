@@ -1819,10 +1819,14 @@ Public Class F0_VentaCombOtroSurtidor
             For Each row In dt.Rows
 
                 If row("cuenta") = "-2" Then
-                    If _CodCliente = 691 Then
-                        cuenta = 312
+                    If swTipoVenta.Value = True Then
+                        cuenta = 208
                     Else
-                        cuenta = dt1.Rows(0).Item(7)
+                        If _CodCliente = 691 Then
+                            cuenta = 312
+                        Else
+                            cuenta = dt1.Rows(0).Item(7)
+                        End If
                     End If
                 Else
                     cuenta = dt2.Rows(0).Item(3) ' dtDetalle.Rows(0).Item(10) 'row("cuenta")

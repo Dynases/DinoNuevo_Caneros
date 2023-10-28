@@ -34,6 +34,7 @@ Partial Class F1_IngresosEgresos
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.tbalmacen = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.cbTipPago1 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbConcepto1 = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
@@ -73,6 +74,8 @@ Partial Class F1_IngresosEgresos
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.tbOrden = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX20 = New DevComponents.DotNetBar.LabelX()
         Me.idCuenCont = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.idActDis = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbBanco = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -92,6 +95,7 @@ Partial Class F1_IngresosEgresos
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.cbConcepto = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbTipPago = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -155,6 +159,7 @@ Partial Class F1_IngresosEgresos
         '
         'PanelSuperior
         '
+        Me.PanelSuperior.Controls.Add(Me.Button1)
         Me.PanelSuperior.Size = New System.Drawing.Size(1322, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.DarkSlateGray
@@ -164,6 +169,9 @@ Partial Class F1_IngresosEgresos
         Me.PanelSuperior.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.PanelSuperior.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.PanelSuperior.Style.GradientAngle = 90
+        Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar1, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar2, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.Button1, 0)
         '
         'PanelInferior
         '
@@ -216,7 +224,7 @@ Partial Class F1_IngresosEgresos
         '
         'PanelToolBar2
         '
-        Me.PanelToolBar2.Location = New System.Drawing.Point(1242, 0)
+        Me.PanelToolBar2.Location = New System.Drawing.Point(978, 0)
         '
         'MPanelSup
         '
@@ -350,6 +358,7 @@ Partial Class F1_IngresosEgresos
         'Panel3
         '
         Me.Panel3.AutoScroll = True
+        Me.Panel3.Controls.Add(Me.tbalmacen)
         Me.Panel3.Controls.Add(Me.cbTipPago1)
         Me.Panel3.Controls.Add(Me.cbConcepto1)
         Me.Panel3.Controls.Add(Me.LabelX19)
@@ -392,6 +401,23 @@ Partial Class F1_IngresosEgresos
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(801, 281)
         Me.Panel3.TabIndex = 227
+        '
+        'tbalmacen
+        '
+        '
+        '
+        '
+        Me.tbalmacen.Border.Class = "TextBoxBorder"
+        Me.tbalmacen.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbalmacen.Enabled = False
+        Me.tbalmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbalmacen.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbalmacen.Location = New System.Drawing.Point(704, 204)
+        Me.tbalmacen.Name = "tbalmacen"
+        Me.tbalmacen.PreventEnterBeep = True
+        Me.tbalmacen.Size = New System.Drawing.Size(60, 21)
+        Me.tbalmacen.TabIndex = 413
+        Me.tbalmacen.Visible = False
         '
         'cbTipPago1
         '
@@ -1036,6 +1062,8 @@ Partial Class F1_IngresosEgresos
         'Panel2
         '
         Me.Panel2.AutoScroll = True
+        Me.Panel2.Controls.Add(Me.tbOrden)
+        Me.Panel2.Controls.Add(Me.LabelX20)
         Me.Panel2.Controls.Add(Me.idCuenCont)
         Me.Panel2.Controls.Add(Me.idActDis)
         Me.Panel2.Controls.Add(Me.tbBanco)
@@ -1057,6 +1085,37 @@ Partial Class F1_IngresosEgresos
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(497, 281)
         Me.Panel2.TabIndex = 227
+        '
+        'tbOrden
+        '
+        '
+        '
+        '
+        Me.tbOrden.Border.Class = "TextBoxBorder"
+        Me.tbOrden.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbOrden.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbOrden.Location = New System.Drawing.Point(124, 100)
+        Me.tbOrden.MaxLength = 18
+        Me.tbOrden.Name = "tbOrden"
+        Me.tbOrden.PreventEnterBeep = True
+        Me.tbOrden.Size = New System.Drawing.Size(250, 21)
+        Me.tbOrden.TabIndex = 387
+        Me.tbOrden.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'LabelX20
+        '
+        Me.LabelX20.AutoSize = True
+        '
+        '
+        '
+        Me.LabelX20.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX20.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX20.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX20.Location = New System.Drawing.Point(9, 105)
+        Me.LabelX20.Name = "LabelX20"
+        Me.LabelX20.Size = New System.Drawing.Size(97, 16)
+        Me.LabelX20.TabIndex = 388
+        Me.LabelX20.Text = "A La Orden De:"
         '
         'idCuenCont
         '
@@ -1094,7 +1153,7 @@ Partial Class F1_IngresosEgresos
         Me.tbBanco.Border.Class = "TextBoxBorder"
         Me.tbBanco.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbBanco.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbBanco.Location = New System.Drawing.Point(124, 149)
+        Me.tbBanco.Location = New System.Drawing.Point(124, 176)
         Me.tbBanco.MaxLength = 18
         Me.tbBanco.Name = "tbBanco"
         Me.tbBanco.PreventEnterBeep = True
@@ -1111,7 +1170,7 @@ Partial Class F1_IngresosEgresos
         Me.LabelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX13.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX13.Location = New System.Drawing.Point(9, 151)
+        Me.LabelX13.Location = New System.Drawing.Point(9, 178)
         Me.LabelX13.Name = "LabelX13"
         Me.LabelX13.Size = New System.Drawing.Size(45, 16)
         Me.LabelX13.TabIndex = 255
@@ -1125,7 +1184,7 @@ Partial Class F1_IngresosEgresos
         Me.tbNroCheque.Border.Class = "TextBoxBorder"
         Me.tbNroCheque.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbNroCheque.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNroCheque.Location = New System.Drawing.Point(124, 110)
+        Me.tbNroCheque.Location = New System.Drawing.Point(124, 137)
         Me.tbNroCheque.MaxLength = 18
         Me.tbNroCheque.Name = "tbNroCheque"
         Me.tbNroCheque.PreventEnterBeep = True
@@ -1142,7 +1201,7 @@ Partial Class F1_IngresosEgresos
         Me.LabelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX14.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX14.Location = New System.Drawing.Point(9, 112)
+        Me.LabelX14.Location = New System.Drawing.Point(9, 139)
         Me.LabelX14.Name = "LabelX14"
         Me.LabelX14.Size = New System.Drawing.Size(80, 16)
         Me.LabelX14.TabIndex = 253
@@ -1334,6 +1393,16 @@ Partial Class F1_IngresosEgresos
         Me.cbTipPago.TabStop = False
         Me.cbTipPago.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(422, 12)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 389
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
+        '
         'F1_IngresosEgresos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1442,4 +1511,8 @@ Partial Class F1_IngresosEgresos
     Friend WithEvents cbTipPago As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbConcepto1 As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbTipPago1 As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents tbOrden As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents LabelX20 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbalmacen As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents Button1 As Button
 End Class

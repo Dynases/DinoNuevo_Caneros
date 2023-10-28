@@ -400,6 +400,76 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _tanumi
     End Function
+    Public Shared Function L_fnGrabarTO001Ingresos(_tipo As Integer, fecha As String, orden As String, cheque As String, banco As String, glosa As String, ByRef _tanumi As Integer, Optional _obnumito1 As String = "", Optional _oblin As String = "",
+                                           Optional _obcuenta As String = "", Optional _obobs As String = "", Optional _obdebebs As Double = 0.00,
+                                           Optional _obhaberbs As Double = 0.00, Optional _obdebeus As Double = 0.00, Optional _obhaberus As Double = 0.00) As Integer
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", _tipo))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _listParam.Add(New Datos.DParametro("@obnumito1", _obnumito1))
+        _listParam.Add(New Datos.DParametro("@oblin", _oblin))
+        _listParam.Add(New Datos.DParametro("@obcuenta", _obcuenta))
+        _listParam.Add(New Datos.DParametro("@obobs", glosa))
+        _listParam.Add(New Datos.DParametro("@obdebebs", _obdebebs))
+        _listParam.Add(New Datos.DParametro("@obhaberbs", _obhaberbs))
+        _listParam.Add(New Datos.DParametro("@obdebeus", _obdebeus))
+        _listParam.Add(New Datos.DParametro("@obhaberus", _obhaberus))
+        _listParam.Add(New Datos.DParametro("@tafdoc", fecha))
+        _listParam.Add(New Datos.DParametro("@nombre", orden))
+        _listParam.Add(New Datos.DParametro("@cheque", cheque))
+        _listParam.Add(New Datos.DParametro("@banco", banco))
+        _listParam.Add(New Datos.DParametro("@glosa", glosa))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_HeaAsiCont", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _tanumi
+    End Function
+    Public Shared Function L_fnGrabarTO001IngresosDetalle(_tipo As Integer, fecha As String, orden As String, cheque As String, banco As String, glosa As String, ByRef _tanumi As Integer, Optional _obnumito1 As String = "", Optional _oblin As String = "",
+                                           Optional _obcuenta As String = "", Optional _obobs As String = "", Optional _obdebebs As Double = 0.00,
+                                           Optional _obhaberbs As Double = 0.00, Optional _obdebeus As Double = 0.00, Optional _obhaberus As Double = 0.00) As Integer
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        '    @tanumi ,@taalm,@tafdoc ,@taven  ,@tatven,
+        '@tafvcr ,@taclpr,@tamon ,@taest  ,@taobs ,@tadesc ,@newFecha,@newHora,@tauact,@taproforma
+        _listParam.Add(New Datos.DParametro("@tipo", _tipo))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _listParam.Add(New Datos.DParametro("@obnumito1", _obnumito1))
+        _listParam.Add(New Datos.DParametro("@oblin", _oblin))
+        _listParam.Add(New Datos.DParametro("@obcuenta", _obcuenta))
+        _listParam.Add(New Datos.DParametro("@obobs", _obobs))
+        _listParam.Add(New Datos.DParametro("@obdebebs", _obdebebs))
+        _listParam.Add(New Datos.DParametro("@obhaberbs", _obhaberbs))
+        _listParam.Add(New Datos.DParametro("@obdebeus", _obdebeus))
+        _listParam.Add(New Datos.DParametro("@obhaberus", _obhaberus))
+        _listParam.Add(New Datos.DParametro("@tafdoc", fecha))
+        _listParam.Add(New Datos.DParametro("@nombre", orden))
+        _listParam.Add(New Datos.DParametro("@cheque", cheque))
+        _listParam.Add(New Datos.DParametro("@banco", banco))
+        _listParam.Add(New Datos.DParametro("@glosa", glosa))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_HeaAsiCont", _listParam)
+
+
+        If _Tabla.Rows.Count > 0 Then
+            _tanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _tanumi
+    End Function
     Public Shared Function PrecioPonderado(_NomTabla As Integer, _TipoVenta As Integer, _cantidad As Decimal) As Decimal
         Dim resultado As Decimal = 0.00000
         Dim _Tabla As DataTable
@@ -3442,6 +3512,14 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         _Err = D_Modificar_Datos("TV001", Sql, _where)
     End Sub
+    Public Shared Sub L_Actualiza_ingreso_Contabiliza(_Numi As String, _numiConta As String)
+        Dim _Err As Boolean
+        Dim Sql, _where As String
+        Sql = "codCont = " + _numiConta
+        _where = "ienumi = " + _Numi
+
+        _Err = D_Modificar_Datos("TIE001", Sql, _where)
+    End Sub
     Public Shared Sub L_Actualiza_otroSurtidor_Contabiliza(_Numi As String, _numiConta As String)
         Dim _Err As Boolean
         Dim Sql, _where As String
@@ -5569,7 +5647,18 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnObteniendoCompraAnterior(producto As Integer, deposito As Integer) As DataTable
+        Dim _Tabla As DataTable
 
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 38))
+        _listParam.Add(New Datos.DParametro("@producto", producto))
+        _listParam.Add(New Datos.DParametro("@tanumi", deposito))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_prMovimientoConcepto() As DataTable
         Dim _Tabla As DataTable
 
@@ -8007,7 +8096,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
                                            _ieDescripcion As String, _ieConcepto As String, _ieMonto As Decimal,
                                            _ieObs As String, Optional _NroCaja As Integer = 0, Optional tbIdCaja As String = "", Optional _ieidasig As Integer = 0,
                                                    Optional idCanero As String = "", Optional tbdescCanero As String = "", Optional idInstitucion As String = "", Optional tbInstitucion As String = "", Optional tbRecibi As String = "", Optional tbentregue As String = "", Optional idActDis As String = "",
-                                          Optional idCuenCont As String = "", Optional tbNroOpera As String = "", Optional tbNroCheque As String = "", Optional tbBanco As String = "", Optional SwParticular As String = "", Optional cbTipPago As String = "", Optional SwMoneda As String = "") As Boolean
+                                          Optional idCuenCont As String = "", Optional tbNroOpera As String = "", Optional tbNroCheque As String = "", Optional tbBanco As String = "", Optional SwParticular As String = "", Optional cbTipPago As String = "", Optional SwMoneda As String = "", Optional ordenDe As String = "", Optional almacen As String = "") As Boolean
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
@@ -8039,7 +8128,8 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@SwParticular", SwParticular))
         _listParam.Add(New Datos.DParametro("@cbTipPago", cbTipPago))
         _listParam.Add(New Datos.DParametro("@SwMoneda", SwMoneda))
-
+        _listParam.Add(New Datos.DParametro("@tbOrden", ordenDe))
+        _listParam.Add(New Datos.DParametro("@almacen", almacen))
         _listParam.Add(New Datos.DParametro("@ieuact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)

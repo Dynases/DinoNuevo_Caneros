@@ -681,6 +681,12 @@
     <Compile Include="Pr_EstadoCuentasProveedores.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pr_EstadoCxSocio.designer.vb">
+      <DependentUpon>Pr_EstadoCxSocio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_EstadoCxSocio.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pr_Liquidacion.Designer.vb">
       <DependentUpon>Pr_Liquidacion.vb</DependentUpon>
     </Compile>
