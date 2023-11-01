@@ -34,15 +34,11 @@ Public Class F0_Prestamo
         _prCargarPrestamo()
         Limpiar()
         If grPrestamo.RowCount > 0 Then
-            grPrestamo.Row = 0
+
             _MostrarRegistro()
         End If
-        grPrestamo.Row = grPrestamo.RowCount - 1
 
-        LblPaginacion.Text = CStr(grPrestamo.Row + 1) + "/" + CStr(grPrestamo.RowCount)
-
-
-
+          LblPaginacion.Text = CStr(grPrestamo.Row + 1) + "/" + CStr(grPrestamo.RowCount)
 
     End Sub
 
@@ -467,8 +463,10 @@ Public Class F0_Prestamo
                                               CDbl(tbInteres.Text), tbObs.Text)
         If res Then
             _prCargarPrestamo()
-            grPrestamo.Row = 0
+
+
             _MostrarRegistro()
+
             If codPres.Text <> "10016" And codPres.Text <> "10005" And tbCodProv.Text <> 2 Then
                 contabilizarPrestamo()
             End If
@@ -1064,5 +1062,9 @@ Public Class F0_Prestamo
         If (grPrestamo.RowCount >= 0 And grPrestamo.Row >= 0) Then
             _MostrarRegistro()
         End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        contabilizarPrestamo()
     End Sub
 End Class

@@ -1828,7 +1828,7 @@ Public Class F0_Retenciones
     Private Sub SetParametrosNotaVenta(dt As DataTable, objrep As Object)
         objrep.SetDataSource(dt)
 
-        objrep.SetParameterValue("usuario", gs_user)
+        objrep.SetParameterValue("usuario", "Impreso por: " + gs_user)
         P_Global.Visualizador = New Visualizador
         P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
         P_Global.Visualizador.ShowDialog() 'Comentar

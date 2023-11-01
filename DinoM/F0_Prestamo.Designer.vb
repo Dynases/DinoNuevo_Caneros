@@ -70,6 +70,7 @@ Partial Class F0_Prestamo
         Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.grPrestamo = New Janus.Windows.GridEX.GridEX()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -101,6 +102,7 @@ Partial Class F0_Prestamo
         '
         'PanelSuperior
         '
+        Me.PanelSuperior.Controls.Add(Me.Button1)
         Me.PanelSuperior.Size = New System.Drawing.Size(800, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
@@ -115,6 +117,11 @@ Partial Class F0_Prestamo
         Me.PanelSuperior.StyleMouseOver.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackgroundImage = CType(resources.GetObject("PanelSuperior.StyleMouseOver.BackgroundImage"), System.Drawing.Image)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar1, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar2, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.MRlAccion, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.PictureBox1, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.Button1, 0)
         '
         'PanelInferior
         '
@@ -929,6 +936,16 @@ Partial Class F0_Prestamo
         Me.grPrestamo.TabIndex = 13
         Me.grPrestamo.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(401, 12)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 389
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
+        '
         'F0_Prestamo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1015,4 +1032,5 @@ Partial Class F0_Prestamo
     Friend WithEvents GroupPanel3 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents Panel6 As Panel
     Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
+    Friend WithEvents Button1 As Button
 End Class
