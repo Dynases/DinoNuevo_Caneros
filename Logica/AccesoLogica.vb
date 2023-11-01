@@ -8817,6 +8817,42 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         Return _Tabla
     End Function
 
+    Public Shared Function CargarCCxSocio(codCan As Integer, codIns As Integer, codPrest As Integer, fec As String, fecF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 29))
+        _listParam.Add(New Datos.DParametro("@trcan", codCan))
+        _listParam.Add(New Datos.DParametro("@trins", codIns))
+        _listParam.Add(New Datos.DParametro("@tralm", codPrest))
+        _listParam.Add(New Datos.DParametro("@fechaF", fecF))
+        _listParam.Add(New Datos.DParametro("@trfec", fec))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function CargarCCxSocioDet(codCan As Integer, codIns As Integer, codPrest As Integer, fec As String, fecF As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 30))
+        _listParam.Add(New Datos.DParametro("@trcan", codCan))
+        _listParam.Add(New Datos.DParametro("@trins", codIns))
+        _listParam.Add(New Datos.DParametro("@tralm", codPrest))
+        _listParam.Add(New Datos.DParametro("@fechaF", fecF))
+        _listParam.Add(New Datos.DParametro("@trfec", fec))
+        _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+
+        Return _Tabla
+    End Function
+
     Public Shared Function TraerTipoPrestamos() As DataTable
         Dim _Tabla As DataTable
 

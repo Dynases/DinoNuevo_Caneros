@@ -23,7 +23,7 @@ Partial Class Pr_EstadoCxSocio
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_Liquidacion))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_EstadoCxSocio))
         Dim cbQuincena_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.tbNomCan = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.CheckTodosCan = New DevComponents.DotNetBar.Controls.CheckBoxX()
@@ -564,14 +564,15 @@ Partial Class Pr_EstadoCxSocio
         Me.CheckBoxX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.CheckBoxX1.TabIndex = 403
         Me.CheckBoxX1.Text = "Con Aportes 2022"
+        Me.CheckBoxX1.Visible = False
         '
-        'Pr_Liquidacion
+        'Pr_EstadoCxSocio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 514)
         Me.Location = New System.Drawing.Point(0, 0)
-        Me.Name = "Pr_Liquidacion"
+        Me.Name = "Pr_EstadoCxSocio"
         Me.Opacity = 0.99R
         Me.Text = "Pr_Liquidacion"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

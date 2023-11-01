@@ -36,6 +36,7 @@ Partial Class P_Principal
         Me.btCuentasxCobrar = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btPlandePagos = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.btTraspasoCupos = New DevComponents.DotNetBar.Metro.MetroTileItem()
+        Me.btEstadoCuentaxSocio = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.SideNavPanel9 = New DevComponents.DotNetBar.Controls.SideNavPanel()
         Me.MetroTilePanel9 = New DevComponents.DotNetBar.Metro.MetroTilePanel()
         Me.bt_diasZafra = New DevComponents.DotNetBar.Metro.MetroTileItem()
@@ -211,7 +212,6 @@ Partial Class P_Principal
         Me.MetroTileItem11 = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.MetroTileItem12 = New DevComponents.DotNetBar.Metro.MetroTileItem()
         Me.MetroTileItem13 = New DevComponents.DotNetBar.Metro.MetroTileItem()
-        Me.btEstadoCuentaxSocio = New DevComponents.DotNetBar.Metro.MetroTileItem()
         MetroTileFrame1 = New DevComponents.DotNetBar.Metro.MetroTileFrame()
         MetroTileFrame2 = New DevComponents.DotNetBar.Metro.MetroTileFrame()
         Me.SideNav1.SuspendLayout()
@@ -483,6 +483,27 @@ Partial Class P_Principal
         Me.btTraspasoCupos.TileStyle.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Far
         Me.btTraspasoCupos.TitleTextAlignment = System.Drawing.ContentAlignment.BottomCenter
         Me.btTraspasoCupos.TitleTextColor = System.Drawing.Color.Red
+        '
+        'btEstadoCuentaxSocio
+        '
+        Me.btEstadoCuentaxSocio.Image = Global.DinoM.My.Resources.Resources.check_mark
+        Me.btEstadoCuentaxSocio.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btEstadoCuentaxSocio.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Center
+        Me.btEstadoCuentaxSocio.Name = "btEstadoCuentaxSocio"
+        Me.btEstadoCuentaxSocio.SymbolColor = System.Drawing.Color.Empty
+        Me.btEstadoCuentaxSocio.Text = "ESTADO DE CUENTAS POR SOCIOS S-S"
+        Me.btEstadoCuentaxSocio.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Teal
+        Me.btEstadoCuentaxSocio.TileSize = New System.Drawing.Size(250, 135)
+        '
+        '
+        '
+        Me.btEstadoCuentaxSocio.TileStyle.BackColor = System.Drawing.Color.DarkSlateGray
+        Me.btEstadoCuentaxSocio.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btEstadoCuentaxSocio.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.btEstadoCuentaxSocio.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btEstadoCuentaxSocio.TileStyle.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Far
+        Me.btEstadoCuentaxSocio.TitleTextAlignment = System.Drawing.ContentAlignment.BottomCenter
+        Me.btEstadoCuentaxSocio.TitleTextColor = System.Drawing.Color.Red
         '
         'SideNavPanel9
         '
@@ -3471,27 +3492,6 @@ Partial Class P_Principal
         Me.MetroTileItem13.TileStyle.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Far
         Me.MetroTileItem13.TitleTextAlignment = System.Drawing.ContentAlignment.BottomCenter
         Me.MetroTileItem13.TitleTextColor = System.Drawing.Color.Red
-        '
-        'btEstadoCuentaxSocio
-        '
-        Me.btEstadoCuentaxSocio.Image = Global.DinoM.My.Resources.Resources.check_mark
-        Me.btEstadoCuentaxSocio.ImageTextAlignment = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btEstadoCuentaxSocio.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Center
-        Me.btEstadoCuentaxSocio.Name = "btEstadoCuentaxSocio"
-        Me.btEstadoCuentaxSocio.SymbolColor = System.Drawing.Color.Empty
-        Me.btEstadoCuentaxSocio.Text = "ESTADO DE CUENTAS POR SOCIOS S-S"
-        Me.btEstadoCuentaxSocio.TileColor = DevComponents.DotNetBar.Metro.eMetroTileColor.Teal
-        Me.btEstadoCuentaxSocio.TileSize = New System.Drawing.Size(250, 135)
-        '
-        '
-        '
-        Me.btEstadoCuentaxSocio.TileStyle.BackColor = System.Drawing.Color.DarkSlateGray
-        Me.btEstadoCuentaxSocio.TileStyle.BackColor2 = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btEstadoCuentaxSocio.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.btEstadoCuentaxSocio.TileStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btEstadoCuentaxSocio.TileStyle.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Far
-        Me.btEstadoCuentaxSocio.TitleTextAlignment = System.Drawing.ContentAlignment.BottomCenter
-        Me.btEstadoCuentaxSocio.TitleTextColor = System.Drawing.Color.Red
         '
         'P_Principal
         '

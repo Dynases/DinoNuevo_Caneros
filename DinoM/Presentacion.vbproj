@@ -1437,6 +1437,18 @@
       <DependentUpon>R_CCPagosSaldos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="R_EstadoCxSocioDetallado.vb">
+      <DependentUpon>R_EstadoCxSocioDetallado.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="R_EstadoCxSocio.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_EstadoCxSocio.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="R_KardexCreditoPagos.Designer.vb">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>
     </Compile>
@@ -1741,6 +1753,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_EstadoCuentasProveedores.resx">
       <DependentUpon>Pr_EstadoCuentasProveedores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_EstadoCxSocio.resx">
+      <DependentUpon>Pr_EstadoCxSocio.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_Liquidacion.resx">
       <DependentUpon>Pr_Liquidacion.vb</DependentUpon>
@@ -2210,6 +2225,14 @@
     <EmbeddedResource Include="R_CCPagosSaldos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_CCPagosSaldos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R_EstadoCxSocioDetallado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_EstadoCxSocioDetallado.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R_EstadoCxSocio.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_EstadoCxSocio.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="R_KardexCreditoPagos.resx">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>

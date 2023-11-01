@@ -1445,4 +1445,10 @@ Public Class P_Principal
 
         frm.Show()
     End Sub
+
+    Private Sub btEstadoCuentaxSocio_Click(sender As Object, e As EventArgs) Handles btEstadoCuentaxSocio.Click
+        Dim frm As New Pr_EstadoCxSocio
+        frm.Show()
+
+    End Sub
 End Class
