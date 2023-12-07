@@ -234,7 +234,6 @@ Partial Class F0_Retenciones
         'btnEliminar
         '
         Me.btnEliminar.Text = "ANULAR"
-        Me.btnEliminar.Visible = False
         '
         'btnModificar
         '

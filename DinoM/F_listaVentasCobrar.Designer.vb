@@ -63,8 +63,7 @@ Partial Class F_listaVentasCobrar
         '
         'SuperTabControlPanelBuscador
         '
-        Me.SuperTabControlPanelBuscador.Location = New System.Drawing.Point(0, 0)
-        Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(955, 585)
+        Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(890, 564)
         '
         'SuperTabControlPanelRegistro
         '

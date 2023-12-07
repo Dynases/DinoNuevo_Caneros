@@ -90,7 +90,7 @@ Public Class Login
             gi_userSuc = dtUsuario.Rows(0).Item("ydsuc")
             gs_userSucNom = dtUsuario.Rows(0).Item("aabdes")
 
-            'gb_userTodasSuc = IIf(dtUsuario.Rows(0).Item("ydall") = 1, True, False)
+            gs_ydall = dtUsuario.Rows(0).Item("ydall")
 
             _prDesvenecerPantalla()
 

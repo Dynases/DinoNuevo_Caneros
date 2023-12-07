@@ -165,21 +165,28 @@ Public Class Pr_EstadoCxSocio
     End Sub
     Private Function interpretarDatos() As DataTable
         Dim dt As DataTable
-        If swTipo.Value = True Then
-            'If CheckBoxX1.Checked = True Then
-            '    dt = CargarCCPagosSaldosConAportes(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
-            'Else
-            dt = CargarCCxSocio(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+        If cbReporte.Value = 1 Then
+            If swTipo.Value = True Then
+                'If CheckBoxX1.Checked = True Then
+                '    dt = CargarCCPagosSaldosConAportes(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+                'Else
+                dt = CargarCCxSocio(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
-            'End If
-        Else
-            'If CheckBoxX1.Checked = True Then
-            '    dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+                'End If
+            Else
+                'If CheckBoxX1.Checked = True Then
+                '    dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
 
-            'Else
-            dt = CargarCCxSocioDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+                'Else
+                dt = CargarCCxSocioDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
-            'End If
+                'End If
+
+            End If
+
+        ElseIf cbReporte.Value = 2 Then
+
+            dt = CargarCCxSocioPagado(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
         End If
 
@@ -189,22 +196,36 @@ Public Class Pr_EstadoCxSocio
         Dim dt As DataTable = interpretarDatos()
 
         If dt.Rows.Count > 0 Then
-            If swTipo.Value = True Then
-                Dim objrep As New R_EstadoCxSocio
-                objrep.SetDataSource(dt)
+            If cbReporte.Value = 1 Then
+                If swTipo.Value = True Then
+                    Dim objrep As New R_EstadoCxSocio
+                    objrep.SetDataSource(dt)
 
-                objrep.SetParameterValue("prestamo", cbQuincena.Text)
-                objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
-                objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
-                objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
-                MReportViewer.ReportSource = objrep
-                MReportViewer.Show()
-                MReportViewer.BringToFront()
+                    objrep.SetParameterValue("prestamo", cbQuincena.Text)
+                    objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+                    objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+                    objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
+                    MReportViewer.ReportSource = objrep
+                    MReportViewer.Show()
+                    MReportViewer.BringToFront()
+                Else
+                    Dim objrep As New R_EstadoCxSocioDetallado
+                    objrep.SetDataSource(dt)
+
+                    objrep.SetParameterValue("prestamo", cbQuincena.Text)
+                    objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+                    objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+                    objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
+                    MReportViewer.ReportSource = objrep
+                    MReportViewer.Show()
+                    MReportViewer.BringToFront()
+                End If
+
             Else
-                Dim objrep As New R_EstadoCxSocioDetallado
+                Dim objrep As New R_EstadoCxSocioPagado
                 objrep.SetDataSource(dt)
 
-                objrep.SetParameterValue("prestamo", cbQuincena.Text)
+                'objrep.SetParameterValue("prestamo", cbQuincena.Text)
                 objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
                 objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
                 objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
@@ -212,19 +233,17 @@ Public Class Pr_EstadoCxSocio
                 MReportViewer.Show()
                 MReportViewer.BringToFront()
             End If
-
-
         Else
-            Dim objrep As New R_EstadoCxSocio
-            objrep.SetDataSource(dt)
+            '    Dim objrep As New R_EstadoCxSocio
+            'objrep.SetDataSource(dt)
 
-            objrep.SetParameterValue("prestamo", cbQuincena.Text)
-            objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
-            objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
-            objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
-            MReportViewer.ReportSource = objrep
-            MReportViewer.Show()
-            MReportViewer.BringToFront()
+            'objrep.SetParameterValue("prestamo", cbQuincena.Text)
+            'objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+            'objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+            'objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
+            'MReportViewer.ReportSource = objrep
+            'MReportViewer.Show()
+            'MReportViewer.BringToFront()
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "NO HAY DATOS PARA MOSTRAR".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)
 
@@ -234,8 +253,27 @@ Public Class Pr_EstadoCxSocio
     Private Sub SuperTabControlPanelRegistro_Click(sender As Object, e As EventArgs) Handles SuperTabControlPanelRegistro.Click
 
     End Sub
-
+    Private Sub cargarComboReporte(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt.Columns.Add("yccod3")
+        dt.Columns.Add("ycdes3")
+        dt.Rows.Add(1, "ESTADO DE CUENTAS POR SOCIO")
+        dt.Rows.Add(2, "LISTA DE PAGOS")
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("yccod3").Width = 60
+            .DropDownList.Columns("yccod3").Caption = "CODIGO"
+            .DropDownList.Columns.Add("ycdes3").Width = 350
+            .DropDownList.Columns("ycdes3").Caption = "REPORTE"
+            .ValueMember = "yccod3"
+            .DisplayMember = "ycdes3"
+            .DataSource = dt
+            .Refresh()
+        End With
+        mCombo.SelectedIndex = 0
+    End Sub
     Private Sub Pr_Liquidacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cargarComboReporte(cbReporte)
         _prCargarQuincena(cbQuincena)
         CheckTodos.Checked = True
         CheckTodosCan.Checked = True

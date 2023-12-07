@@ -382,6 +382,7 @@ Public Class F0_AnularFactura
                     Else
 
                         If F0_Venta2.Anula(tokenSifac, tbAlmacen.Text, tbCuf.Text, CbMotivo.Value) = 2 Then
+
                             L_Modificar_Factura("fvanumi = " + Tb1Codigo.Text + " and fvanfac = " + NroFactura + " and fvaautoriz = " + NroAutorizacion, "", "", "", IIf(Sb1Estado.Value, "1", "0"))
                             'Luego anula venta
                             Dim mensajeError As String = ""

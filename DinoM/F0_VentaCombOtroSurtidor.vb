@@ -1739,7 +1739,7 @@ Public Class F0_VentaCombOtroSurtidor
         dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
         dt2 = ObtenerNumCuentaSurtidor("TY0031", cbSurtidor.Value) ' ObtenerNumCuentaSurtidor()
 
-        Dim resTO001 = L_fnGrabarTO001prestamos(11, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001prestamos(11, Convert.ToInt32(codigoVenta), "false", "", codigoVenta) 'numi cabecera to001
 
         For a As Integer = 6 To 6 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden

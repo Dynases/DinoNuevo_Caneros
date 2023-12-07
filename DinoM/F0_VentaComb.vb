@@ -2546,7 +2546,7 @@ Public Class F0_VentaComb
         Dim debebs, haberbs, debeus, haberus As Double
         dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)  'obcuenta=ncuenta
 
-        Dim resTO001 = L_fnGrabarTO001(12, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001(12, Convert.ToInt32(codigoVenta), "false", "", codigoVenta) 'numi cabecera to001
 
         For a As Integer = 8 To 8 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden

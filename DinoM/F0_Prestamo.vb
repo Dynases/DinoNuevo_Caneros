@@ -124,6 +124,9 @@ Public Class F0_Prestamo
         tbTotal.Text = ""
         tbInteres.Text = ""
         tbObs.Text = ""
+        txtEstado.BackColor = Color.White
+        txtEstado.Clear()
+
     End Sub
 
     Public Sub _MostrarRegistro()
@@ -148,7 +151,7 @@ Public Class F0_Prestamo
             If .GetValue("tbidprov").ToString <> 0 Then
                 tbCodProv.Text = .GetValue("tbidprov").ToString
             Else
-                tbCodProv.Text = ""
+                tbCodProv.Text = "0"
             End If
             If .GetValue("tbnomprov").ToString <> "" Then
                 tbProv.Text = .GetValue("tbnomprov").ToString
@@ -161,6 +164,17 @@ Public Class F0_Prestamo
             tbInteres.Text = .GetValue("tbapor").ToString
             tbObs.Text = .GetValue("tbobs").ToString
             codCont = .GetValue("tbcodCont").ToString
+            If .GetValue("tbestado") = 1 Then
+                txtEstado.Text = "VIGENTE"
+                txtEstado.BackColor = Color.Green
+                btnEliminar.Enabled = True
+                btnModificar.Enabled = True
+            Else
+                txtEstado.Text = "ANULADO"
+                txtEstado.BackColor = Color.Red
+                btnEliminar.Enabled = False
+                btnModificar.Enabled = False
+            End If
         End With
     End Sub
 
@@ -304,6 +318,11 @@ Public Class F0_Prestamo
             .Visible = False
         End With
         With grPrestamo.RootTable.Columns("tbcodcont")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grPrestamo.RootTable.Columns("tbestado")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
@@ -467,7 +486,7 @@ Public Class F0_Prestamo
 
             _MostrarRegistro()
 
-            If codPres.Text <> "10016" And codPres.Text <> "10005" And tbCodProv.Text <> 2 Then
+            If codPres.Text <> "10016" And codPres.Text <> "10005" And tbCodProv.Text <> 0 Then
                 contabilizarPrestamo()
             End If
 
@@ -822,7 +841,7 @@ Public Class F0_Prestamo
 
         Dim _Hora As String = Now.Hour.ToString + ":" + Now.Minute.ToString
         Dim _Ds2, _Ds3
-        If codPres.Text = "10016" Or codPres.Text = "10005" Then
+        If codPres.Text = "10016" Or codPres.Text = "10005" Or codPres.Text = "100151" Or codPres.Text = "100161" Or codPres.Text = "100121" Or codPres.Text = "100131" Or codPres.Text = "100011" Or codPres.Text = "100021" Or codPres.Text = "100031" Or codPres.Text = "100041" Or codPres.Text = "100051" Or codPres.Text = "100061" Or codPres.Text = "100071" Or codPres.Text = "100081" Or codPres.Text = "100091" Or codPres.Text = "100101" Or codPres.Text = "100111" Then
             _Ds2 = L_Reporte_Factura_Cia("3")
 
             _Ds3 = L_ObtenerRutaImpresora("3")
@@ -846,7 +865,7 @@ Public Class F0_Prestamo
         Dim empresaId = ObtenerEmpresaHabilitada()
         Dim empresaHabilitada As DataTable = ObtenerEmpresaTipoReporte(empresaId, Convert.ToInt32(ENReporte.NOTAVENTA))
         For Each fila As DataRow In empresaHabilitada.Rows
-            If codPres.Text = "10016" Or codPres.Text = "10005" Then
+            If codPres.Text = "10016" Or codPres.Text = "10005" Or codPres.Text = "100151" Or codPres.Text = "100161" Or codPres.Text = "100121" Or codPres.Text = "100131" Or codPres.Text = "100011" Or codPres.Text = "100021" Or codPres.Text = "100031" Or codPres.Text = "100041" Or codPres.Text = "100051" Or codPres.Text = "100061" Or codPres.Text = "100071" Or codPres.Text = "100081" Or codPres.Text = "100091" Or codPres.Text = "100101" Or codPres.Text = "100111" Then
                 objrep = New R_NotaPrestamoshoping
                 SetParametrosNotaVenta(dt, total, _Hora, _Ds2, _Ds3, fila.Item("TipoReporte").ToString, objrep, tbPrest.Text)
             Else
@@ -862,7 +881,7 @@ Public Class F0_Prestamo
         Select Case tipoReporte
             Case ENReporteTipo.NOTAVENTA_Carta
                 objrep.SetDataSource(dt)
-                If codPres.Text = "10016" Or codPres.Text = "10005" Then
+                If codPres.Text = "10016" Or codPres.Text = "10005" Or codPres.Text = "100151" Or codPres.Text = "100161" Or codPres.Text = "100121" Or codPres.Text = "100131" Or codPres.Text = "100011" Or codPres.Text = "100021" Or codPres.Text = "100031" Or codPres.Text = "100041" Or codPres.Text = "100051" Or codPres.Text = "100061" Or codPres.Text = "100071" Or codPres.Text = "100081" Or codPres.Text = "100091" Or codPres.Text = "100101" Or codPres.Text = "100111" Then
                     objrep.SetParameterValue("prestamo", prestamo)
 
                 End If
@@ -927,7 +946,7 @@ Public Class F0_Prestamo
         dtDetalle = ObtenerNumCuentaProveedor("Institucion", _CodProveedor)
 
 
-        Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false", "", codigoVenta) 'numi cabecera to001
         'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
         For a As Integer = 6 To 6 Step 1
@@ -939,37 +958,9 @@ Public Class F0_Prestamo
             Dim oblin As Integer = 1
             'Dim totalCosto As Double = 0.00
             For Each row In dt.Rows
-                '    Select Case row("cuenta")
 
-                'If row("cuenta") = "-1" Then
-                '    For Each detalle In dtDetalle.Rows
-                '        cuenta = detalle("yfclot")
-                '        If row("dh") = 1 Then
-                '            debeus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
-                '            debebs = debeus * 6.96
-                '            haberus = 0.00
-                '            haberbs = 0.00
-                '            totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
-                '        Else
-                '            haberus = (Convert.ToDouble(detalle("tbptot2")) * Convert.ToDouble(row("porcentaje"))) / 100
-                '            haberbs = haberus * 6.96
-                '            debeus = 0.00
-                '            debebs = 0.00
-                '            totalCosto = totalCosto + Convert.ToDouble(detalle("tbptot2"))
-                '        End If
-
-                '        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
-                '        oblin = oblin + 1
-                '    Next
-
-
-                '    If row("cuenta") = "-1" Then
-                '        Continue For
-                '    End If
-
-                'End If
                 If row("cuenta") = "-2" Then
-                    If _CodCliente = 691 Then
+                    If codCan.Text = 1530 Then
                         cuenta = 312
                     Else
                         cuenta = dt1.Rows(0).Item(7)
@@ -1047,7 +1038,41 @@ Public Class F0_Prestamo
     End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+        If (L_fnVerificarCObros(tbcod.Text, codPres.Text)) Then
 
+            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+            ToastNotification.Show(Me, "No se puede anular el prestamo con código ".ToUpper + tbcod.Text + ", porque tiene pagos realizados.".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+            Exit Sub
+        Else
+            If (tbcod.Text <> String.Empty) Then
+                Dim result As DialogResult = MessageBox.Show("¿Está seguro de ANULAR el prestamo con número de orden:" + tbcod.Text + "?", "PRESTAMO ", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+
+                If result = DialogResult.OK Then
+                    Dim mensajeError As String = ""
+                    Dim res As Boolean = L_fnEliminarPrestamos(tbcod.Text, codPres.Text)
+                    If res Then
+                        Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+                        ToastNotification.Show(Me, "Código de Prestamo  ".ToUpper + tbcod.Text + " anulado con Exito.".ToUpper,
+                                                  img, 2000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+
+                        _MostrarRegistro()
+
+                    Else
+                        Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                        ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                    End If
+                ElseIf result = DialogResult.Cancel Then
+                    ' Código para ejecutar si se hace clic en "Cancelar"
+                End If
+
+
+            End If
+        End If
     End Sub
 
     Private Sub grPrestamo_KeyDown(sender As Object, e As KeyEventArgs) Handles grPrestamo.KeyDown

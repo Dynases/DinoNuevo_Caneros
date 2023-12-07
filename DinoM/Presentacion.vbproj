@@ -1449,6 +1449,12 @@
       <DependentUpon>R_EstadoCxSocio.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="R_EstadoCxSocioPagado.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_EstadoCxSocioPagado.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="R_KardexCreditoPagos.Designer.vb">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>
     </Compile>
@@ -2233,6 +2239,10 @@
     <EmbeddedResource Include="R_EstadoCxSocio.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_EstadoCxSocio.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R_EstadoCxSocioPagado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_EstadoCxSocioPagado.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="R_KardexCreditoPagos.resx">
       <DependentUpon>R_KardexCreditoPagos.vb</DependentUpon>

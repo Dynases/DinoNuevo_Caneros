@@ -2147,7 +2147,7 @@ salirIf:
 
     Private Sub contabilizarComprasCredito(numi As String)
         Dim codigoVenta = numi
-        Dim codCanero = "Se adquiere de " + Convert.ToString(tbProveedor.Text.Trim()) + " mercaderia al credito. Ord. " + codigoVenta  'obobs
+        Dim codCanero = "Se adquiere de " + Convert.ToString(tbProveedor.Text.Trim()) + " mercaderia al credito. Ord. " + codigoVenta + " Fact. " + tbNFactura.Text  'obobs
         Dim total = tbtotal.Text 'para obtener debe haber
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
@@ -2156,20 +2156,15 @@ salirIf:
 
 
 
-        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value, 3, "", codCanero) 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value, 3, "", codCanero, 0, 0, 0, 0, cbSucursal.Value, codigoVenta, tbNFactura.Text) 'numi cabecera to001
         'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
         For a As Integer = 5 To 5 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
-            'Dim grdetalle1 As GridEX  _prCargarDetalleVenta(-1)
+
             dtDetalle = L_fnDetalleCompra1(codigoVenta)
 
-            'Dim dt As New DataTable
-            'dt = L_fnDetalleVenta(_numi)
-            'grdetalle.DataSource = dt
 
-            'dtDetalle = CType(grdetalle1.DataSource, DataTable)
-            'dtDetalle = dt
             Dim oblin As Integer = 1
             Dim totalCosto As Double = 0.00
             For Each row In dt.Rows
@@ -2245,7 +2240,7 @@ salirIf:
 
 
 
-        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value, 3, "", codCanero) 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value, 3, "", codCanero, 0, 0, 0, 0, cbSucursal.Value, codigoVenta, tbNFactura.Text) 'numi cabecera to001
 
         For a As Integer = 7 To 7 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden

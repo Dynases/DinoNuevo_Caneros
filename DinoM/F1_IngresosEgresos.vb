@@ -196,7 +196,7 @@ Public Class F1_IngresosEgresos
         tbdescCanero.Text = ""
         tbInstitucion.Text = ""
         tbfecha.Text = ""
-        SwParticular.Value = True
+        SwParticular.Value = False
         If SwParticular.Value = True Then
             tbcodInst.Text = "888"
             tbInstitucion.Text = "PARTICULARES (NO CAÑEROS)"
@@ -304,13 +304,15 @@ Public Class F1_IngresosEgresos
         Dim listEstCeldas As New List(Of Modelo.Celda)
 
 
-        listEstCeldas.Add(New Modelo.Celda("ienumi", True, "Codigo", 120))
+        listEstCeldas.Add(New Modelo.Celda("ienumi", True, "Codigo", 80))
         listEstCeldas.Add(New Modelo.Celda("ieFecha", True, "Fecha", 100))
         listEstCeldas.Add(New Modelo.Celda("ieTipo", False))
         listEstCeldas.Add(New Modelo.Celda("Tipo", True, "Tipo", 120))
         listEstCeldas.Add(New Modelo.Celda("ieDescripcion", True, "Descripción", 350))
         listEstCeldas.Add(New Modelo.Celda("ieConcepto", False))
-        listEstCeldas.Add(New Modelo.Celda("ycdes3", True, "Concepto", 250))
+        listEstCeldas.Add(New Modelo.Celda("codCan", True, "CodCañero", 100))
+        listEstCeldas.Add(New Modelo.Celda("nombreCliente", True, "Cañero", 180))
+        listEstCeldas.Add(New Modelo.Celda("ycdes3", True, "Concepto", 150))
         listEstCeldas.Add(New Modelo.Celda("ieMonto", True, "Monto", 150, "0.00"))
         listEstCeldas.Add(New Modelo.Celda("ieObs", False))
         listEstCeldas.Add(New Modelo.Celda("ieEstado", False))
@@ -325,8 +327,7 @@ Public Class F1_IngresosEgresos
         listEstCeldas.Add(New Modelo.Celda("codIns", False))
         listEstCeldas.Add(New Modelo.Celda("NroCaja", True, "Nro. Caja", 100))
         listEstCeldas.Add(New Modelo.Celda("tcobservacion", False, "Obs Asignacion", 100))
-        listEstCeldas.Add(New Modelo.Celda("codCan", False, "Id Asig", 100))
-        listEstCeldas.Add(New Modelo.Celda("nombreCliente", False, "Id Asig", 100))
+
         listEstCeldas.Add(New Modelo.Celda("codIsnt", False, "Id Asig", 100))
         listEstCeldas.Add(New Modelo.Celda("nombreInst", False, "Id Asig", 100))
         listEstCeldas.Add(New Modelo.Celda("recibi", False, "Id Asig", 100))
@@ -409,9 +410,9 @@ Public Class F1_IngresosEgresos
                                                      idCanero.Text, tbdescCanero.Text, idInstitucion.Text, tbInstitucion.Text, tbRecibi.Text, tbentregue.Text, idActDis.Text, idCuenCont.Text, tbNroOpera.Text, tbNroCheque.Text, tbBanco.Text, SwParticular.Value, cbTipPago1.Value, SwMoneda.Value, tbOrden.Text, tbalmacen.Text)
         If res Then
 
-            If tbalmacen.Text = 1 Or tbalmacen.Text = 2 Or tbalmacen.Text = 3 Or tbalmacen.Text = 4 Then
-                contabilizar(tbcodigo.Text)
-            End If
+            'If tbalmacen.Text = 1 Or tbalmacen.Text = 2 Or tbalmacen.Text = 3 Or tbalmacen.Text = 4 And SwParticular.Value = False Then
+            '    contabilizar(tbcodigo.Text)
+            'End If
 
             imprimir(tbcodigo.Text)
 
@@ -474,15 +475,19 @@ Public Class F1_IngresosEgresos
         tbDescripcion.Focus()
         nuevo = 1
         tbalmacen.Text = 0
+        SwParticular.Value = False
+        SwMoneda.Value = True
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
             PanelNavegacion.Enabled = True
+
         Else
             Close()
         End If
+
     End Sub
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         _Inter = _Inter + 1
@@ -546,7 +551,20 @@ Public Class F1_IngresosEgresos
         tbcodInst.Text = frm.Codinstitucion
         tbInstitucion.Text = frm.Institucion
         tbalmacen.Text = frm.Almacen
-        tbDescripcion.Text = "PAGO POR VTA DE INSUMOS S/O " + frm.Codigo
+        Select Case tbalmacen.Text
+            Case 1
+                tbDescripcion.Text = tbdescCanero.Text + " Pgo/Ord:." + tbIdCaja.Text.ToString + " por la venta de insumos central".ToUpper    'obobs
+
+            Case 2
+                tbDescripcion.Text = tbdescCanero.Text + " Pgo/Ord:." + tbIdCaja.Text.ToString + " por la venta de insumos shopping".ToUpper    'obobs
+            Case 3
+                tbDescripcion.Text = tbdescCanero.Text + " Pgo/Ord:." + tbIdCaja.Text.ToString + " por la distribución de Diesel Surtidor Guabirá".ToUpper    'obobs
+            Case 4
+                tbDescripcion.Text = tbdescCanero.Text + " Pgo/Ord:." + tbIdCaja.Text.ToString + " por la distribución de diesel Surtidores varios".ToUpper    'obobs
+            Case Else
+                ' Código a ejecutar si el valor no coincide con ningún caso anterior
+        End Select
+
         'tbAsigDesc.Text = frm2.tbObservacion.Text
         'tbAsigDesc.Text = frm2.Observacion
         'tbCodAsig.Text = frm2.CodAsig
@@ -794,7 +812,7 @@ Public Class F1_IngresosEgresos
         Dim cuenta As String
         Dim debebs, haberbs, debeus, haberus As Double
 
-        Dim resTO001 = L_fnGrabarTO001Ingresos(15, dpFecha.Value, tbOrden.Text, tbNroCheque.Text, tbBanco.Text, glosaReferencia, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001Ingresos(15, dpFecha.Value, tbOrden.Text, tbNroCheque.Text, tbBanco.Text, glosaReferencia, Convert.ToInt32(codigoVenta), "false", tbalmacen.Text, codigoVenta) 'numi cabecera to001
 
         For a As Integer = 9 To 9 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
@@ -840,6 +858,10 @@ Public Class F1_IngresosEgresos
     End Sub
 
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
+
+    End Sub
+
+    Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
 
     End Sub
 End Class

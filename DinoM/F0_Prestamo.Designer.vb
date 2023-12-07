@@ -71,6 +71,8 @@ Partial Class F0_Prestamo
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.grPrestamo = New Janus.Windows.GridEX.GridEX()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.LabelX21 = New DevComponents.DotNetBar.LabelX()
+        Me.txtEstado = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -103,7 +105,7 @@ Partial Class F0_Prestamo
         'PanelSuperior
         '
         Me.PanelSuperior.Controls.Add(Me.Button1)
-        Me.PanelSuperior.Size = New System.Drawing.Size(800, 72)
+        Me.PanelSuperior.Size = New System.Drawing.Size(712, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
@@ -126,7 +128,7 @@ Partial Class F0_Prestamo
         'PanelInferior
         '
         Me.PanelInferior.Location = New System.Drawing.Point(0, 411)
-        Me.PanelInferior.Size = New System.Drawing.Size(800, 39)
+        Me.PanelInferior.Size = New System.Drawing.Size(712, 39)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Transparent
         Me.PanelInferior.Style.BackColor2.Color = System.Drawing.Color.Transparent
@@ -181,11 +183,11 @@ Partial Class F0_Prestamo
         '
         'PanelToolBar2
         '
-        Me.PanelToolBar2.Location = New System.Drawing.Point(720, 0)
+        Me.PanelToolBar2.Location = New System.Drawing.Point(632, 0)
         '
         'PanelPrincipal
         '
-        Me.PanelPrincipal.Size = New System.Drawing.Size(800, 450)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(712, 450)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
@@ -208,7 +210,7 @@ Partial Class F0_Prestamo
         '
         'MPanelUserAct
         '
-        Me.MPanelUserAct.Location = New System.Drawing.Point(600, 0)
+        Me.MPanelUserAct.Location = New System.Drawing.Point(512, 0)
         '
         'MRlAccion
         '
@@ -217,20 +219,20 @@ Partial Class F0_Prestamo
         '
         Me.MRlAccion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.MRlAccion.ForeColor = System.Drawing.Color.Transparent
-        Me.MRlAccion.Size = New System.Drawing.Size(344, 72)
+        Me.MRlAccion.Size = New System.Drawing.Size(256, 72)
         '
         'PanelContent
         '
         Me.PanelContent.Controls.Add(Me.GroupPanel1)
-        Me.PanelContent.Size = New System.Drawing.Size(767, 339)
+        Me.PanelContent.Size = New System.Drawing.Size(679, 339)
         '
         'Panel1
         '
-        Me.Panel1.Size = New System.Drawing.Size(800, 339)
+        Me.Panel1.Size = New System.Drawing.Size(712, 339)
         '
         'MSuperTabControlPanel1
         '
-        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(767, 339)
+        Me.MSuperTabControlPanel1.Size = New System.Drawing.Size(679, 339)
         '
         'MSuperTabControl
         '
@@ -249,14 +251,14 @@ Partial Class F0_Prestamo
         Me.MSuperTabControl.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.MSuperTabControl.ControlBox.MenuBox, Me.MSuperTabControl.ControlBox.CloseBox})
         Me.MSuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
         Me.MSuperTabControl.SelectedTabIndex = 1
-        Me.MSuperTabControl.Size = New System.Drawing.Size(800, 339)
+        Me.MSuperTabControl.Size = New System.Drawing.Size(712, 339)
         Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
         Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         '
         'PictureBox1
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(527, 0)
+        Me.PictureBox1.Location = New System.Drawing.Point(439, 0)
         '
         'GroupPanel1
         '
@@ -265,6 +267,8 @@ Partial Class F0_Prestamo
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel1.Controls.Add(Me.LabelX21)
+        Me.GroupPanel1.Controls.Add(Me.txtEstado)
         Me.GroupPanel1.Controls.Add(Me.tbcod)
         Me.GroupPanel1.Controls.Add(Me.LabelX14)
         Me.GroupPanel1.Controls.Add(Me.tbObs)
@@ -304,7 +308,7 @@ Partial Class F0_Prestamo
         Me.GroupPanel1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.GroupPanel1.Location = New System.Drawing.Point(-2, 1)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(770, 337)
+        Me.GroupPanel1.Size = New System.Drawing.Size(682, 337)
         '
         '
         '
@@ -343,7 +347,7 @@ Partial Class F0_Prestamo
         '
         Me.tbcod.Border.Class = "TextBoxBorder"
         Me.tbcod.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbcod.Location = New System.Drawing.Point(128, 6)
+        Me.tbcod.Location = New System.Drawing.Point(112, 6)
         Me.tbcod.Name = "tbcod"
         Me.tbcod.PreventEnterBeep = True
         Me.tbcod.Size = New System.Drawing.Size(100, 21)
@@ -373,11 +377,11 @@ Partial Class F0_Prestamo
         Me.tbObs.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbObs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbObs.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbObs.Location = New System.Drawing.Point(127, 259)
+        Me.tbObs.Location = New System.Drawing.Point(111, 259)
         Me.tbObs.Multiline = True
         Me.tbObs.Name = "tbObs"
         Me.tbObs.PreventEnterBeep = True
-        Me.tbObs.Size = New System.Drawing.Size(455, 47)
+        Me.tbObs.Size = New System.Drawing.Size(475, 47)
         Me.tbObs.TabIndex = 44
         '
         'cbTipoCambio
@@ -445,7 +449,7 @@ Partial Class F0_Prestamo
         cbDocumento_DesignTimeLayout.LayoutString = resources.GetString("cbDocumento_DesignTimeLayout.LayoutString")
         Me.cbDocumento.DesignTimeLayout = cbDocumento_DesignTimeLayout
         Me.cbDocumento.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.cbDocumento.Location = New System.Drawing.Point(127, 199)
+        Me.cbDocumento.Location = New System.Drawing.Point(111, 199)
         Me.cbDocumento.Name = "cbDocumento"
         Me.cbDocumento.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.cbDocumento.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -475,7 +479,7 @@ Partial Class F0_Prestamo
         '
         Me.tbCodProv.Border.Class = "TextBoxBorder"
         Me.tbCodProv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbCodProv.Location = New System.Drawing.Point(127, 168)
+        Me.tbCodProv.Location = New System.Drawing.Point(111, 168)
         Me.tbCodProv.Name = "tbCodProv"
         Me.tbCodProv.PreventEnterBeep = True
         Me.tbCodProv.Size = New System.Drawing.Size(50, 21)
@@ -598,7 +602,7 @@ Partial Class F0_Prestamo
         Me.LabelX7.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX7.Location = New System.Drawing.Point(11, 224)
         Me.LabelX7.Name = "LabelX7"
-        Me.LabelX7.Size = New System.Drawing.Size(110, 23)
+        Me.LabelX7.Size = New System.Drawing.Size(80, 23)
         Me.LabelX7.TabIndex = 24
         Me.LabelX7.Text = "Capital:"
         '
@@ -612,7 +616,7 @@ Partial Class F0_Prestamo
         Me.LabelX6.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX6.Location = New System.Drawing.Point(11, 136)
         Me.LabelX6.Name = "LabelX6"
-        Me.LabelX6.Size = New System.Drawing.Size(110, 23)
+        Me.LabelX6.Size = New System.Drawing.Size(80, 23)
         Me.LabelX6.TabIndex = 23
         Me.LabelX6.Text = "Préstamo:"
         '
@@ -626,7 +630,7 @@ Partial Class F0_Prestamo
         Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX5.Location = New System.Drawing.Point(11, 110)
         Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.Size = New System.Drawing.Size(110, 23)
+        Me.LabelX5.Size = New System.Drawing.Size(95, 23)
         Me.LabelX5.TabIndex = 22
         Me.LabelX5.Text = "Financiador:"
         '
@@ -640,7 +644,7 @@ Partial Class F0_Prestamo
         Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX4.Location = New System.Drawing.Point(11, 84)
         Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.Size = New System.Drawing.Size(110, 23)
+        Me.LabelX4.Size = New System.Drawing.Size(90, 23)
         Me.LabelX4.TabIndex = 21
         Me.LabelX4.Text = "Cañero:"
         '
@@ -654,7 +658,7 @@ Partial Class F0_Prestamo
         Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX3.Location = New System.Drawing.Point(12, 58)
         Me.LabelX3.Name = "LabelX3"
-        Me.LabelX3.Size = New System.Drawing.Size(110, 23)
+        Me.LabelX3.Size = New System.Drawing.Size(90, 23)
         Me.LabelX3.TabIndex = 20
         Me.LabelX3.Text = "Instutición:"
         '
@@ -668,7 +672,7 @@ Partial Class F0_Prestamo
         Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LabelX2.Location = New System.Drawing.Point(11, 32)
         Me.LabelX2.Name = "LabelX2"
-        Me.LabelX2.Size = New System.Drawing.Size(110, 23)
+        Me.LabelX2.Size = New System.Drawing.Size(90, 23)
         Me.LabelX2.TabIndex = 19
         Me.LabelX2.Text = "Moneda:"
         '
@@ -680,9 +684,9 @@ Partial Class F0_Prestamo
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LabelX1.Location = New System.Drawing.Point(287, 6)
+        Me.LabelX1.Location = New System.Drawing.Point(367, 6)
         Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.Size = New System.Drawing.Size(110, 23)
+        Me.LabelX1.Size = New System.Drawing.Size(45, 23)
         Me.LabelX1.TabIndex = 18
         Me.LabelX1.Text = "Fecha:"
         '
@@ -706,7 +710,7 @@ Partial Class F0_Prestamo
         '
         Me.tbTotal.Border.Class = "TextBoxBorder"
         Me.tbTotal.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbTotal.Location = New System.Drawing.Point(128, 226)
+        Me.tbTotal.Location = New System.Drawing.Point(112, 226)
         Me.tbTotal.Name = "tbTotal"
         Me.tbTotal.PreventEnterBeep = True
         Me.tbTotal.Size = New System.Drawing.Size(99, 21)
@@ -719,7 +723,7 @@ Partial Class F0_Prestamo
         '
         Me.codPres.Border.Class = "TextBoxBorder"
         Me.codPres.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.codPres.Location = New System.Drawing.Point(128, 139)
+        Me.codPres.Location = New System.Drawing.Point(112, 139)
         Me.codPres.Name = "codPres"
         Me.codPres.PreventEnterBeep = True
         Me.codPres.Size = New System.Drawing.Size(50, 21)
@@ -732,7 +736,7 @@ Partial Class F0_Prestamo
         '
         Me.codFin.Border.Class = "TextBoxBorder"
         Me.codFin.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.codFin.Location = New System.Drawing.Point(128, 113)
+        Me.codFin.Location = New System.Drawing.Point(112, 113)
         Me.codFin.Name = "codFin"
         Me.codFin.PreventEnterBeep = True
         Me.codFin.Size = New System.Drawing.Size(50, 21)
@@ -758,7 +762,7 @@ Partial Class F0_Prestamo
         '
         Me.codCan.Border.Class = "TextBoxBorder"
         Me.codCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.codCan.Location = New System.Drawing.Point(128, 87)
+        Me.codCan.Location = New System.Drawing.Point(112, 87)
         Me.codCan.Name = "codCan"
         Me.codCan.PreventEnterBeep = True
         Me.codCan.Size = New System.Drawing.Size(50, 21)
@@ -784,7 +788,7 @@ Partial Class F0_Prestamo
         '
         Me.codIns.Border.Class = "TextBoxBorder"
         Me.codIns.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.codIns.Location = New System.Drawing.Point(128, 61)
+        Me.codIns.Location = New System.Drawing.Point(112, 61)
         Me.codIns.Name = "codIns"
         Me.codIns.PreventEnterBeep = True
         Me.codIns.Size = New System.Drawing.Size(50, 21)
@@ -797,7 +801,7 @@ Partial Class F0_Prestamo
         '
         Me.codMon.Border.Class = "TextBoxBorder"
         Me.codMon.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.codMon.Location = New System.Drawing.Point(128, 35)
+        Me.codMon.Location = New System.Drawing.Point(112, 35)
         Me.codMon.Name = "codMon"
         Me.codMon.PreventEnterBeep = True
         Me.codMon.Size = New System.Drawing.Size(50, 21)
@@ -946,11 +950,44 @@ Partial Class F0_Prestamo
         Me.Button1.UseVisualStyleBackColor = True
         Me.Button1.Visible = False
         '
+        'LabelX21
+        '
+        Me.LabelX21.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX21.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX21.Location = New System.Drawing.Point(219, 5)
+        Me.LabelX21.Name = "LabelX21"
+        Me.LabelX21.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX21.Size = New System.Drawing.Size(50, 23)
+        Me.LabelX21.TabIndex = 362
+        Me.LabelX21.Text = "Estado:"
+        '
+        'txtEstado
+        '
+        Me.txtEstado.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.txtEstado.Border.Class = "TextBoxBorder"
+        Me.txtEstado.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.txtEstado.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEstado.ForeColor = System.Drawing.Color.Black
+        Me.txtEstado.Location = New System.Drawing.Point(269, 7)
+        Me.txtEstado.Name = "txtEstado"
+        Me.txtEstado.PreventEnterBeep = True
+        Me.txtEstado.Size = New System.Drawing.Size(95, 21)
+        Me.txtEstado.TabIndex = 361
+        Me.txtEstado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'F0_Prestamo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(712, 450)
         Me.Location = New System.Drawing.Point(0, 0)
         Me.Name = "F0_Prestamo"
         Me.Opacity = 0.99R
@@ -1033,4 +1070,6 @@ Partial Class F0_Prestamo
     Friend WithEvents Panel6 As Panel
     Friend WithEvents grPrestamo As Janus.Windows.GridEX.GridEX
     Friend WithEvents Button1 As Button
+    Friend WithEvents LabelX21 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents txtEstado As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

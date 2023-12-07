@@ -18,8 +18,28 @@ Public Class Pr_KardexProductos
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         _IniciarComponentes()
         _prCargarComboLibreriaDeposito(cbAlmacen)
+        _prCargarComboGrupos(cbGrupos)
         If (CType(cbAlmacen.DataSource, DataTable).Rows.Count > 0) Then
             cbAlmacen.SelectedIndex = 0
+        End If
+    End Sub
+    Private Sub _prCargarComboGrupos(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnObtenerGruposLibreria()
+        'a.ylcod2,yldes2
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("yccod3").Width = 60
+            .DropDownList.Columns("yccod3").Caption = "COD"
+            .DropDownList.Columns.Add("yldes2").Width = 250
+            .DropDownList.Columns("yldes2").Caption = "GRUPOS"
+            .ValueMember = "yccod3"
+            .DisplayMember = "yldes2"
+            .DataSource = dt
+            .Refresh()
+        End With
+        If (dt.Rows.Count > 0) Then
+            cbGrupos.SelectedIndex = 0
         End If
     End Sub
     Public Sub _prValidarLote()
@@ -75,7 +95,7 @@ Public Class Pr_KardexProductos
 
     End Sub
     Public Sub _prObtenerKardexGeneral(ByRef _dt As DataTable)
-        Dim dtaux As DataTable = L_fnObtenerKardexGeneralProductos(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value) ''Aqui obtengo todos los productos con movimientos
+        Dim dtaux As DataTable = L_fnObtenerKardexGeneralProductos(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value)) ''Aqui obtengo todos los productos con movimientos
 
 
         '' as SaldoAnterior,
@@ -127,8 +147,8 @@ Public Class Pr_KardexProductos
         _dt = dtaux
     End Sub
     Public Sub _prObtenerDetalle(ByRef _dt As DataTable)
-        Dim dtaux As DataTable = L_fnObtenerProductoConMovimiento(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value) ''Aqui obtengo todos los productos con movimientos
-        _dt = L_fnObtenerKardexPorProducto(-1, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value)
+        Dim dtaux As DataTable = L_fnObtenerProductoConMovimiento(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value)) ''Aqui obtengo todos los productos con movimientos
+        _dt = L_fnObtenerKardexPorProducto(-1, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
         For i As Integer = 0 To dtaux.Rows.Count - 1 Step 1
             Dim numipro As Integer = dtaux.Rows(i).Item("yfnumi")
             Dim descprod As String = dtaux.Rows(i).Item("yfcdprod1")
@@ -148,7 +168,7 @@ Public Class Pr_KardexProductos
         Dim Dt2KardexTotal = New DataTable
 
         Dt2KardexTotal = L_fnObtenerHistorialProductoGeneral(codprod, fechaI, almacen)
-        Dt1Kardex = L_fnObtenerKardexPorProducto(codprod, fechaI, fechaF, almacen)
+        Dt1Kardex = L_fnObtenerKardexPorProducto(codprod, fechaI, fechaF, almacen, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
         If (Dt1Kardex.Rows.Count > 0) Then
             P_ArmarKardexGeneral(Dt1Kardex, Dt2KardexTotal, codprod, DescProd, UnidPro,
                           SaldoAnt, Entradas, Salidas, SaldoFinal)
@@ -197,7 +217,7 @@ Public Class Pr_KardexProductos
         SaldoAnt = Str(saldo).Trim
         Entradas = Str(ing).Trim
         Salidas = Str(Math.Abs(sal)).Trim
-        SaldoFinal = Str(Math.Abs((ing + saldo) + sal)).Trim
+        SaldoFinal = Str((ing + saldo) + sal).Trim
 
     End Sub
     Private Function P_ArmarGrillaDatos(codprod As Integer, fechaI As String, fechaF As String, almacen As Integer, DescProd As String, UnidPro As String) As DataTable
@@ -205,7 +225,7 @@ Public Class Pr_KardexProductos
         Dim Dt2KardexTotal = New DataTable
 
         Dt2KardexTotal = L_fnObtenerHistorialProductoGeneral(codprod, fechaI, almacen)
-        Dt1Kardex = L_fnObtenerKardexPorProducto(codprod, fechaI, fechaF, almacen)
+        Dt1Kardex = L_fnObtenerKardexPorProducto(codprod, fechaI, fechaF, almacen, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
         If (Dt1Kardex.Rows.Count > 0) Then
             P_ArmarKardex(Dt1Kardex, Dt2KardexTotal, codprod, DescProd, UnidPro)
 
@@ -275,6 +295,7 @@ Public Class Pr_KardexProductos
                 saldoInicial = saldoInicial + CDbl(fil.Item("salida"))
                 fil.Item("saldo") = saldoInicial
             End If
+
         Next
 
     End Sub
@@ -414,6 +435,67 @@ Public Class Pr_KardexProductos
             Me.Opacity = 100
             Timer1.Enabled = False
         End If
+    End Sub
+
+    Private Sub cbGrupos_TextChanged(sender As Object, e As EventArgs) Handles cbGrupos.TextChanged
+        Dim dt As New DataTable
+        dt = L_prLibreriaClienteCategoria(1, cbGrupos.Value)
+        With cbCasas
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("cat_tipo").Width = 50
+            .DropDownList.Columns("cat_tipo").Caption = "Tipo"
+            .DropDownList.Columns.Add("cat_linea").Width = 50
+            .DropDownList.Columns("cat_linea").Caption = "Linea"
+            .DropDownList.Columns.Add("catcod").Width = 50
+            .DropDownList.Columns("catcod").Caption = "COD"
+            .DropDownList.Columns.Add("cat_desc").Width = 200
+            .DropDownList.Columns("cat_desc").Caption = "DESCRIPCION"
+            .DropDownList.Columns.Add("cactaucg").Width = 100
+            .DropDownList.Columns("cactaucg").Caption = "Cuenta"
+            .ValueMember = "catcod"
+            .DisplayMember = "cat_desc"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
+    Sub _prInhabilitarAlmacen()
+        cbAlmacen.Enabled = False
+    End Sub
+    Sub _prhabilitarAlmacen()
+        cbAlmacen.Enabled = True
+    End Sub
+    Sub _prInhabilitarCasas()
+        cbCasas.Enabled = False
+    End Sub
+    Sub _prhabilitarCasas()
+        cbCasas.Enabled = True
+    End Sub
+
+
+    Sub _prInhabilitarProveedor()
+        cbGrupos.Enabled = False
+    End Sub
+    Sub _prhabilitarProveedor()
+        cbGrupos.Enabled = True
+    End Sub
+    Private Sub CheckTodoslinea_CheckValueChanged(sender As Object, e As EventArgs) Handles CheckTodoslinea.CheckValueChanged
+        If (CheckTodoslinea.Checked) Then
+            _prInhabilitarProveedor()
+        Else
+            _prhabilitarProveedor()
+        End If
+    End Sub
+
+    Private Sub ChechTodosCasa_CheckValueChanged(sender As Object, e As EventArgs) Handles ChechTodosCasa.CheckValueChanged
+        If (ChechTodosCasa.Checked) Then
+            _prInhabilitarCasas()
+        Else
+            _prhabilitarCasas()
+        End If
+    End Sub
+
+    Private Sub ChechTodosCasa_CheckedChanged(sender As Object, e As EventArgs) Handles ChechTodosCasa.CheckedChanged
+
     End Sub
 
     'Private Sub CheckTodosVendedor_CheckedChanged(sender As Object, e As EventArgs) Handles checkDetallado.CheckedChanged

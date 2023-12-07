@@ -234,6 +234,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
         Me.GroupBox2.Controls.Add(Me.lbCtrlEnter)
+        Me.GroupBox2.Controls.Add(Me.CheckUnProvedor)
         Me.GroupBox2.Controls.Add(Me.tbProveedor)
         Me.GroupBox2.Controls.Add(Me.Panel5)
         Me.GroupBox2.Controls.Add(Me.LabelX5)
@@ -292,7 +293,6 @@ Partial Class Pr_SAldosPorAlmacenLinea
         'Panel5
         '
         Me.Panel5.Controls.Add(Me.CheckTodoslinea)
-        Me.Panel5.Controls.Add(Me.CheckUnProvedor)
         Me.Panel5.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel5.Location = New System.Drawing.Point(290, 129)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(2)
@@ -324,7 +324,7 @@ Partial Class Pr_SAldosPorAlmacenLinea
         '
         Me.CheckUnProvedor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.CheckUnProvedor.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
-        Me.CheckUnProvedor.Location = New System.Drawing.Point(1, 1)
+        Me.CheckUnProvedor.Location = New System.Drawing.Point(316, 218)
         Me.CheckUnProvedor.Name = "CheckUnProvedor"
         Me.CheckUnProvedor.Size = New System.Drawing.Size(44, 23)
         Me.CheckUnProvedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled

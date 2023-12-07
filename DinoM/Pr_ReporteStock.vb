@@ -178,7 +178,7 @@ Public Class Pr_ReporteStock
         Dim Dt2KardexTotal = New DataTable
 
         Dt2KardexTotal = L_fnObtenerHistorialProductoGeneral(codprod, fechaI, almacen)
-        Dt1Kardex = L_fnObtenerKardexPorProducto(codprod, fechaI, fechaF, almacen)
+        Dt1Kardex = L_fnObtenerKardexPorProducto(codprod, fechaI, fechaF, almacen, "-1", "-1")
         If (Dt1Kardex.Rows.Count > 0) Then
             P_ArmarKardexGeneral(Dt1Kardex, Dt2KardexTotal, codprod, DescProd, UnidPro,
                           SaldoAnt, Entradas, Salidas, SaldoFinal)

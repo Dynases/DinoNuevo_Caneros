@@ -24,6 +24,8 @@ Partial Class Pr_KardexProductos
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_KardexProductos))
+        Dim cbCasas_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbGrupos_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbAlmacen_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
@@ -32,6 +34,16 @@ Partial Class Pr_KardexProductos
         Me.checkGeneral = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.checkDetallado = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.CheckUnProvedor = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.CheckTodoslinea = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.ChechTodosCasa = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.CheckUnaCasa = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.cbCasas = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.cbGrupos = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CheckGeneralLote = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
@@ -54,6 +66,10 @@ Partial Class Pr_KardexProductos
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        CType(Me.cbCasas, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbGrupos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.cbAlmacen, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -73,6 +89,7 @@ Partial Class Pr_KardexProductos
         Me.SuperTabPrincipal.ControlBox.MenuBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.Name = ""
         Me.SuperTabPrincipal.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabPrincipal.ControlBox.MenuBox, Me.SuperTabPrincipal.ControlBox.CloseBox})
+        Me.SuperTabPrincipal.Size = New System.Drawing.Size(1362, 741)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelBuscador, 0)
         Me.SuperTabPrincipal.Controls.SetChildIndex(Me.SuperTabControlPanelRegistro, 0)
         '
@@ -99,9 +116,16 @@ Partial Class Pr_KardexProductos
         Me.PanelSuperior.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.PanelSuperior.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.PanelSuperior.Style.GradientAngle = 90
+        Me.PanelSuperior.StyleMouseDown.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(181, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.PanelSuperior.StyleMouseDown.BorderColor.Color = System.Drawing.SystemColors.Highlight
+        Me.PanelSuperior.StyleMouseDown.ForeColor.Color = System.Drawing.Color.FromArgb(CType(CType(73, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(73, Byte), Integer))
+        Me.PanelSuperior.StyleMouseOver.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(193, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(238, Byte), Integer))
+        Me.PanelSuperior.StyleMouseOver.BorderColor.Color = System.Drawing.SystemColors.Highlight
+        Me.PanelSuperior.StyleMouseOver.ForeColor.Color = System.Drawing.SystemColors.ControlText
         '
         'PanelInferior
         '
+        Me.PanelInferior.Location = New System.Drawing.Point(0, 705)
         Me.PanelInferior.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelInferior.Size = New System.Drawing.Size(1330, 36)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
@@ -156,10 +180,12 @@ Partial Class Pr_KardexProductos
         '
         Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
         Me.MReportViewer.Size = New System.Drawing.Size(967, 705)
+        Me.MReportViewer.ToolPanelWidth = 200
         '
         'MGPFiltros
         '
         Me.MGPFiltros.Controls.Add(Me.GroupBox2)
+        Me.MGPFiltros.Size = New System.Drawing.Size(363, 633)
         '
         '
         '
@@ -188,6 +214,10 @@ Partial Class Pr_KardexProductos
         '
         '
         Me.MGPFiltros.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        '
+        'PanelIzq
+        '
+        Me.PanelIzq.Size = New System.Drawing.Size(363, 705)
         Me.PanelIzq.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelIzq.Controls.SetChildIndex(Me.MGPFiltros, 0)
         '
@@ -200,7 +230,7 @@ Partial Class Pr_KardexProductos
         Me.tbFechaI.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaI.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.tbFechaI.ButtonDropDown.Visible = True
-        Me.tbFechaI.Font = New System.Drawing.Font("Open Sans Light", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaI.IsPopupCalendarOpen = False
         Me.tbFechaI.Location = New System.Drawing.Point(145, 54)
         '
@@ -233,7 +263,7 @@ Partial Class Pr_KardexProductos
         Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaI.MonthCalendar.TodayButtonVisible = True
         Me.tbFechaI.Name = "tbFechaI"
-        Me.tbFechaI.Size = New System.Drawing.Size(120, 25)
+        Me.tbFechaI.Size = New System.Drawing.Size(120, 22)
         Me.tbFechaI.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaI.TabIndex = 232
         '
@@ -262,7 +292,7 @@ Partial Class Pr_KardexProductos
         Me.tbFechaF.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaF.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.tbFechaF.ButtonDropDown.Visible = True
-        Me.tbFechaF.Font = New System.Drawing.Font("Open Sans Light", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaF.IsPopupCalendarOpen = False
         Me.tbFechaF.Location = New System.Drawing.Point(145, 85)
         '
@@ -295,7 +325,7 @@ Partial Class Pr_KardexProductos
         Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaF.MonthCalendar.TodayButtonVisible = True
         Me.tbFechaF.Name = "tbFechaF"
-        Me.tbFechaF.Size = New System.Drawing.Size(120, 25)
+        Me.tbFechaF.Size = New System.Drawing.Size(120, 22)
         Me.tbFechaF.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaF.TabIndex = 234
         '
@@ -352,6 +382,12 @@ Partial Class Pr_KardexProductos
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.Panel5)
+        Me.GroupBox2.Controls.Add(Me.Panel4)
+        Me.GroupBox2.Controls.Add(Me.cbCasas)
+        Me.GroupBox2.Controls.Add(Me.cbGrupos)
+        Me.GroupBox2.Controls.Add(Me.LabelX2)
+        Me.GroupBox2.Controls.Add(Me.LabelX3)
         Me.GroupBox2.Controls.Add(Me.Panel1)
         Me.GroupBox2.Controls.Add(Me.LabelX5)
         Me.GroupBox2.Controls.Add(Me.cbAlmacen)
@@ -367,6 +403,158 @@ Partial Class Pr_KardexProductos
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos"
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.CheckUnProvedor)
+        Me.Panel5.Controls.Add(Me.CheckTodoslinea)
+        Me.Panel5.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel5.Location = New System.Drawing.Point(259, 217)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(105, 25)
+        Me.Panel5.TabIndex = 270
+        '
+        'CheckUnProvedor
+        '
+        '
+        '
+        '
+        Me.CheckUnProvedor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckUnProvedor.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.CheckUnProvedor.Location = New System.Drawing.Point(0, 0)
+        Me.CheckUnProvedor.Name = "CheckUnProvedor"
+        Me.CheckUnProvedor.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnProvedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckUnProvedor.TabIndex = 263
+        Me.CheckUnProvedor.Text = "Una"
+        '
+        'CheckTodoslinea
+        '
+        '
+        '
+        '
+        Me.CheckTodoslinea.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckTodoslinea.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.CheckTodoslinea.Checked = True
+        Me.CheckTodoslinea.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckTodoslinea.CheckValue = "Y"
+        Me.CheckTodoslinea.Location = New System.Drawing.Point(46, 0)
+        Me.CheckTodoslinea.Name = "CheckTodoslinea"
+        Me.CheckTodoslinea.Size = New System.Drawing.Size(55, 23)
+        Me.CheckTodoslinea.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckTodoslinea.TabIndex = 265
+        Me.CheckTodoslinea.Text = "Todos"
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.ChechTodosCasa)
+        Me.Panel4.Controls.Add(Me.CheckUnaCasa)
+        Me.Panel4.Font = New System.Drawing.Font("Georgia", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel4.Location = New System.Drawing.Point(259, 266)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(105, 25)
+        Me.Panel4.TabIndex = 269
+        '
+        'ChechTodosCasa
+        '
+        '
+        '
+        '
+        Me.ChechTodosCasa.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.ChechTodosCasa.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.ChechTodosCasa.Checked = True
+        Me.ChechTodosCasa.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChechTodosCasa.CheckValue = "Y"
+        Me.ChechTodosCasa.Location = New System.Drawing.Point(43, -1)
+        Me.ChechTodosCasa.Name = "ChechTodosCasa"
+        Me.ChechTodosCasa.Size = New System.Drawing.Size(55, 23)
+        Me.ChechTodosCasa.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ChechTodosCasa.TabIndex = 266
+        Me.ChechTodosCasa.Text = "Todos"
+        '
+        'CheckUnaCasa
+        '
+        '
+        '
+        '
+        Me.CheckUnaCasa.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.CheckUnaCasa.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton
+        Me.CheckUnaCasa.Location = New System.Drawing.Point(0, -1)
+        Me.CheckUnaCasa.Name = "CheckUnaCasa"
+        Me.CheckUnaCasa.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnaCasa.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.CheckUnaCasa.TabIndex = 264
+        Me.CheckUnaCasa.Text = "Una"
+        '
+        'cbCasas
+        '
+        Me.cbCasas.BackColor = System.Drawing.Color.White
+        cbCasas_DesignTimeLayout.LayoutString = resources.GetString("cbCasas_DesignTimeLayout.LayoutString")
+        Me.cbCasas.DesignTimeLayout = cbCasas_DesignTimeLayout
+        Me.cbCasas.DisabledBackColor = System.Drawing.Color.White
+        Me.cbCasas.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCasas.Location = New System.Drawing.Point(41, 265)
+        Me.cbCasas.Name = "cbCasas"
+        Me.cbCasas.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbCasas.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbCasas.SelectedIndex = -1
+        Me.cbCasas.SelectedItem = Nothing
+        Me.cbCasas.Size = New System.Drawing.Size(218, 22)
+        Me.cbCasas.TabIndex = 267
+        Me.cbCasas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'cbGrupos
+        '
+        Me.cbGrupos.BackColor = System.Drawing.Color.White
+        cbGrupos_DesignTimeLayout.LayoutString = resources.GetString("cbGrupos_DesignTimeLayout.LayoutString")
+        Me.cbGrupos.DesignTimeLayout = cbGrupos_DesignTimeLayout
+        Me.cbGrupos.DisabledBackColor = System.Drawing.Color.White
+        Me.cbGrupos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbGrupos.Location = New System.Drawing.Point(41, 217)
+        Me.cbGrupos.Name = "cbGrupos"
+        Me.cbGrupos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbGrupos.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbGrupos.SelectedIndex = -1
+        Me.cbGrupos.SelectedItem = Nothing
+        Me.cbGrupos.Size = New System.Drawing.Size(218, 22)
+        Me.cbGrupos.TabIndex = 261
+        Me.cbGrupos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX2
+        '
+        Me.LabelX2.AutoSize = True
+        Me.LabelX2.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX2.Location = New System.Drawing.Point(-1, 265)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX2.Size = New System.Drawing.Size(36, 16)
+        Me.LabelX2.TabIndex = 268
+        Me.LabelX2.Text = "Casa:"
+        '
+        'LabelX3
+        '
+        Me.LabelX3.AutoSize = True
+        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX3.Location = New System.Drawing.Point(-1, 217)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(42, 16)
+        Me.LabelX3.TabIndex = 262
+        Me.LabelX3.Text = "Linea:"
         '
         'Panel1
         '
@@ -462,6 +650,10 @@ Partial Class Pr_KardexProductos
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
+        CType(Me.cbCasas, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbGrupos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.cbAlmacen, System.ComponentModel.ISupportInitialize).EndInit()
@@ -480,4 +672,14 @@ Partial Class Pr_KardexProductos
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents CheckGeneralLote As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents cbCasas As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents cbGrupos As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents CheckUnProvedor As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents ChechTodosCasa As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents CheckUnaCasa As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents CheckTodoslinea As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents Panel5 As Panel
 End Class

@@ -18,7 +18,7 @@ Imports System
 Imports System.ComponentModel
 
 
-Public Class R_KardexInventarioProductoAgrupadoSinLote
+Public Class R_EstadoCxSocioPagado
     Inherits ReportClass
     
     Public Sub New()
@@ -27,7 +27,7 @@ Public Class R_KardexInventarioProductoAgrupadoSinLote
     
     Public Overrides Property ResourceName() As String
         Get
-            Return "R_KardexInventarioProductoAgrupadoSinLote.rpt"
+            Return "R_EstadoCxSocioPagado.rpt"
         End Get
         Set
             'Do nothing
@@ -45,7 +45,7 @@ Public Class R_KardexInventarioProductoAgrupadoSinLote
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "DinoM.R_KardexInventarioProductoAgrupadoSinLote.rpt"
+            Return "DinoM.R_EstadoCxSocioPagado.rpt"
         End Get
         Set
             'Do nothing
@@ -142,7 +142,7 @@ Public Class R_KardexInventarioProductoAgrupadoSinLote
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_FechaIni() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_fecha() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(0)
         End Get
@@ -150,7 +150,7 @@ Public Class R_KardexInventarioProductoAgrupadoSinLote
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_FechaFin() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_fechaF() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(1)
         End Get
@@ -158,15 +158,23 @@ Public Class R_KardexInventarioProductoAgrupadoSinLote
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_deposito() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_prestamo() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(2)
+        End Get
+    End Property
+    
+    <Browsable(false),  _
+     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+    Public ReadOnly Property Parameter_usuario() As CrystalDecisions.[Shared].IParameterField
+        Get
+            Return Me.DataDefinition.ParameterFields(3)
         End Get
     End Property
 End Class
 
 <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-Public Class CachedR_KardexInventarioProductoAgrupadoSinLote
+Public Class CachedR_EstadoCxSocioPagado
     Inherits Component
     Implements ICachedReport
     
@@ -208,7 +216,7 @@ Public Class CachedR_KardexInventarioProductoAgrupadoSinLote
     End Property
     
     Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-        Dim rpt As R_KardexInventarioProductoAgrupadoSinLote = New R_KardexInventarioProductoAgrupadoSinLote()
+        Dim rpt As R_EstadoCxSocioPagado = New R_EstadoCxSocioPagado()
         rpt.Site = Me.Site
         Return rpt
     End Function

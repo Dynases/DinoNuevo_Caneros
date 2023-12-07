@@ -25,6 +25,7 @@ Partial Class Pr_EstadoCxSocio
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_EstadoCxSocio))
         Dim cbQuincena_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbReporte_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.tbNomCan = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.CheckTodosCan = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.CheckUnaCan = New DevComponents.DotNetBar.Controls.CheckBoxX()
@@ -44,6 +45,8 @@ Partial Class Pr_EstadoCxSocio
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.swTipo = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.CheckBoxX1 = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
+        Me.cbReporte = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -61,6 +64,7 @@ Partial Class Pr_EstadoCxSocio
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbReporte, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -167,6 +171,8 @@ Partial Class Pr_EstadoCxSocio
         '
         'MGPFiltros
         '
+        Me.MGPFiltros.Controls.Add(Me.LabelX7)
+        Me.MGPFiltros.Controls.Add(Me.cbReporte)
         Me.MGPFiltros.Controls.Add(Me.CheckBoxX1)
         Me.MGPFiltros.Controls.Add(Me.swTipo)
         Me.MGPFiltros.Controls.Add(Me.LabelX6)
@@ -566,6 +572,33 @@ Partial Class Pr_EstadoCxSocio
         Me.CheckBoxX1.Text = "Con Aportes 2022"
         Me.CheckBoxX1.Visible = False
         '
+        'LabelX7
+        '
+        Me.LabelX7.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX7.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX7.Location = New System.Drawing.Point(3, 326)
+        Me.LabelX7.Name = "LabelX7"
+        Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX7.Size = New System.Drawing.Size(133, 23)
+        Me.LabelX7.TabIndex = 407
+        Me.LabelX7.Text = "Reporte:"
+        '
+        'cbReporte
+        '
+        cbReporte_DesignTimeLayout.LayoutString = resources.GetString("cbReporte_DesignTimeLayout.LayoutString")
+        Me.cbReporte.DesignTimeLayout = cbReporte_DesignTimeLayout
+        Me.cbReporte.Location = New System.Drawing.Point(2, 355)
+        Me.cbReporte.Name = "cbReporte"
+        Me.cbReporte.SelectedIndex = -1
+        Me.cbReporte.SelectedItem = Nothing
+        Me.cbReporte.Size = New System.Drawing.Size(350, 22)
+        Me.cbReporte.TabIndex = 406
+        '
         'Pr_EstadoCxSocio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -596,6 +629,7 @@ Partial Class Pr_EstadoCxSocio
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbQuincena, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbReporte, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -619,4 +653,6 @@ Partial Class Pr_EstadoCxSocio
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
     Friend WithEvents swTipo As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents CheckBoxX1 As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbReporte As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

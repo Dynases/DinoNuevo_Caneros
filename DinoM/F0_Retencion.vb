@@ -923,8 +923,8 @@ Public Class F0_Retenciones
 
         With grVentas.RootTable.Columns("trfecci")
             .Width = 100
-            .Caption = "CODIGO"
-            .Visible = False
+            .Caption = "CIERRE"
+            .Visible = True
 
         End With
         With grVentas.RootTable.Columns("trquin")
@@ -2944,84 +2944,23 @@ salirIf:
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        _prhabilitarModificar()
-        Modificar = True
+        If VerificarNotas() Then
+            _prhabilitarModificar()
+            Modificar = True
 
-        _prCargarDetalleVenta2(txtEstado.Text)
-        AjustarGrid()
-        'Try
+            _prCargarDetalleVenta2(txtEstado.Text)
+            AjustarGrid()
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
 
-        '    Dim dt As DataTable
-        '    'dt = L_fnListarClientes()
-        '    dt = L_fnListarClientesVentas(_CodCliente)
-
-        '    _CodEmpleado = dt.Rows(0).Item(8)
-
-        '    'swTipoVenta.Value = grVentas.GetValue("tatven")
-
-        '    If (grVentas.RowCount > 0) Then
-        '        If (gb_FacturaEmite) Then
-        '            If (P_fnValidarFacturaVigente()) Then
-        '                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
-
-        '                ToastNotification.Show(Me, "No se puede modificar la venta con codigo ".ToUpper + tbCodigo.Text + ", su factura esta validada por impuesto.".ToUpper,
-        '                                          img, 2000,
-        '                                          eToastGlowColor.Green,
-        '                                          eToastPosition.TopCenter)
-        '                Exit Sub
-        '            End If
-        '        End If
-
-        '        _prhabilitar()
-
-
-        '        btnNuevo.Enabled = False
-        '        btnModificar.Enabled = False
-        '        btnEliminar.Enabled = False
-        '        btnGrabar.Enabled = True
-
-        '        PanelNavegacion.Enabled = False
-        '        _prCargarIconELiminar()
-        '    End If
-        'Catch ex As Exception
-        '    MostrarMensajeError(ex.Message)
-        'End Try
+            ToastNotification.Show(Me, "Todas las notas de esta cobranza/retencion ya tienen pagos posteriores".ToUpper,
+                                                     img, 2000,
+                                                      eToastGlowColor.Green,
+                                                      eToastPosition.TopCenter)
+        End If
     End Sub
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-        Try
-
-            If (gb_FacturaEmite) Then
-                If (P_fnValidarFacturaVigente()) Then
-                    Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
-
-                    ToastNotification.Show(Me, "No se puede anular la venta con código ".ToUpper + tbCodigo.Text + ", su factura esta vigente, por favor primero anule la factura".ToUpper,
-                                                  img, 3000,
-                                                  eToastGlowColor.Green,
-                                                  eToastPosition.TopCenter)
-                    Exit Sub
-                End If
-            End If
-
-
-
-            Dim res2 As Boolean = L_fnVerificarCierreCaja(tbCodigo.Text, "V")
-            If res2 Then
-                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
-
-                ToastNotification.Show(Me, "No se puede anular la venta con código ".ToUpper + tbCodigo.Text + ", ya se hizo cierre de caja, por favor primero elimine cierre de caja".ToUpper,
-                                                  img, 5000,
-                                                  eToastGlowColor.Green,
-                                                  eToastPosition.TopCenter)
-                Exit Sub
-            End If
-
-
-            Dim result As Boolean = L_fnVerificarSiSeContabilizoVenta(tbCodigo.Text)
-            If result Then
-                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
-                ToastNotification.Show(Me, "La Venta no puede ser anulada porque ya fue contabilizada".ToUpper, img, 4500, eToastGlowColor.Red, eToastPosition.TopCenter)
-                Exit Sub
-            End If
+        If RevisarEliminar() = False Then
             Dim ef = New Efecto
             ef.tipo = 2
             ef.Context = "¿esta seguro de eliminar el registro?".ToUpper
@@ -3031,24 +2970,36 @@ salirIf:
             bandera = ef.band
             If (bandera = True) Then
                 Dim mensajeError As String = ""
-                Dim res As Boolean = L_fnEliminarVenta(tbCodigo.Text, mensajeError, Programa)
+                Dim res As Boolean = L_fnEliminarRetencion(CInt(tbId.Text))
                 If res Then
                     Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
-                    ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + " eliminado con Exito.".ToUpper,
-                                              img, 2000,
-                                              eToastGlowColor.Green,
-                                              eToastPosition.TopCenter)
+                    ToastNotification.Show(Me, "Código de retencion ".ToUpper + tbId.Text + " eliminado con Exito.".ToUpper,
+                                                          img, 2000,
+                                                          eToastGlowColor.Green,
+                                                          eToastPosition.TopCenter)
                     _prFiltrar()
                 Else
                     Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
                     ToastNotification.Show(Me, mensajeError, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 End If
             End If
-        Catch ex As Exception
-            MostrarMensajeError(ex.Message)
-        End Try
+        End If
     End Sub
+    Private Function RevisarEliminar() As Boolean
+        For i = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            Dim dt As DataTable = RevisarUltimaNota2(CType(grdetalle.DataSource, DataTable).Rows(i).Item("doc"), CType(grdetalle.DataSource, DataTable).Rows(i).Item("taalm"), CType(grdetalle.DataSource, DataTable).Rows(i).Item("trid"))
+            If dt.Rows(0).Item(0) <> CType(grdetalle.DataSource, DataTable).Rows(i).Item("trid") Then
+                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
 
+                ToastNotification.Show(Me, "No se puede eliminar la cobranza/retencion. La nota " + CType(grdetalle.DataSource, DataTable).Rows(i).Item("doc").ToString + " Tiene cobro en el registro " + dt.Rows(0).Item(0).ToString + "".ToUpper,
+                                                        img, 5000,
+                                                         eToastGlowColor.Green,
+                                                         eToastPosition.TopCenter)
+                Return True
+            End If
+        Next
+        Return False
+    End Function
     Private Sub grVentas_SelectionChanged(sender As Object, e As EventArgs) Handles grVentas.SelectionChanged
         If (grVentas.RowCount >= 0 And grVentas.Row >= 0) Then
             _prMostrarRegistro(grVentas.Row)
@@ -3911,7 +3862,14 @@ salirIf:
         e.Cancel = True
     End Sub
 
-
+    Private Function VerificarNotas() As Boolean
+        For i = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
+            If RevisarUltimaNota(CType(grdetalle.DataSource, DataTable).Rows(i).Item("doc"), CType(grdetalle.DataSource, DataTable).Rows(i).Item("TAalm"), CInt(tbId.Text)) = True Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
 #End Region
 
 

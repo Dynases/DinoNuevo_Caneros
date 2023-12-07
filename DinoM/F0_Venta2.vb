@@ -699,7 +699,7 @@ Public Class F0_Venta2
 
     Private Sub _prCargarVenta()
         Dim dt As New DataTable
-        If gs_user = "ALMACEN" Then
+        If gs_ydall = 1 Then
             dt = L_fnGeneralVentaTodos()
         Else
             dt = L_fnGeneralVenta(gi_userSuc)
@@ -872,6 +872,7 @@ Public Class F0_Venta2
                 Dim Succes As String = Emisor(tokenSifac) 'comentar para evitar mandar factura electronica
                 If Succes = 2 Or Succes = 8 Or Succes = 5 Then
                     If tbCodigo.Text <> String.Empty Then
+                        P_fnGenerarFactura(tbCodigo.Text)
 
                         If gs_user <> "SERVICIOS" Then
                             If swTipoVenta.Value = True Then
@@ -881,8 +882,8 @@ Public Class F0_Venta2
                                 L_fnGrabarTxCobrar(tbCodigo.Text)
                             End If
                         End If
-                        P_fnGenerarFactura(tbCodigo.Text)
                         _prCargarVenta()
+
                         _prSalir()
                         Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
                         ToastNotification.Show(Me, "Código de Venta ".ToUpper + tbCodigo.Text + "facturado con Exito.".ToUpper,
@@ -1308,7 +1309,7 @@ Public Class F0_Venta2
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", 0, "", "", 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, "20170101", CDate("2017/01/01"), 0, Now.Date, "", "", 0, Bin.GetBuffer, 0, 0, 0)
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", 0, "", "", 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, "20500101", CDate("2050/01/01"), 0, Now.Date, "", "", 0, Bin.GetBuffer, 0, 0, 0)
     End Sub
 
     Public Function _fnSiguienteNumi()
@@ -1824,15 +1825,6 @@ Public Class F0_Venta2
             Dim Succes As String = Emisor(tokenSifac) 'comentar para evitar mandar factura electronica
             If Succes = 2 Or Succes = 8 Or Succes = 5 Then
                 If tbCodigo.Text <> String.Empty Then
-
-                    If gs_user <> "SERVICIOS" Then
-                        If swTipoVenta.Value = True Then
-                            contabilizarContado()
-                        Else
-                            contabilizar()
-                            L_fnGrabarTxCobrar(tbCodigo.Text)
-                        End If
-                    End If
                     If (gb_FacturaEmite) Then
                         If tbNit.Text <> String.Empty Then
 
@@ -1841,6 +1833,15 @@ Public Class F0_Venta2
                         End If
 
                     End If
+                    If gs_user <> "SERVICIOS" Then
+                        If swTipoVenta.Value = True Then
+                            contabilizarContado()
+                        Else
+                            contabilizar()
+                            L_fnGrabarTxCobrar(tbCodigo.Text)
+                        End If
+                    End If
+
 
                     _prCargarVenta()
 
@@ -2161,6 +2162,7 @@ Public Class F0_Venta2
 
         Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 " + " and fvaalm=" + Convert.ToString(cbSucursal.Value)) 'L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion)
         _NumFac = maxNFac + 1
+        tbNroFactura.Text = _NumFac
 
         _TotalCC = Math.Round(CDbl(_Total), MidpointRounding.AwayFromZero)
         _Cod_Control = ControlCode.generateControlCode(_Autorizacion, _NumFac, _Nit, _Fechainv, CStr(_TotalCC), _Key)
@@ -3072,97 +3074,8 @@ Public Class F0_Venta2
 
 
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
-        '        If (Not _fnAccesible()) Then
-        '            Return
-        '        End If
-        '        If (e.KeyData = Keys.Enter) Then
-        '            Dim f, c As Integer
-        '            c = grdetalle.Col
-        '            f = grdetalle.Row
-
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("tbcmin").Index) Then
-        '                If (grdetalle.GetValue("producto") <> String.Empty) Then
-        '                    _prAddDetalleVenta()
-        '                    _HabilitarProductos()
-        '                Else
-        '                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
-        '                If (grdetalle.GetValue("producto") <> String.Empty) Then
-        '                    _prAddDetalleVenta()
-        '                    _HabilitarProductos()
-        '                Else
-        '                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
-        '                If (grdetalle.GetValue("yfcbarra").ToString().Trim() <> String.Empty) Then
-        '                    cargarProductos()
-        '                    If (grdetalle.Row = grdetalle.RowCount - 1) Then
-        '                        If (existeProducto(grdetalle.GetValue("yfcbarra").ToString)) Then
-        '                            If (Not verificarExistenciaUnica(grdetalle.GetValue("yfcbarra").ToString)) Then
-        '                                ponerProducto(grdetalle.GetValue("yfcbarra").ToString)
-        '                                _prAddDetalleVenta()
-        '                            Else
-        '                                sumarCantidad(grdetalle.GetValue("yfcbarra").ToString)
-        '                            End If
-        '                        Else
-        '                            grdetalle.DataChanged = False
-        '                            ToastNotification.Show(Me, "El código de barra del producto no existe", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                        End If
-        '                    Else
-        '                        grdetalle.DataChanged = False
-        '                        grdetalle.Row = grdetalle.RowCount - 1
-        '                        grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index
-        '                        ToastNotification.Show(Me, "El cursor debe situarse en la ultima fila", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                    End If
-        '                Else
-        '                    ToastNotification.Show(Me, "El código de barra no puede quedar vacio", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '                End If
-
-        '            End If
-        '            'opcion para cargar la grilla con el codigo de barra
-        '            'If (grdetalle.Col = grdetalle.RootTable.Columns("yfcbarra").Index) Then
-
-        '            '    If (grdetalle.GetValue("yfcbarra") <> String.Empty) Then
-        '            '        _buscarRegistro(grdetalle.GetValue("yfcbarra"))
-
-
-        '            '        '_prAddDetalleVenta()
-        '            '        '_HabilitarProductos()
-        '            '        ' MsgBox("hola de la grilla" + grdetalle.GetValue("yfcbarra") + t.Container.ToString)
-        '            '        'ojo
-        '            '    Else
-        '            '        ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
-        '            '    End If
-
-        '            'End If
-        'salirIf:
-        '        End If
-
-        '        If (e.KeyData = Keys.Control + Keys.Enter And grdetalle.Row >= 0 And
-        '            grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
-        '            Dim indexfil As Integer = grdetalle.Row
-        '            Dim indexcol As Integer = grdetalle.Col
-        '            _HabilitarProductos()
-
-        '        End If
-        '        If (e.KeyData = Keys.Escape And grdetalle.Row >= 0) Then
-
-        '            _prEliminarFila()
-
-
-        '        End If
-        '        If (e.KeyData = Keys.Control + Keys.S) Then
-        '            tbMontoBs.Select()
-        '        End If
-
-
-
         Try
+
 
             If (Not _fnAccesible()) Then
                 Return
@@ -4936,7 +4849,7 @@ salirIf:
         Dim debebs, haberbs, debeus, haberus As Double
         dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
 
-        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value) 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), swTipoVenta.Value, "", "", codCanero, 0, 0, 0, 0, cbSucursal.Value, codigoVenta, tbNroFactura.Text) 'numi cabecera to001
 
         For a As Integer = 1 To 2 Step 1
             dt = CargarConfiguracion("configuracion", a) 'oblin=orden
@@ -5034,7 +4947,7 @@ salirIf:
 
 
 
-        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001(1, Convert.ToInt32(codigoVenta), "false", "", codCanero, 0, 0, 0, 0, cbSucursal.Value, codigoVenta, tbNroFactura.Text) 'numi cabecera to001
         'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
 
         For a As Integer = 3 To 4 Step 1

@@ -123,6 +123,7 @@ Module P_Global
     'configuracion del sistema tabla TCG011
     Public gd_notaAproTeo As Double = 0
     Public gs_NroCaja As Integer = 1
+    Public gs_ydall As Integer = 0
 #End Region
 
 #Region "Toast"
