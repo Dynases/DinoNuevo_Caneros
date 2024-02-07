@@ -8955,7 +8955,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
 
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 24))
+        _listParam.Add(New Datos.DParametro("@tipo", 25))
         _listParam.Add(New Datos.DParametro("@trcan", codCan))
         _listParam.Add(New Datos.DParametro("@trins", codIns))
         _listParam.Add(New Datos.DParametro("@tralm", codPrest))
@@ -8963,7 +8963,7 @@ ON	dbo.ZY003.ydsuc=dbo.TA001.aanumi", "yduser = '" + _Nom + "' AND ydpass = '" +
         _listParam.Add(New Datos.DParametro("@trfec", fec))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
 
-        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001", _listParam)
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TR001detalle", _listParam)
 
         Return _Tabla
     End Function

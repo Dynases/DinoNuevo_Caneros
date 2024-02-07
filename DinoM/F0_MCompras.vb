@@ -1854,8 +1854,8 @@ salirIf:
             _GuardarNuevo()
         Else
             If (tbCodigo.Text <> String.Empty) Then
-                '_prGuardarModificado()
-                ''    _prInhabiliitar()
+                _prGuardarModificado()
+                _prInhabiliitar()
 
             End If
         End If

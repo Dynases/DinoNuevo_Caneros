@@ -5206,7 +5206,7 @@ salirIf:
             dsApi = L_Dosificacion("1", Convert.ToString(cbSucursal.Value), _Fecha)
         End If
         NumFactura = CInt(dsApi.Tables(0).Rows(0).Item("sbnfac")) + 1
-        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 and fvaalm=" + Convert.ToString(cbSucursal.Value))  '+ Convert.ToString(cbSucursal.Value)) ''+ "fvaalm= 1") '' 
+        Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaest =1 and fvaalm=1" + Convert.ToString(cbSucursal.Value))  '+ Convert.ToString(cbSucursal.Value)) ''+ "fvaalm= 1") '' 
         NumFactura = maxNFac + 1
 
         Emenvio.nitEmisor = 1028395023

@@ -475,6 +475,17 @@ Public Class F0_KardexMovimiento
             '.CellStyle.BackColor = Color.AliceBlue
             .FormatString = "0.00"
         End With
+        'With Dgj1Datos.RootTable.Columns(16)
+        '    .Caption = "iccpreciocost"
+        '    .Key = "Costo P."
+        '    .Width = 50
+        '    .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        '    .CellStyle.FontSize = 9
+        '    .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+        '    .Visible = True
+        '    '.CellStyle.BackColor = Color.AliceBlue
+        '    .FormatString = "0.00"
+        'End With
         With Dgj1Datos.RootTable.Columns(17)
             .Caption = "Cliente"
             .Key = "cliente"
