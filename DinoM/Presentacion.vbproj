@@ -170,8 +170,8 @@
     <Reference Include="Janus.Windows.UI.v3">
       <HintPath>C:\librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>C:\librerias\ZKTeco-dll64\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
@@ -685,6 +685,12 @@
       <DependentUpon>Pr_EstadoCxSocio.vb</DependentUpon>
     </Compile>
     <Compile Include="Pr_EstadoCxSocio.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pr_EstadoCxSocio2.designer.vb">
+      <DependentUpon>Pr_EstadoCxSocio2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_EstadoCxSocio2.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pr_Liquidacion.Designer.vb">
@@ -1437,6 +1443,12 @@
       <DependentUpon>R_CCPagosSaldos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="R_EstadoCxSocio2.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_EstadoCxSocio2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="R_EstadoCxSocioDetallado.vb">
       <DependentUpon>R_EstadoCxSocioDetallado.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1762,6 +1774,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_EstadoCxSocio.resx">
       <DependentUpon>Pr_EstadoCxSocio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pr_EstadoCxSocio2.resx">
+      <DependentUpon>Pr_EstadoCxSocio2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pr_Liquidacion.resx">
       <DependentUpon>Pr_Liquidacion.vb</DependentUpon>
@@ -2231,6 +2246,10 @@
     <EmbeddedResource Include="R_CCPagosSaldos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_CCPagosSaldos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R_EstadoCxSocio2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_EstadoCxSocio2.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="R_EstadoCxSocioDetallado.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

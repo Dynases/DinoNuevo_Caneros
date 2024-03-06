@@ -1451,4 +1451,10 @@ Public Class P_Principal
         frm.Show()
 
     End Sub
+
+    Private Sub MetroTileItem14_Click(sender As Object, e As EventArgs) Handles MetroTileItem14.Click
+        Dim frm As New Pr_EstadoCxSocio2
+        frm.Show()
+
+    End Sub
 End Class
