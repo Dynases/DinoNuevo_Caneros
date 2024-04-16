@@ -1457,4 +1457,10 @@ Public Class P_Principal
         frm.Show()
 
     End Sub
+
+    Private Sub btnDeudaActual_Click(sender As Object, e As EventArgs) Handles btnDeudaActual.Click
+        Dim frm As New Pr_DeudaActual
+        frm.Show()
+
+    End Sub
 End Class

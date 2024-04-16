@@ -657,6 +657,12 @@
     <Compile Include="Pr_BoletaMovimientoDiario.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pr_deudaActual.designer.vb">
+      <DependentUpon>Pr_deudaActual.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_deudaActual.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pr_EstadoCuentasClientesTodos.Designer.vb">
       <DependentUpon>Pr_EstadoCuentasClientesTodos.vb</DependentUpon>
     </Compile>
@@ -931,6 +937,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_CodigoBarras.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_DeudaActual.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_DeudaActual.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_EstadoCuentasClientesTodos.vb">
@@ -1760,6 +1772,9 @@
     <EmbeddedResource Include="Pr_BoletaMovimientoDiario.resx">
       <DependentUpon>Pr_BoletaMovimientoDiario.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pr_deudaActual.resx">
+      <DependentUpon>Pr_deudaActual.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pr_EstadoCuentasClientesTodos.resx">
       <DependentUpon>Pr_EstadoCuentasClientesTodos.vb</DependentUpon>
     </EmbeddedResource>
@@ -1907,6 +1922,10 @@
     <EmbeddedResource Include="Reporte\R_CodigoBarras.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_CodigoBarras.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_DeudaActual.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_DeudaActual.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_EstadoCuentasClientesTodos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
