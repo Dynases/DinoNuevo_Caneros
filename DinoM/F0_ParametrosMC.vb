@@ -2,7 +2,7 @@
 Imports Janus.Windows.GridEX
 Imports DevComponents.DotNetBar
 Imports DevComponents.DotNetBar.Controls
-Public Class F0_Dias_Zafra
+Public Class F0_ParametrosMC
     Dim pciGeneral As Decimal
     Dim ingreso As Decimal
     Dim _Inter As Integer = 0
@@ -21,7 +21,7 @@ Public Class F0_Dias_Zafra
 #Region "METODOS PRIVADOS"
     Private Sub _PIniciarTodo()
 
-        Me.Text = "DIAS DE ZAFRA"
+        Me.Text = "PARAMETROS"
         'Me.WindowState = FormWindowState.Maximized
 
 
@@ -91,11 +91,12 @@ Public Class F0_Dias_Zafra
             Return
         End If
         With JGr_Buscador
-            Tb_CodTara.Text = .GetValue("id").ToString
+            Tb_Cod.Text = .GetValue("id").ToString
+            tbBasura.Text = .GetValue("basura").ToString
+            bt_azucar.Text = .GetValue("azucar").ToString
+            bt_alcohol.Text = .GetValue("alcohol").ToString
+            tbFecha.Text = .GetValue("fecha").ToString
 
-
-            tbFecha.Text = .GetValue("fechaInicio").ToString
-            tbFechaFinal.Text = .GetValue("fechaFinal").ToString
             If .GetValue("estado").ToString = "VIGENTE" Then
                 txtEstado.Text = "VIGENTE"
                 txtEstado.BackColor = Color.Green
@@ -113,16 +114,19 @@ Public Class F0_Dias_Zafra
 
     Private Sub _PInhabilitar()
         ' Tb_Id.ReadOnly = True
-        Tb_CodTara.ReadOnly = True
+        Tb_Cod.ReadOnly = True
 
-
+        tbBasura.ReadOnly = True
+        bt_azucar.ReadOnly = True
+        bt_alcohol.ReadOnly = True
+        txtEstado.ReadOnly = True
         btnNuevo.Enabled = True
         btnModificar.Enabled = True
         btnEliminar.Enabled = True
         btnGrabar.Enabled = False
 
         JGr_Buscador.Enabled = True
-
+        tbFecha.Enabled = False
         btnGrabar.Image = My.Resources.save
 
         _PLimpiarErrores()
@@ -130,22 +134,22 @@ Public Class F0_Dias_Zafra
 
     Private Sub _PLimpiarErrores()
         MEP.Clear()
-        Tb_CodTara.BackColor = Color.White
+        Tb_Cod.BackColor = Color.White
 
 
     End Sub
 
     Private Sub _PHabilitarFocus()
-        MHighlighterFocus.SetHighlightOnFocus(Tb_CodTara, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
+        MHighlighterFocus.SetHighlightOnFocus(Tb_Cod, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
-        Tb_CodTara.TabIndex = 1
+        Tb_Cod.TabIndex = 1
 
 
     End Sub
 
     Private Sub _PCargarBuscador()
         _Dsencabezado = New DataSet
-        _Dsencabezado = L_diasZafra(0)
+        _Dsencabezado = L_parametros(0)
 
         JGr_Buscador.BoundMode = BoundMode.Bound
         JGr_Buscador.DataSource = _Dsencabezado.Tables(0) ' _Dsencabezado.Tables(0) ' dt
@@ -158,94 +162,138 @@ Public Class F0_Dias_Zafra
             .Width = 70
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
-        With JGr_Buscador.RootTable.Columns("fechaInicio")
+        With JGr_Buscador.RootTable.Columns("fecha")
             '.Visible = False
-            .Caption = "inicio de zafra".ToUpper
-            .Width = 120
-            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
-        End With
-        With JGr_Buscador.RootTable.Columns("fechaFinal")
-            '.Visible = False
-            .Caption = "final de zafra".ToUpper
-            .Width = 120
+            .Caption = "FECHA".ToUpper
+            .Width = 100
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
         With JGr_Buscador.RootTable.Columns("gestion")
             '.Visible = False
-            .Caption = "GESTION".ToUpper
+            .Caption = "gestion".ToUpper
             .Width = 100
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
         End With
+        With JGr_Buscador.RootTable.Columns("basura")
+            .Visible = True
+            .Caption = "basura".ToUpper
+            .Width = 100
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .FormatString = "0.00"
+        End With
+        With JGr_Buscador.RootTable.Columns("alcohol")
+            .Visible = True
+            .Caption = "alcohol".ToUpper
+            .Width = 100
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .FormatString = "0.000"
+        End With
+        With JGr_Buscador.RootTable.Columns("azucar")
+            .Visible = True
+            .Caption = "azucar".ToUpper
+            .Width = 100
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .FormatString = "0.000"
+        End With
         With JGr_Buscador.RootTable.Columns("estado")
+            .Visible = True
+            .Caption = "estado".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+
+        End With
+        With JGr_Buscador.RootTable.Columns("tafact")
             .Visible = False
             .Caption = "ponderado".ToUpper
             .Width = 150
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
         End With
-        'With JGr_Buscador.RootTable.Columns("tahact")
-        '    .Visible = False
-        '    .Caption = "ponderado".ToUpper
-        '    .Width = 150
-        '    .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        With JGr_Buscador.RootTable.Columns("tahact")
+            .Visible = False
+            .Caption = "ponderado".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
-        'End With
-        'With JGr_Buscador.RootTable.Columns("tauact")
-        '    .Visible = False
-        '    .Caption = "ponderado".ToUpper
-        '    .Width = 150
-        '    .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGr_Buscador.RootTable.Columns("tauact")
+            .Visible = False
+            .Caption = "ponderado".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
 
-        'End With
-
-
-
+        End With
         'Habilitar Filtradores
         With JGr_Buscador
-                .DefaultFilterRowComparison = FilterConditionOperator.Contains
-                .FilterMode = FilterMode.Automatic
-                .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
-                .GroupByBoxVisible = False
+            .DefaultFilterRowComparison = FilterConditionOperator.Contains
+            .FilterMode = FilterMode.Automatic
+            .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
+            .GroupByBoxVisible = False
 
-                'diseño de la grilla
-                JGr_Buscador.VisualStyle = VisualStyle.Office2007
-            End With
+            'diseño de la grilla
+            JGr_Buscador.VisualStyle = VisualStyle.Office2007
+        End With
     End Sub
 
 #End Region
 #Region " Metodo-Button "
     Private Sub _PHabilitar()
-        Tb_CodTara.ReadOnly = False
-
-
+        'Tb_CodTara.ReadOnly = False
+        bt_azucar.ReadOnly = False
+        bt_alcohol.ReadOnly = False
+        tbBasura.ReadOnly = False
         btnNuevo.Enabled = False
         btnModificar.Enabled = False
         btnEliminar.Enabled = False
         btnGrabar.Enabled = True
+        txtEstado.BackColor = Color.White
+        tbFecha.Enabled = True
     End Sub
 
     Private Sub _PLimpiar()
         ' Tb_Id.Text = String.Empty
-        Tb_CodTara.Text = String.Empty
-        tbFechaFinal.Text = String.Empty
-
+        Tb_Cod.Text = String.Empty
+        tbBasura.BackColor = Color.White
+        tbBasura.Text = String.Empty
+        bt_alcohol.Text = String.Empty
+        bt_azucar.Text = String.Empty
+        txtEstado.Text = String.Empty
         LblPaginacion.Text = String.Empty
+        tbFecha.Text = DateTime.Now
     End Sub
 
     Public Function P_Validar() As Boolean
         Dim _Error As Boolean = True
         MEP.Clear()
 
-        If tbFecha.Text.Trim = String.Empty Then
-            tbFecha.BackColor = Color.Red
-            MEP.SetError(tbFecha, "Ingrese fecha de inicio de zafra!".ToUpper)
+
+
+        If tbBasura.Text.Trim = String.Empty Then
+            tbBasura.BackColor = Color.Red
+            MEP.SetError(tbBasura, "Ingrese el valor correspondiente!".ToUpper)
             _Error = False
-
         Else
-
-            tbFecha.BackColor = Color.White
-            MEP.SetError(tbFecha, String.Empty)
+            tbBasura.BackColor = Color.White
+            MEP.SetError(tbBasura, String.Empty)
         End If
+        If bt_azucar.Text.Trim = String.Empty Then
+            bt_azucar.BackColor = Color.Red
+            MEP.SetError(bt_azucar, "Ingrese el valor correspondiente!".ToUpper)
+            _Error = False
+        Else
+            bt_azucar.BackColor = Color.White
+            MEP.SetError(bt_azucar, String.Empty)
+        End If
+        If bt_alcohol.Text.Trim = String.Empty Then
+            bt_alcohol.BackColor = Color.Red
+            MEP.SetError(bt_alcohol, "Ingrese el valor correspondiente!".ToUpper)
+            _Error = False
+        Else
+            bt_alcohol.BackColor = Color.White
+            MEP.SetError(bt_alcohol, String.Empty)
+        End If
+
+
 
         MHighlighterFocus.UpdateHighlights()
         Return _Error
@@ -283,7 +331,7 @@ Public Class F0_Dias_Zafra
         'btnNuevo.Enabled = True
 
         _PLimpiar()
-        Tb_CodTara.Focus()
+        Tb_Cod.Focus()
         _Nuevo = True
     End Sub
 
@@ -310,11 +358,11 @@ Public Class F0_Dias_Zafra
 
             If _Nuevo Then
 
-                L_DiasZafra_Grabar(tbFecha.Text, tbFechaFinal.Text)
+                L_Parametros_Grabar(tbBasura.Text, bt_azucar.Text, bt_alcohol.Text, tbFecha.Text)
 
-                Tb_CodTara.Focus()
+                Tb_Cod.Focus()
 
-                ToastNotification.Show(Me, "Dias de Zafra Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, " Grabado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
 
 
@@ -327,7 +375,7 @@ Public Class F0_Dias_Zafra
 
                 ' L_Taras_Modificar(Tb_CodTara.Text, Tb_Placa.Text, tbPesoTara.Value, Tb_Color.Text, Tb_Propietario.Text)
 
-                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_CodTara.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
                 _PCargarBuscador()
                 _Nuevo = False 'aumentado danny
@@ -368,7 +416,7 @@ Public Class F0_Dias_Zafra
     Private Sub _PModificarRegistro()
         _Nuevo = False
         _PHabilitar()
-        _codInsti = Tb_CodTara.Text
+        _codInsti = Tb_Cod.Text
         'btnModificar.Enabled = True 'aumentado para q funcione con el modelo de guido
     End Sub
 
@@ -386,8 +434,8 @@ Public Class F0_Dias_Zafra
         Dim bandera As Boolean = False
         bandera = ef.band
         If (bandera = True) Then
-            Dim t As String = Tb_CodTara.Text
-            L_Taras_Borrar(Tb_CodTara.Text)
+            Dim t As String = Tb_Cod.Text
+            L_Taras_Borrar(Tb_Cod.Text)
 
             _PInhabilitar()
             _PFiltrar()
@@ -451,5 +499,17 @@ Public Class F0_Dias_Zafra
         LblPaginacion.Text = Str(1) + "/" + CType(JGr_Buscador.DataSource, DataTable).Rows.Count.ToString
     End Sub
 
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
 
+    End Sub
+
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+        _Dsencabezado = New DataSet
+        _Dsencabezado = L_pruebaFactor(0)
+        For Each fila As DataRow In _Dsencabezado.Tables(0).Rows()
+
+            L_pruebaFactor_Grabar(fila(0), fila(1), fila(3), fila(2))
+        Next
+
+    End Sub
 End Class

@@ -54,30 +54,30 @@ Public Class F0_Retenciones
 
         'lbTipoMoneda.Visible = False
 
-        P_prCargarVariablesIndispensables()
+        ' P_prCargarVariablesIndispensables()
 
         _prCargarVenta()
         _prInhabiliitar()
         grVentas.Focus()
-        Me.Text = "VENTAS"
+        Me.Text = "CUENTAS CAÑERAS"
         Dim blah As New Bitmap(New Bitmap(My.Resources.compra), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
         _prAsignarPermisos()
-        P_prCargarParametro()
+        ' P_prCargarParametro()
         '_prValidadFactura()
-        _prCargarNameLabel()
+        '_prCargarNameLabel()
         _prCargarComboGestion(cbGestion)
 
         'COnfiguracion previa para Pantalla de facturacion o Nota de venta
-        If gb_FacturaEmite Then
-            btnModificar.Visible = True
-        Else
+        'If gb_FacturaEmite Then
+        '    btnModificar.Visible = True
+        'Else
 
-        End If
-        DescuentoXProveedorList = ObtenerDescuentoPorProveedor()
-        ConfiguracionDescuentoEsXCantidad = TipoDescuentoEsXCantidad()
-        'SwDescuentoProveedor.Visible = IIf(ConfiguracionDescuentoEsXCantidad, False, True)
+        'End If
+        'DescuentoXProveedorList = ObtenerDescuentoPorProveedor()
+        'ConfiguracionDescuentoEsXCantidad = TipoDescuentoEsXCantidad()
+        ''SwDescuentoProveedor.Visible = IIf(ConfiguracionDescuentoEsXCantidad, False, True)
         'tbFechaVenta.Value = Date.Now
         SwDescuentoProveedor.Visible = False
         Programa = P_Principal.btVentVenta.Text
@@ -623,6 +623,17 @@ Public Class F0_Retenciones
             .TotalFormatString = "0.00"
 
         End With
+        With grdetalle.RootTable.Columns("verificacionFecha")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
+        End With
+        With grdetalle.RootTable.Columns("fecha1")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .Caption = "Ult.Cobranza"
+        End With
         With grdetalle
             '.DefaultFilterRowComparison = FilterConditionOperator.Contains
             '.FilterMode = FilterMode.Automatic
@@ -637,6 +648,10 @@ Public Class F0_Retenciones
             .TotalRowPosition = TotalRowPosition.BottomFixed
 
         End With
+        Dim fc As GridEXFormatCondition
+        fc = New GridEXFormatCondition(grdetalle.RootTable.Columns("verificacionFecha"), ConditionOperator.Equal, -1)
+        fc.FormatStyle.BackColor = Color.LightSalmon
+        grdetalle.RootTable.FormatConditions.Add(fc)
     End Sub
 
     Private Sub _prCargarDetalleVenta2(_numi As String)
@@ -656,20 +671,20 @@ Public Class F0_Retenciones
             .Visible = False
         End With
         With grdetalle.RootTable.Columns("trid")
-            .Width = 100
+            .Width = 80
             .Caption = "Fecha"
             .Visible = False
         End With
         With grdetalle.RootTable.Columns("fecha")
-            .Width = 100
+            .Width = 85
             .Caption = "Fecha"
             .Visible = True
         End With
 
         With grdetalle.RootTable.Columns("ydcod")
-            .Width = 90
+            .Width = 65
             .Visible = True
-            .Caption = "Cod. Can."
+            .Caption = "Cod.Can."
         End With
         With grdetalle.RootTable.Columns("ydnumi")
             .Width = 90
@@ -692,13 +707,13 @@ Public Class F0_Retenciones
 
         With grdetalle.RootTable.Columns("yddesc")
             .Caption = "Código".ToUpper
-            .Width = 100
+            .Width = 95
             .Visible = False
         End With
 
         With grdetalle.RootTable.Columns("doc")
             .Caption = "Doc.".ToUpper
-            .Width = 40
+            .Width = 60
             '.Visible = gb_CodigoBarra
             .Visible = True
         End With
@@ -709,7 +724,7 @@ Public Class F0_Retenciones
         End With
         With grdetalle.RootTable.Columns("tipo")
             .Caption = "Tipo Deuda"
-            .Width = 180
+            .Width = 160
             .Visible = True
         End With
 
@@ -752,11 +767,11 @@ Public Class F0_Retenciones
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("aporteDiesel")
-            .Width = 50
+            .Width = 85
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Aporte Diesel"
+            .Caption = "Aport.Extr.Diesel"
             .AggregateFunction = AggregateFunction.Sum
         End With
         With grdetalle.RootTable.Columns("aporteDiesel1")
@@ -2160,9 +2175,13 @@ Public Class F0_Retenciones
                     e.Cancel = True
                 End If
             Else
-                If (e.Column.Index = grdetalle.RootTable.Columns("cobrar").Index Or e.Column.Index = grdetalle.RootTable.Columns("descApor").Index) Then
+                If (e.Column.Index = grdetalle.RootTable.Columns("cobrar").Index Or e.Column.Index = grdetalle.RootTable.Columns("descApor").Index And grdetalle.GetValue("verificacionFecha") = 1) Then
+                    If grdetalle.GetValue("verificacionFecha") = 1 Then
+                        e.Cancel = False
+                    Else
+                        e.Cancel = True
+                    End If
 
-                    e.Cancel = False
                     'ActualizarTotales()
 
                 Else
@@ -2176,6 +2195,13 @@ Public Class F0_Retenciones
                         End If
                     Else
                         If e.Column.Index = grdetalle.RootTable.Columns("amortizacion").Index Then
+                            e.Cancel = False
+                        Else
+                            e.Cancel = True
+
+                        End If
+
+                        If e.Column.Index = grdetalle.RootTable.Columns("amortizacion").Index And grdetalle.GetValue("verificacionFecha") = 1 Then
                             e.Cancel = False
                         Else
                             e.Cancel = True
@@ -2227,6 +2253,7 @@ Public Class F0_Retenciones
     End Sub
 
     Private Sub grdetalle_KeyDown(sender As Object, e As KeyEventArgs) Handles grdetalle.KeyDown
+
 
         Try
             If (e.KeyCode = Keys.Enter) Then
@@ -3429,6 +3456,7 @@ salirIf:
                         _prCargarGrupoEco(_CodCliente)
 
                         _prCargarDetalleVenta(_CodCliente)
+                        Dim condition As New Janus.Windows.GridEX.GridEXFormatCondition()
 
 
                         ActualizarTotales()
@@ -3801,7 +3829,7 @@ salirIf:
         TConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", " taalm=10016 or taalm=100161")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm=10016 or taalm=100161"))
         TCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 100011  or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10010 or taalm=100101 or taalm=10011 or taalm=100111 or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10014 or taalm=10015 or taalm=100151 ")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10010 or taalm=100101 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10014  or taalm=10015 or taalm=100151 "))
         TRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005 or taalm  = 100051")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10005 or taalm  = 100051"))
-        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 100071  or taalm  = 3 or taalm  = 4"))
+        TComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4 or taalm  = 10018")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10007 or taalm  = 100071  or taalm  = 3 or taalm  = 4 or taalm  = 10018"))
         TInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 1 or taalm  = 10006 or taalm  = 100061")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 1 or taalm  = 10006 or taalm  = 100061"))
         TSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2"))
         TOtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009 or taalm  = 100091")), 0, dtIngEgre.Compute("Sum(deuda)", "taalm  = 10009 or taalm  = 100091"))
@@ -3819,7 +3847,7 @@ salirIf:
         RConv = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm=10016 or taalm=100161")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm=10016 or taalm=100161"))
         RCont = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10010 or taalm=100101 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131  or taalm=10014 or taalm=10015 or taalm=100151 ")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10001 or taalm  = 100011 or taalm  = 10002 or taalm  = 100021 or taalm  = 10003 or taalm  = 100031 or taalm  = 10004 or taalm  = 100041 or taalm=10010 or taalm=100101 or taalm=10011 or taalm=100111  or taalm=10012 or taalm=100121 or taalm=10013 or taalm=100131 or taalm=10014  or taalm=10015 or taalm=100151"))
         RRest = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar)+ Sum(amortizacion)", "taalm  = 10005 or taalm  = 100051")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10005 or taalm  = 100051"))
-        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4"))
+        RComb = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4 or taalm  = 10018")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10007 or taalm  = 100071 or taalm  = 3 or taalm  = 4 or taalm  = 10018"))
         RInsu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 1 or taalm  = 10006 or taalm  = 100061")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 1 or taalm  = 10006 or taalm  = 100061"))
         RSho = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10008 or taalm  = 100081 or taalm  = 2"))
         ROtSu = IIf(IsDBNull(dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10009 or taalm  = 100091")), 0, dtIngEgre.Compute("Sum(cobrar) + Sum(amortizacion)", "taalm  = 10009 or  taalm  = 100091"))

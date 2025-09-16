@@ -5,7 +5,7 @@ Imports DevComponents.DotNetBar.Controls
 Public Class F0_MantenimientoTaras
     Dim _Inter As Integer = 0
     Dim NumiCuenta As Integer
-    Dim _codInsti As Integer = 0
+    Dim _codInsti As String = 0
 #Region "ATRIBUTOS"
     Dim _Dsencabezado As DataSet
     Dim _Nuevo As Boolean
@@ -202,7 +202,7 @@ Public Class F0_MantenimientoTaras
 #End Region
 #Region " Metodo-Button "
     Private Sub _PHabilitar()
-        Tb_CodTara.ReadOnly = False
+        'Tb_CodTara.ReadOnly = False
         Tb_Placa.ReadOnly = False
         Tb_Color.ReadOnly = False
         Tb_Propietario.ReadOnly = False
@@ -255,36 +255,36 @@ Public Class F0_MantenimientoTaras
             MEP.SetError(Tb_Propietario, String.Empty)
         End If
 
-        If Tb_CodTara.Text.Trim = String.Empty Then
-            Tb_CodTara.BackColor = Color.Red
-            MEP.SetError(Tb_CodTara, "Ingrese un código de tara!".ToUpper)
+        If Tb_Placa.Text.Trim = String.Empty Then
+            Tb_Placa.BackColor = Color.Red
+            MEP.SetError(Tb_Placa, "Ingrese un código de tara!".ToUpper)
             _Error = False
 
         Else
             If _Nuevo Then
-                If L_BuscarCodTara(Tb_CodTara.Text) = True Then
-                    Tb_CodTara.BackColor = Color.Red
-                    MEP.SetError(Tb_CodTara, "Ingrese un código distinto!".ToUpper)
+                If L_BuscarCodTara(Tb_Placa.Text) = True Then
+                    Tb_Placa.BackColor = Color.Red
+                    MEP.SetError(Tb_Placa, "Ingrese un código distinto!".ToUpper)
                     _Error = False
                 Else
-                    Tb_CodTara.BackColor = Color.White
-                    MEP.SetError(Tb_CodTara, String.Empty)
+                    Tb_Placa.BackColor = Color.White
+                    MEP.SetError(Tb_Placa, String.Empty)
                 End If
-            ElseIf _codInsti = Convert.ToInt32(Tb_CodTara.Text) Then
+            ElseIf _codInsti = Tb_Placa.Text Then
                 _Error = True
             Else
-                If L_BuscarCodTara(Tb_CodTara.Text) = True Then
-                    Tb_CodTara.BackColor = Color.Red
-                    MEP.SetError(Tb_CodTara, "Ingrese un código distinto!".ToUpper)
+                If L_BuscarCodTara(Tb_Placa.Text) = True Then
+                    Tb_Placa.BackColor = Color.Red
+                    MEP.SetError(Tb_Placa, "Ingrese un código distinto!".ToUpper)
                     _Error = False
                 Else
-                    Tb_CodTara.BackColor = Color.White
-                    MEP.SetError(Tb_CodTara, String.Empty)
+                    Tb_Placa.BackColor = Color.White
+                    MEP.SetError(Tb_Placa, String.Empty)
                 End If
             End If
             If _Error = True Then
-                Tb_CodTara.BackColor = Color.White
-                MEP.SetError(Tb_CodTara, String.Empty)
+                Tb_Placa.BackColor = Color.White
+                MEP.SetError(Tb_Placa, String.Empty)
             End If
         End If
         MHighlighterFocus.UpdateHighlights()

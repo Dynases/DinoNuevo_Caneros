@@ -1,13 +1,9 @@
-﻿Imports System.Drawing.Printing
-Imports System.IO
-Imports CrystalDecisions.Shared
+﻿Imports System.IO
 Imports DevComponents.DotNetBar
 Imports DevComponents.DotNetBar.Controls
-Imports Facturacion
 Imports Janus.Windows.GridEX
 Imports Logica.AccesoLogica
 Imports UTILITIES
-Imports System
 
 Public Class F0_RegistroBoleta
     Dim _Inter As Integer = 0
@@ -261,11 +257,11 @@ Public Class F0_RegistroBoleta
             .Caption = "PAQUETE"
             .Visible = True
         End With
-        With grdetalle1.RootTable.Columns("codTara")
-            .Width = 90
-            .Visible = True
-            .Caption = "TARA"
-        End With
+        'With grdetalle1.RootTable.Columns("codTara")
+        '    .Width = 90
+        '    .Visible = True
+        '    .Caption = "TARA"
+        'End With
 
         With grdetalle1.RootTable.Columns("tipCan")
             .Width = 90
@@ -479,9 +475,22 @@ Public Class F0_RegistroBoleta
                 Dim estado As Integer = dt.Rows(i).Item("estado")
 
                 If (estado >= 0) Then
+                    Dim cantidadPaquete As Decimal
+                    Dim tipoCana As Decimal
+                    Dim tipoCorte As Decimal
+                    Dim pesoBruto As Decimal
+                    Dim pesoTara As Decimal
 
-                    controlTotalDet = controlTotalDet + (dt.Rows(i).Item("nroPaq") * dt.Rows(i).Item("numLinea")) + (dt.Rows(i).Item("codTara") * dt.Rows(i).Item("numLinea")) + (dt.Rows(i).Item("tipCor") * dt.Rows(i).Item("numLinea") + IIf(dt.Rows(i).Item("tipCan") = 1, dt.Rows(i).Item("numLinea") * 3, dt.Rows(i).Item("numLinea") * 5)) + (dt.Rows(i).Item("pesBru") * dt.Rows(i).Item("numLinea")) + (dt.Rows(i).Item("pesTara") * dt.Rows(i).Item("numLinea"))
+                    cantidadPaquete = (dt.Rows(i).Item("nroPaq") * dt.Rows(i).Item("numLinea"))
+                    tipoCana = (dt.Rows(i).Item("tipCor") * dt.Rows(i).Item("numLinea"))
+                    tipoCorte = IIf(dt.Rows(i).Item("tipCan") = 1, dt.Rows(i).Item("numLinea") * 3, dt.Rows(i).Item("numLinea") * 5)
+                    pesoBruto = (dt.Rows(i).Item("pesBru") * dt.Rows(i).Item("numLinea"))
+                    pesoTara = (dt.Rows(i).Item("pesTara") * dt.Rows(i).Item("numLinea"))
+                    'controlTotalDet = controlTotalDet + +++
+                    'controlTotalDet = controlTotalDet + (dt.Rows(i).Item("nroPaq") * dt.Rows(i).Item("numLinea")) + (dt.Rows(i).Item("tipCor") * dt.Rows(i).Item("numLinea") + IIf(dt.Rows(i).Item("tipCan") = 1, dt.Rows(i).Item("numLinea") * 3, dt.Rows(i).Item("numLinea") * 5)) + (dt.Rows(i).Item("pesBru") * dt.Rows(i).Item("numLinea")) + (dt.Rows(i).Item("pesTara") * dt.Rows(i).Item("numLinea"))
 
+                    'controlTotalDet = controlTotalDet + (dt.Rows(i).Item("nroPaq") * dt.Rows(i).Item("numLinea")) + (dt.Rows(i).Item("numLinea")) + (dt.Rows(i).Item("tipCor") * dt.Rows(i).Item("numLinea") + IIf(dt.Rows(i).Item("tipCan") = 1, dt.Rows(i).Item("numLinea") * 3, dt.Rows(i).Item("numLinea") * 5)) + (dt.Rows(i).Item("pesBru") * dt.Rows(i).Item("numLinea")) + (dt.Rows(i).Item("numLinea"))
+                    controlTotalDet = controlTotalDet + cantidadPaquete + tipoCana + tipoCorte + pesoBruto + pesoTara
                 End If
 
             Next
@@ -524,7 +533,7 @@ Public Class F0_RegistroBoleta
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle1.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, _fnSiguienteNumi1() + 1, 0, 0, 0, 0, "", 0, "", 0.00, 0.00, "", "", CDate("2017/01/01"), "", "", 0.00, 0, Bin.GetBuffer)
+        CType(grdetalle1.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, _fnSiguienteNumi1() + 1, 0, 0, 0, "", 0, "", 0.00, 0.00, "", "", CDate("2017/01/01"), "", "", 0.00, 0, Bin.GetBuffer)
 
     End Sub
 
@@ -1581,7 +1590,7 @@ Public Class F0_RegistroBoleta
                 'Dim existe As Boolean = _fnExisteNumPaquete(tbPaquetes.Value)
                 If (pos >= 0) Then
                     CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("nroPaq") = tbPaquetes.Value
-                    CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("codTara") = tbCodigoTara.Text
+                    'CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("codTara") = tbCodigoTara.Text
                     CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("ycdes3") = cbgrupo2.Text
                     CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("corte") = cbgrupo3.Text
                     CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("tipCan") = cbgrupo2.Value
@@ -1606,7 +1615,7 @@ Public Class F0_RegistroBoleta
                 pos = grdetalle1.Row
 
                 CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("nroPaq") = tbPaquetes.Value
-                CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("codTara") = tbCodigoTara.Text
+                'CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("codTara") = tbCodigoTara.Text
                 CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("ycdes3") = cbgrupo2.Text
                 CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("corte") = cbgrupo3.Text
                 CType(grdetalle1.DataSource, DataTable).Rows(pos).Item("tipCan") = cbgrupo2.Value
@@ -1912,7 +1921,7 @@ Public Class F0_RegistroBoleta
         End If
 
         With grdetalle1
-            tbCodigoTara.Text = .GetValue("codTara").ToString
+            tbCodigoTara.Text = .GetValue("placa").ToString
             tbPaquetes.Text = .GetValue("nroPaq").ToString
             tbPesoTara.Value = .GetValue("pesTara")
             tbPesoBruto.Value = .GetValue("pesBru")

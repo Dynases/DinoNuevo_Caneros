@@ -11,7 +11,7 @@ Public Class F_ClienteNuevo
     Public Razonsocial As String = ""
     Public Nit As String = ""
     Public Cliente As Boolean = False
-    Dim _codInsti As Integer = 0
+    Dim _codInsti As String = 0
 
 
     Public Sub _priniciarTodo()
@@ -66,36 +66,36 @@ Public Class F_ClienteNuevo
             MEP.SetError(Tb_Propietario, String.Empty)
         End If
 
-        If Tb_CodTara.Text.Trim = String.Empty Then
-            Tb_CodTara.BackColor = Color.Red
-            MEP.SetError(Tb_CodTara, "Ingrese un código de tara!".ToUpper)
+        If Tb_Placa.Text.Trim = String.Empty Then
+            Tb_Placa.BackColor = Color.Red
+            MEP.SetError(Tb_Placa, "Ingrese un código de tara!".ToUpper)
             _ok = False
 
         Else
             If True Then
-                If L_BuscarCodTara(Tb_CodTara.Text) = True Then
-                    Tb_CodTara.BackColor = Color.Red
-                    MEP.SetError(Tb_CodTara, "Ingrese un código distinto!".ToUpper)
+                If L_BuscarCodTara(Tb_Placa.Text) = True Then
+                    Tb_Placa.BackColor = Color.Red
+                    MEP.SetError(Tb_Placa, "Ingrese un código distinto!".ToUpper)
                     _ok = False
                 Else
-                    Tb_CodTara.BackColor = Color.White
-                    MEP.SetError(Tb_CodTara, String.Empty)
+                    Tb_Placa.BackColor = Color.White
+                    MEP.SetError(Tb_Placa, String.Empty)
                 End If
-            ElseIf _codInsti = Convert.ToInt32(Tb_CodTara.Text) Then
+            ElseIf _codInsti = Tb_Placa.Text Then
                 _ok = True
             Else
-                If L_BuscarCodTara(Tb_CodTara.Text) = True Then
-                    Tb_CodTara.BackColor = Color.Red
-                    MEP.SetError(Tb_CodTara, "Ingrese un código distinto!".ToUpper)
+                If L_BuscarCodTara(Tb_Placa.Text) = True Then
+                    Tb_Placa.BackColor = Color.Red
+                    MEP.SetError(Tb_Placa, "Ingrese un código distinto!".ToUpper)
                     _ok = False
                 Else
-                    Tb_CodTara.BackColor = Color.White
-                    MEP.SetError(Tb_CodTara, String.Empty)
+                    Tb_Placa.BackColor = Color.White
+                    MEP.SetError(Tb_Placa, String.Empty)
                 End If
             End If
             If _ok = True Then
-                Tb_CodTara.BackColor = Color.White
-                MEP.SetError(Tb_CodTara, String.Empty)
+                Tb_Placa.BackColor = Color.White
+                MEP.SetError(Tb_Placa, String.Empty)
             End If
         End If
         MHighlighterFocus.UpdateHighlights()

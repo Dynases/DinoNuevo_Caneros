@@ -58,7 +58,7 @@ Public Class F0_VentaComb
 
         'lbTipoMoneda.Visible = False
         swMoneda.Visible = False
-        P_prCargarVariablesIndispensables()
+        'P_prCargarVariablesIndispensables()
         _prCargarVenta()
         _prInhabiliitar()
         grVentas.Focus()
@@ -67,8 +67,8 @@ Public Class F0_VentaComb
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
         _prAsignarPermisos()
-        P_prCargarParametro()
-        _prValidadFactura()
+        'P_prCargarParametro()
+
         _prCargarNameLabel()
         'COnfiguracion previa para Pantalla de facturacion o Nota de venta
         If gb_FacturaEmite Then
@@ -77,9 +77,9 @@ Public Class F0_VentaComb
             tbObservacion.Visible = True
             lblObservacion.Visible = True
         End If
-        DescuentoXProveedorList = ObtenerDescuentoPorProveedor()
-        ConfiguracionDescuentoEsXCantidad = TipoDescuentoEsXCantidad()
-        SwDescuentoProveedor.Visible = IIf(ConfiguracionDescuentoEsXCantidad, False, True)
+        'DescuentoXProveedorList = ObtenerDescuentoPorProveedor()
+        'ConfiguracionDescuentoEsXCantidad = TipoDescuentoEsXCantidad()
+        'SwDescuentoProveedor.Visible = IIf(ConfiguracionDescuentoEsXCantidad, False, True)
         SwDescuentoProveedor.Visible = False
         Programa = P_Principal.btVentVenta.Text
     End Sub
@@ -1511,7 +1511,7 @@ Public Class F0_VentaComb
                                                         tbTramOrden.Text + " - " + tbNitTraOrden.Text + " - PLACA: " + tbPlaca.Text + " - Autoriz.:" + tbAutoriza.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
                                                           dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text,
                                                           tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text,
-                                                          TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text, (grdetalle.GetValue("tbcmin") * 0.01) / 6.96)
+                                                          TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text, (grdetalle.GetValue("tbcmin") * 1.28) / 6.96)
                     If res Then
                         tbCodigo.Text = numi
                         contabilizar()
@@ -2440,8 +2440,23 @@ Public Class F0_VentaComb
     End Sub
 
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
-        _prGuardar()
+        'Dim precio = grdetalle.GetValue("tbpbas")
+        'If swTipoVenta.Value = True Then
+        '    If Convert.ToString(precio) = "3.71000" Then
+        '        MessageBox.Show("RECUERDE QUE EL PRECIO DE VENTA TIENE QUE SER 3.72 SI LA VENTA ES AL CONTADO...")
+        '    Else
+        '        _prGuardar()
+        '    End If
+        'Else
+        '    If Convert.ToString(precio) = "3.71000" Then
+        '        _prGuardar()
+        '    Else
+        '        MessageBox.Show("RECUERDE QUE EL PRECIO DE VENTA TIENE QUE SER 3.71 SI LA VENTA ES AL CREDITO...")
+        '    End If
 
+
+        'End If
+        _prGuardar()
     End Sub
 
     Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
@@ -2634,8 +2649,8 @@ Public Class F0_VentaComb
 
     Private Sub SwSurtidor_ValueChanged(sender As Object, e As EventArgs) Handles SwSurtidor.ValueChanged
         If (SwSurtidor.Value = True) Then
-            swTipoVenta.Value = False
-            swTipoVenta.IsReadOnly = False
+            ' swTipoVenta.Value = False
+            swTipoVenta.IsReadOnly = True
             cbSurtidor.Clear()
             _prCargarComboLibreria(cbSurtidor, 1, 10)
             cbSurtidor.Value = 1
@@ -2651,7 +2666,7 @@ Public Class F0_VentaComb
             End If
 
         Else
-            swTipoVenta.Value = False
+            'swTipoVenta.Value = False
             swTipoVenta.IsReadOnly = True
             cbSurtidor.Clear()
             _prCargarComboLibreria(cbSurtidor, 1, 8)
@@ -2682,16 +2697,7 @@ Public Class F0_VentaComb
 
     End Sub
 
-    Private Sub swTipoVenta_ValueChanged(sender As Object, e As EventArgs) Handles swTipoVenta.ValueChanged
-        If (swTipoVenta.Value = False) Then
-            lbCredito.Visible = False
-            tbFechaVenc.Visible = False
-            tbFechaVenc.Value = DateAdd(DateInterval.Day, _dias, Now.Date)
-        Else
-            lbCredito.Visible = False
-            tbFechaVenc.Visible = False
-        End If
-    End Sub
+
 
 
 

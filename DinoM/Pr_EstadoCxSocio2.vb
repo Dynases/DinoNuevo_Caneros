@@ -165,31 +165,84 @@ Public Class Pr_EstadoCxSocio2
     End Sub
     Private Function interpretarDatos() As DataTable
         Dim dt As DataTable
-        If cbReporte.Value = 1 Then
-            If swTipo.Value = True Then
-                'If CheckBoxX1.Checked = True Then
-                '    dt = CargarCCPagosSaldosConAportes(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
-                'Else
-                dt = CargarCCxSocio(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+        If Asociado.Checked = False Then
+            If cbReporte.Value = 1 Then
+                If swTipo.Value = True Then
+                    'If CheckBoxX1.Checked = True Then
+                    '    dt = CargarCCPagosSaldosConAportes(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+                    'Else
+                    dt = CargarCCxSocio(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
-                'End If
-            Else
-                'If CheckBoxX1.Checked = True Then
-                '    dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+                    'End If
+                Else
+                    'If CheckBoxX1.Checked = True Then
+                    '    dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
 
-                'Else
-                dt = CargarCCxSocioDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+                    'Else
+                    dt = CargarCCxSocioDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
-                'End If
+                    'End If
+
+                End If
+
+            ElseIf cbReporte.Value = 2 Then
+
+                dt = CargarCCxSocioPagado(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
             End If
+        Else
+            If SwitchNuevaAgrupacion.Value = True Then
+                If cbReporte.Value = 1 Then
+                    If swTipo.Value = True Then
+                        'If CheckBoxX1.Checked = True Then
+                        '    dt = CargarCCPagosSaldosConAportes(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+                        'Else
+                        dt = CargarCCxSocio1(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
-        ElseIf cbReporte.Value = 2 Then
+                        'End If
+                    Else
+                        'If CheckBoxX1.Checked = True Then
+                        '    dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
 
-            dt = CargarCCxSocioPagado(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+                        'Else
+                        dt = CargarCCxSocioDet1(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
+                        'End If
+
+                    End If
+
+                ElseIf cbReporte.Value = 2 Then
+
+                    dt = CargarCCxSocioPagado(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+
+                End If
+            Else
+                If cbReporte.Value = 1 Then
+                    If swTipo.Value = True Then
+                        'If CheckBoxX1.Checked = True Then
+                        '    dt = CargarCCPagosSaldosConAportes(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+                        'Else
+                        dt = CargarCCxSocio11(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+
+                        'End If
+                    Else
+                        'If CheckBoxX1.Checked = True Then
+                        '    dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
+
+                        'Else
+                        dt = CargarCCxSocioDet11(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+
+                        'End If
+
+                    End If
+
+                ElseIf cbReporte.Value = 2 Then
+
+                    dt = CargarCCxSocioPagado(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+
+                End If
+            End If
         End If
-
         Return dt
     End Function
     Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
@@ -209,7 +262,7 @@ Public Class Pr_EstadoCxSocio2
                     MReportViewer.Show()
                     MReportViewer.BringToFront()
                 Else
-                    Dim objrep As New R_EstadoCxSocioDetallado
+                    Dim objrep As New R_EstadoCxSocioDetallado1
                     objrep.SetDataSource(dt)
 
                     objrep.SetParameterValue("prestamo", cbQuincena.Text)
@@ -295,6 +348,10 @@ Public Class Pr_EstadoCxSocio2
     End Sub
 
     Private Sub LabelX6_Click(sender As Object, e As EventArgs) Handles LabelX6.Click
+
+    End Sub
+
+    Private Sub swTipo_ValueChanged(sender As Object, e As EventArgs) Handles swTipo.ValueChanged
 
     End Sub
 End Class

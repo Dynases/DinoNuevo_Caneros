@@ -5,7 +5,8 @@ Imports Janus.Windows.GridEX
 Public Class F1_TotalCana
 
     Dim _CodCliente, _CodInstitucion As Integer
-
+    Dim _Nuevo As Boolean
+    Dim _Dsencabezado As DataTable
     Private Sub IniciarTodo()
         _PMIniciarTodo()
         tbFecha.Value = Date.Now
@@ -18,7 +19,7 @@ Public Class F1_TotalCana
         btnGrabar.Enabled = True
         btnModificar.Enabled = False
         btnNuevo.Enabled = False
-
+        tbGestion.Enabled = True
         tbCanero.Enabled = True
         tbGestion.ReadOnly = False
         TextBoxX4.ReadOnly = False
@@ -87,7 +88,17 @@ Public Class F1_TotalCana
             tbFecha.Value = .GetValue("fecha").ToString
             tbGestion.Text = .GetValue("gestion")
             TextBoxX4.Text = .GetValue("total")
-
+            If .GetValue("estado").ToString = "1" Then
+                txtEstado.Text = "VIGENTE"
+                txtEstado.BackColor = Color.Green
+                btnEliminar.Enabled = True
+                btnModificar.Enabled = True
+            Else
+                txtEstado.Text = "ANULADO"
+                txtEstado.BackColor = Color.Red
+                btnEliminar.Enabled = False
+                btnModificar.Enabled = False
+            End If
 
         End With
         With JGrM_Buscador
@@ -105,9 +116,63 @@ Public Class F1_TotalCana
     Private Sub CargarDatos()
         Dim dt As DataTable
         dt = L_fnCargarCañaComprometida()
-
         JGrM_Buscador.DataSource = dt
         JGrM_Buscador.RetrieveStructure()
+        With JGrM_Buscador.RootTable.Columns("numi")
+            .Caption = "Codigo".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("codCan")
+            .Caption = "Cod. Can.".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("ydrazonsocial")
+            .Caption = "Nombre".ToUpper
+            .Width = 150
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("fecha")
+            .Caption = "Fecha".ToUpper
+            .Width = 250
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("gestion")
+            .Caption = "Gestion".ToUpper
+            .Width = 250
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("total")
+            .Caption = "Total".ToUpper
+            .Width = 250
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("ydcod")
+            .Caption = "Total".ToUpper
+            .Width = 150
+            .Visible = False
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("codIns")
+            .Caption = "Total".ToUpper
+            .Width = 150
+            .Visible = False
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("codInst")
+            .Caption = "Total".ToUpper
+            .Width = 150
+            .Visible = False
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+        With JGrM_Buscador.RootTable.Columns("nomInst")
+            .Caption = "Total".ToUpper
+            .Width = 150
+            .Visible = False
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+        End With
+
         JGrM_Buscador.AlternatingColors = True
     End Sub
     Private Sub TextBoxX5_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCanero.KeyDown
@@ -169,36 +234,60 @@ Public Class F1_TotalCana
 
     Private Sub F1_TotalCana_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         IniciarTodo()
-    End Sub
-    Public Overrides Function _PMOGrabarRegistro() As Boolean
-        Dim res As Boolean = L_fnRegistrarCañaComprometida(_CodCliente, _CodInstitucion, tbFecha.Value.ToString("dd-MM-yyyy"), CInt(tbGestion.Text), CDbl(TextBoxX4.Text))
-        If res Then
-            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
-
-            ToastNotification.Show(Me, "El registro se completo exitosamente".ToUpper,
-                                              img, 5000,
-                                              eToastGlowColor.Green,
-                                              eToastPosition.TopCenter)
-
-            Limpiar()
-            CargarDatos()
+        If txtEstado.Text = "VIGENTE" Then
+            btnEliminar.Enabled = True
+            btnModificar.Enabled = True
         Else
-            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
-
-            ToastNotification.Show(Me, "El registro no se pudo completar".ToUpper,
-                                              img, 5000,
-                                              eToastGlowColor.Green,
-                                              eToastPosition.TopCenter)
+            btnEliminar.Enabled = False
+            btnModificar.Enabled = False
         End If
-        Return res
-    End Function
+    End Sub
 
     Private Sub Guardar()
-        If tbId.Text = "" Then
-            'GuardarNuevo()
-        Else
+        Dim res As Boolean
+        If _Nuevo = True Then
+            res = L_fnRegistrarCañaComprometida(_CodCliente, _CodInstitucion, tbFecha.Value.ToString("dd-MM-yyyy"), CInt(tbGestion.Text), CDbl(TextBoxX4.Text))
+            If res Then
+                Dim img As Bitmap = New Bitmap(My.Resources.save, 50, 50)
 
+                ToastNotification.Show(Me, "El registro se completo exitosamente".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+
+                Limpiar()
+                CargarDatos()
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                ToastNotification.Show(Me, "El registro no se pudo completar".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+            End If
+        Else
+            res = L_fnEditarCañaComprometida(tbId.Text, CDbl(TextBoxX4.Text))
+            If res Then
+                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+                ToastNotification.Show(Me, "El registro no se pudo modificar".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+
+                Limpiar()
+                CargarDatos()
+            Else
+                Dim img As Bitmap = New Bitmap(My.Resources.GRABACION_EXITOSA, 50, 50)
+
+                ToastNotification.Show(Me, "El registro se modifico exitosamente".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+            End If
         End If
+        Limpiar()
+        CargarDatos()
     End Sub
 
     Private Sub JGrM_Buscador_SelectionChanged(sender As Object, e As EventArgs) Handles JGrM_Buscador.SelectionChanged
@@ -210,10 +299,104 @@ Public Class F1_TotalCana
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         Limpiar()
         Habilitar()
+        _Nuevo = True
+        txtEstado.Text = "VIGENTE"
+        txtEstado.BackColor = Color.Green
     End Sub
 
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
+        Guardar()
+    End Sub
 
+    Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
+        If txtEstado.Text = "VIGENTE" Then
+            Habilitar()
+            _Nuevo = False
+        Else
+            Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+
+            ToastNotification.Show(Me, "NO ES POSIBLE EDITAR ESTE REGISTRO".ToUpper,
+                                                  img, 5000,
+                                                  eToastGlowColor.Green,
+                                                  eToastPosition.TopCenter)
+        End If
+
+    End Sub
+
+    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
+        _Dsencabezado = New DataTable
+        _Dsencabezado = L_CanaComprometida()
+        Dim ef = New Efecto
+
+
+        Dim row As DataRow = _Dsencabezado.Rows(0) ' Segunda fila (índice 1)
+        Dim gestionNueva As Integer = (Convert.ToInt32(row("gestion")) + 1)
+        ef.tipo = 2
+        ef.Context = "GENERAR DATOS PARA LA SIGUIENTE GESTIÓN ".ToUpper
+        ef.Header = "Existen datos en la gestión " & "<b>" & row("Gestion").ToString() & "</b> " & "¿Esta seguro de generar datos para la gestión  " & "<b>" & gestionNueva & "</b> " & "?"
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            generarSiguienteGestion(gestionNueva)
+            Dim img As Bitmap = New Bitmap(My.Resources.save, 50, 50)
+
+            ToastNotification.Show(Me, "El registro se completo exitosamente".ToUpper,
+                                              img, 5000,
+                                              eToastGlowColor.Green,
+                                              eToastPosition.TopCenter)
+
+            IniciarTodo()
+        Else
+
+        End If
+    End Sub
+    Public Function _ValidarCampos() As Boolean
+        Try
+            If (tbCanero.Text = String.Empty) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor seleccione al cañero.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                tbCanero.Focus()
+                Return False
+            End If
+
+            If (tbInstitucion.Text = String.Empty) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor seleccione a la institucion.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                tbInstitucion.Focus()
+                Return False
+            End If
+
+
+
+            'Validar datos de factura
+            If (tbGestion.Text = String.Empty) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor ingrese la gestion.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                tbGestion.Focus()
+                Return False
+            End If
+
+            If (TextBoxX4.Text = String.Empty) Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor ingrese el cupo.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                TextBoxX4.Focus()
+                Return False
+            End If
+
+
+            Return True
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+
+    End Function
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        If _ValidarCampos() = False Then
+            Exit Sub
+        End If
+        Guardar()
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click

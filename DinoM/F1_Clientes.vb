@@ -117,13 +117,15 @@ Public Class F1_Clientes
                     img.Save(RutaTemporal + nameImg, System.Drawing.Imaging.ImageFormat.Jpeg)
                     img.Dispose()
                 Else
+                    Dim nombre As String = Convert.ToString(JGrM_Buscador.GetValue("ydimg"))
+                    nombre = nombre.Substring(0, nombre.Length - 4)
+                    nombre = nombre + "c.jpg"
+                    nameImg = nombre
 
-                    nameImg = "\Imagen_" + Str(tbCodigoOriginal.Text).Trim + ".jpg"
-
-
+                    UsImg.pbImage.SizeMode = PictureBoxSizeMode.StretchImage
                     UsImg.pbImage.Image = Image.FromStream(Bin)
                     img.Save(RutaTemporal + nameImg, System.Drawing.Imaging.ImageFormat.Jpeg)
-                    Modificado = True
+                    Modificado = False
                     img.Dispose()
 
                 End If
@@ -302,6 +304,20 @@ Public Class F1_Clientes
             End If
         End If
     End Sub
+    Private Sub EliminarImagen(nombreImagen As String)
+        Dim rutaImagen As String = "C:\BD\Imagenes\Imagenes ClienteDino" + nombreImagen
+
+        Try
+            If File.Exists(rutaImagen) Then
+                File.Delete(rutaImagen)
+                MessageBox.Show("Imagen eliminada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("La imagen no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error al eliminar la imagen: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
     Private Sub _fnMoverImagenRuta(Folder As String, name As String)
         'copio la imagen en la carpeta del sistema
         If (Not name.Equals("Default.jpg") And File.Exists(RutaTemporal + name)) Then
@@ -315,13 +331,17 @@ Public Class F1_Clientes
      Folder + name, overwrite:=True)
 
             Catch ex As System.IO.IOException
-
-
+                MessageBox.Show("Ocurrió un error al copiar el archivo, reintentando..." & ex.Message)
+                System.Threading.Thread.Sleep(1000) ' Esperar 1 segundo antes de reintentar
+            Catch ex As Exception
+                MessageBox.Show("Ocurrió un error: " & ex.Message)
             End Try
 
 
 
         End If
+
+
     End Sub
 #End Region
 #Region "METODOS SOBRECARGADOS"
@@ -536,9 +556,9 @@ Public Class F1_Clientes
     End Function
 
     Public Overrides Function _PMOModificarRegistro() As Boolean
-        Dim res As Boolean =false
+        Dim res As Boolean =False
 
-        Dim nameImage As String = JGrM_Buscador.GetValue("ydimg")
+        Dim nameImage As String = JGrM_Buscador.GetValue("ydimg") ' "\Imagen_" + Str(tbCodigoOriginal.Text).Trim + "c" + ".jpg" 'JGrM_Buscador.GetValue("ydimg")
 
         If (Modificado = False) Then
             If cbTipoDoc1.Value = 5 Then
@@ -555,7 +575,7 @@ Public Class F1_Clientes
                   0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
                   IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
                   tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
-                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
+                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
 
 
                     End If
@@ -565,13 +585,15 @@ Public Class F1_Clientes
                   0, cbTipoDoc.Value, tbNdoc.Text, tbDireccion.Text, tbTelf1.Text, 0, cbCatPrec.Value,
                   IIf(swEstado.Value = True, 1, 0), 0, 0, tbObs.Text, tbFnac.Value.ToString("yyyy/MM/dd"),
                   tbNombFac.Text, _Tipo, tbNit.Text, 0, 0, tbFIngr.Value.ToString("yyyy/MM/dd"),
-                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImage, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
+                  tbFIngr.Value.ToString("yyyy/MM/dd"), nameImg, 0, cbEstadoCiv.Value, TbNomEsposa.Text, TbCiEsposa.Text, cbTipoDoc1.Value, tbcorreo.Text, tbComplemento.Text)
+                'EliminarImagen(nameImage)
+                _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImage)
 
             End If
         End If
         If res Then
-
-            If (Modificado = True) Then
+            'EliminarImagen(nameImage)
+            If (Modificado = False) Then
                 _fnMoverImagenRuta(RutaGlobal + "\Imagenes\Imagenes ClienteDino", nameImg)
                 Modificado = False
             End If
@@ -1129,8 +1151,8 @@ Public Class F1_Clientes
         'P_Global.Visualizador = New Visualizador
 
         'Dim objrep As New R_Clientes
-        ''' GenerarNro(_dt)
-        '''objrep.SetDataSource(Dt1Kardex)
+        ' GenerarNro(_dt)
+        'objrep.SetDataSource(Dt1Kardex)
         'objrep.SetDataSource(dt)
 
         'P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar

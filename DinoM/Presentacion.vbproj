@@ -364,6 +364,12 @@
     <Compile Include="F0_Libreria.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F0_ParametrosMC.designer.vb">
+      <DependentUpon>F0_ParametrosMC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_ParametrosMC.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F0_PlanPagos.Designer.vb">
       <DependentUpon>F0_PlanPagos.vb</DependentUpon>
     </Compile>
@@ -717,6 +723,12 @@
     <Compile Include="Pr_MovimientoDiarioVentas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pr_MovimientoVentasDiario.designer.vb">
+      <DependentUpon>Pr_MovimientoVentasDiario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pr_MovimientoVentasDiario.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pr_OtroSurtidor.designer.vb">
       <DependentUpon>Pr_OtroSurtidor.vb</DependentUpon>
     </Compile>
@@ -945,6 +957,12 @@
       <DependentUpon>R_DeudaActual.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reporte\R_DeudaActualDetallado.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_DeudaActualDetallado.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reporte\R_EstadoCuentasClientesTodos.vb">
       <DependentUpon>R_EstadoCuentasClientesTodos.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1135,6 +1153,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_Rep370.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte\R_Rep380.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_Rep380.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporte\R_Rep390.vb">
@@ -1413,6 +1437,12 @@
       <DependentUpon>R_VentasAtendidasAlmacenVendedor.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reporte\R_ventasDiarias.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_ventasDiarias.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reporte\R_VentasProductosAgrupado.vb">
       <DependentUpon>R_VentasProductosAgrupado.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1471,6 +1501,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_EstadoCxSocio.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="R_EstadoCxSocioDetallado11.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_EstadoCxSocioDetallado1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="R_EstadoCxSocioPagado.vb">
@@ -1631,6 +1667,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Libreria.resx">
       <DependentUpon>F0_Libreria.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_ParametrosMC.resx">
+      <DependentUpon>F0_ParametrosMC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F0_PlanPagos.resx">
       <DependentUpon>F0_PlanPagos.vb</DependentUpon>
@@ -1799,6 +1838,9 @@
     <EmbeddedResource Include="Pr_MovimientoDiarioVentas.resx">
       <DependentUpon>Pr_MovimientoDiarioVentas.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pr_MovimientoVentasDiario.resx">
+      <DependentUpon>Pr_MovimientoVentasDiario.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pr_OtroSurtidor.resx">
       <DependentUpon>Pr_OtroSurtidor.vb</DependentUpon>
     </EmbeddedResource>
@@ -1927,6 +1969,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_DeudaActual.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_DeudaActualDetallado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_DeudaActualDetallado.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_EstadoCuentasClientesTodos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_EstadoCuentasClientesTodos.vb</LastGenOutput>
@@ -2054,6 +2100,10 @@
     <EmbeddedResource Include="Reporte\R_Rep370.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_Rep370.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_Rep380.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_Rep380.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_Rep390.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2238,6 +2288,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_VentasAtendidasAlmacenVendedor.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\R_ventasDiarias.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_ventasDiarias.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporte\R_VentasProductosAgrupado.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_VentasProductosAgrupado.vb</LastGenOutput>
@@ -2277,6 +2331,10 @@
     <EmbeddedResource Include="R_EstadoCxSocio.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_EstadoCxSocio.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R_EstadoCxSocioDetallado1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_EstadoCxSocioDetallado11.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="R_EstadoCxSocioPagado.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

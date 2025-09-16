@@ -20,6 +20,8 @@ Public Class Pr_ReporteModuloCanero
         CheckUnaCan.Visible = True
         CheckTodosCan.Visible = True
         _prCargarComboLibreria(tbAlmacen, 11, 5)
+        ComboBox1.Visible = False
+        LabelX6.Visible = False
     End Sub
     Private Sub _prCargarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)
         Dim dt As New DataTable
@@ -48,24 +50,32 @@ Public Class Pr_ReporteModuloCanero
 
         End If
         If CheckTodos.Checked = True And CheckTodosCan.Checked = True And tbAlmacen.Value = 2 Then
-            _dt = L_prReporteRep330todInst(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
+            _dt = L_prReporteRep330todInst(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value, ComboBox1.Text)
 
         End If
-        If CheckTodos.Checked = True And CheckTodosCan.Checked = True And tbAlmacen.Value = 3 Then
-            _dt = L_prReporteRep370todInst(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
+        'If CheckTodos.Checked = True And CheckTodosCan.Checked = True And tbAlmacen.Value = 3 Then
+        '    _dt = L_prReporteRep370todInst(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value, ComboBox1.Text)
+
+        'End If
+        If tbAlmacen.Value = 3 Then
+            _dt = L_prReporteRep370todInst(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value, ComboBox1.Text, IIf(CheckTodos.Checked = True, 0, tbCod.Text), IIf(CheckTodosCan.Checked = True, 0, tbCodCan.Text))
 
         End If
-
         If tbAlmacen.Value = 5 Then
             _dt = L_prReporteRep930(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
 
         End If
         If tbAlmacen.Value = 4 Then
-            _dt = L_prReporteRep390(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value)
+            _dt = L_prReporteRep390(0, 0, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbAlmacen.Value, ComboBox1.Text)
+
+        End If
+        If tbAlmacen.Value = 6 Then
+            _dt = L_prReporteRep380(IIf(CheckTodos.Checked = True, 0, tbCod.Text), IIf(CheckTodosCan.Checked = True, 0, tbCodCan.Text), tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
 
         End If
         'If CheckTodos.Checked = True And CheckTodosCan.Checked = True Then
     End Sub
+
     Private Function Validar() As Boolean
         If CheckUna.Checked = True And tbInsCan.Text = "" Then
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
@@ -76,6 +86,13 @@ Public Class Pr_ReporteModuloCanero
             Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
             ToastNotification.Show(Me, "Por Favor Seleccione un Cañero".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)
             Return True
+        End If
+        If ComboBox1.Visible = True Then
+            If ComboBox1.SelectedIndex = -1 Then
+                Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                ToastNotification.Show(Me, "Por Favor Seleccione una Quincena".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomLeft)
+                Return True
+            End If
         End If
         Return False
     End Function
@@ -161,6 +178,24 @@ Public Class Pr_ReporteModuloCanero
                 CrystalReportViewer1.BringToFront()
             ElseIf tbAlmacen.Value = 5 Then
                 Dim objrep As New R_Rep930
+                objrep.SetDataSource(_dt)
+                Dim fechaI As String = tbFechaI.Value.ToString("dd/MM/yyyy")
+                Dim fechaF As String = tbFechaF.Value.ToString("dd/MM/yyyy")
+                Dim Institucion As String = tbInsCan.Text
+                Dim CodIns As String = tbCod.Text
+                Dim CodCan As String = tbCodCan.Text
+                Dim Canero As String = tbNomCan.Text
+                Dim almacen As String = gs_userSucNom
+
+                'objrep.SetParameterValue("almacen", tbAlmacen.Text)
+                objrep.SetParameterValue("fechaI", fechaI)
+                objrep.SetParameterValue("fechaF", fechaF)
+                'objrep.SetParameterValue("fechaImpresion", Date.Now)
+                CrystalReportViewer1.ReportSource = objrep
+                CrystalReportViewer1.Show()
+                CrystalReportViewer1.BringToFront()
+            ElseIf tbAlmacen.Value = 6 Then
+                Dim objrep As New R_Rep380
                 objrep.SetDataSource(_dt)
                 Dim fechaI As String = tbFechaI.Value.ToString("dd/MM/yyyy")
                 Dim fechaF As String = tbFechaF.Value.ToString("dd/MM/yyyy")
@@ -338,4 +373,73 @@ Public Class Pr_ReporteModuloCanero
     Private Sub tbNomCan_TextChanged(sender As Object, e As EventArgs) Handles tbNomCan.TextChanged
 
     End Sub
+
+    Private Sub tbAlmacen_ValueChanged(sender As Object, e As EventArgs) Handles tbAlmacen.ValueChanged
+        If tbAlmacen.Value = "1" Or tbAlmacen.Value = "5" Or tbAlmacen.Value = "6" Then
+            ComboBox1.Visible = False
+            LabelX6.Visible = False
+        Else
+            ComboBox1.Visible = True
+            LabelX6.Visible = True
+        End If
+        If tbAlmacen.Value = "5" Then
+            ButtonX3.Enabled = False
+        Else
+            ButtonX3.Enabled = True
+        End If
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub ComboBox1_SelectedValueChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedValueChanged
+
+    End Sub
+
+    Private Sub ButtonX3_Click(sender As Object, e As EventArgs) Handles ButtonX3.Click
+        If Validar() Then
+            Exit Sub
+        End If
+        _PEliminarRegistro()
+    End Sub
+
+    Private Sub _PEliminarRegistro()
+        Dim ef = New Efecto
+
+
+        ef.tipo = 2
+        ef.Context = "RECALCULO ".ToUpper
+        ef.Header = "¿esta seguro de " + " <b>RECALCULAR</b> " + " el reporte " + tbAlmacen.Text + IIf(ComboBox1.Visible = True, " <b>quincena</b> " + ComboBox1.Text + " ?", " con fecha del " + tbFechaI.Text + " al " + tbFechaF.Text + "?".ToUpper)
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+
+            Select Case tbAlmacen.SelectedIndex
+                Case 0
+                    L_Institucion_BorrarQ5(tbFechaI.Value, tbFechaF.Value)
+                    _prCargarReporte()
+                Case 1
+                    L_Institucion_BorrarReporte330(ComboBox1.Text)
+                    _prCargarReporte()
+                Case 2
+                    L_Institucion_BorrarReporte370(ComboBox1.Text)
+
+                        _prCargarReporte()
+                Case 3
+                    L_Institucion_BorrarReporte390(ComboBox1.Text)
+                    _prCargarReporte()
+                Case Else
+                    MessageBox.Show(" inválido")
+            End Select
+            Dim t As String = 1
+
+
+        Else
+
+        End If
+
+    End Sub
+
 End Class

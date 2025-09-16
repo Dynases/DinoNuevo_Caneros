@@ -3976,6 +3976,7 @@ salirIf:
                     _codCaneroUcg = dt.Rows(0).Item(1)
                     TbNombre1.Text = dt.Rows(0).Item(11)
                     tbNit.Text = dt.Rows(0).Item(12)
+                    correo = dt.Rows(0).Item(14)
                     _CodEmpleado = dt.Rows(0).Item(8)
                     tipoDocumento = dt.Rows(0)("ydtipdocelec") 'dt.Rows(1).Item(8) ' dt.Row.Cells("ydtipdocelec").Value
                     dtiFechaFactura.Value = Now.Date
@@ -5570,6 +5571,10 @@ salirIf:
             contabilizar()
         End If
 
+
+    End Sub
+
+    Private Sub grdetalle_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles grdetalle.FormattingRow
 
     End Sub
 End Class

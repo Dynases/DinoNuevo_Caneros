@@ -178,6 +178,7 @@ Public Class F0_KardexMovimiento
     End Sub
 
     Private Sub BtGenerar_Click(sender As Object, e As EventArgs) Handles BtGenerar.Click
+
         P_GenerarKardexCliente()
     End Sub
 

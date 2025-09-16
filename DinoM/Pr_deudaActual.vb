@@ -177,7 +177,7 @@ Public Class Pr_DeudaActual
                 dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
 
             Else
-                dt = CargarCCPagosSaldosDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+                dt = DeudaActualDet(IIf(CheckTodosCan.Checked = True, -1, tbCodCan.Text), IIf(CheckTodos.Checked = True, -1, tbCod.Text), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
             End If
 
@@ -201,11 +201,11 @@ Public Class Pr_DeudaActual
                 MReportViewer.Show()
                 MReportViewer.BringToFront()
             Else
-                Dim objrep As New R_CCPagosSaldosDetallado1
+                Dim objrep As New R_DeudaActualDetallado
                 objrep.SetDataSource(dt)
 
-                objrep.SetParameterValue("prestamo", cbQuincena.Text)
-                objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
+                'objrep.SetParameterValue("prestamo", cbQuincena.Text)
+                'objrep.SetParameterValue("fecha", tbFechaI.Value.ToString("dd/MM/yyyy"))
                 objrep.SetParameterValue("fechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
                 objrep.SetParameterValue("usuario", P_Global.gs_user.ToString())
                 MReportViewer.ReportSource = objrep

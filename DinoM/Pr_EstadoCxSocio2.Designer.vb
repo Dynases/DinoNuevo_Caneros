@@ -47,6 +47,8 @@ Partial Class Pr_EstadoCxSocio2
         Me.CheckBoxX1 = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.cbReporte = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.SwitchNuevaAgrupacion = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.Asociado = New DevComponents.DotNetBar.Controls.CheckBoxX()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -177,6 +179,8 @@ Partial Class Pr_EstadoCxSocio2
         '
         'MGPFiltros
         '
+        Me.MGPFiltros.Controls.Add(Me.Asociado)
+        Me.MGPFiltros.Controls.Add(Me.SwitchNuevaAgrupacion)
         Me.MGPFiltros.Controls.Add(Me.LabelX7)
         Me.MGPFiltros.Controls.Add(Me.cbReporte)
         Me.MGPFiltros.Controls.Add(Me.CheckBoxX1)
@@ -569,7 +573,7 @@ Partial Class Pr_EstadoCxSocio2
         '
         Me.swTipo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swTipo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swTipo.Location = New System.Drawing.Point(139, 17)
+        Me.swTipo.Location = New System.Drawing.Point(44, 4)
         Me.swTipo.Margin = New System.Windows.Forms.Padding(4)
         Me.swTipo.Name = "swTipo"
         Me.swTipo.OffBackColor = System.Drawing.Color.DodgerBlue
@@ -630,6 +634,42 @@ Partial Class Pr_EstadoCxSocio2
         Me.cbReporte.TabIndex = 406
         Me.cbReporte.Visible = False
         '
+        'SwitchNuevaAgrupacion
+        '
+        '
+        '
+        '
+        Me.SwitchNuevaAgrupacion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.SwitchNuevaAgrupacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SwitchNuevaAgrupacion.Location = New System.Drawing.Point(268, 4)
+        Me.SwitchNuevaAgrupacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.SwitchNuevaAgrupacion.Name = "SwitchNuevaAgrupacion"
+        Me.SwitchNuevaAgrupacion.OffBackColor = System.Drawing.Color.DodgerBlue
+        Me.SwitchNuevaAgrupacion.OffText = "PRESTAMOS"
+        Me.SwitchNuevaAgrupacion.OffTextColor = System.Drawing.Color.White
+        Me.SwitchNuevaAgrupacion.OnBackColor = System.Drawing.Color.DarkOrange
+        Me.SwitchNuevaAgrupacion.OnText = "ALMACEN 1"
+        Me.SwitchNuevaAgrupacion.OnTextColor = System.Drawing.Color.White
+        Me.SwitchNuevaAgrupacion.Size = New System.Drawing.Size(181, 27)
+        Me.SwitchNuevaAgrupacion.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.SwitchNuevaAgrupacion.TabIndex = 408
+        Me.SwitchNuevaAgrupacion.Value = True
+        Me.SwitchNuevaAgrupacion.ValueObject = "Y"
+        '
+        'Asociado
+        '
+        '
+        '
+        '
+        Me.Asociado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Asociado.Location = New System.Drawing.Point(268, 39)
+        Me.Asociado.Margin = New System.Windows.Forms.Padding(4)
+        Me.Asociado.Name = "Asociado"
+        Me.Asociado.Size = New System.Drawing.Size(130, 28)
+        Me.Asociado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.Asociado.TabIndex = 409
+        Me.Asociado.Text = "Asociado"
+        '
         'Pr_EstadoCxSocio2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -687,4 +727,6 @@ Partial Class Pr_EstadoCxSocio2
     Friend WithEvents CheckBoxX1 As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents LabelX7 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cbReporte As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents SwitchNuevaAgrupacion As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents Asociado As DevComponents.DotNetBar.Controls.CheckBoxX
 End Class

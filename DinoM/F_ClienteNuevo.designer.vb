@@ -60,7 +60,8 @@ Partial Class F_ClienteNuevo
         Me.Tb_CodTara.Location = New System.Drawing.Point(100, 80)
         Me.Tb_CodTara.Name = "Tb_CodTara"
         Me.Tb_CodTara.PreventEnterBeep = True
-        Me.Tb_CodTara.Size = New System.Drawing.Size(105, 22)
+        Me.Tb_CodTara.ReadOnly = True
+        Me.Tb_CodTara.Size = New System.Drawing.Size(105, 26)
         Me.Tb_CodTara.TabIndex = 0
         '
         'LabelX6
@@ -102,7 +103,7 @@ Partial Class F_ClienteNuevo
         Me.Tb_Placa.Location = New System.Drawing.Point(100, 108)
         Me.Tb_Placa.Name = "Tb_Placa"
         Me.Tb_Placa.PreventEnterBeep = True
-        Me.Tb_Placa.Size = New System.Drawing.Size(108, 22)
+        Me.Tb_Placa.Size = New System.Drawing.Size(108, 26)
         Me.Tb_Placa.TabIndex = 4
         '
         'LabelX19
@@ -235,7 +236,7 @@ Partial Class F_ClienteNuevo
         Me.Tb_Propietario.Location = New System.Drawing.Point(100, 137)
         Me.Tb_Propietario.Name = "Tb_Propietario"
         Me.Tb_Propietario.PreventEnterBeep = True
-        Me.Tb_Propietario.Size = New System.Drawing.Size(329, 22)
+        Me.Tb_Propietario.Size = New System.Drawing.Size(329, 26)
         Me.Tb_Propietario.TabIndex = 3
         '
         'LabelX2
@@ -265,7 +266,7 @@ Partial Class F_ClienteNuevo
         Me.tbPesoTara.Location = New System.Drawing.Point(304, 81)
         Me.tbPesoTara.MinValue = 0R
         Me.tbPesoTara.Name = "tbPesoTara"
-        Me.tbPesoTara.Size = New System.Drawing.Size(125, 22)
+        Me.tbPesoTara.Size = New System.Drawing.Size(125, 26)
         Me.tbPesoTara.TabIndex = 2
         Me.tbPesoTara.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
@@ -280,7 +281,7 @@ Partial Class F_ClienteNuevo
         Me.Tb_Color.Location = New System.Drawing.Point(304, 109)
         Me.Tb_Color.Name = "Tb_Color"
         Me.Tb_Color.PreventEnterBeep = True
-        Me.Tb_Color.Size = New System.Drawing.Size(125, 22)
+        Me.Tb_Color.Size = New System.Drawing.Size(125, 26)
         Me.Tb_Color.TabIndex = 5
         '
         'F_ClienteNuevo

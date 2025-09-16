@@ -580,7 +580,6 @@ Partial Class Pr_DeudaActual
         Me.swTipo.TabIndex = 402
         Me.swTipo.Value = True
         Me.swTipo.ValueObject = "Y"
-        Me.swTipo.Visible = False
         '
         'CheckBoxX1
         '

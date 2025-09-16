@@ -95,7 +95,14 @@ Public Class Pr_KardexProductos
 
     End Sub
     Public Sub _prObtenerKardexGeneral(ByRef _dt As DataTable)
-        Dim dtaux As DataTable = L_fnObtenerKardexGeneralProductos(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value)) ''Aqui obtengo todos los productos con movimientos
+        Dim dtaux As DataTable
+        If checkDetallado.Checked = True Then
+            dtaux = L_fnObtenerKardexGeneralProductos1(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value)) ''Aqui obtengo todos los productos con movimientos
+
+        Else
+            dtaux = L_fnObtenerKardexGeneralProductos(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value)) ''Aqui obtengo todos los productos con movimientos
+
+        End If
 
 
         '' as SaldoAnterior,
@@ -147,8 +154,19 @@ Public Class Pr_KardexProductos
         _dt = dtaux
     End Sub
     Public Sub _prObtenerDetalle(ByRef _dt As DataTable)
-        Dim dtaux As DataTable = L_fnObtenerProductoConMovimiento(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value)) ''Aqui obtengo todos los productos con movimientos
-        _dt = L_fnObtenerKardexPorProducto(-1, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
+        Dim dtaux As DataTable
+        If checkDetallado.Checked = True Then
+            dtaux = L_fnObtenerProductoConMovimiento1(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value)) ''Aqui obtengo todos los productos con movimientos
+        Else
+            dtaux = L_fnObtenerProductoConMovimiento(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value)) ''Aqui obtengo todos los productos con movimientos
+        End If
+        If checkDetallado.Checked = True Then
+            _dt = L_fnObtenerKardexPorProducto1(-1, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
+        Else
+            _dt = L_fnObtenerKardexPorProducto(-1, tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), cbAlmacen.Value, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
+        End If
+
+
         For i As Integer = 0 To dtaux.Rows.Count - 1 Step 1
             Dim numipro As Integer = dtaux.Rows(i).Item("yfnumi")
             Dim descprod As String = dtaux.Rows(i).Item("yfcdprod1")
@@ -225,7 +243,14 @@ Public Class Pr_KardexProductos
         Dim Dt2KardexTotal = New DataTable
 
         Dt2KardexTotal = L_fnObtenerHistorialProductoGeneral(codprod, fechaI, almacen)
-        Dt1Kardex = L_fnObtenerKardexPorProducto(codprod, fechaI, fechaF, almacen, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
+        If checkDetallado.Checked Then
+            Dt1Kardex = L_fnObtenerKardexPorProducto1(codprod, fechaI, fechaF, almacen, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
+
+        Else
+            Dt1Kardex = L_fnObtenerKardexPorProducto(codprod, fechaI, fechaF, almacen, IIf(CheckTodoslinea.Checked = True, "-1", cbGrupos.Value), IIf(ChechTodosCasa.Checked = True, "-1", cbCasas.Value))
+
+        End If
+
         If (Dt1Kardex.Rows.Count > 0) Then
             P_ArmarKardex(Dt1Kardex, Dt2KardexTotal, codprod, DescProd, UnidPro)
 

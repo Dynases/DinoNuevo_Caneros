@@ -25,8 +25,13 @@ Partial Class Pr_ReporteModuloCanero
         Dim tbAlmacen_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pr_ReporteModuloCanero))
         Me.PanelEx1 = New DevComponents.DotNetBar.PanelEx()
+        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.tbAlmacen = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.CheckTodosAlmacen = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.CheckUnaALmacen = New DevComponents.DotNetBar.Controls.CheckBoxX()
@@ -47,8 +52,6 @@ Partial Class Pr_ReporteModuloCanero
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.CrystalReportViewer1 = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
-        Me.ButtonX2 = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.PanelEx1.SuspendLayout()
         Me.GroupPanel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -61,12 +64,14 @@ Partial Class Pr_ReporteModuloCanero
         '
         Me.PanelEx1.CanvasColor = System.Drawing.SystemColors.Control
         Me.PanelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.PanelEx1.Controls.Add(Me.ButtonX3)
         Me.PanelEx1.Controls.Add(Me.ButtonX2)
         Me.PanelEx1.Controls.Add(Me.ButtonX1)
         Me.PanelEx1.DisabledBackColor = System.Drawing.Color.Empty
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelEx1.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(363, 72)
+        Me.PanelEx1.Size = New System.Drawing.Size(484, 89)
         Me.PanelEx1.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelEx1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.PanelEx1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
@@ -75,6 +80,57 @@ Partial Class Pr_ReporteModuloCanero
         Me.PanelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.PanelEx1.Style.GradientAngle = 90
         Me.PanelEx1.TabIndex = 13
+        '
+        'ButtonX3
+        '
+        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.ButtonX3.Image = Global.DinoM.My.Resources.Resources.ventasCostos
+        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.ButtonX3.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX3.Location = New System.Drawing.Point(172, 0)
+        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX3.Name = "ButtonX3"
+        Me.ButtonX3.Size = New System.Drawing.Size(124, 89)
+        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX3.TabIndex = 2
+        Me.ButtonX3.Text = "RECALCULAR"
+        Me.ButtonX3.TextColor = System.Drawing.Color.White
+        '
+        'ButtonX2
+        '
+        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.ButtonX2.Image = Global.DinoM.My.Resources.Resources.ventasCostos
+        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.ButtonX2.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX2.Location = New System.Drawing.Point(68, 0)
+        Me.ButtonX2.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX2.Name = "ButtonX2"
+        Me.ButtonX2.Size = New System.Drawing.Size(96, 89)
+        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX2.TabIndex = 1
+        Me.ButtonX2.Text = "GENERAR"
+        Me.ButtonX2.TextColor = System.Drawing.Color.White
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.ButtonX1.Image = Global.DinoM.My.Resources.Resources.atras1
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.ButtonX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX1.Location = New System.Drawing.Point(315, 0)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(96, 85)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 0
+        Me.ButtonX1.Text = "SALIR"
+        Me.ButtonX1.TextColor = System.Drawing.Color.White
         '
         'GroupPanel1
         '
@@ -85,9 +141,10 @@ Partial Class Pr_ReporteModuloCanero
         Me.GroupPanel1.Controls.Add(Me.GroupBox2)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.GroupPanel1.Location = New System.Drawing.Point(0, 75)
+        Me.GroupPanel1.Location = New System.Drawing.Point(0, 92)
+        Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(363, 459)
+        Me.GroupPanel1.Size = New System.Drawing.Size(484, 565)
         '
         '
         '
@@ -125,6 +182,8 @@ Partial Class Pr_ReporteModuloCanero
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.LabelX6)
+        Me.GroupBox2.Controls.Add(Me.ComboBox1)
         Me.GroupBox2.Controls.Add(Me.tbAlmacen)
         Me.GroupBox2.Controls.Add(Me.CheckTodosAlmacen)
         Me.GroupBox2.Controls.Add(Me.CheckUnaALmacen)
@@ -145,12 +204,40 @@ Partial Class Pr_ReporteModuloCanero
         Me.GroupBox2.Controls.Add(Me.LabelX4)
         Me.GroupBox2.Controls.Add(Me.tbFechaI)
         Me.GroupBox2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 3)
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 4)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(351, 439)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox2.Size = New System.Drawing.Size(468, 540)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos"
+        '
+        'LabelX6
+        '
+        Me.LabelX6.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX6.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX6.Location = New System.Drawing.Point(4, 332)
+        Me.LabelX6.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX6.Name = "LabelX6"
+        Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX6.Size = New System.Drawing.Size(156, 28)
+        Me.LabelX6.TabIndex = 264
+        Me.LabelX6.Text = "Quincena:"
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "Solo Consultas"})
+        Me.ComboBox1.Location = New System.Drawing.Point(92, 367)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(219, 26)
+        Me.ComboBox1.TabIndex = 263
         '
         'tbAlmacen
         '
@@ -158,13 +245,14 @@ Partial Class Pr_ReporteModuloCanero
         tbAlmacen_DesignTimeLayout.LayoutString = resources.GetString("tbAlmacen_DesignTimeLayout.LayoutString")
         Me.tbAlmacen.DesignTimeLayout = tbAlmacen_DesignTimeLayout
         Me.tbAlmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbAlmacen.Location = New System.Drawing.Point(69, 225)
+        Me.tbAlmacen.Location = New System.Drawing.Point(92, 277)
+        Me.tbAlmacen.Margin = New System.Windows.Forms.Padding(4)
         Me.tbAlmacen.Name = "tbAlmacen"
         Me.tbAlmacen.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.tbAlmacen.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.tbAlmacen.SelectedIndex = -1
         Me.tbAlmacen.SelectedItem = Nothing
-        Me.tbAlmacen.Size = New System.Drawing.Size(164, 22)
+        Me.tbAlmacen.Size = New System.Drawing.Size(219, 26)
         Me.tbAlmacen.TabIndex = 262
         Me.tbAlmacen.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -174,9 +262,10 @@ Partial Class Pr_ReporteModuloCanero
         '
         '
         Me.CheckTodosAlmacen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckTodosAlmacen.Location = New System.Drawing.Point(291, 227)
+        Me.CheckTodosAlmacen.Location = New System.Drawing.Point(388, 279)
+        Me.CheckTodosAlmacen.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckTodosAlmacen.Name = "CheckTodosAlmacen"
-        Me.CheckTodosAlmacen.Size = New System.Drawing.Size(55, 23)
+        Me.CheckTodosAlmacen.Size = New System.Drawing.Size(73, 28)
         Me.CheckTodosAlmacen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.CheckTodosAlmacen.TabIndex = 261
         Me.CheckTodosAlmacen.Text = "Todos"
@@ -188,9 +277,10 @@ Partial Class Pr_ReporteModuloCanero
         '
         '
         Me.CheckUnaALmacen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckUnaALmacen.Location = New System.Drawing.Point(241, 227)
+        Me.CheckUnaALmacen.Location = New System.Drawing.Point(321, 279)
+        Me.CheckUnaALmacen.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckUnaALmacen.Name = "CheckUnaALmacen"
-        Me.CheckUnaALmacen.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnaALmacen.Size = New System.Drawing.Size(59, 28)
         Me.CheckUnaALmacen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.CheckUnaALmacen.TabIndex = 258
         Me.CheckUnaALmacen.Text = "Una"
@@ -205,10 +295,11 @@ Partial Class Pr_ReporteModuloCanero
         Me.tbCodAlmacen.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodAlmacen.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCodAlmacen.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCodAlmacen.Location = New System.Drawing.Point(39, 225)
+        Me.tbCodAlmacen.Location = New System.Drawing.Point(52, 277)
+        Me.tbCodAlmacen.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCodAlmacen.Name = "tbCodAlmacen"
         Me.tbCodAlmacen.PreventEnterBeep = True
-        Me.tbCodAlmacen.Size = New System.Drawing.Size(22, 22)
+        Me.tbCodAlmacen.Size = New System.Drawing.Size(29, 26)
         Me.tbCodAlmacen.TabIndex = 260
         Me.tbCodAlmacen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.tbCodAlmacen.Visible = False
@@ -222,10 +313,11 @@ Partial Class Pr_ReporteModuloCanero
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(4, 201)
+        Me.LabelX5.Location = New System.Drawing.Point(5, 247)
+        Me.LabelX5.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(117, 23)
+        Me.LabelX5.Size = New System.Drawing.Size(156, 28)
         Me.LabelX5.TabIndex = 259
         Me.LabelX5.Text = "Tipo De Reporte:"
         '
@@ -236,10 +328,11 @@ Partial Class Pr_ReporteModuloCanero
         '
         Me.tbNomCan.Border.Class = "TextBoxBorder"
         Me.tbNomCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNomCan.Location = New System.Drawing.Point(53, 156)
+        Me.tbNomCan.Location = New System.Drawing.Point(71, 192)
+        Me.tbNomCan.Margin = New System.Windows.Forms.Padding(4)
         Me.tbNomCan.Name = "tbNomCan"
         Me.tbNomCan.PreventEnterBeep = True
-        Me.tbNomCan.Size = New System.Drawing.Size(185, 21)
+        Me.tbNomCan.Size = New System.Drawing.Size(247, 25)
         Me.tbNomCan.TabIndex = 250
         '
         'CheckTodosCan
@@ -248,9 +341,10 @@ Partial Class Pr_ReporteModuloCanero
         '
         '
         Me.CheckTodosCan.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckTodosCan.Location = New System.Drawing.Point(294, 157)
+        Me.CheckTodosCan.Location = New System.Drawing.Point(392, 193)
+        Me.CheckTodosCan.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckTodosCan.Name = "CheckTodosCan"
-        Me.CheckTodosCan.Size = New System.Drawing.Size(55, 23)
+        Me.CheckTodosCan.Size = New System.Drawing.Size(73, 28)
         Me.CheckTodosCan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.CheckTodosCan.TabIndex = 249
         Me.CheckTodosCan.Text = "Todos"
@@ -261,9 +355,10 @@ Partial Class Pr_ReporteModuloCanero
         '
         '
         Me.CheckUnaCan.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckUnaCan.Location = New System.Drawing.Point(244, 157)
+        Me.CheckUnaCan.Location = New System.Drawing.Point(325, 193)
+        Me.CheckUnaCan.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckUnaCan.Name = "CheckUnaCan"
-        Me.CheckUnaCan.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUnaCan.Size = New System.Drawing.Size(59, 28)
         Me.CheckUnaCan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.CheckUnaCan.TabIndex = 246
         Me.CheckUnaCan.Text = "Una"
@@ -277,10 +372,11 @@ Partial Class Pr_ReporteModuloCanero
         Me.tbCodCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodCan.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCodCan.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCodCan.Location = New System.Drawing.Point(3, 156)
+        Me.tbCodCan.Location = New System.Drawing.Point(4, 192)
+        Me.tbCodCan.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCodCan.Name = "tbCodCan"
         Me.tbCodCan.PreventEnterBeep = True
-        Me.tbCodCan.Size = New System.Drawing.Size(44, 22)
+        Me.tbCodCan.Size = New System.Drawing.Size(59, 26)
         Me.tbCodCan.TabIndex = 248
         Me.tbCodCan.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -293,10 +389,11 @@ Partial Class Pr_ReporteModuloCanero
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(3, 127)
+        Me.LabelX2.Location = New System.Drawing.Point(4, 156)
+        Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX2.Size = New System.Drawing.Size(133, 23)
+        Me.LabelX2.Size = New System.Drawing.Size(177, 28)
         Me.LabelX2.TabIndex = 247
         Me.LabelX2.Text = "Cañero:"
         '
@@ -307,10 +404,11 @@ Partial Class Pr_ReporteModuloCanero
         '
         Me.tbInsCan.Border.Class = "TextBoxBorder"
         Me.tbInsCan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbInsCan.Location = New System.Drawing.Point(53, 99)
+        Me.tbInsCan.Location = New System.Drawing.Point(71, 122)
+        Me.tbInsCan.Margin = New System.Windows.Forms.Padding(4)
         Me.tbInsCan.Name = "tbInsCan"
         Me.tbInsCan.PreventEnterBeep = True
-        Me.tbInsCan.Size = New System.Drawing.Size(185, 21)
+        Me.tbInsCan.Size = New System.Drawing.Size(247, 25)
         Me.tbInsCan.TabIndex = 245
         '
         'CheckTodos
@@ -319,9 +417,10 @@ Partial Class Pr_ReporteModuloCanero
         '
         '
         Me.CheckTodos.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckTodos.Location = New System.Drawing.Point(294, 100)
+        Me.CheckTodos.Location = New System.Drawing.Point(392, 123)
+        Me.CheckTodos.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckTodos.Name = "CheckTodos"
-        Me.CheckTodos.Size = New System.Drawing.Size(55, 23)
+        Me.CheckTodos.Size = New System.Drawing.Size(73, 28)
         Me.CheckTodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.CheckTodos.TabIndex = 244
         Me.CheckTodos.Text = "Todos"
@@ -332,9 +431,10 @@ Partial Class Pr_ReporteModuloCanero
         '
         '
         Me.CheckUna.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.CheckUna.Location = New System.Drawing.Point(244, 100)
+        Me.CheckUna.Location = New System.Drawing.Point(325, 123)
+        Me.CheckUna.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckUna.Name = "CheckUna"
-        Me.CheckUna.Size = New System.Drawing.Size(44, 23)
+        Me.CheckUna.Size = New System.Drawing.Size(59, 28)
         Me.CheckUna.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.CheckUna.TabIndex = 240
         Me.CheckUna.Text = "Una"
@@ -348,10 +448,11 @@ Partial Class Pr_ReporteModuloCanero
         Me.tbCod.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCod.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCod.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCod.Location = New System.Drawing.Point(3, 99)
+        Me.tbCod.Location = New System.Drawing.Point(4, 122)
+        Me.tbCod.Margin = New System.Windows.Forms.Padding(4)
         Me.tbCod.Name = "tbCod"
         Me.tbCod.PreventEnterBeep = True
-        Me.tbCod.Size = New System.Drawing.Size(44, 22)
+        Me.tbCod.Size = New System.Drawing.Size(59, 26)
         Me.tbCod.TabIndex = 243
         Me.tbCod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -364,10 +465,11 @@ Partial Class Pr_ReporteModuloCanero
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(7, 74)
+        Me.LabelX3.Location = New System.Drawing.Point(9, 91)
+        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(133, 23)
+        Me.LabelX3.Size = New System.Drawing.Size(177, 28)
         Me.LabelX3.TabIndex = 241
         Me.LabelX3.Text = "Institución:"
         '
@@ -380,10 +482,11 @@ Partial Class Pr_ReporteModuloCanero
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(69, 49)
+        Me.LabelX1.Location = New System.Drawing.Point(92, 60)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(52, 23)
+        Me.LabelX1.Size = New System.Drawing.Size(69, 28)
         Me.LabelX1.TabIndex = 235
         Me.LabelX1.Text = "Al:"
         '
@@ -398,7 +501,8 @@ Partial Class Pr_ReporteModuloCanero
         Me.tbFechaF.ButtonDropDown.Visible = True
         Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaF.IsPopupCalendarOpen = False
-        Me.tbFechaF.Location = New System.Drawing.Point(145, 49)
+        Me.tbFechaF.Location = New System.Drawing.Point(193, 60)
+        Me.tbFechaF.Margin = New System.Windows.Forms.Padding(4)
         '
         '
         '
@@ -429,7 +533,7 @@ Partial Class Pr_ReporteModuloCanero
         Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaF.MonthCalendar.TodayButtonVisible = True
         Me.tbFechaF.Name = "tbFechaF"
-        Me.tbFechaF.Size = New System.Drawing.Size(120, 22)
+        Me.tbFechaF.Size = New System.Drawing.Size(160, 26)
         Me.tbFechaF.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaF.TabIndex = 234
         '
@@ -442,10 +546,11 @@ Partial Class Pr_ReporteModuloCanero
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(66, 17)
+        Me.LabelX4.Location = New System.Drawing.Point(88, 21)
+        Me.LabelX4.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX4.Size = New System.Drawing.Size(74, 23)
+        Me.LabelX4.Size = New System.Drawing.Size(99, 28)
         Me.LabelX4.TabIndex = 233
         Me.LabelX4.Text = "Fecha Del:"
         '
@@ -460,7 +565,8 @@ Partial Class Pr_ReporteModuloCanero
         Me.tbFechaI.ButtonDropDown.Visible = True
         Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaI.IsPopupCalendarOpen = False
-        Me.tbFechaI.Location = New System.Drawing.Point(145, 18)
+        Me.tbFechaI.Location = New System.Drawing.Point(193, 22)
+        Me.tbFechaI.Margin = New System.Windows.Forms.Padding(4)
         '
         '
         '
@@ -491,7 +597,7 @@ Partial Class Pr_ReporteModuloCanero
         Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaI.MonthCalendar.TodayButtonVisible = True
         Me.tbFechaI.Name = "tbFechaI"
-        Me.tbFechaI.Size = New System.Drawing.Size(120, 22)
+        Me.tbFechaI.Size = New System.Drawing.Size(160, 26)
         Me.tbFechaI.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaI.TabIndex = 232
         '
@@ -503,52 +609,22 @@ Partial Class Pr_ReporteModuloCanero
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CrystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CrystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.CrystalReportViewer1.Location = New System.Drawing.Point(369, 0)
+        Me.CrystalReportViewer1.Location = New System.Drawing.Point(492, 0)
+        Me.CrystalReportViewer1.Margin = New System.Windows.Forms.Padding(4)
         Me.CrystalReportViewer1.Name = "CrystalReportViewer1"
-        Me.CrystalReportViewer1.Size = New System.Drawing.Size(566, 534)
+        Me.CrystalReportViewer1.Size = New System.Drawing.Size(756, 657)
         Me.CrystalReportViewer1.TabIndex = 14
         Me.CrystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         '
-        'ButtonX2
-        '
-        Me.ButtonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.ButtonX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.ButtonX2.Image = Global.DinoM.My.Resources.Resources.ventasCostos
-        Me.ButtonX2.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.ButtonX2.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.ButtonX2.Location = New System.Drawing.Point(98, 0)
-        Me.ButtonX2.Name = "ButtonX2"
-        Me.ButtonX2.Size = New System.Drawing.Size(72, 72)
-        Me.ButtonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX2.TabIndex = 1
-        Me.ButtonX2.Text = "GENERAR"
-        Me.ButtonX2.TextColor = System.Drawing.Color.White
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.ButtonX1.Image = Global.DinoM.My.Resources.Resources.atras1
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.ButtonX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.ButtonX1.Location = New System.Drawing.Point(168, 0)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(72, 69)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 0
-        Me.ButtonX1.Text = "SALIR"
-        Me.ButtonX1.TextColor = System.Drawing.Color.White
-        '
         'Pr_ReporteModuloCanero
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(934, 534)
+        Me.ClientSize = New System.Drawing.Size(1247, 657)
         Me.Controls.Add(Me.GroupPanel1)
         Me.Controls.Add(Me.CrystalReportViewer1)
         Me.Controls.Add(Me.PanelEx1)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Pr_ReporteModuloCanero"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pr_ProductoRetiradoxCañero"
@@ -589,4 +665,7 @@ Partial Class Pr_ReporteModuloCanero
     Friend WithEvents CheckUnaALmacen As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents tbCodAlmacen As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents ComboBox1 As ComboBox
 End Class

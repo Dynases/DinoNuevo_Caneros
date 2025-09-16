@@ -1152,7 +1152,7 @@ Public Class F0_MCompras
                                                   _detalleCompras, IIf(swEmision.Value = True, 1, 0),
                                                   tbNFactura.Text, IIf(swConsigna.Value = True, 1, 0),
                                                   IIf(swRetencion.Value = True, 1, 0), IIf(swMoneda.Value = True, 1, tbTipoCambio.Value), tbChofer.Text,
-                                                  tbCamion.Text, tbPlaca.Text, tbRecibio.Text, tbEntrego.Text, Convert.ToInt32(tbHojaRuta.Text))
+                                                  tbCamion.Text, tbPlaca.Text, tbRecibio.Text, tbEntrego.Text, tbHojaRuta.Text)
             If res Then
                 Dim dt As New DataTable
                 Dim precio As Decimal = 0.00000

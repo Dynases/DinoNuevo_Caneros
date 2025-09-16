@@ -136,7 +136,7 @@ Public Class F1_IngresosEgresos
         cbTipPago1.ReadOnly = False
         tbMonto.IsInputReadOnly = False
         tbObservacion.ReadOnly = False
-        SwParticular.Value = True
+        'SwParticular.Value = True
         'If swTipo.Value = True Then
         '    btnVentCobros.Enabled = True
         'End If

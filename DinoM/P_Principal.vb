@@ -1463,4 +1463,20 @@ Public Class P_Principal
         frm.Show()
 
     End Sub
+
+    Private Sub MetroTileItem24_Click(sender As Object, e As EventArgs) Handles MetroTileItem24.Click
+
+    End Sub
+
+    Private Sub bt_parametros_Click(sender As Object, e As EventArgs) Handles bt_parametros.Click
+        Dim frm As New F0_ParametrosMC
+        frm._nameButton = bt_parametros.Name
+        frm._modulo = FP_ModuloCanero
+        frm.Show()
+    End Sub
+
+    Private Sub btnReporteDiarioVentas_Click(sender As Object, e As EventArgs) Handles btnReporteDiarioVentas.Click
+        Dim frm As New Pr_MovimientoVentasDiario
+        frm.Show()
+    End Sub
 End Class
