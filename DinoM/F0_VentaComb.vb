@@ -51,10 +51,11 @@ Public Class F0_VentaComb
         _prValidarLote()
         _prCargarComboLibreriaSucursal(cbSucursal)
         _prCargarComboLibreria(cbCambioDolar, 7, 1)
+        cbCambioDolar.Value = 1
         _prCargarComboLibreria(cbTipoSolicitud, 10, 1)
         _prCargarComboLibreria(cbSurtidor, 1, 10)
         _prCargarComboLibreria(cbDespachador, 1, 9)
-        cbCambioDolar.Value = 1
+
 
         'lbTipoMoneda.Visible = False
         swMoneda.Visible = False
@@ -131,13 +132,15 @@ Public Class F0_VentaComb
 
     Private Sub _prCargarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)
         Dim dt As New DataTable
-        dt = L_prLibreriaClienteLGeneral(cod1, cod2)
+        dt = L_prLibreriaClienteLGeneral1(cod1, cod2)
         With mCombo
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("yccod3").Width = 70
             .DropDownList.Columns("yccod3").Caption = "COD"
-            .DropDownList.Columns.Add("ycdes3").Width = 200
+            .DropDownList.Columns.Add("ycdes3").Width = 120
             .DropDownList.Columns("ycdes3").Caption = "DESCRIPCION"
+            .DropDownList.Columns.Add("ycdes1").Width = 130
+            .DropDownList.Columns("ycdes1").Caption = "FECHA"
             .ValueMember = "yccod3"
             .DisplayMember = "ycdes3"
             .DataSource = dt
@@ -489,6 +492,7 @@ Public Class F0_VentaComb
                 txtCambio1.Text = "0.00"
             End If
         End If
+        _prCalcularPrecioTotal()
         LblPaginacion.Text = Str(grVentas.Row + 1) + "/" + grVentas.RowCount.ToString
 
     End Sub
@@ -714,7 +718,17 @@ Public Class F0_VentaComb
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
+        With grdetalle.RootTable.Columns("tbpcosBS")
+            .Width = 100
+            .Caption = "CODIGO"
+            .Visible = False
+        End With
 
+        With grdetalle.RootTable.Columns("tbptot2bs")
+            .Width = 100
+            .Caption = "CODIGO"
+            .Visible = False
+        End With
         With grdetalle
             .GroupByBoxVisible = False
             'diseño de la grilla
@@ -927,6 +941,8 @@ Public Class F0_VentaComb
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
+
+
         If (dt.Rows.Count <= 0) Then
             _prCargarDetalleVenta(-1)
         End If
@@ -1611,7 +1627,7 @@ Public Class F0_VentaComb
                                                     Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")),
                                                      _CodCliente, IIf(swMoneda.Value = True, 1, 0),
                                                       tbTramOrden.Text + " - " + tbNitTraOrden.Text + " - PLACA: " + tbPlaca.Text + " - Autoriz.:" + tbAutoriza.Text, tbMdesc.Value, tbIce.Value, tbTotalBs.Text,
-                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text)
+                                                      dtDetalle, cbSucursal.Value, 0, tabla, _CodEmpleado, Programa, tbTramOrden.Text, tbNitTraOrden.Text, cbDespachador.Value, tbPlaca.Text, tbRetSurtidor.Text, tbNitRetSurtidor.Text, TbNombre1.Text, tbNit.Text, cbTipoSolicitud.Value, cbSurtidor.Value, SwSurtidor.Value, tbAutoriza.Text, cbCambioDolar.Text)
             If res Then
                 L_Asiento_Borrar(codCont)
                 contabilizarPrestamoDetalle()
@@ -1784,7 +1800,7 @@ Public Class F0_VentaComb
         Dim totald As Double = (total * 6.96)
         Dim fechaven As String = dt.Rows(0).Item("fechaventa")
         Dim retiro As String = dt.Rows(0).Item("RETIRO")
-        Dim fechaImpresion As String = Today.ToLongDateString
+        Dim fechaImpresion As String = fechaven '' Today.ToLongDateString
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
         End If
@@ -1855,7 +1871,7 @@ Public Class F0_VentaComb
                 objrep.SetParameterValue("Logo", gb_UbiLogo)
                 objrep.SetParameterValue("NotaAdicional1", gb_NotaAdicional)
                 objrep.SetParameterValue("Descuento", tbMdesc.Value)
-                objrep.SetParameterValue("fechaImpresion", Today.Date)
+                objrep.SetParameterValue("fechaImpresion", tbFechaVenta.Text) ''Today.Date)
                 objrep.SetParameterValue("Total", total)
                 objrep.SetParameterValue("retiro", retiro)
             Case ENReporteTipo.NOTAVENTA_Ticket
@@ -2045,6 +2061,7 @@ Public Class F0_VentaComb
         cbTipoSolicitud.Value = 1
         cbDespachador.Value = 1
         cbSurtidor.SelectedIndex = 0
+        cbCambioDolar.SelectedIndex = CType(cbCambioDolar.DataSource, DataTable).Rows.Count - 1
     End Sub
     Private Sub _prCargarProductos(_cliente As String)
         If (cbSucursal.SelectedIndex < 0) Then
@@ -2552,57 +2569,144 @@ Public Class F0_VentaComb
             MostrarMensajeError(ex.Message)
         End Try
     End Sub
+    'Public Function contabilizar() As Integer
+    '    Dim codigoVenta = tbCodigo.Text
+    '    Dim codCanero = "Entrega de diesel " + grdetalle.GetValue("tbcmin").ToString + " lts. / ." + tbCliente.Text + " " + Convert.ToString(_CodCaneroUcg) + " (" + codigoVenta + ")" 'obobs
+    '    Dim total = Convert.ToDecimal(tbTotalBs.Text) / 6.96 'para obtener debe haber
+    '    Dim dt, dt1, dtDetalle As DataTable
+    '    Dim cuenta As String
+    '    Dim debebs, haberbs, debeus, haberus As Double
+    '    dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)  'obcuenta=ncuenta
+
+    '    Dim resTO001 = L_fnGrabarTO001(12, Convert.ToInt32(codigoVenta), "false", "", codigoVenta) 'numi cabecera to001
+
+    '    For a As Integer = 8 To 8 Step 1
+    '        dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+    '        dtDetalle = L_fnDetalleVenta1(codigoVenta)
+
+    '        Dim oblin As Integer = 1
+    '        Dim totalCosto As Double = 0.00
+    '        For Each row In dt.Rows
+    '            '    Select Case row("cuenta")
+
+    '            If row("cuenta") = "-1" Then
+    '                For Each detalle In dtDetalle.Rows
+    '                    cuenta = detalle("yfclot")
+    '                    If row("dh") = 1 Then
+    '                        debeus = Math.Round((Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+    '                        debebs = Math.Round(debeus * 6.96, 2)
+    '                        haberus = 0.00
+    '                        haberbs = 0.00
+    '                        totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+    '                    Else
+    '                        haberus = Math.Round((Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+    '                        haberbs = Math.Round(haberus * 6.96, 2)
+    '                        debeus = 0.00
+    '                        debebs = 0.00
+    '                        totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+    '                    End If
+
+    '                    Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+    '                    oblin = oblin + 1
+    '                Next
+
+    '                If row("cuenta") = "-1" Then
+    '                    Continue For
+    '                End If
+
+    '            End If
+    '            If row("cuenta") = "-2" Then
+    '                If swTipoVenta.Value = True Then
+    '                    cuenta = 208
+    '                Else
+    '                    If _CodCliente = 691691691691 Then
+    '                        cuenta = 312
+    '                    Else
+    '                        cuenta = dt1.Rows(0).Item(7)
+    '                    End If
+    '                End If
+    '            Else
+    '                cuenta = row("cuenta")
+    '            End If
+    '            If row("dh") = 1 Then
+    '                debeus = Math.Round((IIf(row("tipo") = 8, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+    '                debebs = Math.Round(debeus * 6.96, 2)
+    '                haberus = 0.00
+    '                haberbs = 0.00
+    '            Else
+    '                haberus = Math.Round((IIf(row("tipo") = 8, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+    '                haberbs = Math.Round(haberus * 6.96, 2)
+    '                debeus = 0.00
+    '                debebs = 0.00
+    '            End If
+    '            Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+    '            oblin = oblin + 1
+    '        Next
+    '    Next
+    '    Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
+
+    '    L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+    '    Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
+    '    ToastNotification.Show(Me, " Venta ".ToUpper + tbCodigo.Text + " Contabilizada con Exito.".ToUpper,
+    '                                          img, 2000,
+    '                                          eToastGlowColor.Green,
+    '                                          eToastPosition.TopCenter
+    '                                          )
+    '    '_prCargarVenta()
+    'End Function
+
     Public Function contabilizar() As Integer
         Dim codigoVenta = tbCodigo.Text
-        Dim codCanero = "Entrega de diesel " + grdetalle.GetValue("tbcmin").ToString + " lts. / ." + tbCliente.Text + " " + Convert.ToString(_CodCaneroUcg) + " (" + codigoVenta + ")" 'obobs
-        Dim total = Convert.ToDecimal(tbTotalBs.Text) / 6.96 'para obtener debe haber
+        Dim codCanero = "Entrega de diesel " + grdetalle.GetValue("tbcmin").ToString + " lts. / ." + tbCliente.Text + " " + Convert.ToString(_CodCaneroUcg) + " (" + codigoVenta + ")"
+
+        Dim tc As Decimal = Convert.ToDecimal(cbCambioDolar.Text)
+        Dim totalBs As Decimal = Convert.ToDecimal(tbTotalBs.Text)      ' Bs = valor real (precio fijo)
+        Dim total As Decimal = Math.Round(totalBs / tc, 2)              ' USD = derivado, solo informativo
+
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
         Dim debebs, haberbs, debeus, haberus As Double
-        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)  'obcuenta=ncuenta
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)
 
-        Dim resTO001 = L_fnGrabarTO001(12, Convert.ToInt32(codigoVenta), "false", "", codigoVenta) 'numi cabecera to001
+        Dim resTO001 = L_fnGrabarTO001(12, Convert.ToInt32(codigoVenta), "false", "", codigoVenta, codCanero, 0, 0, 0, 0, cbSucursal.Value, codigoVenta, tbNroFactura.Text, cbCambioDolar.Text)
 
         For a As Integer = 8 To 8 Step 1
-            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+            dt = CargarConfiguracion("configuracion", a)
             dtDetalle = L_fnDetalleVenta1(codigoVenta)
 
             Dim oblin As Integer = 1
             Dim totalCosto As Double = 0.00
             For Each row In dt.Rows
-                '    Select Case row("cuenta")
 
                 If row("cuenta") = "-1" Then
                     For Each detalle In dtDetalle.Rows
                         cuenta = detalle("yfclot")
                         If row("dh") = 1 Then
                             debeus = Math.Round((Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
-                            debebs = Math.Round(debeus * 6.96, 2)
+                            debebs = Math.Round(debeus * tc, 2)
                             haberus = 0.00
                             haberbs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
                         Else
                             haberus = Math.Round((Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
-                            haberbs = Math.Round(haberus * 6.96, 2)
+                            haberbs = Math.Round(haberus * tc, 2)
                             debeus = 0.00
                             debebs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
                         End If
 
-                        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                        Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus, cbSucursal.Value, codigoVenta, tbNroFactura.Text, cbCambioDolar.Text)
                         oblin = oblin + 1
                     Next
 
-                    If row("cuenta") = "-1" Then
-                        Continue For
-                    End If
-
+                    Continue For
                 End If
+
                 If row("cuenta") = "-2" Then
                     If swTipoVenta.Value = True Then
                         cuenta = 208
                     Else
-                        If _CodCliente = 691 Then
+                        If _CodCliente = 691691691691 Then
                             cuenta = 312
                         Else
                             cuenta = dt1.Rows(0).Item(7)
@@ -2611,34 +2715,34 @@ Public Class F0_VentaComb
                 Else
                     cuenta = row("cuenta")
                 End If
+
                 If row("dh") = 1 Then
-                    debeus = Math.Round((IIf(row("tipo") = 8, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
-                    debebs = Math.Round(debeus * 6.96, 2)
+                    debebs = Math.Round((totalBs * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                    debeus = Math.Round(debebs / tc, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
-                    haberus = Math.Round((IIf(row("tipo") = 8, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
-                    haberbs = Math.Round(haberus * 6.96, 2)
+                    haberbs = Math.Round((totalBs * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                    haberus = Math.Round(haberbs / tc, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
-                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus, cbSucursal.Value, codigoVenta, tbNroFactura.Text, cbCambioDolar.Text)
                 oblin = oblin + 1
             Next
         Next
+
         Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
 
         L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
         Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
         ToastNotification.Show(Me, " Venta ".ToUpper + tbCodigo.Text + " Contabilizada con Exito.".ToUpper,
-                                              img, 2000,
-                                              eToastGlowColor.Green,
-                                              eToastPosition.TopCenter
-                                              )
-        '_prCargarVenta()
+                                          img, 2000,
+                                          eToastGlowColor.Green,
+                                          eToastPosition.TopCenter
+                                          )
     End Function
-
-
     Private Sub SwConta_ValueChanged(sender As Object, e As EventArgs)
 
     End Sub
@@ -2701,88 +2805,158 @@ Public Class F0_VentaComb
 
 
 
+    'Private Sub contabilizarPrestamoDetalle()
+    '    Dim dt, dt1, dtDetalle As DataTable
+    '    Dim codigoVenta = tbCodigo.Text
+    '    'dt1 = L_BuscarCodCanero(1)
+
+    '    Dim codCanero As String = "P/Ord:. " + tbCodigo.Text + " -Diesel " + Convert.ToString(Format(grdetalle.GetValue("tbcmin"), 0.00)) + " Lts. -" + _CodCaneroUcg.ToString + "-" + tbCliente.Text.Trim   'obobs
+    '    Dim total = tbTotalDo.Text 'para obtener debe haber
+
+    '    Dim cuenta As String
+    '    Dim debebs, haberbs, debeus, haberus As Double
+    '    dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
+    '    ' dt2 = ObtenerNumCuentaSurtidor("TY0031", cbSurtidor.Value) ' ObtenerNumCuentaSurtidor()
+    '    L_fnGrabarTO001(4, Convert.ToInt32(codigoVenta))
+
+    '    For a As Integer = 8 To 8 Step 1
+    '        dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+    '        dtDetalle = L_fnDetalleVenta1(codigoVenta)
+
+    '        Dim oblin As Integer = 1
+    '        Dim totalCosto As Double = 0.00
+    '        For Each row In dt.Rows
+    '            '    Select Case row("cuenta")
+
+    '            If row("cuenta") = "-1" Then
+    '                For Each detalle In dtDetalle.Rows
+    '                    cuenta = detalle("yfclot")
+    '                    If row("dh") = 1 Then
+    '                        debeus = Math.Round((Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+    '                        debebs = Math.Round(debeus * 6.96, 2)
+    '                        haberus = 0.00
+    '                        haberbs = 0.00
+    '                        totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+    '                    Else
+    '                        haberus = Math.Round((Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+    '                        haberbs = Math.Round(haberus * 6.96, 2)
+    '                        debeus = 0.00
+    '                        debebs = 0.00
+    '                        totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
+    '                    End If
+
+    '                    Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+    '                    oblin = oblin + 1
+    '                Next
+
+    '                If row("cuenta") = "-1" Then
+    '                    Continue For
+    '                End If
+
+    '            End If
+    '            If row("cuenta") = "-2" Then
+    '                If swTipoVenta.Value = True Then
+    '                    cuenta = 208
+    '                Else
+    '                    If _CodCliente = 691691691691 Then
+    '                        cuenta = 312
+    '                    Else
+    '                        cuenta = dt1.Rows(0).Item(7)
+    '                    End If
+
+    '                End If
+    '            Else
+    '                cuenta = row("cuenta")
+    '            End If
+    '            If row("dh") = 1 Then
+    '                debeus = Math.Round((IIf(row("tipo") = 8, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+    '                debebs = Math.Round(debeus * 6.96, 2)
+    '                haberus = 0.00
+    '                haberbs = 0.00
+    '            Else
+    '                haberus = Math.Round((IIf(row("tipo") = 8, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+    '                haberbs = Math.Round(haberus * 6.96, 2)
+    '                debeus = 0.00
+    '                debebs = 0.00
+    '            End If
+    '            Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+    '            oblin = oblin + 1
+    '        Next
+    '    Next
+    '    Dim resp = L_fnObtenerDiferenciaAsientoContable(codCont)
+    '    'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
+    'End Sub
     Private Sub contabilizarPrestamoDetalle()
         Dim dt, dt1, dtDetalle As DataTable
         Dim codigoVenta = tbCodigo.Text
-        'dt1 = L_BuscarCodCanero(1)
+        Dim codCanero As String = "P/Ord:. " + tbCodigo.Text + " -Diesel " + Convert.ToString(Format(grdetalle.GetValue("tbcmin"), 0.00)) + " Lts. -" + _CodCaneroUcg.ToString + "-" + tbCliente.Text.Trim
 
-        Dim codCanero As String = "P/Ord:. " + tbCodigo.Text + " -Diesel " + Convert.ToString(Format(grdetalle.GetValue("tbcmin"), 0.00)) + " Lts. -" + _CodCaneroUcg.ToString + "-" + tbCliente.Text.Trim   'obobs
-        Dim total = tbTotalDo.Text 'para obtener debe haber
+        Dim tc As Decimal = Convert.ToDecimal(cbCambioDolar.Text)
+        Dim totalBs As Decimal = Convert.ToDecimal(tbTotalBs.Text)     ' CONFIRMAR: ¿este campo ya es Bs?
+        Dim total As Decimal = Math.Round(totalBs / tc, 2)             ' USD derivado
 
         Dim cuenta As String
         Dim debebs, haberbs, debeus, haberus As Double
-        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
-        ' dt2 = ObtenerNumCuentaSurtidor("TY0031", cbSurtidor.Value) ' ObtenerNumCuentaSurtidor()
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)
+
         L_fnGrabarTO001(4, Convert.ToInt32(codigoVenta))
-
         For a As Integer = 8 To 8 Step 1
-            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
+            dt = CargarConfiguracion("configuracion", a)
             dtDetalle = L_fnDetalleVenta1(codigoVenta)
-
             Dim oblin As Integer = 1
             Dim totalCosto As Double = 0.00
             For Each row In dt.Rows
-                '    Select Case row("cuenta")
-
                 If row("cuenta") = "-1" Then
                     For Each detalle In dtDetalle.Rows
                         cuenta = detalle("yfclot")
                         If row("dh") = 1 Then
                             debeus = Math.Round((Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
-                            debebs = Math.Round(debeus * 6.96, 2)
+                            debebs = Math.Round(debeus * tc, 2)
                             haberus = 0.00
                             haberbs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
                         Else
                             haberus = Math.Round((Convert.ToDouble(detalle("tbpcos")) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
-                            haberbs = Math.Round(haberus * 6.96, 2)
+                            haberbs = Math.Round(haberus * tc, 2)
                             debeus = 0.00
                             debebs = 0.00
                             totalCosto = totalCosto + Convert.ToDouble(detalle("tbpcos"))
                         End If
-
                         Dim resTO00112 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
                         oblin = oblin + 1
                     Next
-
-                    If row("cuenta") = "-1" Then
-                        Continue For
-                    End If
-
+                    Continue For
                 End If
                 If row("cuenta") = "-2" Then
                     If swTipoVenta.Value = True Then
                         cuenta = 208
                     Else
-                        If _CodCliente = 691 Then
+                        If _CodCliente = 691691691691 Then
                             cuenta = 312
                         Else
                             cuenta = dt1.Rows(0).Item(7)
                         End If
-
                     End If
                 Else
                     cuenta = row("cuenta")
                 End If
                 If row("dh") = 1 Then
-                    debeus = Math.Round((IIf(row("tipo") = 8, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
-                    debebs = Math.Round(debeus * 6.96, 2)
+                    debebs = Math.Round((totalBs * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                    debeus = Math.Round(debebs / tc, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
-                    haberus = Math.Round((IIf(row("tipo") = 8, Convert.ToDouble(total), totalCosto) * Convert.ToDouble(row("porcentaje"))) / 100, 2)
-                    haberbs = Math.Round(haberus * 6.96, 2)
+                    haberbs = Math.Round((totalBs * Convert.ToDouble(row("porcentaje"))) / 100, 2)
+                    haberus = Math.Round(haberbs / tc, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
-                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus, cbSucursal.Value, codigoVenta, tbNroFactura.Text, cbCambioDolar.Text)
                 oblin = oblin + 1
             Next
         Next
         Dim resp = L_fnObtenerDiferenciaAsientoContable(codCont)
-        'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
     End Sub
-
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         Try

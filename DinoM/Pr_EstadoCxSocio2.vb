@@ -168,17 +168,8 @@ Public Class Pr_EstadoCxSocio2
         If Asociado.Checked = False Then
             If cbReporte.Value = 1 Then
                 If swTipo.Value = True Then
-                    'If CheckBoxX1.Checked = True Then
-                    '    dt = CargarCCPagosSaldosConAportes(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
-                    'Else
                     dt = CargarCCxSocio(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
-
-                    'End If
                 Else
-                    'If CheckBoxX1.Checked = True Then
-                    '    dt = CargarCCPagosSaldosDetConAporte(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbQuincena.Value.ToString + "1")
-
-                    'Else
                     dt = CargarCCxSocioDet(IIf(CheckTodosCan.Checked = True, -1, _CodCliente), IIf(CheckTodos.Checked = True, -1, _CodInstitucion), IIf(cbQuincena.Value = 0, -1, cbQuincena.Value), tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
                     'End If

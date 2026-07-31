@@ -25,7 +25,7 @@ Public Class F0_Prestamo
     Public Sub iniciarcomponentes()
 
         tbcod.Enabled = False
-
+        _prCargarComboTipoCambio(cbTipoCambio)
         _prCargarComboFinanciador(tbFinan)
         _prCargarComboMoneda(tbMoneda)
         _prCargarComboDocumento(cbDocumento)
@@ -34,11 +34,10 @@ Public Class F0_Prestamo
         _prCargarPrestamo()
         Limpiar()
         If grPrestamo.RowCount > 0 Then
-
             _MostrarRegistro()
         End If
 
-          LblPaginacion.Text = CStr(grPrestamo.Row + 1) + "/" + CStr(grPrestamo.RowCount)
+        LblPaginacion.Text = CStr(grPrestamo.Row + 1) + "/" + CStr(grPrestamo.RowCount)
 
     End Sub
 
@@ -374,6 +373,8 @@ Public Class F0_Prestamo
             .DropDownList.Columns("yccod3").Caption = "COD"
             .DropDownList.Columns.Add("ycdes3").Width = mCombo.Width - 70
             .DropDownList.Columns("ycdes3").Caption = "DESCRIPCION"
+            .DropDownList.Columns.Add("ycdes1").Width = 130
+            .DropDownList.Columns("ycdes1").Caption = "FECHA"
             .ValueMember = "yccod3"
             .DisplayMember = "ycdes3"
             .DataSource = dt
@@ -476,9 +477,9 @@ Public Class F0_Prestamo
     Public Sub _GuardarNuevo()
         Dim numi As String = ""
 
-        Dim res As Boolean = L_fnGrabarPrestamo(numi, tbfecha.Value.ToString("yyyy/MM/dd"), tbMoneda.Value, IIf(tbMoneda.Value = 1, cbTipoCambio.Value, 0), _CodInstitucion,
+        Dim res As Boolean = L_fnGrabarPrestamo(numi, tbfecha.Value.ToString("yyyy/MM/dd"), tbMoneda.Value, IIf(tbMoneda.Value = 1, cbTipoCambio.Value, cbTipoCambio.Value), _CodInstitucion,
                                               cod, codFin.Text, codPres.Text, IIf(tbCodProv.Visible = False, 0, _CodProveedor),
-                                              _codDocumento, tbCite.Text, tbTotal.Text,
+                                              _codDocumento, tbCite.Text, IIf(tbMoneda.Value = 1, tbTotal.Text, tbTotal.Text * Convert.ToDouble(cbTipoCambio.Text)),
                                               CDbl(tbInteres.Text), tbObs.Text)
         If res Then
             _prCargarPrestamo()
@@ -503,15 +504,15 @@ Public Class F0_Prestamo
     Public Sub _Modificar()
 
 
-        Dim res As Boolean = L_fnModificarPrestamo(tbcod.Text, tbfecha.Value.ToString("yyyy/MM/dd"), tbMoneda.Value, IIf(tbMoneda.Value = 1, cbTipoCambio.Value, 0), codIns.Text,
+        Dim res As Boolean = L_fnModificarPrestamo(tbcod.Text, tbfecha.Value.ToString("yyyy/MM/dd"), tbMoneda.Value, IIf(tbMoneda.Value = 1, cbTipoCambio.Value, cbTipoCambio.Value), codIns.Text,
                                               codCan.Text, codFin.Text, codPres.Text, IIf(tbCodProv.Visible = False, 0, IIf(codPres.Text = "10016" Or codPres.Text = "10005", 2, tbCodProv.Text)),
-                                              _codDocumento, tbCite.Text, tbTotal.Text,
+                                              _codDocumento, tbCite.Text, IIf(tbMoneda.Value = 1, tbTotal.Text, tbTotal.Text * Convert.ToDouble(cbTipoCambio.Text)),
                                               CDbl(tbInteres.Text), tbObs.Text)
         If res Then
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
             ToastNotification.Show(Me, "El Prestamo No Pudo Ser Registrado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
         Else
-            If codPres.Text <> "10016" And codPres.Text <> "10005" Then
+            If codPres.Text <> "10016" And codPres.Text <> "10005" And tbCodProv.Text <> 0 Then
                 L_Asiento_Borrar(codCont)
 
                 contabilizarPrestamoDetalle()
@@ -526,15 +527,16 @@ Public Class F0_Prestamo
 
     Private Sub tbMoneda_ValueChanged(sender As Object, e As EventArgs) Handles tbMoneda.ValueChanged
         codMon.Text = tbMoneda.Value
-        If tbMoneda.Value = 2 Then
-            cbTipoCambio.Enabled = False
-        Else
-            If tbMoneda.Value = 1 Then
-                cbTipoCambio.Enabled = True
-                _prCargarComboTipoCambio(cbTipoCambio)
-            End If
+        'If tbMoneda.Value = 2 Then
+        '    cbTipoCambio.Enabled = False
+        'Else
+        '    If tbMoneda.Value = 1 Then
+        '        cbTipoCambio.Enabled = True
+        '        _prCargarComboTipoCambio(cbTipoCambio)
+        '    End If
 
-        End If
+        'End If
+        cbTipoCambio.SelectedIndex = CType(cbTipoCambio.DataSource, DataTable).Rows.Count - 1
     End Sub
 
     Private Sub tbFinan_ValueChanged(sender As Object, e As EventArgs) Handles tbFinan.ValueChanged
@@ -742,7 +744,7 @@ Public Class F0_Prestamo
     End Sub
 
     Private Sub cbTipoCambio_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoCambio.ValueChanged
-        _codTipoCambio = cbTipoCambio.Value
+        '_codTipoCambio = cbTipoCambio.Value
     End Sub
 
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
@@ -765,7 +767,7 @@ Public Class F0_Prestamo
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
         Limpiar()
         _Habilitar()
-
+        cbTipoCambio.SelectedIndex = CType(cbTipoCambio.DataSource, DataTable).Rows.Count - 1
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
@@ -890,7 +892,7 @@ Public Class F0_Prestamo
                 objrep.SetParameterValue("NotaAdicional1", gb_NotaAdicional)
 
                 objrep.SetParameterValue("Total", total)
-                objrep.SetParameterValue("fechaImpresion", DateTime.Now())
+                objrep.SetParameterValue("fechaImpresion", tbfecha.Text) ''DateTime.Now())
 
             Case ENReporteTipo.NOTAVENTA_Ticket
                 objrep.SetDataSource(dt)
@@ -935,108 +937,191 @@ Public Class F0_Prestamo
             End If
         End If
     End Sub
+    'Private Sub contabilizarPrestamo()
+    '    Dim codigoVenta = tbcod.Text
+    '    Dim codCanero = "P/Ord:. " + codigoVenta + " Prestamo " + tbTotal.Text + "  " + codCan.Text + "-" + tbCanero.Text.Trim
+
+    '    Dim tc As Decimal = Convert.ToDecimal(cbTipoCambio.Text)
+    '    Dim totalBs As Decimal = Convert.ToDecimal(tbTotal.Text)
+    '    Dim total As Decimal = Math.Round(totalBs / tc, 2)
+
+    '    Dim dt, dt1, dtDetalle As DataTable
+    '    Dim cuenta As String
+    '    Dim debebs, haberbs, debeus, haberus As Double
+    '    dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)
+    '    dtDetalle = ObtenerNumCuentaProveedor("Institucion", _CodProveedor)
+    '    Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false", "", codigoVenta, "", 0.00, 0.00, 0.00, 0.00, cbTipoCambio.Text)
+
+    '    For a As Integer = 6 To 6 Step 1
+    '        dt = CargarConfiguracion("configuracion", a)
+    '        Dim oblin As Integer = 1
+    '        For Each row In dt.Rows
+    '            If row("cuenta") = "-2" Then
+    '                If codCan.Text = 153015301530 Then
+    '                    cuenta = 312
+    '                Else
+    '                    cuenta = dt1.Rows(0).Item(7)
+    '                End If
+    '            Else
+    '                cuenta = dtDetalle.Rows(0).Item(10)
+    '            End If
+
+    '            If row("dh") = 1 Then
+    '                debebs = Math.Round(totalBs * Convert.ToDouble(row("porcentaje")) / 100, 2)
+    '                debeus = Math.Round(debebs / tc, 2)
+    '                haberus = 0.00
+    '                haberbs = 0.00
+    '            Else
+    '                haberbs = Math.Round(totalBs * Convert.ToDouble(row("porcentaje")) / 100, 2)
+    '                haberus = Math.Round(haberbs / tc, 2)
+    '                debeus = 0.00
+    '                debebs = 0.00
+    '            End If
+
+    '            Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus, "", codigoVenta, "", cbTipoCambio.Text)
+    '            oblin = oblin + 1
+    '        Next
+    '    Next
+
+    '    Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
+    '    L_Actualiza_Prestamo_Contabiliza(codigoVenta, resTO001)
+    'End Sub
     Private Sub contabilizarPrestamo()
         Dim codigoVenta = tbcod.Text
-        Dim codCanero = "P/Ord:. " + codigoVenta + " Prestamo " + tbTotal.Text + "  " + codCan.Text + "-" + tbCanero.Text.Trim   'obobs
-        Dim total = tbTotal.Text 'para obtener debe haber
+        Dim codCanero = "P/Ord:. " + codigoVenta + " Prestamo " + tbTotal.Text + "  " + codCan.Text + "-" + tbCanero.Text.Trim
+
+        Dim tc As Decimal = Convert.ToDecimal(cbTipoCambio.Text)
+        Dim totalUsd As Decimal = Convert.ToDecimal(tbTotal.Text)      ' USD = moneda real de origen
+        Dim totalBs As Decimal = Math.Round(totalUsd * tc, 2)          ' Bs = derivado para contabilidad
+
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
         Dim debebs, haberbs, debeus, haberus As Double
-        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)
         dtDetalle = ObtenerNumCuentaProveedor("Institucion", _CodProveedor)
-
-
-        Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false", "", codigoVenta) 'numi cabecera to001
-        'Dim resTO0011 As Boolean = L_fnGrabarTO001(Convert.ToInt32(codigoVenta))
+        Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false", "", codigoVenta, "", 0.00, 0.00, 0.00, 0.00, cbTipoCambio.Text)
 
         For a As Integer = 6 To 6 Step 1
-            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
-
-            'dtDetalle = L_fnDetalleVenta1(codigoVenta)
-
-
+            dt = CargarConfiguracion("configuracion", a)
             Dim oblin As Integer = 1
-            'Dim totalCosto As Double = 0.00
             For Each row In dt.Rows
-
                 If row("cuenta") = "-2" Then
-                    If codCan.Text = 1530 Then
+                    If codCan.Text = 153015301530 Then
                         cuenta = 312
                     Else
                         cuenta = dt1.Rows(0).Item(7)
                     End If
-
-
                 Else
-                    cuenta = dtDetalle.Rows(0).Item(10) 'row("cuenta")
+                    cuenta = dtDetalle.Rows(0).Item(10)
                 End If
+
                 If row("dh") = 1 Then
-                    debeus = Math.Round(Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100, 2)
-                    debebs = Math.Round(debeus * 6.96, 2)
+                    debeus = Math.Round(totalUsd * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    debebs = Math.Round(debeus * tc, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
-
-                    haberus = Math.Round(Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100, 2)
-                    haberbs = Math.Round(haberus * 6.96, 2)
+                    haberus = Math.Round(totalUsd * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    haberbs = Math.Round(haberus * tc, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
-                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), resTO001, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus, "", codigoVenta, "", cbTipoCambio.Text)
                 oblin = oblin + 1
             Next
         Next
+
         Dim resp = L_fnObtenerDiferenciaAsientoContable(resTO001)
         L_Actualiza_Prestamo_Contabiliza(codigoVenta, resTO001)
     End Sub
+    'Private Sub contabilizarPrestamoDetalle()
+    '    Dim codigoVenta = tbcod.Text
+    '    Dim codCanero = "P/Ord:. " + codigoVenta + " Prestamo " + tbTotal.Text + "  " + codCan.Text + "-" + tbCanero.Text.Trim
+
+    '    Dim tc As Decimal = Convert.ToDecimal(cbTipoCambio.Text)
+    '    Dim totalBs As Decimal = Convert.ToDecimal(tbTotal.Text)
+    '    Dim total As Decimal = Math.Round(totalBs / tc, 2)
+
+    '    Dim dt, dt1, dtDetalle As DataTable
+    '    Dim cuenta As String
+    '    Dim debebs, haberbs, debeus, haberus As Double
+    '    dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)
+    '    dtDetalle = ObtenerNumCuentaProveedor("", _CodProveedor)
+
+    '    For a As Integer = 6 To 6 Step 1
+    '        dt = CargarConfiguracion("configuracion", a)
+    '        Dim oblin As Integer = 1
+    '        For Each row In dt.Rows
+    '            If row("cuenta") = "-2" Then
+    '                cuenta = dt1.Rows(0).Item(7)
+    '            Else
+    '                cuenta = dtDetalle.Rows(0).Item(10)
+    '            End If
+
+    '            If row("dh") = 1 Then
+    '                debebs = Math.Round(totalBs * Convert.ToDouble(row("porcentaje")) / 100, 2)
+    '                debeus = Math.Round(debebs / tc, 2)
+    '                haberus = 0.00
+    '                haberbs = 0.00
+    '            Else
+    '                haberbs = Math.Round(totalBs * Convert.ToDouble(row("porcentaje")) / 100, 2)
+    '                haberus = Math.Round(haberbs / tc, 2)
+    '                debeus = 0.00
+    '                debebs = 0.00
+    '            End If
+
+    '            Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus, "", codigoVenta, "", cbTipoCambio.Text)
+    '            oblin = oblin + 1
+    '        Next
+    '    Next
+
+    '    Dim resp = L_fnObtenerDiferenciaAsientoContable(codCont)
+    'End Sub
+    ' MONEDA DE ORIGEN: USD. El Bs se deriva multiplicando por el TC. No invertir esta lógica.
     Private Sub contabilizarPrestamoDetalle()
         Dim codigoVenta = tbcod.Text
-        Dim codCanero = "P/Ord:. " + codigoVenta + " Prestamo " + tbTotal.Text + "  " + codCan.Text + "-" + tbCanero.Text.Trim   'obobs
-        Dim total = tbTotal.Text 'para obtener debe haber
+        Dim codCanero = "P/Ord:. " + codigoVenta + " Prestamo " + tbTotal.Text + "  " + codCan.Text + "-" + tbCanero.Text.Trim
+
+        Dim tc As Decimal = Convert.ToDecimal(cbTipoCambio.Text)
+        Dim totalUsd As Decimal = Convert.ToDecimal(tbTotal.Text)      ' USD = moneda real de origen
+        Dim totalBs As Decimal = Math.Round(totalUsd * tc, 2)          ' Bs = derivado
+
         Dim dt, dt1, dtDetalle As DataTable
         Dim cuenta As String
         Dim debebs, haberbs, debeus, haberus As Double
-        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion) 'obcuenta=ncuenta obtener cuenta de institucion
+        dt1 = ObtenerNumCuenta("Institucion", _CodInstitucion)
         dtDetalle = ObtenerNumCuentaProveedor("", _CodProveedor)
 
-
-        ' Dim resTO001 = L_fnGrabarTO001prestamos(3, Convert.ToInt32(codigoVenta), "false") 'numi cabecera to001
         For a As Integer = 6 To 6 Step 1
-            dt = CargarConfiguracion("configuracion", a) 'oblin=orden
-
-            'dtDetalle = L_fnDetalleVenta1(codigoVenta)
-
-
+            dt = CargarConfiguracion("configuracion", a)
             Dim oblin As Integer = 1
-            'Dim totalCosto As Double = 0.00
             For Each row In dt.Rows
-
                 If row("cuenta") = "-2" Then
                     cuenta = dt1.Rows(0).Item(7)
-
                 Else
-                    cuenta = dtDetalle.Rows(0).Item(10) 'row("cuenta")
+                    cuenta = dtDetalle.Rows(0).Item(10)
                 End If
+
                 If row("dh") = 1 Then
-                    debeus = Math.Round(Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100, 2)
-                    debebs = Math.Round(debeus * 6.96, 2)
+                    debeus = Math.Round(totalUsd * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    debebs = Math.Round(debeus * tc, 2)
                     haberus = 0.00
                     haberbs = 0.00
                 Else
-
-                    haberus = Math.Round(Convert.ToDouble(total) * Convert.ToDouble(row("porcentaje")) / 100, 2)
-                    haberbs = Math.Round(haberus * 6.96, 2)
+                    haberus = Math.Round(totalUsd * Convert.ToDouble(row("porcentaje")) / 100, 2)
+                    haberbs = Math.Round(haberus * tc, 2)
                     debeus = 0.00
                     debebs = 0.00
                 End If
-                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus)
+
+                Dim resTO0011 As Boolean = L_fnGrabarTO001(2, Convert.ToInt32(codigoVenta), codCont, oblin, cuenta, codCanero, debebs, haberbs, debeus, haberus, "", codigoVenta, "", cbTipoCambio.Text)
                 oblin = oblin + 1
             Next
         Next
-        Dim resp = L_fnObtenerDiferenciaAsientoContable(codCont)
-        'L_Actualiza_Venta_Contabiliza(codigoVenta, resTO001)
-    End Sub
 
+        Dim resp = L_fnObtenerDiferenciaAsientoContable(codCont)
+    End Sub
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         If (L_fnVerificarCObros(tbcod.Text, codPres.Text)) Then
 

@@ -605,6 +605,12 @@
     <Compile Include="Formularios\F_Cantidad.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormValorDolar.Designer.vb">
+      <DependentUpon>FormValorDolar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormValorDolar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F_ClienteNuevo.designer.vb">
       <DependentUpon>F_ClienteNuevo.vb</DependentUpon>
     </Compile>
@@ -1787,6 +1793,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\F_Cantidad.resx">
       <DependentUpon>F_Cantidad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormValorDolar.resx">
+      <DependentUpon>FormValorDolar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_ClienteNuevo.resx">
       <DependentUpon>F_ClienteNuevo.vb</DependentUpon>

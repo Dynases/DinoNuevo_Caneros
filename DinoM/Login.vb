@@ -93,22 +93,37 @@ Public Class Login
             gs_ydall = dtUsuario.Rows(0).Item("ydall")
 
             _prDesvenecerPantalla()
+            Dim dt1 As New DataTable
+            dt1 = L_prLibreriaClienteLGeneral1(7, 1)
+            Dim ultimaFila As DataRow = dt1.Rows(dt1.Rows.Count - 1)
 
-            Try
-                Dim dt As DataTable = L_VerConfiguracion()
-                gi_Ver_Servicios = dt.Rows(0).Item("VerServicios")
-            Catch ex As Exception
+            Dim tipoCambio As String = ultimaFila("ycdes3").ToString()
+            Dim fecha As String = ultimaFila("ycdes1").ToString()
+            If gs_user = "ANDRES" Or gs_user = "ROSAB" Then
+                If fecha = Date.Today Then
+                    MessageBox.Show("YA SE REGISTRO EL TIPO DE CAMBIO A " + tipoCambio + " CON FECHA " + fecha)
+                Else
+                    MessageBox.Show("SE TIENE QUE REGISTRAR EL TIPO DE CAMBIO PARA EL DIA DE HOY")
+                    Dim frm As New FormValorDolar
+                    frm.ShowDialog()
+                End If
 
-            End Try
-
-            If dtUsuario.Rows(0).Item("ydfontsize") = 1 Then
-                Dim frm As New NroCaja
-                frm.ShowDialog()
             End If
+            Try
+                    Dim dt As DataTable = L_VerConfiguracion()
+                    gi_Ver_Servicios = dt.Rows(0).Item("VerServicios")
+                Catch ex As Exception
 
-            Close()
+                End Try
 
-        End If
+                If dtUsuario.Rows(0).Item("ydfontsize") = 1 Then
+                    Dim frm As New NroCaja
+                    frm.ShowDialog()
+                End If
+
+                Close()
+
+            End If
     End Sub
     Private Sub _CargarLogo()
         Try

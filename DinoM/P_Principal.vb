@@ -501,6 +501,18 @@ Public Class P_Principal
 #Region "Modulo Venta"
 
     Private Sub btVentVenta_Click(sender As Object, e As EventArgs) Handles btVentVenta.Click
+        Dim dt1 As New DataTable
+        dt1 = L_prLibreriaClienteLGeneral1(7, 1)
+        Dim ultimaFila As DataRow = dt1.Rows(dt1.Rows.Count - 1)
+
+        Dim tipoCambio As String = ultimaFila("ycdes3").ToString()
+        Dim fecha1 As String = ultimaFila("ycdes1").ToString()
+        If fecha1 = Date.Today Then
+            MessageBox.Show("EL TIPO DE CAMBIO PARA EL " + fecha1 + " ES " + tipoCambio)
+        Else
+            MessageBox.Show("SE TIENE QUE REGISTRAR EL TIPO DE CAMBIO PARA EL DIA DE HOY POR FAVOR COMUNIQUESE CON EL ENCARGADO DE SISTEMAS")
+            Exit Sub
+        End If
 
         Dim Ds As DataTable
         Ds = TraerEstadoFacturas()
@@ -1224,6 +1236,18 @@ Public Class P_Principal
     Private Sub btVentaComb_Click(sender As Object, e As EventArgs) Handles btVentaComb.Click
         'SideNav1.IsMenuExpanded = False
         'Ventana.Select()
+        Dim dt1 As New DataTable
+        dt1 = L_prLibreriaClienteLGeneral1(7, 1)
+        Dim ultimaFila As DataRow = dt1.Rows(dt1.Rows.Count - 1)
+
+        Dim tipoCambio As String = ultimaFila("ycdes3").ToString()
+        Dim fecha1 As String = ultimaFila("ycdes1").ToString()
+        If fecha1 = Date.Today Then
+            MessageBox.Show("EL TIPO DE CAMBIO PARA EL " + fecha1 + " ES " + tipoCambio)
+        Else
+            MessageBox.Show("SE TIENE QUE REGISTRAR EL TIPO DE CAMBIO PARA EL DIA DE HOY POR FAVOR COMUNIQUESE CON EL ENCARGADO DE SISTEMAS")
+            Exit Sub
+        End If
         Dim frm As New F0_VentaComb
         frm._nameButton = btVentaComb.Name
         'Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
@@ -1406,7 +1430,18 @@ Public Class P_Principal
     End Sub
 
     Private Sub btVentaCombOtroSurtidor_Click(sender As Object, e As EventArgs) Handles btVentaCombOtroSurtidor.Click
+        Dim dt1 As New DataTable
+        dt1 = L_prLibreriaClienteLGeneral1(7, 1)
+        Dim ultimaFila As DataRow = dt1.Rows(dt1.Rows.Count - 1)
 
+        Dim tipoCambio As String = ultimaFila("ycdes3").ToString()
+        Dim fecha1 As String = ultimaFila("ycdes1").ToString()
+        If fecha1 = Date.Today Then
+            MessageBox.Show("EL TIPO DE CAMBIO PARA EL " + fecha1 + " ES " + tipoCambio)
+        Else
+            MessageBox.Show("SE TIENE QUE REGISTRAR EL TIPO DE CAMBIO PARA EL DIA DE HOY POR FAVOR COMUNIQUESE CON EL ENCARGADO DE SISTEMAS")
+            Exit Sub
+        End If
         Dim frm As New F0_VentaCombOtroSurtidor
         frm._nameButton = btVentaComb.Name
 

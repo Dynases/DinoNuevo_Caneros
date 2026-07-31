@@ -273,7 +273,7 @@ Public Class F0_MantenimientoTaras
             ElseIf _codInsti = Tb_Placa.Text Then
                 _Error = True
             Else
-                If L_BuscarCodTara(Tb_Placa.Text) = True Then
+                If L_BuscarCodTaraEd(Tb_Placa.Text, Tb_CodTara.Text) = True Then
                     Tb_Placa.BackColor = Color.Red
                     MEP.SetError(Tb_Placa, "Ingrese un código distinto!".ToUpper)
                     _Error = False
@@ -367,7 +367,7 @@ Public Class F0_MantenimientoTaras
 
                 L_Taras_Modificar(Tb_CodTara.Text, Tb_Placa.Text, tbPesoTara.Value, Tb_Color.Text, Tb_Propietario.Text)
 
-                ToastNotification.Show(Me, "Codigo Institución ".ToUpper + Tb_CodTara.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
+                ToastNotification.Show(Me, "Codigo ".ToUpper + Tb_CodTara.Text + " Modificado con Exito.".ToUpper, My.Resources.GRABACION_EXITOSA, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
 
                 _PCargarBuscador()
                 _Nuevo = False 'aumentado danny

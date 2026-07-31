@@ -131,6 +131,7 @@ Partial Class F0_Venta2
         Me.btnBitacora = New DevComponents.DotNetBar.ButtonX()
         Me.SwDescuentoProveedor = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -188,6 +189,7 @@ Partial Class F0_Venta2
         '
         'PanelSuperior
         '
+        Me.PanelSuperior.Controls.Add(Me.Button2)
         Me.PanelSuperior.Controls.Add(Me.Button1)
         Me.PanelSuperior.Controls.Add(Me.SwDescuentoProveedor)
         Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -206,11 +208,12 @@ Partial Class F0_Venta2
         Me.PanelSuperior.StyleMouseOver.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.PanelSuperior.StyleMouseOver.BackgroundImage = CType(resources.GetObject("PanelSuperior.StyleMouseOver.BackgroundImage"), System.Drawing.Image)
         Me.PanelSuperior.Controls.SetChildIndex(Me.SwDescuentoProveedor, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.Button1, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar1, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PanelToolBar2, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.MRlAccion, 0)
         Me.PanelSuperior.Controls.SetChildIndex(Me.PictureBox1, 0)
-        Me.PanelSuperior.Controls.SetChildIndex(Me.Button1, 0)
+        Me.PanelSuperior.Controls.SetChildIndex(Me.Button2, 0)
         '
         'PanelInferior
         '
@@ -363,8 +366,8 @@ Partial Class F0_Venta2
         Me.MSuperTabControl.SelectedTabIndex = 1
         Me.MSuperTabControl.Size = New System.Drawing.Size(1805, 764)
         Me.MSuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1})
-        Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         Me.MSuperTabControl.Controls.SetChildIndex(Me.MSuperTabControlPanel1, 0)
+        Me.MSuperTabControl.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         '
         'PictureBox1
         '
@@ -2206,7 +2209,7 @@ Partial Class F0_Venta2
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1761, 764)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(1768, 764)
         Me.SuperTabControlPanel1.TabIndex = 0
         Me.SuperTabControlPanel1.TabItem = Me.SuperTabItem1
         '
@@ -2221,7 +2224,7 @@ Partial Class F0_Venta2
         Me.GroupPanel3.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel3.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupPanel3.Name = "GroupPanel3"
-        Me.GroupPanel3.Size = New System.Drawing.Size(1761, 764)
+        Me.GroupPanel3.Size = New System.Drawing.Size(1768, 764)
         '
         '
         '
@@ -2262,7 +2265,7 @@ Partial Class F0_Venta2
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1755, 737)
+        Me.Panel6.Size = New System.Drawing.Size(1762, 737)
         Me.Panel6.TabIndex = 0
         '
         'grVentas
@@ -2285,7 +2288,7 @@ Partial Class F0_Venta2
         Me.grVentas.SelectedFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grVentas.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.grVentas.SelectOnExpand = False
-        Me.grVentas.Size = New System.Drawing.Size(1755, 737)
+        Me.grVentas.Size = New System.Drawing.Size(1762, 737)
         Me.grVentas.TabIndex = 0
         Me.grVentas.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -2398,6 +2401,16 @@ Partial Class F0_Venta2
         Me.Button1.TabIndex = 388
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(1009, 27)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 389
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
         '
         'F0_Venta2
         '
@@ -2573,4 +2586,5 @@ Partial Class F0_Venta2
     Friend WithEvents lbMontoPagado As DevComponents.DotNetBar.LabelX
     Friend WithEvents lbCambio As DevComponents.DotNetBar.LabelX
     Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
 End Class
